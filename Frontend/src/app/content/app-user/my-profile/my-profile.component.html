@@ -3,7 +3,7 @@
     <div style="padding: 20px;display: flex;justify-content: center">
       <div style="margin-top: 20px">
         <div style="width: 200px;height: 200px;border: 0px solid black;margin-bottom: 20px">
-          <qr-code [value]="'www.remotestack.io'" size="200"></qr-code>
+          <qr-code [value]="'abc'" size="200"></qr-code>
         </div>
         <div><span style="font-weight: bold">Weekly Quota -></span> 20L</div>
         <div><span style="font-weight: bold">Balanced Quota -></span> 10L</div>
@@ -50,15 +50,20 @@
     <button class="btn btn-success">Search</button>
   </div>
 
-  <table width="100%" style="margin-top: 20px" border="1px solid black">
-    <thead>
+  <table class="table" width="100%" style="margin-top: 20px" border="1px solid black">
+    <thead class="thead-dark">
     <th>#</th>
     <th>Date</th>
     <th>Pumped</th>
     <th>Fuel Station</th>
     </thead>
     <tbody>
-    <tr></tr>
+    <tr>
+      <td>1</td>
+      <td>2022-02-02</td>
+      <td>Pumped</td>
+      <td>Galle</td>
+    </tr>
     </tbody>
   </table>
 </div>
