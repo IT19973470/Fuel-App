@@ -1,0 +1,100 @@
+<div class="row" style="margin-top: 75px;margin-left: 0px;margin-right: 0px">
+  <div class="col-md-5 col-sm-12" style="border-right: 1px solid #aeaeae">
+    <div style="padding: 20px;display: flex;justify-content: center">
+      <div style="margin-top: 20px">
+        <div style="width: 250px;height: 250px;border: 0px solid black;margin-bottom: 20px">
+          <qr-code [value]="'abc'" size="250"></qr-code>
+        </div>
+        <table>
+          <tr>
+            <td>Weekly Quota</td>
+            <td>20L</td>
+          </tr>
+          <tr>
+            <td>Balanced Quota</td>
+            <td>{{20 - customer.quota}}L</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-7 col-sm-12">
+    <div style="padding: 20px">
+      <div>
+        <span style="font-weight: bold;color: #b68003;font-size: 21px">My Profile</span>
+        <div style="margin-left: 10px;margin-top: 10px">
+          <table>
+            <tr>
+              <td>Name</td>
+              <td>{{customer.name}}</td>
+            </tr>
+            <tr>
+              <td>Vehicle Number</td>
+              <td>{{customer.vehicleNumber}}</td>
+            </tr>
+            <tr>
+              <td>Vehicle Type</td>
+              <td>{{customer.vehicleType}}</td>
+            </tr>
+            <tr>
+              <td>Fuel Type</td>
+              <td>{{customer.fuelType}}</td>
+            </tr>
+            <tr>
+              <td>Chassis Number</td>
+              <td>{{customer.chassisNumber}}</td>
+            </tr>
+          </table>
+        </div>
+      </div>
+      <div style="margin-top: 20px">
+        <span style="font-weight: bold;color: #b68003;font-size: 21px">Fuel Consumption</span>
+        <div style="margin-left: 10px;margin-top: 10px">
+          <div>
+            <span style="font-weight: bold">Enter the last trip</span>
+            <div style="display: flex;margin-top: 10px">
+              <input class="form-control" type="number" style="margin-right: 10px" [(ngModel)]="trip">
+              <button class="btn btn-success" (click)="calculateLastTrip()">Check</button>
+            </div>
+          </div>
+          <div style="margin-top: 20px"><span style="font-weight: bold;margin-right: 20px">Consumption</span>
+            {{consumption}} Km/L
+          </div>
+        </div>
+        <div style="margin-top: 20px">
+          <button class="btn btn-primary" style="margin-right: 10px" (click)="updateCustomer()">Edit Profile</button>
+          <button class="btn btn-danger">Delete Profile</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="border-top: 1px solid #aeaeae;margin: 10px">
+  <div style="display: flex;justify-content: right;margin-top: 20px">
+    <select class="form-control" style="width: 200px;margin-right: 10px">
+      <option value="">Order By</option>
+      <option value="car">Car</option>
+    </select>
+    <button class="btn btn-warning">Search</button>
+  </div>
+
+  <table class="table" width="100%" style="margin-top: 20px" border="1px solid black">
+    <thead class="thead-dark">
+    <th>#</th>
+    <th>Date</th>
+    <th>Pumped</th>
+    <th>Fuel Station</th>
+    <th>Address</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let pump of pumps;let i = index">
+      <td>{{i+1}}</td>
+      <td>{{pump.pumpedAtFormatted}}</td>
+      <td>{{pump.fuelPumped}}L</td>
+      <td>{{pump.fuelStation.name}}</td>
+      <td>{{pump.fuelStation.address}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

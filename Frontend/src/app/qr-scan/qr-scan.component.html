@@ -1,0 +1,11 @@
+<!--<ngx-scanner-qrcode #action="scanner" (data)="setOutput($event)"></ngx-scanner-qrcode>-->
+<!--<button (click)="action.start()" [disabled]="action.isLoading">{{action.isStart ? 'Stop' : 'Start'}}</button>-->
+<!--<select (change)="onDeviceSelectChange($event.target.value)">-->
+  <!--<option value="" [selected]="!currentDevice">No Device Selected</option>-->
+  <!--<option *ngFor="let device of availableDevices" [value]="device.deviceId" [selected]="currentDevice && device.deviceId === currentDevice.deviceId">{{ device.label }}</option>-->
+<!--</select>-->
+
+<zxing-scanner start="true" [device]="currentDevice" #scanner (scanSuccess)="scanSuccessHandler($event)">
+</zxing-scanner>
+<!--<button (click)="enableScanner()" *ngIf="!scannerEnabled" type="button" class="btn btn-success">LEER-->
+  <!--OTRO</button>-->
