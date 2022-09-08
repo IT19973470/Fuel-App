@@ -1,0 +1,93 @@
+<div style="margin: 10px;">
+
+  <div style="margin-top: 80px">
+    <span style="font-weight: bold;color: #b68003;font-size: 21px;width: 100%;margin-top: 25px">Update Fuel Quota</span>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6" style="display: flex;justify-content: center">
+      <div style="width: 300px;margin-top: 60px">
+        <app-qr-scan></app-qr-scan>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div style="margin-top: 20px">
+        <form (ngSubmit)="updateCustomerFuel(quota.value)">
+          <table>
+            <tr>
+              <td>Name</td>
+              <td>{{customer.name}}</td>
+            </tr>
+            <tr>
+              <td>Vehicle Number</td>
+              <td>{{customer.vehicleNumber}}</td>
+            </tr>
+            <tr>
+              <td>Vehicle Type</td>
+              <td>{{customer.vehicleType}}</td>
+            </tr>
+            <tr>
+              <td>Fuel Type</td>
+              <td>{{customer.fuelType}}</td>
+            </tr>
+            <tr>
+              <td>Chassis Number</td>
+              <td>{{customer.chassisNumber}}</td>
+            </tr>
+            <tr>
+              <td>Weekly Quota</td>
+              <td>20L</td>
+            </tr>
+            <tr>
+              <td>Pumped</td>
+              <td>
+                <input type="number" class="form-control" style="margin: 0px" #quota name="quota" value="0">
+              </td>
+              <td>
+                <button class="btn btn-warning" style="margin-right: 20px" type="submit">Submit</button>
+                <button class="btn btn-success" (click)="updateCustomerFuel(0)" type="button">Set as not pumped</button>
+              </td>
+            </tr>
+            <tr>
+              <td>Balanced Quota</td>
+              <td>{{20-customer.quota}}L</td>
+            </tr>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--<div style="display: flex;margin-top: 30px">-->
+  <!--&lt;!&ndash;<div>&ndash;&gt;-->
+  <!--&lt;!&ndash;<span>Vehicle Number</span>&ndash;&gt;-->
+  <!--&lt;!&ndash;<input type="text" class="form-control" style="width: 250px;margin-right: 20px"&ndash;&gt;-->
+  <!--&lt;!&ndash;placeholder="Enter Vehicle Number">&ndash;&gt;-->
+  <!--&lt;!&ndash;</div>&ndash;&gt;-->
+  <!--&lt;!&ndash;<button class="btn btn-warning" style="margin-top: 25px;margin-right: 20px">Search</button>&ndash;&gt;-->
+  <!--<button class="btn btn-success" style="margin-left: 15px">Scan QR</button>-->
+  <!--</div>-->
+
+  <table class="table" width="100%" style="margin-top: 30px" border="1px solid black">
+    <thead class="thead-dark">
+    <th>Vehicle Type</th>
+    <th>Vehicle Number</th>
+    <th>Fuel Amount</th>
+    <th></th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let customer of customers">
+      <td>{{customer.vehicleType}}</td>
+      <td>{{customer.vehicleNumber}}</td>
+      <td>{{customer.fuelType}}</td>
+      <!--<td>-->
+      <!--<i class="fa fa-pencil" style="font-size: 20px;color: #000071;font-weight: bold;margin-right: 50px"></i>-->
+      <!--<i class="fa fa-times" style="font-size: 30px;color: red;font-weight: bold"></i>-->
+      <!--</td>-->
+      <td style="text-align: center">
+        <button class="btn btn-warning" (click)="setVehicle(customer)">Select</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
