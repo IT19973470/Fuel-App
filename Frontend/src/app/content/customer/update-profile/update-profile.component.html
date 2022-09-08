@@ -1,5 +1,6 @@
 <div style="display: flex;justify-content: center">
-  <form class="login100-form validate-form" style="padding-top: 40px;background-color: white;width: 700px" (ngSubmit)="updateCustomer()">
+  <form class="login100-form validate-form" style="padding-top: 40px;background-color: white;width: 700px"
+        (ngSubmit)="updateCustomer()">
 
     <span>NIC</span>
     <input class="form-control" type="text" name="nic" placeholder="Enter NIC" [(ngModel)]="customer.nic">
@@ -8,27 +9,30 @@
     <span>Address</span>
     <input class="form-control" type="text" name="address" placeholder="Enter Address" [(ngModel)]="customer.address">
     <span>Contact Number</span>
-    <input class="form-control" type="text" name="contact" placeholder="Enter Contact Number" [(ngModel)]="customer.contactNumber">
+    <input class="form-control" type="text" name="contact" placeholder="Enter Contact Number"
+           [(ngModel)]="customer.contactNumber">
     <span>Email</span>
     <input class="form-control" type="text" name="email" placeholder="Enter Email" [(ngModel)]="customer.appUser.email">
     <!--<span>OTP</span>-->
     <!--<div style="display: flex;border-top: 0px solid #eeeeee;padding-top: 10px;padding-bottom: 10px">-->
-      <!--<div style="width: 200px">-->
-        <!--<button class="btn btn-warning" style="height: 40px">Send OTP</button>-->
-      <!--</div>-->
-      <!--<div style="width: 100%">-->
-        <!--<input class="form-control" type="text" placeholder="Enter OTP">-->
-      <!--</div>-->
+    <!--<div style="width: 200px">-->
+    <!--<button class="btn btn-warning" style="height: 40px">Send OTP</button>-->
+    <!--</div>-->
+    <!--<div style="width: 100%">-->
+    <!--<input class="form-control" type="text" placeholder="Enter OTP">-->
+    <!--</div>-->
     <!--</div>-->
     <span>Vehicle Number</span>
-    <input class="form-control" type="text" name="vehicleNumber" placeholder="Vehicle Number" [(ngModel)]="customer.vehicleNumber">
+    <input class="form-control" type="text" name="vehicleNumber" placeholder="Vehicle Number"
+           [(ngModel)]="customer.vehicleNumber">
     <span>Chassis Number</span>
-    <input class="form-control" type="text" name="chassisNumber" placeholder="Chassis Number"  [(ngModel)]="customer.chassisNumber">
+    <input class="form-control" type="text" name="chassisNumber" placeholder="Chassis Number"
+           [(ngModel)]="customer.chassisNumber">
 
     <span>Vehicle Type</span>
-    <select class="form-control">
+    <select class="form-control" [(ngModel)]="customer.vehicleType" name="vehicleType">
       <option value="">Select</option>
-      <option value="car">Car</option>
+      <option value="Car">Car</option>
     </select>
 
     <div style="margin-bottom: 10px">
@@ -38,10 +42,17 @@
     <div style="display: flex;justify-content: center">
       <div
         style="width: 350px;text-align: center;border: 1px solid #f18f03;padding: 10px;margin-right: 5px;font-weight: bold"
-        [ngStyle]="{'color':'white','background-color':'#f18f03'}">Petrol
+        [ngStyle]="{
+        'color':customer.fuelType==='Petrol'?'white':'black',
+        'background-color':customer.fuelType==='Petrol'?'#f18f03':'white'
+        }" (click)="customer.fuelType='Petrol'">Petrol
       </div>
       <div
-        style="width: 350px;text-align: center;border: 1px solid #f18f03;padding: 10px;margin-left: 5px;font-weight: bold">
+        style="width: 350px;text-align: center;border: 1px solid #f18f03;padding: 10px;margin-left: 5px;font-weight: bold"
+        [ngStyle]="{
+        'color':customer.fuelType==='Diesel'?'white':'black',
+        'background-color':customer.fuelType==='Diesel'?'#f18f03':'white'
+        }" (click)="customer.fuelType='Diesel'">
         Diesel
       </div>
     </div>

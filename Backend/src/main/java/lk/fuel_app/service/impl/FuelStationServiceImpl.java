@@ -1,13 +1,16 @@
 package lk.fuel_app.service.impl;
 
 import lk.fuel_app.entity.CustomerFuelStation;
+import lk.fuel_app.entity.FuelPumper;
 import lk.fuel_app.entity.FuelStation;
 import lk.fuel_app.repository.CustomerFuelStationRepository;
+import lk.fuel_app.repository.FuelPumperRepository;
 import lk.fuel_app.repository.FuelStationRepository;
 import lk.fuel_app.service.FuelStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
@@ -19,6 +22,8 @@ public class FuelStationServiceImpl implements FuelStationService {
     private FuelStationRepository fuelStationRepository;
     @Autowired
     private CustomerFuelStationRepository customerFuelStationRepository;
+    @Autowired
+    private FuelPumperRepository fuelPumperRepository;
 
     @Override
     public FuelStation addFuelStation(FuelStation fuelStation) {
@@ -32,6 +37,7 @@ public class FuelStationServiceImpl implements FuelStationService {
                 customerFuelStation.getCustomer().getVehicleNumber() + customerFuelStation.getFuelStation().getId() + localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss"))
         );
         customerFuelStation.setPumpedAt(localDateTime);
+        customerFuelStation.setPumpedAtDate(LocalDate.now());
         return customerFuelStationRepository.save(customerFuelStation);
     }
 
@@ -54,5 +60,10 @@ public class FuelStationServiceImpl implements FuelStationService {
             customerFuelStationRepository.deleteById(customerFuelStation.getId());
         }
         return true;
+    }
+
+    @Override
+    public FuelPumper addFuelPumper(FuelPumper fuelPumper) {
+        return fuelPumperRepository.save(fuelPumper);
     }
 }

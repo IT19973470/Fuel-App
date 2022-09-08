@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
@@ -27,14 +28,14 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.save(customer);
     }
 
-//    @Override
-//    public Customer getCustomer(String id) {
-//        Optional<Customer> customer = customerRepository.findById(id);
-//        if (customer.isPresent()) {
-//            return customer.get();
-//        }
-//        return null;
-//    }
+    @Override
+    public Customer getCustomer(String email, String contactNumber) {
+        Optional<Customer> customer = customerRepository.getAllByAppUserEmailOrAppUserContactNumber(email, contactNumber);
+        if (customer.isPresent()) {
+            return customer.get();
+        }
+        return null;
+    }
 
     @Override
     public boolean deleteCustomer(String id) {
@@ -59,7 +60,8 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Customer> customer = customerRepository.getAllByVehicleNumber(vehicleNumber);
         if (customer.isPresent()) {
             Customer customerObj = customer.get();
-            customerObj.setQuota(customerFuelStationRepository.getFuelPumpedAmount(vehicleNumber, LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY)));
+            Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(vehicleNumber, LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
+            customerObj.setQuota(fuelPumpedAmount == null ? 0 : fuelPumpedAmount);
             return customerObj;
         }
         return null;

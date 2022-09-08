@@ -14,4 +14,6 @@ public class AppUser {
     @Id
     private String email;
     private String password;
+    private String userType;
+    private String contactNumber;
 }

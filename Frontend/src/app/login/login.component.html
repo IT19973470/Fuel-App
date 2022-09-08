@@ -1,25 +1,25 @@
 <div class="limiter">
   <div class="container-login100">
     <div class="wrap-login100">
-      <form class="login100-form validate-form">
+      <form class="login100-form validate-form" (ngSubmit)="login()">
 					<span class="login100-form-title p-b-43">
 						Login to continue
 					</span>
 
 
         <!--<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">-->
-          <!--<span class="focus-input100"></span>-->
-          <!--<span class="label-input100">Email</span>-->
+        <!--<span class="focus-input100"></span>-->
+        <!--<span class="label-input100">Email</span>-->
         <!--</div>-->
-        <input class="form-control" type="text" name="email" placeholder="Email"
+        <input class="form-control" type="text" name="email" placeholder="Email" [(ngModel)]="user.email"
                style="padding: 30px 20px 30px 20px;background-color: #F7F7F7">
 
         <!--<div class="wrap-input100 validate-input" data-validate="Password is required">-->
-          <!--<input class="input100" type="password" name="pass">-->
-          <!--<span class="focus-input100"></span>-->
-          <!--<span class="label-input100">Password</span>-->
+        <!--<input class="input100" type="password" name="pass">-->
+        <!--<span class="focus-input100"></span>-->
+        <!--<span class="label-input100">Password</span>-->
         <!--</div>-->
-        <input class="form-control" type="password" name="password" placeholder="Password"
+        <input class="form-control" type="password" name="password" placeholder="Password" [(ngModel)]="user.password"
                style="padding: 30px 20px 30px 20px;margin-top: 20px;margin-bottom: 20px;background-color: #F7F7F7">
 
         <div class="flex-sb-m w-full p-t-3 p-b-32">
@@ -39,13 +39,13 @@
 
 
         <div class="container-login100-form-btn">
-          <button class="login100-form-btn">
+          <button class="login100-form-btn" type="submit">
             Login
           </button>
         </div>
 
         <div class="text-center p-t-46 p-b-20">
-						<span class="txt2">
+						<span class="txt2" [routerLink]="'/register'">
 							or sign up using
 						</span>
         </div>
