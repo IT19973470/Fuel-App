@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ContentComponent implements OnInit {
 
+  isModalTableDetails = {
+    text: '',
+    openTable: false,
+    foundLetter: ''
+  };
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  isTrueOrFalseDetails(reply) {
+    this.isModalTableDetails.openTable = reply;
+  }
 }
