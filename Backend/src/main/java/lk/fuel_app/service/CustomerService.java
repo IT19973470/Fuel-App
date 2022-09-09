@@ -17,4 +17,7 @@ public interface CustomerService {
     Customer getCustomerByVehicle(String vehicle);
 
     List<CustomerFuelStation> getPumpedAmounts(String id);
+
+    Customer sendOTP(String email, String contactNumber);
+
 }

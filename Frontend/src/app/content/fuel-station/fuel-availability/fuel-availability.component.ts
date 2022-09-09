@@ -9,12 +9,14 @@ import {FuelStationService} from "../../../_service/fuel-station.service";
 export class FuelAvailabilityComponent implements OnInit {
 
   fuelStock
+  fuelStocks = [];
 
   constructor(private fuelStationS: FuelStationService) {
     this.fuelStock = fuelStationS.newFuelStock()
   }
 
   ngOnInit(): void {
+    this.getFuelStock()
   }
 
   addFuelStock() {
@@ -24,7 +26,10 @@ export class FuelAvailabilityComponent implements OnInit {
     })
   }
 
-  getFuelStock(){
-    
+  getFuelStock() {
+    this.fuelStationS.getFuelStock(JSON.parse(localStorage.getItem('user')).id).subscribe(fuelStocks => {
+      // console.log(fuelStock)
+      this.fuelStocks = fuelStocks
+    })
   }
 }

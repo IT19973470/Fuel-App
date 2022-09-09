@@ -1,19 +1,52 @@
 <div>
-  <form class="login100-form validate-form" style="padding-top: 40px;background-color: white;width: 700px" (ngSubmit)="addFuelStation()">
+  <form class="" style="padding-top: 40px;background-color: white;width: 700px" #regFuelStationForm="ngForm"
+        (ngSubmit)="regFuelStationForm.form.valid && addFuelStation()" novalidate>
 
-    <span>Registration Number</span>
-    <input class="form-control" type="text" name="nic" placeholder="Enter Registration Number" [(ngModel)]="fuelStation.id">
-    <span>Name</span>
-    <input class="form-control" type="text" name="name" placeholder="Enter Name" [(ngModel)]="fuelStation.name">
-    <span>Address</span>
-    <input class="form-control" type="text" name="address" placeholder="Enter Address" [(ngModel)]="fuelStation.address">
-    <span>Contact Number</span>
-    <input class="form-control" type="text" name="contact" placeholder="Enter Contact Number" [(ngModel)]="fuelStation.contactNumber">
-    <span>Email</span>
-    <input class="form-control" type="text" name="email" placeholder="Enter Email" [(ngModel)]="fuelStation.appUser.email">
+    <div style="margin-top: 20px">Registration Number</div>
+    <input class="form-control" type="text" name="regNumber" placeholder="Enter Registration Number"
+           [(ngModel)]="fuelStation.id" #regNumber="ngModel" required>
+    <div *ngIf="(regNumber.touched || regFuelStationForm.submitted) && regNumber.errors?.required"
+         class="validErr">
+      Registration Number is required
+    </div>
 
-    <div class="container-login100-form-btn" style="margin-top: 40px">
-      <button class="login100-form-btn" type="submit">
+    <div style="margin-top: 20px">Name</div>
+    <input class="form-control" type="text" name="name" placeholder="Enter Name"
+           [(ngModel)]="fuelStation.name" #fuelName="ngModel" required>
+    <div *ngIf="(fuelName.touched || regFuelStationForm.submitted) && fuelName.errors?.required"
+         class="validErr">
+      Name is required
+    </div>
+
+    <div style="margin-top: 20px">Address</div>
+    <input class="form-control" type="text" name="address" placeholder="Enter Address"
+           [(ngModel)]="fuelStation.address" #address="ngModel" required>
+    <div *ngIf="(address.touched || regFuelStationForm.submitted) && address.errors?.required"
+         class="validErr">
+      Address is required
+    </div>
+
+    <div style="margin-top: 20px">Contact Number</div>
+    <input class="form-control" type="text" name="contact" placeholder="Enter Contact Number"
+           [(ngModel)]="fuelStation.contactNumber" #contactNumber="ngModel" required>
+    <div *ngIf="(contactNumber.touched || regFuelStationForm.submitted) && contactNumber.errors?.required"
+         class="validErr">
+      Contact Number is required
+    </div>
+
+    <div style="margin-top: 20px">Email</div>
+    <input class="form-control" type="text" name="email" placeholder="Enter Email"
+           [(ngModel)]="fuelStation.appUser.email" #email="ngModel" required>
+    <div *ngIf="(email.touched || regFuelStationForm.submitted) && email.errors?.required"
+         class="validErr">
+      Email is required
+    </div>
+
+    <div class="container-login100-form-btn" style="margin-top: 40px;margin-bottom: 40px;flex-wrap: nowrap">
+      <button class="login100-form-btn" type="button" [routerLink]="'/login'" style="margin-right: 10px">
+        Back to login
+      </button>
+      <button class="login100-form-btn" type="submit" style="margin-left: 10px">
         Register
       </button>
     </div>

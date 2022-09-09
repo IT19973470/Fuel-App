@@ -22,6 +22,9 @@ public class Customer {
     @Transient
     private double quota;
 
+    @Transient
+    private String otp;
+
     @OneToOne(cascade = CascadeType.ALL)
     private AppUser appUser;
 }

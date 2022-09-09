@@ -5,6 +5,7 @@ import lk.fuel_app.entity.CustomerFuelStation;
 import lk.fuel_app.repository.CustomerFuelStationRepository;
 import lk.fuel_app.repository.CustomerRepository;
 import lk.fuel_app.service.CustomerService;
+import lk.fuel_app.service.SendEmailSMTP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -22,6 +24,8 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepository;
     @Autowired
     private CustomerFuelStationRepository customerFuelStationRepository;
+    @Autowired
+    private SendEmailSMTP sendEmailSMTP;
 
     @Override
     public Customer addCustomer(Customer customer) {
@@ -74,5 +78,20 @@ public class CustomerServiceImpl implements CustomerService {
             pump.setPumpedAtFormatted(pump.getPumpedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
         }
         return pumps;
+    }
+
+    @Override
+    public Customer sendOTP(String email, String contactNumber) {
+        int randomVal = new Random().nextInt(100000) + 1;
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                sendEmailSMTP.sendEmail(email, "Fuel OTP",
+                        "You OTP is " + randomVal);
+            }
+        }).start();
+        Customer customer = new Customer();
+        customer.setOtp(randomVal + "");
+        return customer;
     }
 }
