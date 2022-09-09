@@ -1,21 +1,21 @@
 <!--<div>-->
 
-  <!--Container Main start-->
-  <div class="">
-    <app-navbar></app-navbar>
-    <!--<h4>Main Components</h4>-->
-    <!--<div>-->
-      <app-header></app-header>
-      <div>
-        <!--<app-login></app-login>-->
-        <!--<app-register></app-register>-->
-        <app-content></app-content>
-      </div>
-    <!--</div>-->
+<!--Container Main start-->
+<div class="">
+  <app-navbar *ngIf="getUser()!==null"></app-navbar>
+  <!--<h4>Main Components</h4>-->
+  <!--<div>-->
+  <app-header></app-header>
+  <div>
+    <!--<app-login></app-login>-->
+    <!--<app-register></app-register>-->
+    <app-content></app-content>
   </div>
-  <!--<div class="row">-->
-    <!--<div class="col-sm-12">-->
-      <app-footer></app-footer>
-    <!--</div>-->
   <!--</div>-->
+</div>
+<!--<div class="row">-->
+<!--<div class="col-sm-12">-->
+<app-footer></app-footer>
+<!--</div>-->
+<!--</div>-->
 <!--</div>-->
