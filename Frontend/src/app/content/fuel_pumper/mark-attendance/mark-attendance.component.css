@@ -1,0 +1,13 @@
+span {
+  font-weight: bold;
+}
+
+input {
+  margin-bottom: 20px;;
+  padding: 20px;
+}
+
+select {
+  margin-bottom: 20px;;
+  padding: 0px 20px 0px 20px;
+}
