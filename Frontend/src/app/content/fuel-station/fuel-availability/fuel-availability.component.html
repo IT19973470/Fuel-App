@@ -1,57 +1,65 @@
 <div style="display: flex;justify-content: center">
-  <div class="row" style="margin-top: 20px;margin-left: 0px;margin-right: 0px">
-    <div class="col-12" style="padding: 20px">
-      <div>
-        <span style="font-weight: bold;color: #b68003;font-size: 21px">Expected Arrival Date and Time</span>
-        <div style="margin-left: 10px;margin-top: 10px;display: flex">
-          <input type="datetime-local" class="form-control" style="width: 300px;margin-right: 20px">
-          <button class="btn btn-warning">Display</button>
+  <form action="" (ngSubmit)="addFuelStock()">
+    <div>
+      <span style="font-weight: bold;color: #b68003;font-size: 21px;margin-top: 20px">Fuel Stock</span>
+    </div>
+    <div class="row" style="margin-top: 20px;margin-left: 0px;margin-right: 0px">
+
+      <!--<form action="" (ngSubmit)="addFuelStock()">-->
+
+      <!--<div class="col-12" style="padding: 20px">-->
+      <!--<div>-->
+      <!--<span style="font-weight: bold;color: #b68003;font-size: 21px">Expected Arrival Date and Time</span>-->
+      <!--<div style="margin-left: 10px;margin-top: 10px;display: flex">-->
+      <!--<input type="datetime-local" class="form-control" style="width: 300px;margin-right: 20px"-->
+      <!--[(ngModel)]="fuelStock.expectedArrival">-->
+      <!--<button class="btn btn-warning">Display</button>-->
+      <!--</div>-->
+      <!--</div>-->
+      <!--</div>-->
+
+      <div class="col-12" style="padding: 20px;border-top: 1px solid #aeaeae;display: flex;justify-content: center">
+
+        <div style="margin-right: 20px;width: 100%">
+          <span>Amount (L)</span>
+          <input type="text" placeholder="Enter Amount" class="form-control" name="amount"
+                 [(ngModel)]="fuelStock.amount">
+        </div>
+        <div style="margin-right: 20px;width: 100%">
+          <span>Vehicle Number</span>
+          <input type="text" placeholder="Enter Vehicle Number" class="form-control" name="vehicleNumber"
+                 [(ngModel)]="fuelStock.vehicleNumber">
+        </div>
+        <div style="width: 100%">
+          <span>Driver</span>
+          <input type="text" placeholder="Enter Driver" class="form-control" name="driver"
+                 [(ngModel)]="fuelStock.driver">
         </div>
       </div>
-    </div>
 
-    <div class="col-12" style="padding: 20px;border-top: 1px solid #aeaeae;display: flex;justify-content: center">
-      <div style="margin-right: 20px;width: 100%">
-        <span>Amount</span>
-        <input type="text" placeholder="Enter Amount" class="form-control">
+      <div class="col-12" style="padding: 20px;display: flex;justify-content: center">
+        <div style="margin-right: 20px;width: 100%">
+          <span>Actual Arrival Date and Time</span>
+          <input type="datetime-local" class="form-control" name="actualArrival"
+                 [(ngModel)]="fuelStock.actualArrival">
+        </div>
+        <div style="margin-right: 20px;width: 100%">
+          <span>Fuel Type</span>
+          <select class="form-control" [(ngModel)]="fuelStock.fuelType" name="fuelType">
+            <option value="">Select</option>
+            <option value="92 Petrol">92 Petrol</option>
+            <option value="95 Petrol">95 Petrol</option>
+            <option value="Diesel">Diesel</option>
+            <option value="Super Diesel">Super Diesel</option>
+          </select>
+        </div>
+        <div style="width: 100%">
+          <button class="btn btn-success" type="submit" style="margin-top: 22px;text-align: center">Add Stock</button>
+        </div>
       </div>
-      <div style="margin-right: 20px;width: 100%">
-        <span>Vehicle Number</span>
-        <input type="text" placeholder="Enter Vehicle Number" class="form-control">
-      </div>
-      <div style="width: 100%">
-        <span>Driver</span>
-        <input type="text" placeholder="Enter Driver" class="form-control">
-      </div>
-    </div>
 
-    <div class="col-12" style="padding: 20px;display: flex;justify-content: center">
-      <div style="margin-right: 20px;width: 100%">
-        <span>Actual Arrival Date and Time</span>
-        <input type="datetime-local" class="form-control">
-      </div>
-      <div style="margin-right: 20px;width: 100%">
-        <span>Fuel Type</span>
-        <select class="form-control">
-          <option value="">Select</option>
-          <option value="car">Petrol</option>
-          <option value="car">Diesel</option>
-        </select>
-      </div>
-      <div style="width: 100%">
-        <span>Availability</span>
-        <select class="form-control">
-          <option value="">Select</option>
-          <option value="car">Petrol</option>
-          <option value="car">Diesel</option>
-        </select>
-      </div>
     </div>
-
-    <div class="col-12" style="padding: 20px;display: flex">
-      <button class="btn btn-success">Submit Form</button>
-    </div>
-  </div>
+  </form>
 </div>
 
 <div style="border-top: 1px solid #aeaeae;margin: 10px">

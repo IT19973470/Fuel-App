@@ -1,16 +1,19 @@
 package lk.fuel_app.service.impl;
 
 import lk.fuel_app.entity.CustomerFuelStation;
+import lk.fuel_app.entity.FuelPumper;
 import lk.fuel_app.entity.FuelStation;
+import lk.fuel_app.entity.FuelStock;
 import lk.fuel_app.repository.CustomerFuelStationRepository;
+import lk.fuel_app.repository.FuelPumperRepository;
 import lk.fuel_app.repository.FuelStationRepository;
+import lk.fuel_app.repository.FuelStockRepository;
 import lk.fuel_app.service.FuelStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Optional;
 
 @Service
 public class FuelStationServiceImpl implements FuelStationService {
@@ -18,7 +21,7 @@ public class FuelStationServiceImpl implements FuelStationService {
     @Autowired
     private FuelStationRepository fuelStationRepository;
     @Autowired
-    private CustomerFuelStationRepository customerFuelStationRepository;
+    private FuelStockRepository fuelStockRepository;
 
     @Override
     public FuelStation addFuelStation(FuelStation fuelStation) {
@@ -26,33 +29,10 @@ public class FuelStationServiceImpl implements FuelStationService {
     }
 
     @Override
-    public CustomerFuelStation addCustomerFuel(CustomerFuelStation customerFuelStation) {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        customerFuelStation.setId(
-                customerFuelStation.getCustomer().getVehicleNumber() + customerFuelStation.getFuelStation().getId() + localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss"))
-        );
-        customerFuelStation.setPumpedAt(localDateTime);
-        return customerFuelStationRepository.save(customerFuelStation);
+    public FuelStock addFuelStock(FuelStock fuelStock) {
+        fuelStock.setId(fuelStock.getFuelStation().getId() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss")));
+        return fuelStockRepository.save(fuelStock);
     }
 
-    @Override
-    public CustomerFuelStation updateCustomerFuel(CustomerFuelStation customerFuelStation, String id) {
-        Optional<CustomerFuelStation> customerFuelStationOptional = customerFuelStationRepository.findById(id);
-        if (customerFuelStationOptional.isPresent()) {
-            CustomerFuelStation customerFuelStationObj = customerFuelStationOptional.get();
-            customerFuelStationObj.setFuelPumped(customerFuelStation.getFuelPumped());
-            return customerFuelStationRepository.save(customerFuelStationObj);
-        }
-        return null;
-    }
 
-    @Override
-    public boolean deleteCustomerFuel(String customerNic, String fuelStation) {
-        Optional<CustomerFuelStation> customerFuelStationOptional = customerFuelStationRepository.getTopByCustomerNicAndFuelStationIdOrderByPumpedAtDesc(customerNic, fuelStation);
-        if (customerFuelStationOptional.isPresent()) {
-            CustomerFuelStation customerFuelStation = customerFuelStationOptional.get();
-            customerFuelStationRepository.deleteById(customerFuelStation.getId());
-        }
-        return true;
-    }
 }

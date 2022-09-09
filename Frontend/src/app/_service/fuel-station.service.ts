@@ -15,12 +15,8 @@ export class FuelStationService {
     return this.http.post<any>(environment.backend_url + "/fuel_station/addFuelStation", fuelStation);
   }
 
-  addCustomerFuel(customerFuel): Observable<any> {
-    return this.http.post<any>(environment.backend_url + "/fuel_station/addCustomerFuel", customerFuel);
-  }
-
-  deleteCustomerFuel(vehicle, fuelStation): Observable<any> {
-    return this.http.delete<any>(environment.backend_url + "/fuel_station/deleteCustomerFuel/" + vehicle + "/" + fuelStation);
+  addFuelStock(fuelStock): Observable<any> {
+    return this.http.post<any>(environment.backend_url + "/fuel_station/addFuelStock", fuelStock);
   }
 
   newFuelStation() {
@@ -33,6 +29,21 @@ export class FuelStationService {
       appUser: {
         email: '',
         password: ''
+      }
+    }
+  }
+
+  newFuelStock() {
+    return {
+      id: '',
+      fuelType: '',
+      amount: 0,
+      driver: '',
+      availability: false,
+      vehicleNumber: '',
+      actualArrival: '',
+      fuelStation: {
+        id: ''
       }
     }
   }
