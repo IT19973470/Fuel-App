@@ -51,7 +51,7 @@ export class UpdateQuotaComponent implements OnInit {
       let customerFuel = {
         customer: this.customer,
         fuelStation: {
-          id: JSON.parse(localStorage.getItem('user')).id
+          id: JSON.parse(localStorage.getItem('user')).fuelPumper.fuelStation.id
         },
         fuelPumped: quota
       }

@@ -2,6 +2,7 @@ package lk.fuel_app.service.impl;
 
 import lk.fuel_app.entity.AppUser;
 import lk.fuel_app.entity.FuelPumper;
+import lk.fuel_app.entity.FuelStation;
 import lk.fuel_app.repository.FuelPumperRepository;
 import lk.fuel_app.repository.UserRepository;
 import lk.fuel_app.service.UserService;
@@ -27,7 +28,9 @@ public class UserServiceImpl implements UserService {
             if (appUserObj.getUserType().equals("fuelPumper")) {
                 Optional<FuelPumper> optionalFuelPumper = fuelPumperRepository.findById(appUserObj.getId());
                 if (optionalFuelPumper.isPresent()) {
-                    appUserObj.setFuelPumper(new FuelPumper(optionalFuelPumper.get()));
+                    FuelPumper fuelPumper = optionalFuelPumper.get();
+//                    FuelStation fuelStation = fuelPumper.getFuelStation();
+                    appUserObj.setFuelPumper(new FuelPumper(fuelPumper));
                 }
             }
             return appUserObj;

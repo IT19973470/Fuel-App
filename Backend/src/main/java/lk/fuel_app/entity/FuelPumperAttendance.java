@@ -18,6 +18,6 @@ public class FuelPumperAttendance {
     private LocalTime timeIn;
     private LocalTime timeOut;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private FuelPumper fuelPumper;
 }

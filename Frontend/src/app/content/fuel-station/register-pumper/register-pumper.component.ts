@@ -24,6 +24,7 @@ export class RegisterPumperComponent implements OnInit {
   addFuelPumper() {
     this.fuelPumper.appUser.userType = 'fuelPumper'
     this.fuelPumper.appUser.id = this.fuelPumper.nic
+    this.fuelPumper.fuelStation.id = JSON.parse(localStorage.getItem('user')).id
     this.fuelPumperS.addFuelPumper(this.fuelPumper).subscribe(fuelPumper => {
       this.confirmBox.confirmBox.next({
         msg: 'Fuel Pumper registered success'

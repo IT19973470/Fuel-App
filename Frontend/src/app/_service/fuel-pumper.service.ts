@@ -32,10 +32,13 @@ export class FuelPumperService {
       nic: '',
       name: '',
       address: '',
-      contactNumber: '',
       appUser: {
         email: '',
-        password: ''
+        password: '',
+        contactNumber: '',
+      },
+      fuelStation: {
+        id: ''
       }
     }
   }
