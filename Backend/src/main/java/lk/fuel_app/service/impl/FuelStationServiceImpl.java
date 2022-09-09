@@ -24,6 +24,10 @@ public class FuelStationServiceImpl implements FuelStationService {
     private FuelTypeRepository fuelTypeRepository;
     @Autowired
     private CustomerFuelStationRepository customerFuelStationRepository;
+    @Autowired
+    private FuelAdminStockOutRepository fuelAdminStockOutRepository;
+    @Autowired
+    private FuelPumperAttendanceRepository fuelPumperAttendanceRepository;
 
     @Override
     public FuelStation addFuelStation(FuelStation fuelStation) {
@@ -55,6 +59,16 @@ public class FuelStationServiceImpl implements FuelStationService {
             fuelStockDTOS.add(fuelStockDTO);
         }
         return fuelStockDTOS;
+    }
+
+    @Override
+    public List<FuelAdminStockOut> getFuelStockIn(String id) {
+            return fuelAdminStockOutRepository.findAllByFuelStation_Id(id);
+    }
+
+    @Override
+    public List<FuelPumperAttendance> getAttendence() {
+        return fuelPumperAttendanceRepository.findAll();
     }
 
 

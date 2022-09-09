@@ -22,7 +22,6 @@ export class FuelAvailabilityComponent implements OnInit {
   addFuelStock() {
     this.fuelStock.fuelStation.id = JSON.parse(localStorage.getItem('user')).id
     this.fuelStationS.addFuelStock(this.fuelStock).subscribe(() => {
-
     })
   }
 
@@ -32,4 +31,5 @@ export class FuelAvailabilityComponent implements OnInit {
       this.fuelStocks = fuelStocks
     })
   }
+
 }
