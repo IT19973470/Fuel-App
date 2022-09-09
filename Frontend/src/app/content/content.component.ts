@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {ConfirmBoxService} from "../_service/confirm-box.service";
 
 @Component({
   selector: 'app-content',
@@ -13,7 +14,16 @@ export class ContentComponent implements OnInit {
     foundLetter: ''
   };
 
-  constructor() { }
+  reply = {
+    msg: ''
+  };
+
+  constructor(private confirmBox: ConfirmBoxService) {
+    this.confirmBox.confirmBox.subscribe((reply: any) => {
+      this.reply = reply
+      this.isTrueOrFalseDetails(true)
+    })
+  }
 
   ngOnInit(): void {
   }
