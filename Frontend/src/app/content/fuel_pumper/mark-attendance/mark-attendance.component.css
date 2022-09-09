@@ -1,9 +1,9 @@
-span {
+div {
   font-weight: bold;
 }
 
 input {
-  margin-bottom: 20px;;
+  /*margin-bottom: 20px;;*/
   padding: 20px;
 }
 

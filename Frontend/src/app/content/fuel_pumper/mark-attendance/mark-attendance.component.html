@@ -3,18 +3,33 @@
     <div style="margin-bottom: 20px">
       <span style="font-weight: bold;color: #b68003;font-size: 21px">Mark Attendance</span>
     </div>
+    
+    <form style="padding-top: 10px;background-color: white;" #pumperAttForm="ngForm"
+          (ngSubmit)="pumperAttForm.form.valid && addFuelPumperAttendance()" novalidate>
 
-    <form style="padding-top: 20px;background-color: white;" (ngSubmit)="addFuelPumperAttendance()">
-
-      <span>Name</span>
+      <div style="margin-top: 20px">Name</div>
       <input class="form-control" type="text" placeholder="Enter Name" disabled
              [value]="getName()">
-      <span>Date</span>
+
+      <div style="margin-top: 20px">Date</div>
       <input class="form-control" type="date" name="markedAt" [(ngModel)]="fuelPumperAttendance.markedAt" readonly>
-      <span>Time In</span>
-      <input class="form-control" type="time" name="timeIn" placeholder="Time In" [(ngModel)]="fuelPumperAttendance.timeIn">
-      <span>Time Out</span>
-      <input class="form-control" type="time" name="timeOut" placeholder="Time Out" [(ngModel)]="fuelPumperAttendance.timeOut">
+
+      <div style="margin-top: 20px">Time In</div>
+      <input class="form-control" type="time" name="timeIn" placeholder="Time In" [(ngModel)]="fuelPumperAttendance.timeIn"
+             #timeIn="ngModel" required>
+      <div *ngIf="(timeIn.touched || pumperAttForm.submitted) && timeIn.errors?.required"
+           class="validErr">
+        Time In is required
+      </div>
+
+      <div style="margin-top: 20px">Time Out</div>
+      <input class="form-control" type="time" name="timeOut" placeholder="Time Out" [(ngModel)]="fuelPumperAttendance.timeOut"
+             #timeOut="ngModel" required>
+      <div *ngIf="(timeOut.touched || pumperAttForm.submitted) && timeOut.errors?.required"
+           class="validErr">
+        Time Out is required
+      </div>
+
 
       <div style="text-align: right;margin-top: 30px">
         <button class="btn btn-success" type="submit">Mark</button>

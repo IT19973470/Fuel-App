@@ -15,6 +15,7 @@ export class UpdateQuotaComponent implements OnInit {
   quota
   customerIndex;
   customers = []
+  val
 
   constructor(private customerS: CustomerService, private fuelPumperS: FuelPumperService, private qrScanS: QrScanService) {
     this.customer = this.customerS.newCustomer()

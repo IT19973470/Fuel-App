@@ -12,7 +12,8 @@
     </div>
     <div class="col-md-6">
       <div style="margin-top: 20px">
-        <form (ngSubmit)="updateCustomerFuel(quota.value)">
+        <form #updateQuotaForm="ngForm"
+              (ngSubmit)="updateQuotaForm.form.valid && updateCustomerFuel(quota.value)" novalidate>
           <table>
             <tr>
               <td>Name</td>
@@ -41,10 +42,14 @@
             <tr>
               <td>Pumped</td>
               <td>
-                <input type="number" class="form-control" style="margin: 0px" #quota name="quota" value="0">
+                <input type="number" class="form-control" style="margin: 0px" #quota="ngModel" required name="quota" [(ngModel)]="val">
+                <div *ngIf="(quota.touched || updateQuotaForm.submitted) && quota.errors?.required"
+                     class="validErr">
+                  Fuel Amount is required
+                </div>
               </td>
               <td>
-                <button class="btn btn-warning" style="margin-right: 20px" type="submit">Submit</button>
+                <button class="btn btn-warning" style="margin-right: 20px" type="submit" [disabled]="customer.nic===''">Submit</button>
                 <button class="btn btn-success" (click)="updateCustomerFuel(0)" type="button">Set as not pumped</button>
               </td>
             </tr>
