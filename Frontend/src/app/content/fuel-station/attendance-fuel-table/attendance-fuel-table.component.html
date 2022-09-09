@@ -12,9 +12,10 @@
       <tbody>
       <tr>
         <td>1</td>
+        <th>Gayan</th>
         <td>2022-02-02</td>
-        <td>Pumped</td>
-        <td>Galle</td>
+        <td>2022-02-03</td>
+        <td>123</td>
       </tr>
       </tbody>
     </table>
@@ -32,10 +33,13 @@
       </thead>
       <tbody>
       <tr>
-        <td>1</td>
-        <td>2022-02-02</td>
-        <td>Pumped</td>
-        <td>Galle</td>
+      <tr *ngFor="let d of data let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{d.date}}</td>
+        <td>{{d.fuelType}}</td>
+        <td>{{d.vehicleNumber}}</td>
+        <td>{{d.driverName}}</td>
+        <td>{{d.amount}}</td>
       </tr>
       </tbody>
     </table>

@@ -29,5 +29,9 @@ public class FuelStationController {
     public ResponseEntity getFuelStock(@PathVariable String id) {
         return ResponseEntity.ok(fuelStationService.getFuelStock(id));
     }
+    @GetMapping(value = "/getAvailableStocks/{id}")
+    public ResponseEntity getFuelStockIn(@PathVariable String id) {
+        return ResponseEntity.ok(fuelStationService.getFuelStockIn(id));
+    }
 
 }

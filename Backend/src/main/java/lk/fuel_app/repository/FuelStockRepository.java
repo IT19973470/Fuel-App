@@ -1,5 +1,6 @@
 package lk.fuel_app.repository;
 
+import lk.fuel_app.entity.FuelAdminStockOut;
 import lk.fuel_app.entity.FuelStock;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
