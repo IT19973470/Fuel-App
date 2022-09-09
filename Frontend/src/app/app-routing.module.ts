@@ -7,6 +7,8 @@ import {UpdateQuotaComponent} from "./content/fuel-station/update-quota/update-q
 import {RegisterComponent} from "./register/register.component";
 import {RegisterCustomerComponent} from "./register/register-customer/register-customer.component";
 import {RegisterStationComponent} from "./register/register-station/register-station.component";
+import {MarkAttendanceComponent} from "./content/fuel-station/mark-attendance/mark-attendance.component";
+import {RegisterPumperComponent} from "./content/fuel-station/register-pumper/register-pumper.component";
 
 const routes: Routes = [
   {
@@ -18,9 +20,18 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-  // {
-  //   path: 'register',
-  //   component: RegisterComponent,
+  {
+    path: 'mark_attendance',
+    component: MarkAttendanceComponent,
+  },
+  {
+    path: 'register_pumper',
+    component: RegisterPumperComponent,
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
   //   children:[
   //     {
   //       path: 'customer',

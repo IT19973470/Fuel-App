@@ -20,12 +20,15 @@ export class MyProfileComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log(this.customer)
-    this.getCustomer()
-    this.getPumpedAmounts()
+    this.customerS.getCustomer(JSON.parse(localStorage.getItem('user')).email, JSON.parse(localStorage.getItem('user')).contactNumber).subscribe(customer => {
+      this.customer = customer
+      this.getCustomer()
+      this.getPumpedAmounts()
+    })
   }
 
   getCustomer() {
-    this.customerS.getCustomerByVehicle('CAB 4563').subscribe(customer => {
+    this.customerS.getCustomerByVehicle(this.customer.vehicleNumber).subscribe(customer => {
       this.customer = customer
     })
   }
@@ -36,7 +39,7 @@ export class MyProfileComponent implements OnInit {
   }
 
   getPumpedAmounts() {
-    this.customerS.getPumpedAmounts('961751152V').subscribe(pumps => {
+    this.customerS.getPumpedAmounts(this.customer.nic).subscribe(pumps => {
       this.pumps = pumps
     })
   }
