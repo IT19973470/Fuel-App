@@ -10,12 +10,12 @@
       <th>Vehicle Count</th>
       </thead>
       <tbody>
-      <tr>
+      <tr *ngFor="let d1 of attendance let i = index">
+        <th scope="row">{{i+1}}</th>
+        <th>{{d1.fuelPumper.nic}}</th>
+        <td>{{d1.timeIn}}</td>
+        <td>{{d1.timeOut}}</td>
         <td>1</td>
-        <th>Gayan</th>
-        <td>2022-02-02</td>
-        <td>2022-02-03</td>
-        <td>123</td>
       </tr>
       </tbody>
     </table>

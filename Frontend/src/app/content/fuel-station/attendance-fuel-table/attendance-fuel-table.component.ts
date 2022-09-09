@@ -10,11 +10,13 @@ import {FuelStationService} from "../../../_service/fuel-station.service";
 export class AttendanceFuelTableComponent implements OnInit {
 
   data = []
+  attendance = [];
   constructor(private fuelStationService: FuelStationService) {
   }
 
   ngOnInit(): void {
     this.getCustomer()
+    this.getAtteadance()
   }
 
   getCustomer() {
@@ -24,4 +26,11 @@ export class AttendanceFuelTableComponent implements OnInit {
     })
   }
 
+  getAtteadance() {
+    this.fuelStationService.getAttendence().subscribe(attendance => {
+      // console.log(fuelStock)
+      this.attendance = attendance
+      console.log( this.attendance)
+    })
+  }
 }

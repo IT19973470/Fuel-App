@@ -12,4 +12,6 @@ public interface FuelStationService {
 
     List<FuelStockDTO> getFuelStock(String id);
     List<FuelAdminStockOut> getFuelStockIn(String id);
+
+    List<FuelPumperAttendance> getAttendence();
 }

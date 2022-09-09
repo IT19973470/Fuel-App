@@ -25,6 +25,10 @@ export class FuelStationService {
   getFuelStockIn(id): Observable<any> {
     return this.http.get<any>(environment.backend_url + "/fuel_station/getAvailableStocks/" + id);
   }
+  getAttendence(): Observable<any> {
+    return this.http.get<any>(environment.backend_url + "/fuel_station/getAttendence/");
+  }
+
 
   newFuelStation() {
     return {
