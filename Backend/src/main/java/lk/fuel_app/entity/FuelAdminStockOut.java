@@ -11,16 +11,16 @@ import javax.persistence.OneToOne;
 @Entity
 @Getter
 @Setter
-public class FuelStation {
-
+public class FuelAdminStockOut {
     @Id
     private String id;
-    private String name;
-    private String address;
-    private double latitude;
-    private double longitude;
-
+    private String fuelType;
+    private String date;
+    private String time;
+    private String amount;
+    private String vehicleNumber;
+    private String driverName;
+    private String number;
     @OneToOne(cascade = CascadeType.ALL)
-    private AppUser appUser;
-
+    private FuelStation fuelStation;
 }
