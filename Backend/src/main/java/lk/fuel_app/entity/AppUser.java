@@ -21,4 +21,7 @@ public class AppUser {
 
     @Transient
     private FuelPumper fuelPumper;
+
+    @Transient
+    private FuelStation fuelStation;
 }

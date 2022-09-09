@@ -36,6 +36,9 @@ export class FuelPumperService {
         email: '',
         password: '',
         contactNumber: '',
+      },
+      fuelStation: {
+        id: ''
       }
     }
   }
