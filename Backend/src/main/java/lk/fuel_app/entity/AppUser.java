@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 @Getter
@@ -12,6 +13,12 @@ import javax.persistence.Id;
 public class AppUser {
 
     @Id
+    private String id;
     private String email;
     private String password;
+    private String userType;
+    private String contactNumber;
+
+    @Transient
+    private FuelPumper fuelPumper;
 }

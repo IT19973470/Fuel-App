@@ -14,7 +14,6 @@ public class Customer {
     private String nic;
     private String name;
     private String address;
-    private String contactNumber;
     private String chassisNumber;
     private String vehicleNumber;
     private String vehicleType;
