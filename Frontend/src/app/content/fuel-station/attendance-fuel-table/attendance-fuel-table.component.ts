@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {FuelAdminService} from "../../../_service/fuel-admin.service";
+import {FuelStationService} from "../../../_service/fuel-station.service";
 
 @Component({
   selector: 'app-attendance-fuel-table',
@@ -7,9 +9,28 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AttendanceFuelTableComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit(): void {
+  data = []
+  attendance = [];
+  constructor(private fuelStationService: FuelStationService) {
   }
 
+  ngOnInit(): void {
+    this.getCustomer()
+    this.getAtteadance()
+  }
+
+  getCustomer() {
+    this.fuelStationService.getFuelStockIn(JSON.parse(localStorage.getItem('user')).id).subscribe(res => {
+      this.data = res
+      console.log(this.data)
+    })
+  }
+
+  getAtteadance() {
+    this.fuelStationService.getAttendence().subscribe(attendance => {
+      // console.log(fuelStock)
+      this.attendance = attendance
+      console.log( this.attendance)
+    })
+  }
 }

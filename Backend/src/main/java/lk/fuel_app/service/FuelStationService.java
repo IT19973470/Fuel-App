@@ -1,10 +1,7 @@
 package lk.fuel_app.service;
 
 import lk.fuel_app.dto.FuelStockDTO;
-import lk.fuel_app.entity.CustomerFuelStation;
-import lk.fuel_app.entity.FuelPumper;
-import lk.fuel_app.entity.FuelStation;
-import lk.fuel_app.entity.FuelStock;
+import lk.fuel_app.entity.*;
 
 import java.util.List;
 
@@ -14,4 +11,7 @@ public interface FuelStationService {
     FuelStock addFuelStock(FuelStock fuelStock);
 
     List<FuelStockDTO> getFuelStock(String id);
+    List<FuelAdminStockOut> getFuelStockIn(String id);
+
+    List<FuelPumperAttendance> getAttendence();
 }
