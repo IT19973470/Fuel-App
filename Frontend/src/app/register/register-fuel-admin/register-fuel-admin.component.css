@@ -2,7 +2,11 @@ span {
   font-weight: bold;
 }
 
-input {
+div, button, span, p {
+  font-family: 'Quicksand', sans-serif;
+}
+
+input[type=text] {
   margin-bottom: 20px;;
   padding: 20px;
 }

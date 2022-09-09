@@ -19,6 +19,8 @@ export class RegisterCustomerComponent implements OnInit {
   }
 
   addCustomer() {
+    this.customer.appUser.userType = 'customer'
+    this.customer.appUser.id = this.customer.nic
     this.customerS.addCustomer(this.customer).subscribe(customer => {
       this.router.navigate(['/login'])
     })
