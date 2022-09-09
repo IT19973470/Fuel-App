@@ -16,4 +16,7 @@ public interface CustomerFuelStationRepository extends JpaRepository<CustomerFue
     Double getFuelPumpedAmount(String vehicleNumber, LocalDate startDate, LocalDate endDate);
 
     List<CustomerFuelStation> getAllByCustomerNicOrderByPumpedAtDesc(String nic);
+
+//    @Query(value = "select sum(fuelPumped) from CustomerFuelStation where id=?1 and pumpedAtDate >= ?3")
+//    Integer getFuelPumpedVehicleCount(String id,String fuelType, LocalDate pumpedFrom);
 }
