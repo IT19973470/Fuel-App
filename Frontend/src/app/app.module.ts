@@ -25,6 +25,7 @@ import {UpdateQuotaComponent} from './content/fuel-station/update-quota/update-q
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import { UpdateProfileComponent } from './content/customer/update-profile/update-profile.component';
+import { RegisterPumperComponent } from './content/fuel-station/register-pumper/register-pumper.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { UpdateProfileComponent } from './content/customer/update-profile/update
     QrScanComponent,
     MarkAttendanceComponent,
     UpdateQuotaComponent,
-    UpdateProfileComponent
+    UpdateProfileComponent,
+    RegisterPumperComponent
   ],
   imports: [
     BrowserModule,

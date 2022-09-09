@@ -21,9 +21,9 @@ export class CustomerService {
     return this.http.put<any>(environment.backend_url + "/customer/updateCustomer/" + customer.nic, customer);
   }
 
-  // getCustomer(id): Observable<any> {
-  //   return this.http.get<any>(environment.backend_url + "/customer/getCustomer/" + id);
-  // }
+  getCustomer(email, contactNumber): Observable<any> {
+    return this.http.get<any>(environment.backend_url + "/customer/getCustomer/" + email + "/" + contactNumber);
+  }
 
   getCustomerByVehicle(vehicle): Observable<any> {
     return this.http.get<any>(environment.backend_url + "/customer/getCustomerByVehicle/" + vehicle);

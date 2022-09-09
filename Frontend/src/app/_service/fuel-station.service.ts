@@ -23,6 +23,10 @@ export class FuelStationService {
     return this.http.delete<any>(environment.backend_url + "/fuel_station/deleteCustomerFuel/" + vehicle + "/" + fuelStation);
   }
 
+  addFuelPumper(fuelPumper): Observable<any> {
+    return this.http.post<any>(environment.backend_url + "/fuel_station/addFuelPumper", fuelPumper);
+  }
+
   newFuelStation() {
     return {
       id: '',
@@ -30,6 +34,19 @@ export class FuelStationService {
       address: '',
       contactNumber: '',
       chassisNumber: '',
+      appUser: {
+        email: '',
+        password: ''
+      }
+    }
+  }
+
+  newFuelPumper() {
+    return {
+      nic: '',
+      name: '',
+      address: '',
+      contactNumber: '',
       appUser: {
         email: '',
         password: ''

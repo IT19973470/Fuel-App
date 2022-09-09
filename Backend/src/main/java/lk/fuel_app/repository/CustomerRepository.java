@@ -9,4 +9,6 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
 
     Optional<Customer> getAllByVehicleNumber(String vehicle);
 
+    Optional<Customer> getAllByAppUserEmailOrAppUserContactNumber(String email, String contactNumber);
+
 }

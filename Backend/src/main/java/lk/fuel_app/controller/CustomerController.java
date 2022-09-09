@@ -37,10 +37,10 @@ public class CustomerController {
         return customerService.getPumpedAmounts(id);
     }
 
-//    @GetMapping(value = "/getCustomer/{id}")
-//    public Customer getCustomer(@PathVariable String id) {
-//        return customerService.getCustomer(id);
-//    }
+    @GetMapping(value = "/getCustomer/{email}/{contactNumber}")
+    public Customer getCustomer(@PathVariable String email, @PathVariable String contactNumber) {
+        return customerService.getCustomer(email, contactNumber);
+    }
 
     @DeleteMapping(value = "/deleteCustomer/{id}")
     public boolean deleteCustomer(@PathVariable String id) {
