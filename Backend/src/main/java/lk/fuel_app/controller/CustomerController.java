@@ -47,4 +47,8 @@ public class CustomerController {
         return customerService.deleteCustomer(id);
     }
 
+    @GetMapping(value = "/sendOTP/{email}/{contactNumber}")
+    public Customer sendOTP(@PathVariable String email, @PathVariable String contactNumber) {
+        return customerService.sendOTP(email, contactNumber);
+    }
 }

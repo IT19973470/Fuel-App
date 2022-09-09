@@ -1,4 +1,4 @@
-span {
+div {
   font-weight: bold;
 }
 
@@ -7,9 +7,12 @@ div, button, span, p {
 }
 
 input[type=text] {
-  margin-bottom: 20px;;
   padding: 20px;
 }
+
+/*span {*/
+  /*margin-top: 20px;*/
+/*}*/
 
 select {
   margin-bottom: 20px;;
