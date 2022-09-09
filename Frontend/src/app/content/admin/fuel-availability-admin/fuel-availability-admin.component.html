@@ -17,19 +17,26 @@
 
   <table class="table" width="100%" style="margin-top: 20px" border="1px solid black">
     <thead class="thead-dark">
+    <th scope="col">#</th>
     <th>Fuel Type</th>
     <th>From</th>
     <th>Amount</th>
     <th>Date</th>
     <th>Time</th>
-    <th>Update or Delete</th>
+    <th style="text-align: center">Update or Delete</th>
     </thead>
     <tbody>
-    <tr>
-      <td>1</td>
-      <td>2022-02-02</td>
-      <td>Pumped</td>
-      <td>Galle</td>
+    <tr *ngFor="let d of data let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{d.fuelType}}</td>
+      <td>{{d.stockFrom}}</td>
+      <td>{{d.amount}}</td>
+      <td>{{d.date}}</td>
+      <td>{{d.time}}</td>
+      <td style="text-align: center">
+        <i  class="fas fa-pencil"></i>
+        <i  class="fas fa-trash" style="padding-left: 10px"></i>
+      </td>
     </tr>
     </tbody>
   </table>

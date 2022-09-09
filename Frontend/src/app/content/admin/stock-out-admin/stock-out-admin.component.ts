@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {FuelAdminService} from "../../../_service/fuel-admin.service";
 
 @Component({
   selector: 'app-stock-out-admin',
@@ -7,7 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StockOutAdminComponent implements OnInit {
 
-  constructor() { }
+  fuelStockOut;
+
+  constructor(private fuelAdminService: FuelAdminService) {
+    this.fuelStockOut = this.fuelAdminService.newOutFuelStock()
+  }
+
+  addFuelStockOut(){
+    this.fuelAdminService.addFuelAdminStockOut(this.fuelStockOut).subscribe(() => {
+    })
+  }
 
   ngOnInit(): void {
   }

@@ -14,6 +14,17 @@ export class FuelAdminService {
   addFuelAdmin(fuelAdmin): Observable<any> {
     return this.http.post<any>(environment.backend_url + "/fuel_admin/addFuelAdmin", fuelAdmin);
   }
+  addFuelAdminStockIn(fuelAdmin): Observable<any> {
+    console.log(fuelAdmin);
+    return this.http.post<any>(environment.backend_url + "/fuel_admin/addFuelStock", fuelAdmin);
+  }
+  addFuelAdminStockOut(fuelAdmin): Observable<any> {
+    console.log(fuelAdmin);
+    return this.http.post<any>(environment.backend_url + "/fuel_admin/outFuelStock", fuelAdmin);
+  }
+  getFuelAdminStockIn(): Observable<any> {
+    return this.http.get<any>(environment.backend_url + "/fuel_admin/getFuelStockIn");
+  }
 
   newFuelAdmin() {
     return {
@@ -27,4 +38,30 @@ export class FuelAdminService {
       }
     }
   }
+  newAddFuelStock() {
+    return {
+      id:'',
+      fuelType:"",
+      stockFrom:"",
+      amount:"",
+      time:"",
+      date:""
+    }
+  }
+  newOutFuelStock() {
+    return {
+      id: "",
+      fuelType: "",
+      date: "",
+      time: "",
+      amount: "",
+      vehicleNumber: "",
+      driverName: "",
+      number: "",
+      fuelStation: {
+        id:""
+      }
+    }
+  }
+
 }
