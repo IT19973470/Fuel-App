@@ -54,7 +54,7 @@ public class CustomerServiceImpl implements CustomerService {
             Customer customerObj = customerOptional.get();
             customerObj.setName(customer.getName());
             customerObj.setAddress(customer.getAddress());
-            
+
 //            customerObj.setQuota(customer.getQuota());
             return customerRepository.save(customerObj);
         }

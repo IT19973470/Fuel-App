@@ -34,9 +34,10 @@ public class FuelPumperServiceImpl implements FuelPumperService {
         );
         customerFuelStation.setPumpedAt(localDateTime);
         customerFuelStation.setPumpedAtDate(LocalDate.now());
+        customerFuelStation = customerFuelStationRepository.save(customerFuelStation);
         Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(customerFuelStation.getCustomer().getVehicleNumber(), LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
         customerFuelStation.getCustomer().setQuota(fuelPumpedAmount == null ? 0 : fuelPumpedAmount);
-        return customerFuelStationRepository.save(customerFuelStation);
+        return customerFuelStation;
     }
 
     @Override
