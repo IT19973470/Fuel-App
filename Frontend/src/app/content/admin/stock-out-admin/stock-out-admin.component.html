@@ -10,14 +10,16 @@
     <span>Fuel Type</span>
     <select class="form-control" name="type" [(ngModel)]="fuelStockOut.fuelType">
       <option value="">Select</option>
-      <option value="car">Petrol</option>
-      <option value="car">Diesel</option>
+      <option value="car">Petrol 92</option>
+      <option value="car">Petrol 95</option>
+      <option value="car">Super Diesel</option>
+      <option value="car">Auto Diesel</option>
     </select>
     <span>Destination</span>
     <select class="form-control" name="destination"[(ngModel)]="fuelStockOut.fuelStation.id">
       <option value="">Select</option>
-      <option value="car">Petrol</option>
-      <option value="car">Diesel</option>
+      <option value="1">Bandarawela</option>
+      <option value="2">Colombo</option>
     </select>
     <span>Date</span>
     <input type="date" class="form-control" name="date" [(ngModel)]="fuelStockOut.date">

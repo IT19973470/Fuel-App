@@ -9,15 +9,16 @@
     <form style="padding-top: 20px;background-color: white;" (ngSubmit)="addFuelStockIn()">
     <span>Fuel Type</span>
     <select class="form-control" name="type" [(ngModel)]="fuelStockIn.fuelType">
-      <option value="">Select</option>
-      <option value="car">Petrol</option>
-      <option value="car">Diesel</option>
+      <option value="Petrol92">Petrol 92</option>
+      <option value="Petrol95">Petrol 95</option>
+      <option value="SuperDiesel">Super Diesel</option>
+      <option value="AutoDiesel">Auto Diesel</option>
     </select>
     <span>Stock From</span>
     <select class="form-control"  name="From" [(ngModel)]="fuelStockIn.stockFrom">
-      <option value="">Select</option>
-      <option value="car">Petrol</option>
-      <option value="car">Diesel</option>
+      <option value="Rushia">Rushia</option>
+      <option value="India">India</option>
+      <option value="Iraq">Iraq</option>
     </select>
     <span>Date</span>
     <input type="date" class="form-control"  name="date" [(ngModel)]="fuelStockIn.date">
