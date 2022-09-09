@@ -28,7 +28,7 @@
 
     <div style="margin-top: 20px">Contact Number</div>
     <input class="form-control" type="text" name="contact" placeholder="Enter Contact Number"
-           [(ngModel)]="fuelStation.contactNumber" #contactNumber="ngModel" required>
+           [(ngModel)]="fuelStation.appUser.contactNumber" #contactNumber="ngModel" required>
     <div *ngIf="(contactNumber.touched || regFuelStationForm.submitted) && contactNumber.errors?.required"
          class="validErr">
       Contact Number is required
@@ -40,6 +40,15 @@
     <div *ngIf="(email.touched || regFuelStationForm.submitted) && email.errors?.required"
          class="validErr">
       Email is required
+    </div>
+
+    <div style="margin-top: 20px">Password</div>
+    <input class="form-control" type="password" name="password" placeholder="Enter Password"
+           [(ngModel)]="fuelStation.appUser.password"
+           #password="ngModel" required>
+    <div *ngIf="(password.touched || regFuelStationForm.submitted) && password.errors?.required"
+         class="validErr">
+      Password is required
     </div>
 
     <div class="container-login100-form-btn" style="margin-top: 40px;margin-bottom: 40px;flex-wrap: nowrap">
