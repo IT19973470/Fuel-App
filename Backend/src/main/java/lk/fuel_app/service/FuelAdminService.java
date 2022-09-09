@@ -1,11 +1,13 @@
 package lk.fuel_app.service;
 
-import lk.fuel_app.entity.FuelAdmin;
-import lk.fuel_app.entity.FuelStation;
-import lk.fuel_app.entity.FuelStock;
+import lk.fuel_app.entity.*;
+
+import java.util.List;
 
 public interface FuelAdminService {
 
     FuelAdmin addFuelAdmin(FuelAdmin fuelAdmin);
-
+    FuelAdminStockIn addStockIn(FuelAdminStockIn fuelAdminStockIn);
+    FuelAdminStockOut addStockOut(FuelAdminStockOut fuelAdminStockOut);
+    List<FuelAdminStockIn> viewStockIn();
 }

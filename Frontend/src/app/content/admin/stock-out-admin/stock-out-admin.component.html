@@ -6,33 +6,35 @@
     <div style="margin-bottom: 20px">
       <span style="font-weight: bold;color: #b68003;font-size: 21px">Stock Out Form</span>
     </div>
+    <form style="padding-top: 20px;background-color: white;" (ngSubmit)="addFuelStockOut()">
     <span>Fuel Type</span>
-    <select class="form-control">
+    <select class="form-control" name="type" [(ngModel)]="fuelStockOut.fuelType">
       <option value="">Select</option>
       <option value="car">Petrol</option>
       <option value="car">Diesel</option>
     </select>
     <span>Destination</span>
-    <select class="form-control">
+    <select class="form-control" name="destination"[(ngModel)]="fuelStockOut.fuelStation.id">
       <option value="">Select</option>
       <option value="car">Petrol</option>
       <option value="car">Diesel</option>
     </select>
     <span>Date</span>
-    <input type="date" class="form-control">
+    <input type="date" class="form-control" name="date" [(ngModel)]="fuelStockOut.date">
     <span>Time</span>
-    <input type="time" class="form-control">
+    <input type="time" class="form-control" name="time" [(ngModel)]="fuelStockOut.time">
     <span>Amount</span>
-    <input type="number" placeholder="Enter Amount" class="form-control">
+    <input type="number" placeholder="Enter Amount"  name="amount" class="form-control" [(ngModel)]="fuelStockOut.amount">
     <span>Vehicle Number</span>
-    <input type="text" placeholder="Enter Vehicle Number" class="form-control">
+    <input type="text" placeholder="Enter Vehicle Number" class="form-control" name="vehicleNumber" [(ngModel)]="fuelStockOut.vehicleNumber">
     <span>Driver Name</span>
-    <input type="text" placeholder="Enter Driver Name" class="form-control">
+    <input type="text" placeholder="Enter Driver Name" class="form-control" name="driverName" [(ngModel)]="fuelStockOut.driverName">
     <span>Driver Number</span>
-    <input type="text" placeholder="Enter Driver Number" class="form-control">
+    <input type="text" placeholder="Enter Driver Number" class="form-control" name="number"  [(ngModel)]="fuelStockOut.number">
     <div style="text-align: right;margin-top: 30px">
       <button class="btn btn-success">Supply Stock</button>
     </div>
+    </form>
   </div>
 </div>
 
