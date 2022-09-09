@@ -10,6 +10,9 @@ import {Router} from "@angular/router";
 export class RegisterCustomerComponent implements OnInit {
 
   customer;
+  otp = 0
+  otpEntered;
+  otpReceived = false;
 
   constructor(private customerS: CustomerService, private router: Router) {
     this.customer = this.customerS.newCustomer()
@@ -25,4 +28,13 @@ export class RegisterCustomerComponent implements OnInit {
       this.router.navigate(['/login'])
     })
   }
+
+  sendOTP() {
+    this.customerS.sendOTP(this.customer.appUser.email, this.customer.appUser.contactNumber).subscribe(otp => {
+      this.otpReceived = true
+      this.otp = otp.otp
+      console.log(this.otp)
+    })
+  }
+
 }

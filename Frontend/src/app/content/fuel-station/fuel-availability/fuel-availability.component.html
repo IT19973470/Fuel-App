@@ -1,7 +1,7 @@
 <div style="display: flex;justify-content: center">
   <form action="" (ngSubmit)="addFuelStock()">
-    <div>
-      <span style="font-weight: bold;color: #b68003;font-size: 21px;margin-top: 20px">Fuel Stock</span>
+    <div style="margin-top: 20px">
+      <span style="font-weight: bold;color: #b68003;font-size: 21px">Fuel Stock</span>
     </div>
     <div class="row" style="margin-top: 20px;margin-left: 0px;margin-right: 0px">
 
@@ -63,34 +63,37 @@
 </div>
 
 <div style="border-top: 1px solid #aeaeae;margin: 10px">
-  <table class="table" width="100%" style="margin-top: 20px;border:2px solid #D19702">
-    <!--<thead class="thead-dark">-->
-    <!--<th>#</th>-->
-    <!--<th>Date</th>-->
-    <!--<th>Pumped</th>-->
-    <!--<th>Fuel Station</th>-->
-    <!--</thead>-->
-    <tbody>
-    <tr>
-      <td>Distributed Fuel</td>
-      <td>13000</td>
-    </tr>
-    <tr>
-      <td>Distributed Vehicle Count</td>
-      <td>500</td>
-    </tr>
-    <tr>
-      <td>Available Stock</td>
-      <td>500</td>
-    </tr>
-    <tr>
-      <td>Available Hours</td>
-      <td>500</td>
-    </tr>
-    <tr>
-      <td>Fuel Supply per hour</td>
-      <td>500</td>
-    </tr>
-    </tbody>
-  </table>
+  <div *ngFor="let fuelStock of fuelStocks">
+    <div style="margin-top: 40px;font-weight: bold">{{fuelStock.fuelType}}</div>
+    <table class="table" width="100%" style="margin-top: 20px;border:2px solid #D19702">
+      <!--<thead class="thead-dark">-->
+      <!--<th>#</th>-->
+      <!--<th>Date</th>-->
+      <!--<th>Pumped</th>-->
+      <!--<th>Fuel Station</th>-->
+      <!--</thead>-->
+      <tbody>
+      <tr>
+        <td>Distributed Fuel</td>
+        <td>13000</td>
+      </tr>
+      <tr>
+        <td>Distributed Vehicle Count</td>
+        <td>500</td>
+      </tr>
+      <tr>
+        <td>Available Stock</td>
+        <td>{{fuelStock.availableStock}}</td>
+      </tr>
+      <tr>
+        <td>Available Hours</td>
+        <td>500</td>
+      </tr>
+      <tr>
+        <td>Fuel Supply per hour</td>
+        <td>500</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

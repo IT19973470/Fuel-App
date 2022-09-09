@@ -33,12 +33,16 @@ export class CustomerService {
     return this.http.get<any>(environment.backend_url + "/customer/getPumpedAmounts/" + id);
   }
 
+  sendOTP(email, contactNumber): Observable<any> {
+    return this.http.get<any>(environment.backend_url + "/customer/sendOTP/" + email + "/" + contactNumber);
+  }
+
+
   newCustomer() {
     return {
       nic: '',
       name: '',
       address: '',
-      contactNumber: '',
       chassisNumber: '',
       vehicleNumber: '',
       vehicleType: '',
@@ -46,6 +50,7 @@ export class CustomerService {
       quota: 0,
       appUser: {
         email: '',
+        contactNumber: '',
         password: ''
       }
     }

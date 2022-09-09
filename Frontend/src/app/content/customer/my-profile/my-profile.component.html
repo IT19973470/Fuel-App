@@ -52,10 +52,19 @@
         <div style="margin-left: 10px;margin-top: 10px">
           <div>
             <span style="font-weight: bold">Enter the last trip</span>
-            <div style="display: flex;margin-top: 10px">
-              <input class="form-control" type="number" style="margin-right: 10px" [(ngModel)]="trip">
-              <button class="btn btn-success" (click)="calculateLastTrip()">Check</button>
-            </div>
+            <form #tripForm="ngForm" (ngSubmit)="tripForm.form.valid && calculateLastTrip()" novalidate>
+              <div style="display: flex;margin-top: 10px">
+                <div>
+                  <input class="form-control" type="number" style="margin-right: 10px" [(ngModel)]="trip"
+                         #tripVal="ngModel" required name="tripVal">
+                  <div *ngIf="(tripVal.touched || tripForm.submitted) && tripVal.errors?.required"
+                       class="validErr">
+                    Trip value is required
+                  </div>
+                </div>
+                <button class="btn btn-success" type="submit" style="margin-left: 20px">Check</button>
+              </div>
+            </form>
           </div>
           <div style="margin-top: 20px"><span style="font-weight: bold;margin-right: 20px">Consumption</span>
             {{consumption}} Km/L

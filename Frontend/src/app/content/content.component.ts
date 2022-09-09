@@ -21,4 +21,8 @@ export class ContentComponent implements OnInit {
   isTrueOrFalseDetails(reply) {
     this.isModalTableDetails.openTable = reply;
   }
+
+  getUser() {
+    return JSON.parse(localStorage.getItem('user'))
+  }
 }

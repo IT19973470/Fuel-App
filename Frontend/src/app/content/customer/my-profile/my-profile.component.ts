@@ -46,7 +46,8 @@ export class MyProfileComponent implements OnInit {
 
   calculateLastTrip() {
     if (this.pumps.length >= 2) {
-      this.consumption = this.trip * (this.pumps[1] - this.pumps[0])
+      console.log(this.pumps[1])
+      this.consumption = this.trip / (this.pumps[1].fuelPumped - this.pumps[0].fuelPumped)
     }
   }
 }

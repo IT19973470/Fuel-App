@@ -25,4 +25,9 @@ public class FuelStationController {
         return ResponseEntity.ok(fuelStationService.addFuelStock(fuelStock));
     }
 
+    @GetMapping(value = "/getFuelStock/{id}")
+    public ResponseEntity getFuelStock(@PathVariable String id) {
+        return ResponseEntity.ok(fuelStationService.getFuelStock(id));
+    }
+
 }
