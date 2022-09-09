@@ -20,12 +20,14 @@ import {StockInAdminComponent} from './content/admin/stock-in-admin/stock-in-adm
 import {FuelAvailabilityAdminComponent} from './content/admin/fuel-availability-admin/fuel-availability-admin.component';
 import {QrScanComponent} from './qr-scan/qr-scan.component';
 import {ZXingScannerModule} from "@zxing/ngx-scanner";
-import {MarkAttendanceComponent} from './content/fuel-station/mark-attendance/mark-attendance.component';
-import {UpdateQuotaComponent} from './content/fuel-station/update-quota/update-quota.component';
+import {MarkAttendanceComponent} from './content/fuel_pumper/mark-attendance/mark-attendance.component';
+import {UpdateQuotaComponent} from './content/fuel_pumper/update-quota/update-quota.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
 import { UpdateProfileComponent } from './content/customer/update-profile/update-profile.component';
 import { RegisterPumperComponent } from './content/fuel-station/register-pumper/register-pumper.component';
+import {DatePipe} from "@angular/common";
+import { RegisterFuelAdminComponent } from './register/register-fuel-admin/register-fuel-admin.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +50,8 @@ import { RegisterPumperComponent } from './content/fuel-station/register-pumper/
     MarkAttendanceComponent,
     UpdateQuotaComponent,
     UpdateProfileComponent,
-    RegisterPumperComponent
+    RegisterPumperComponent,
+    RegisterFuelAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +61,7 @@ import { RegisterPumperComponent } from './content/fuel-station/register-pumper/
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -2,7 +2,7 @@
 
 <!--Container Main start-->
 <div class="">
-  <app-navbar *ngIf="getUser()!==null"></app-navbar>
+  <app-navbar [ngStyle]="{'display':getUser()!==null?'block':'none'}"></app-navbar>
   <!--<h4>Main Components</h4>-->
   <!--<div>-->
   <app-header></app-header>
