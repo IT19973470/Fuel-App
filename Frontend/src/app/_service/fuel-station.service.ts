@@ -35,11 +35,11 @@ export class FuelStationService {
       id: '',
       name: '',
       address: '',
-      contactNumber: '',
       chassisNumber: '',
       appUser: {
         email: '',
-        password: ''
+        password: '',
+        contactNumber: ''
       }
     }
   }

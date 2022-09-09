@@ -20,13 +20,13 @@ public class FuelPumper {
     @OneToOne(cascade = CascadeType.ALL)
     private AppUser appUser;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private FuelStation fuelStation;
 
     public FuelPumper(FuelPumper fuelPumper) {
         this.nic = fuelPumper.nic;
         this.name = fuelPumper.name;
         this.address = fuelPumper.address;
-        this.fuelStation = fuelPumper.fuelStation;
+        this.fuelStation = fuelPumper.getFuelStation();
     }
 }

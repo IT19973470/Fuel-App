@@ -31,10 +31,10 @@ export class FuelAdminService {
       nic: '',
       name: '',
       address: '',
-      contactNumber: '',
       appUser: {
         email: '',
-        password: ''
+        password: '',
+        contactNumber: '',
       }
     }
   }
