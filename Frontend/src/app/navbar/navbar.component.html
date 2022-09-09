@@ -13,31 +13,73 @@
       </div>
 
       <div class="nav_list" *ngIf="userType==='fuelPumper'">
-        <a class="nav_link active" [routerLink]="'/my_profile'">
+        <a class="nav_link active" [routerLink]="'/update_quota'">
           <i class='bx bx-grid-alt nav_icon'></i>
-          <span class="nav_name">Dashboard</span>
+          <span class="nav_name">Fuel Quota</span>
         </a>
-        <a href="#" class="nav_link">
+        <a class="nav_link" [routerLink]="'/mark_attendance'">
           <i class='bx bx-user nav_icon'></i>
-          <span class="nav_name">Users</span>
-        </a>
-        <a href="#" class="nav_link">
-          <i class='bx bx-message-square-detail nav_icon'></i>
-          <span class="nav_name">Messages</span>
-        </a>
-        <a href="#" class="nav_link">
-          <i class='bx bx-bookmark nav_icon'></i>
-          <span class="nav_name">Bookmark</span>
-        </a>
-        <a href="#" class="nav_link">
-          <i class='bx bx-folder nav_icon'></i>
-          <span class="nav_name">Files</span>
-        </a>
-        <a href="#" class="nav_link">
-          <i class='bx bx-bar-chart-alt-2 nav_icon'></i>
-          <span class="nav_name">Stats</span>
+          <span class="nav_name">Attendance</span>
         </a>
       </div>
+
+      <div class="nav_list" *ngIf="userType==='fuelStation'">
+        <a class="nav_link active" [routerLink]="'/fuel_availability'">
+          <i class='bx bx-grid-alt nav_icon'></i>
+          <span class="nav_name">Fuel Availability</span>
+        </a>
+        <a class="nav_link" [routerLink]="'/attendance_fuel'">
+          <i class='bx bx-user nav_icon'></i>
+          <span class="nav_name">Attendance Fuel</span>
+        </a>
+        <a class="nav_link" [routerLink]="'/register_pumper'">
+          <i class='bx bx-user nav_icon'></i>
+          <span class="nav_name">Register Pumper</span>
+        </a>
+      </div>
+
+      <div class="nav_list" *ngIf="userType==='fuelAdmin'">
+        <a class="nav_link active" [routerLink]="'/fuel_availability_admin'">
+          <i class='bx bx-grid-alt nav_icon'></i>
+          <span class="nav_name">Fuel Availability</span>
+        </a>
+        <a class="nav_link" [routerLink]="'/stockIn_form'">
+          <i class='bx bx-user nav_icon'></i>
+          <span class="nav_name">Stock In</span>
+        </a>
+        <a class="nav_link" [routerLink]="'/stockOut_form'">
+          <i class='bx bx-user nav_icon'></i>
+          <span class="nav_name">Stock Out</span>
+        </a>
+      </div>
+
+      <!--<div class="nav_list" *ngIf="userType==='fuelStation'">-->
+      <!--<a class="nav_link active" [routerLink]="'/register_pumper'">-->
+      <!--<i class='bx bx-grid-alt nav_icon'></i>-->
+      <!--<span class="nav_name">Register Pumper</span>-->
+      <!--</a>-->
+      <!--<a class="nav_link" [routerLink]="'/register_pumper'">-->
+      <!--<i class='bx bx-user nav_icon'></i>-->
+      <!--<span class="nav_name">Users</span>-->
+      <!--</a>-->
+      <!--<a href="#" class="nav_link">-->
+      <!--<i class='bx bx-message-square-detail nav_icon'></i>-->
+      <!--<span class="nav_name">Messages</span>-->
+      <!--</a>-->
+      <!--<a href="#" class="nav_link">-->
+      <!--<i class='bx bx-bookmark nav_icon'></i>-->
+      <!--<span class="nav_name">Bookmark</span>-->
+      <!--</a>-->
+      <!--<a href="#" class="nav_link">-->
+      <!--<i class='bx bx-folder nav_icon'></i>-->
+      <!--<span class="nav_name">Files</span>-->
+      <!--</a>-->
+      <!--<a href="#" class="nav_link">-->
+      <!--<i class='bx bx-bar-chart-alt-2 nav_icon'></i>-->
+      <!--<span class="nav_name">Stats</span>-->
+      <!--</a>-->
+      <!--</div>-->
+
     </div>
 
     <a (click)="signOut()" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span

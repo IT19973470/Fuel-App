@@ -19,6 +19,8 @@ export class RegisterStationComponent implements OnInit {
   }
 
   addFuelStation() {
+    this.fuelStation.appUser.userType = 'fuelStation'
+    this.fuelStation.appUser.id = this.fuelStation.id
     this.fuelStationS.addFuelStation(this.fuelStation).subscribe(fuelStation => {
       this.router.navigate(['/login'])
     })

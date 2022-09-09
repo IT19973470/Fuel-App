@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {FuelStationService} from "../../../_service/fuel-station.service";
 
 @Component({
   selector: 'app-fuel-availability',
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FuelAvailabilityComponent implements OnInit {
 
-  constructor() { }
+  fuelStock
+
+  constructor(private fuelStationS: FuelStationService) {
+    this.fuelStock = fuelStationS.newFuelStock()
+  }
 
   ngOnInit(): void {
   }
 
+  addFuelStock() {
+    this.fuelStock.fuelStation.id = JSON.parse(localStorage.getItem('user')).id
+    this.fuelStationS.addFuelStock(this.fuelStock).subscribe(() => {
+
+    })
+  }
+
+  getFuelStock(){
+    
+  }
 }

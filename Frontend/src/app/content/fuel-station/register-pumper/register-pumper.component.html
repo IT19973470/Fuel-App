@@ -1,0 +1,46 @@
+<div style="display: flex;justify-content: center">
+
+  <div style="width: 600px;margin-top: 20px">
+    <div>
+      <span style="font-weight: bold;color: #b68003;font-size: 21px">Register Pumper</span>
+    </div>
+    <form style="padding-top: 20px;background-color: white;"
+          (ngSubmit)="addFuelPumper()">
+
+      <span>NIC</span>
+      <input class="form-control" type="text" name="nic" placeholder="Enter NIC" [(ngModel)]="fuelPumper.nic">
+      <span>Name</span>
+      <input class="form-control" type="text" name="name" placeholder="Enter Name" [(ngModel)]="fuelPumper.name">
+      <span>Address</span>
+      <input class="form-control" type="text" name="address" placeholder="Enter Address" [(ngModel)]="fuelPumper.address">
+      <span>Contact Number</span>
+      <input class="form-control" type="text" name="contact" placeholder="Enter Contact Number"
+             [(ngModel)]="fuelPumper.contactNumber">
+      <span>Email</span>
+      <input class="form-control" type="text" name="email" placeholder="Enter Email" [(ngModel)]="fuelPumper.appUser.email">
+
+      <div class="container-login100-form-btn" style="margin-top: 40px;margin-bottom: 40px">
+        <button class="login100-form-btn" type="submit">
+          Register
+        </button>
+      </div>
+
+      <!--<div class="text-center p-t-46 p-b-20">-->
+      <!--<span class="txt2">-->
+      <!--or sign up using-->
+      <!--</span>-->
+      <!--</div>-->
+
+      <!--<div class="login100-form-social flex-c-m">-->
+      <!--<a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">-->
+      <!--<i class="fa fa-facebook-f" aria-hidden="true"></i>-->
+      <!--</a>-->
+
+      <!--<a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">-->
+      <!--<i class="fa fa-twitter" aria-hidden="true"></i>-->
+      <!--</a>-->
+      <!--</div>-->
+    </form>
+  </div>
+
+</div>
