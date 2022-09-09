@@ -1,6 +1,7 @@
 package lk.fuel_app.controller;
 
 import lk.fuel_app.entity.CustomerFuelStation;
+import lk.fuel_app.entity.FuelPumper;
 import lk.fuel_app.entity.FuelStation;
 import lk.fuel_app.service.FuelStationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,10 @@ public class FuelStationController {
     @DeleteMapping(value = "/deleteCustomerFuel/{customerNic}/{fuelStation}")
     public boolean deleteCustomerFuel(@PathVariable String customerNic, @PathVariable String fuelStation) {
         return fuelStationService.deleteCustomerFuel(customerNic, fuelStation);
+    }
+
+    @PostMapping(value = "/addFuelPumper")
+    public ResponseEntity addFuelPumper(@RequestBody FuelPumper fuelPumper) {
+        return ResponseEntity.ok(fuelStationService.addFuelPumper(fuelPumper));
     }
 }
