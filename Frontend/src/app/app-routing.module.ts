@@ -15,6 +15,8 @@ import {RegisterFuelAdminComponent} from "./register/register-fuel-admin/registe
 import {FuelAvailabilityAdminComponent} from "./content/admin/fuel-availability-admin/fuel-availability-admin.component";
 import {StockInAdminComponent} from "./content/admin/stock-in-admin/stock-in-admin.component";
 import {StockOutAdminComponent} from "./content/admin/stock-out-admin/stock-out-admin.component";
+import {ReportsComponent} from "./content/fuel-station/reports/reports.component";
+import {OrderComponent} from "./content/fuel-station/order/order.component";
 
 const routes: Routes = [
   {
@@ -73,6 +75,14 @@ const routes: Routes = [
   {
     path: 'stockOut_form',
     component: StockOutAdminComponent,
+  },
+  {
+    path: 'reports',
+    component: ReportsComponent,
+  },
+  {
+    path: 'order-oil',
+    component: OrderComponent,
   }
 ];
 

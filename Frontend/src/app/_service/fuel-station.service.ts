@@ -28,6 +28,16 @@ export class FuelStationService {
   getAttendence(): Observable<any> {
     return this.http.get<any>(environment.backend_url + "/fuel_station/getAttendence/");
   }
+  getFuelAdmin(): Observable<any> {
+    return this.http.get<any>(environment.backend_url + "/fuel_station/getAdmin/");
+  }
+  getAllChats(): Observable<any>{
+    return this.http.get<any>(environment.backend_url + "/fuel_station/getchat");
+  }
+  addChat(setItem: any): Observable<any>{
+    console.log(setItem)
+    return this.http.post(environment.backend_url + "/fuel_station/addChat", setItem);
+  }
 
 
   newFuelStation() {

@@ -28,6 +28,10 @@ public class FuelStationServiceImpl implements FuelStationService {
     private FuelAdminStockOutRepository fuelAdminStockOutRepository;
     @Autowired
     private FuelPumperAttendanceRepository fuelPumperAttendanceRepository;
+    @Autowired
+    private FuelAdminRepository fuelAdminRepository;
+    @Autowired
+    private ChatRepository chatRepository;
 
     @Override
     public FuelStation addFuelStation(FuelStation fuelStation) {
@@ -71,5 +75,21 @@ public class FuelStationServiceImpl implements FuelStationService {
         return fuelPumperAttendanceRepository.findAll();
     }
 
+    @Override
+    public List<FuelAdmin> viewFuelAdmin() {
+        return fuelAdminRepository.findAll();
+    }
+
+    @Override
+    public List<Chat> getChat() {
+        return chatRepository.findAll();
+    }
+
+    @Override
+    public Chat addChat(Chat chat) {
+        String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss"));
+        chat.setChatId("chat"+dateTime);
+        return chatRepository.save(chat);
+    }
 
 }

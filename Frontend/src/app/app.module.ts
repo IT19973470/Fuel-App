@@ -28,6 +28,9 @@ import { UpdateProfileComponent } from './content/customer/update-profile/update
 import { RegisterPumperComponent } from './content/fuel-station/register-pumper/register-pumper.component';
 import {DatePipe} from "@angular/common";
 import { RegisterFuelAdminComponent } from './register/register-fuel-admin/register-fuel-admin.component';
+import { ReportsComponent } from './content/fuel-station/reports/reports.component';
+import { OrderComponent } from './content/fuel-station/order/order.component';
+import {ScrollingModule} from "@angular/cdk/scrolling";
 
 @NgModule({
   declarations: [
@@ -51,7 +54,9 @@ import { RegisterFuelAdminComponent } from './register/register-fuel-admin/regis
     UpdateQuotaComponent,
     UpdateProfileComponent,
     RegisterPumperComponent,
-    RegisterFuelAdminComponent
+    RegisterFuelAdminComponent,
+    ReportsComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +64,8 @@ import { RegisterFuelAdminComponent } from './register/register-fuel-admin/regis
     QRCodeModule,
     ZXingScannerModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ScrollingModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

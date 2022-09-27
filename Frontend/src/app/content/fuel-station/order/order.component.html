@@ -1,0 +1,122 @@
+<div class="row" style="margin: 80px 0px 0px 0px" xmlns="http://www.w3.org/1999/html">
+  <div class="col-md-8 col-sm-12">
+    <span style="font-weight: bold;color: #b68003;font-size: 21px">Pumper's Attendance</span>
+    <table class="table" width="100%" style="margin-top: 20px" border="1px solid black">
+      <thead class="thead-dark">
+      <th>#</th>
+      <th>Delaer</th>
+      <th>Location</th>
+      <th>Contact</th>
+      <th>Status</th>
+      <th>Order</th>
+      </thead>
+        <tbody>
+          <tr *ngFor="let d1 of fuelAdmin let i = index">
+        <th scope="row">{{i+1}}</th>
+        <th>{{d1.nic}}-{{d1.name}}</th>
+        <td>{{d1.address}}</td>
+        <td>{{d1.contactNumber}}</td>
+        <td>1</td>
+        <td><button><i class="fa-solid fa-plus nav_icon"></i></button></td>
+          </tr>
+        </tbody>
+
+
+
+    </table>
+
+
+  </div>
+
+
+
+<!--  <ul class="list">-->
+<!--    <cdk-virtual-scroll-viewport  style="height: 500px" itemSize="90" >-->
+<!--      <ng-container *cdkVirtualFor="let n of fuelAdmin">-->
+<!--        <li> {{n.nic}} </li>-->
+<!--      </ng-container>-->
+<!--    </cdk-virtual-scroll-viewport>-->
+<!--  </ul>-->
+  <div class="col-md-4 col-sm-12" style="border:1px solid grey;borderRadius: 10px;marginTop: 15px; margin-bottom:10px;padding: 10px">
+    <div class="container" style="min-height: calc(110vh - 325px)">
+      <div class="row" style="background-color: #1da1f2;min-height: calc(10vh - 25px);borderRadius: 10px">
+        <div class="col-1" style> <h3 style="color: white;margin-top: 10px">Chat</h3></div>
+        <div class="col-1">
+          <div style="background-color:red;margin-top: 10px; margin-left: 50px; borderRadius:50%;color: white;height: 30px;width: 30px;display: block">
+            <span style="margin-left: 10px">4</span></div>
+          </div>
+      </div>
+      <div class="row">
+      <div style="width: 100%">
+            <div style="width: 100%">
+              <cdk-virtual-scroll-viewport  style="height: 200px;width: 100%" itemSize="1" >
+            <ng-container *ngFor="let chat of chatyou">
+            <div class="row" style="width: 100%; margin-left: 10px">
+              <div class="col-10" *ngIf="chat['chaterName']!=c.chaterName">
+                <div class="row" >
+                  <div class="col-6"></div>
+                  <div class="col-6" style="border:1px solid grey; borderRadius: 10px;marginTop: 15px; padding: 10px" >
+                    <div>
+                      <span style="fontWeight: bold">{{chat['msg']}}</span>
+                    </div>
+                    <div style="display:flex; justifyContent: right">
+                      <span style="font-size: 12px;">{{chat['chaterName']}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-10" *ngIf="chat['chaterName']==c.chaterName">
+                <div >
+                  <div class="row" >
+                    <div class="col-6" style="border:1px solid grey;borderRadius: 10px;marginTop: 15px;padding: 10px">
+                      <div>
+                        <span style="fontWeight:bold">{{chat['msg']}}</span>
+                      </div>
+                      <div style="display:flex; justifyContent: right">
+                        <span style="fontSize: 12px">{{chat['chaterName']}}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+            </ng-container>
+          </cdk-virtual-scroll-viewport>
+          <hr/>
+          <div class="row"  style="border:1px solid grey;borderRadius: 10px;marginTop: 15px;padding: 10px; margin-bottom: 12px">
+                      <div class="col-10" style="margin-bottom: 12px; margin-left: auto; margin-right: auto">
+                      <form  #chatapplication="ngForm" (ngSubmit)="chatapplication.form.valid && onSubmit()" novalidate class="signUp" action="" method="get">
+                        <div class="row">
+                          <div class="col-10">
+                            <textarea name="name"   style="border:1px solid grey; width: 100%; borderRadius: 10px;marginTop: 15px; background-color: #cccccc; padding: 10px" [(ngModel)]="c.msg"></textarea>
+                          </div>
+                          <div class="col-2">
+                            <button class="btn btn-warning" style="fontWeight: bold;marginTop: 25px;" type="submit">
+                              Send
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+          </div>
+<!--          <div class="row" style="display: flex; width: 100%; marginTop: 20px; float:right;">-->
+<!--            <div class="col-2" style="fontWeight: bold">Message :</div>-->
+<!--            <div class="col-2" style="fontWeight: bold">-->
+<!--            </div>-->
+<!--            <form  novalidate class="signUp" action="" method="get">-->
+<!--              <div class="col-6">-->
+<!--                <textarea name="name"  style="border:1px solid grey; borderRadius: 10px;marginTop: 15px; background-color: #cccccc; padding: 10px">You</textarea>-->
+<!--              </div>-->
+<!--              <div class="col-1">-->
+<!--                <button class="btn btn-warning" style="fontWeight: bold" type="submit">-->
+<!--                  Send-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </form>-->
+<!--          </div>-->
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>

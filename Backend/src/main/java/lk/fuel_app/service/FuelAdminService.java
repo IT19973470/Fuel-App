@@ -10,4 +10,5 @@ public interface FuelAdminService {
     FuelAdminStockIn addStockIn(FuelAdminStockIn fuelAdminStockIn);
     FuelAdminStockOut addStockOut(FuelAdminStockOut fuelAdminStockOut);
     List<FuelAdminStockIn> viewStockIn();
+
 }

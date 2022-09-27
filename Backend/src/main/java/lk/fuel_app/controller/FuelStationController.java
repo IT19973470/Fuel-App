@@ -1,5 +1,6 @@
 package lk.fuel_app.controller;
 
+import lk.fuel_app.entity.Chat;
 import lk.fuel_app.entity.FuelStation;
 import lk.fuel_app.entity.FuelStock;
 import lk.fuel_app.service.FuelStationService;
@@ -36,6 +37,19 @@ public class FuelStationController {
     @GetMapping(value = "/getAttendence")
     public ResponseEntity getAttendence() {
         return ResponseEntity.ok(fuelStationService.getAttendence());
+    }
+    @GetMapping(value = "/getAdmin")
+    public ResponseEntity getAdmin() {
+        return ResponseEntity.ok(fuelStationService.viewFuelAdmin());
+    }
+
+    @GetMapping(value = "/getchat")
+    public ResponseEntity getAllChats(){
+        return ResponseEntity.ok(fuelStationService.getChat());
+    }
+    @PostMapping(value = "/addChat")
+    public ResponseEntity addChats(@RequestBody Chat chat){
+        return ResponseEntity.ok(fuelStationService.addChat(chat));
     }
 
 }
