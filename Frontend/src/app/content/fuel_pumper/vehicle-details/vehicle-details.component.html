@@ -1,0 +1,120 @@
+<div class="row" style="padding: 20px;display: flex;justify-content: flex-start; margin-left: 170px">
+  <div class="">
+    <div class="mb-3">
+      <span style="font-weight: bold;color: #b68003;font-size: 25px">Vehicle Details</span>
+    </div>
+    <div class="card">
+      <div class="card-body">
+        <h3 class="card-title"></h3>
+        <div class="row" align="right">
+          <div class="col-2">
+            <label>Filter by Vehicle Type:</label>
+          </div>
+          <div class="col-2">
+            <select [(ngModel)]="vehicleType" (change)="searchByType()" style="margin-right: 20px;margin-left: 20px;"
+                    class="btn btn-outline-primary dropdown-toggle">
+              <option value="All">All</option>
+              <option value="Car">Car</option>
+              <option value="Van">Van</option>
+              <option value="Bike">Bike</option>
+              <option value="Bus">Bus</option>
+              <option value="Three Wheeler">Three Wheeler</option>
+              <option value="Lorry">Lorry</option>
+            </select>
+          </div>
+          <div class="col-2">
+            <label>Filter by Vehicle Date:</label>
+          </div>
+          <div class="col-2">
+            <input type="date" [(ngModel)]="date" name="date" class="form-control border border-primary"
+                   (ngModelChange)="searchByDate()">
+          </div>
+        </div>
+
+        <br>
+        <div class="table-responsive col-lg-11">
+          <table id="countryTable" class="table table-striped">
+
+            <thead>
+            <tr>
+              <th>Vehicle Number</th>
+              <th>Vehicle Type</th>
+              <th>Date</th>
+              <th>Fuel Amount</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let v of vehicles">
+              <!--              <ng-container *ngIf="(vehicleType != 'Car' && v.customer.vehicleType == vehicleType)||(vehicleType == 'Car' && v.customer.vehicleType != vehicleType)">-->
+              <td>{{v.customer.vehicleNumber}}</td>
+              <td>{{v.customer.vehicleType}}</td>
+              <td>{{v.pumpedAtDate}}</td>
+              <td>{{v.fuelPumped}}</td>
+              <!--              </ng-container>-->
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class=" col-lg-11">
+          <hr>
+        </div>
+        <div class="col-lg-11" align="right">
+          <button class="btn btn-outline-info btn-lg" style="width: 310px; height: 50px">
+            Generate Report
+          </button>
+          <button class="btn btn-outline-info btn-lg " style="margin-left: 15px; width: 310px; height: 50px"
+                  data-bs-target="#search_fuel_report" data-bs-toggle="modal">
+            Generate Summary Report
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" style="width: 2000px" id="search_fuel_report" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pagetitle">
+          <span style="font-size: 25px;font-weight: bold;color: #750202">Fuel Report
+          </span>
+        </div>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body">
+
+            <section class="section">
+              <div align="right" class="mb-4"><label class="border border-dark rounded text-center"
+                                                     style="width: 50px">{{vehicleType}}</label>
+              </div>
+              <div align="right" class="mb-4" ><label class="border border-dark rounded text-center"
+                                                     style="width: 90px;">{{date}}</label></div>
+              <table id="leadTable" class="table table-striped" dense>
+                <thead>
+                <tr style="background-color: aliceblue;">
+                  <th>Vehicle Type</th>
+                  <th>Total Fuel Amount (L)</th>
+                  <th>Total Vehicle Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <td>{{vehicleType}}</td>
+                  <td>{{totalFuelAmount}}</td>
+                  <td>{{totalVehicleCount}}</td>
+                </tr>
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
