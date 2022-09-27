@@ -6,36 +6,90 @@
     <div style="margin-bottom: 20px">
       <span style="font-weight: bold;color: #b68003;font-size: 21px">Stock Out Form</span>
     </div>
-    <form style="padding-top: 20px;background-color: white;" (ngSubmit)="addFuelStockOut()">
-    <span>Fuel Type</span>
-    <select class="form-control" name="type" [(ngModel)]="fuelStockOut.fuelType">
-      <option value="">Select</option>
-      <option value="car">Petrol 92</option>
-      <option value="car">Petrol 95</option>
-      <option value="car">Super Diesel</option>
-      <option value="car">Auto Diesel</option>
-    </select>
-    <span>Destination</span>
-    <select class="form-control" name="destination"[(ngModel)]="fuelStockOut.fuelStation.id">
-      <option value="">Select</option>
-      <option value="1">Bandarawela</option>
-      <option value="2">Colombo</option>
-    </select>
-    <span>Date</span>
-    <input type="date" class="form-control" name="date" [(ngModel)]="fuelStockOut.date">
-    <span>Time</span>
-    <input type="time" class="form-control" name="time" [(ngModel)]="fuelStockOut.time">
-    <span>Amount</span>
-    <input type="number" placeholder="Enter Amount"  name="amount" class="form-control" [(ngModel)]="fuelStockOut.amount">
-    <span>Vehicle Number</span>
-    <input type="text" placeholder="Enter Vehicle Number" class="form-control" name="vehicleNumber" [(ngModel)]="fuelStockOut.vehicleNumber">
-    <span>Driver Name</span>
-    <input type="text" placeholder="Enter Driver Name" class="form-control" name="driverName" [(ngModel)]="fuelStockOut.driverName">
-    <span>Driver Number</span>
-    <input type="text" placeholder="Enter Driver Number" class="form-control" name="number"  [(ngModel)]="fuelStockOut.number">
-    <div style="text-align: right;margin-top: 30px">
-      <button class="btn btn-success">Supply Stock</button>
-    </div>
+    <form style="padding-top: 10px;background-color: white;" #stockOutForm="ngForm"
+          (ngSubmit)="stockOutForm.form.valid && addFuelStockOut()" novalidate>
+
+      <div>Fuel Type</div>
+      <select class="form-control" name="type" [(ngModel)]="fuelStockOut.fuelType"
+              #fuelType="ngModel" required>
+        <option value="">Select</option>
+        <option value="car">Petrol 92</option>
+        <option value="car">Petrol 95</option>
+        <option value="car">Super Diesel</option>
+        <option value="car">Auto Diesel</option>
+      </select>
+      <div *ngIf="(fuelType.touched || stockOutForm.submitted) && fuelType.errors?.required"
+           class="validErr">
+        Fuel Type is required
+      </div>
+
+      <div style="margin-top: 20px">Destination</div>
+      <select class="form-control" name="destination" [(ngModel)]="fuelStockOut.fuelStation.id"
+              #fuelStation="ngModel" required>
+        <option value="">Select</option>
+        <option value="1">Bandarawela</option>
+        <option value="2">Colombo</option>
+      </select>
+      <div *ngIf="(fuelStation.touched || stockOutForm.submitted) && fuelStation.errors?.required"
+           class="validErr">
+        Destination is required
+      </div>
+
+      <div style="margin-top: 20px">Date</div>
+      <input type="date" class="form-control" name="date" [(ngModel)]="fuelStockOut.date"
+             #date="ngModel" required>
+      <div *ngIf="(date.touched || stockOutForm.submitted) && date.errors?.required"
+           class="validErr">
+        Date is required
+      </div>
+
+      <div style="margin-top: 20px">Time</div>
+      <input type="time" class="form-control" name="time" [(ngModel)]="fuelStockOut.time"
+             #time="ngModel" required>
+      <div *ngIf="(time.touched || stockOutForm.submitted) && time.errors?.required"
+           class="validErr">
+        Time is required
+      </div>
+
+      <div style="margin-top: 20px">Amount</div>
+      <input type="number" placeholder="Enter Amount" name="amount" class="form-control"
+             [(ngModel)]="fuelStockOut.amount"
+             #amount="ngModel" required>
+      <div *ngIf="(amount.touched || stockOutForm.submitted) && amount.errors?.required"
+           class="validErr">
+        Amount is required
+      </div>
+
+      <div style="margin-top: 20px">Vehicle Number</div>
+      <input type="text" placeholder="Enter Vehicle Number" class="form-control" name="vehicleNumber"
+             [(ngModel)]="fuelStockOut.vehicleNumber"
+             #vehicleNumber="ngModel" required>
+      <div *ngIf="(vehicleNumber.touched || stockOutForm.submitted) && vehicleNumber.errors?.required"
+           class="validErr">
+        Vehicle Number is required
+      </div>
+
+      <div style="margin-top: 20px">Driver Name</div>
+      <input type="text" placeholder="Enter Driver Name" class="form-control" name="driverName"
+             [(ngModel)]="fuelStockOut.driverName"
+             #driverName="ngModel" required>
+      <div *ngIf="(driverName.touched || stockOutForm.submitted) && driverName.errors?.required"
+           class="validErr">
+        Driver Name is required
+      </div>
+
+      <div style="margin-top: 20px">Driver Number</div>
+      <input type="text" placeholder="Enter Driver Number" class="form-control" name="number"
+             [(ngModel)]="fuelStockOut.number"
+             #number="ngModel" required>
+      <div *ngIf="(number.touched || stockOutForm.submitted) && number.errors?.required"
+           class="validErr">
+        Driver Number is required
+      </div>
+
+      <div style="text-align: right;margin-top: 30px">
+        <button class="btn btn-success">Supply Stock</button>
+      </div>
     </form>
   </div>
 </div>
