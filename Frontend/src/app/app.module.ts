@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './navbar/navbar.component';
@@ -28,6 +27,9 @@ import { UpdateProfileComponent } from './content/customer/update-profile/update
 import { RegisterPumperComponent } from './content/fuel-station/register-pumper/register-pumper.component';
 import {DatePipe} from "@angular/common";
 import { RegisterFuelAdminComponent } from './register/register-fuel-admin/register-fuel-admin.component';
+import { ReportsComponent } from './content/fuel-station/reports/reports.component';
+import { OrderComponent } from './content/fuel-station/order/order.component';
+import {ScrollingModule} from "@angular/cdk/scrolling";
 import { VehicleDetailsComponent } from './content/fuel_pumper/vehicle-details/vehicle-details.component';
 import {VehicleDetailsFilterPipe} from "./content/fuel_pumper/vehicle-details/vehicle-details-filter.pipe";
 
@@ -55,6 +57,8 @@ import {VehicleDetailsFilterPipe} from "./content/fuel_pumper/vehicle-details/ve
     UpdateProfileComponent,
     RegisterPumperComponent,
     RegisterFuelAdminComponent,
+    ReportsComponent,
+    OrderComponent,
     VehicleDetailsComponent,
     VehicleDetailsFilterPipe
   ],
@@ -65,10 +69,7 @@ import {VehicleDetailsFilterPipe} from "./content/fuel_pumper/vehicle-details/ve
     ZXingScannerModule,
     HttpClientModule,
     FormsModule,
-
-
-
-
+    ScrollingModule
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]
