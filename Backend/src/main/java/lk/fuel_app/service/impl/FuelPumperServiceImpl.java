@@ -1,9 +1,11 @@
 package lk.fuel_app.service.impl;
 
+import lk.fuel_app.entity.Customer;
 import lk.fuel_app.entity.CustomerFuelStation;
 import lk.fuel_app.entity.FuelPumper;
 import lk.fuel_app.entity.FuelPumperAttendance;
 import lk.fuel_app.repository.CustomerFuelStationRepository;
+import lk.fuel_app.repository.CustomerRepository;
 import lk.fuel_app.repository.FuelPumperAttendanceRepository;
 import lk.fuel_app.repository.FuelPumperRepository;
 import lk.fuel_app.service.FuelPumperService;
@@ -14,6 +16,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,10 +24,15 @@ public class FuelPumperServiceImpl implements FuelPumperService {
 
     @Autowired
     private CustomerFuelStationRepository customerFuelStationRepository;
+
     @Autowired
     private FuelPumperRepository fuelPumperRepository;
+
     @Autowired
     private FuelPumperAttendanceRepository fuelPumperAttendanceRepository;
+
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Override
     public CustomerFuelStation addCustomerFuel(CustomerFuelStation customerFuelStation) {
@@ -73,5 +81,27 @@ public class FuelPumperServiceImpl implements FuelPumperService {
     public FuelPumperAttendance addFuelPumperAttendance(FuelPumperAttendance fuelPumperAttendance) {
         fuelPumperAttendance.setId(fuelPumperAttendance.getFuelPumper().getNic() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
         return fuelPumperAttendanceRepository.save(fuelPumperAttendance);
+    }
+
+    @Override
+    public List<CustomerFuelStation> getAllVehicleDetails() {
+        return customerFuelStationRepository.findAll();
+    }
+
+    @Override
+    public List<CustomerFuelStation> getVehicleDetailsByType(String vehicleType) {
+        return customerFuelStationRepository.getVehicleDetailsByType(vehicleType);
+    }
+
+    @Override
+    public List<CustomerFuelStation> getVehicleDetailsByDate(String date) {
+        LocalDate localDate = LocalDate.parse(date);
+        return customerFuelStationRepository.getVehicleDetailsByDate(localDate);
+    }
+
+    @Override
+    public List<CustomerFuelStation> getVehicleDetailsByTypeAndDate(String vehicleType, String date) {
+        LocalDate localDate = LocalDate.parse(date);
+        return customerFuelStationRepository.getVehicleDetailsByTypeAndDate(vehicleType, localDate);
     }
 }

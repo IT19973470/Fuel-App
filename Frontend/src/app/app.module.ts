@@ -28,6 +28,9 @@ import { UpdateProfileComponent } from './content/customer/update-profile/update
 import { RegisterPumperComponent } from './content/fuel-station/register-pumper/register-pumper.component';
 import {DatePipe} from "@angular/common";
 import { RegisterFuelAdminComponent } from './register/register-fuel-admin/register-fuel-admin.component';
+import { VehicleDetailsComponent } from './content/fuel_pumper/vehicle-details/vehicle-details.component';
+import {VehicleDetailsFilterPipe} from "./content/fuel_pumper/vehicle-details/vehicle-details-filter.pipe";
+
 
 @NgModule({
   declarations: [
@@ -51,7 +54,9 @@ import { RegisterFuelAdminComponent } from './register/register-fuel-admin/regis
     UpdateQuotaComponent,
     UpdateProfileComponent,
     RegisterPumperComponent,
-    RegisterFuelAdminComponent
+    RegisterFuelAdminComponent,
+    VehicleDetailsComponent,
+    VehicleDetailsFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -59,7 +64,11 @@ import { RegisterFuelAdminComponent } from './register/register-fuel-admin/regis
     QRCodeModule,
     ZXingScannerModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+
+
+
+
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

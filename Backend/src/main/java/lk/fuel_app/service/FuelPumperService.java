@@ -1,8 +1,13 @@
 package lk.fuel_app.service;
 
+import lk.fuel_app.entity.Customer;
 import lk.fuel_app.entity.CustomerFuelStation;
 import lk.fuel_app.entity.FuelPumper;
 import lk.fuel_app.entity.FuelPumperAttendance;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Optional;
 
 public interface FuelPumperService {
 
@@ -15,4 +20,12 @@ public interface FuelPumperService {
     FuelPumper addFuelPumper(FuelPumper fuelPumper);
 
     FuelPumperAttendance addFuelPumperAttendance(FuelPumperAttendance fuelPumperAttendance);
+
+    List<CustomerFuelStation> getAllVehicleDetails();
+
+    List<CustomerFuelStation> getVehicleDetailsByType(String vehicleType);
+
+    List<CustomerFuelStation> getVehicleDetailsByDate(String date);
+
+    List<CustomerFuelStation> getVehicleDetailsByTypeAndDate(String vehicleType, String date);
 }
