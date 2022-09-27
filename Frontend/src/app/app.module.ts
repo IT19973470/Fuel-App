@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {NavbarComponent} from './navbar/navbar.component';
@@ -31,6 +30,9 @@ import { RegisterFuelAdminComponent } from './register/register-fuel-admin/regis
 import { ReportsComponent } from './content/fuel-station/reports/reports.component';
 import { OrderComponent } from './content/fuel-station/order/order.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
+import { VehicleDetailsComponent } from './content/fuel_pumper/vehicle-details/vehicle-details.component';
+import {VehicleDetailsFilterPipe} from "./content/fuel_pumper/vehicle-details/vehicle-details-filter.pipe";
+
 
 @NgModule({
   declarations: [
@@ -56,7 +58,9 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
     RegisterPumperComponent,
     RegisterFuelAdminComponent,
     ReportsComponent,
-    OrderComponent
+    OrderComponent,
+    VehicleDetailsComponent,
+    VehicleDetailsFilterPipe
   ],
   imports: [
     BrowserModule,
