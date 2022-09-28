@@ -32,4 +32,5 @@ public class FuelAdminController {
         return ResponseEntity.ok(fuelAdminService.viewStockIn());
     }
 
+
 }
