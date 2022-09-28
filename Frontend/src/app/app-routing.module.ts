@@ -16,6 +16,7 @@ import {FuelAvailabilityAdminComponent} from "./content/admin/fuel-availability-
 import {StockInAdminComponent} from "./content/admin/stock-in-admin/stock-in-admin.component";
 import {StockOutAdminComponent} from "./content/admin/stock-out-admin/stock-out-admin.component";
 import {VehicleDetailsComponent} from "./content/fuel_pumper/vehicle-details/vehicle-details.component";
+import {FuelReportComponent} from "./content/fuel_pumper/fuel-report/fuel-report.component";
 
 const routes: Routes = [
   {
@@ -78,6 +79,10 @@ const routes: Routes = [
   {
     path: 'vehicle_details',
     component: VehicleDetailsComponent,
+  },
+  {
+    path: 'fuel_report',
+    component: FuelReportComponent,
   }
 ];
 

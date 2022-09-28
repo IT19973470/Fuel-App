@@ -2,6 +2,8 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
+import {Result} from "../content/fuel_pumper/result";
+
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +45,14 @@ export class FuelPumperService {
 
   getVehicleDetailsByTypeAndDate(vehicleType: string, date: any): Observable<any> {
     return this.http.get<any>(`${this.baseURL+"/fuelPumper/getVehicleDetailsByDate"}/${vehicleType}/${date}`);
+  }
+
+  getVehicleCountAndFuelAmount(vehicleType: string): Observable<any> {
+    return this.http.get<any>(`${this.baseURL+"/fuelPumper/getVehicleCountAndFuelAmount"}/${vehicleType}`);
+  }
+
+  getAllVehicleDetailsReport():Observable<Result>{
+    return this.http.get<Result>(`${this.baseURL+"/fuelPumper/allVehicleDetailsReport"}`);
   }
 
   newFuelPumper() {

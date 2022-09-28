@@ -104,4 +104,12 @@ public class FuelPumperServiceImpl implements FuelPumperService {
         LocalDate localDate = LocalDate.parse(date);
         return customerFuelStationRepository.getVehicleDetailsByTypeAndDate(vehicleType, localDate);
     }
+
+//    @Override
+//    public List<CustomerFuelStation> getVehicleCountAndFuelAmount(String vehicleType) {
+//        Integer noOfVehicles, fuelAmount;
+//        List<CustomerFuelStation> customerFuelStations = customerFuelStationRepository.getVehicleCountAndFuelAmount(vehicleType);
+//
+//        return customerFuelStations;
+//    }
 }

@@ -30,6 +30,7 @@ import {DatePipe} from "@angular/common";
 import { RegisterFuelAdminComponent } from './register/register-fuel-admin/register-fuel-admin.component';
 import { VehicleDetailsComponent } from './content/fuel_pumper/vehicle-details/vehicle-details.component';
 import {VehicleDetailsFilterPipe} from "./content/fuel_pumper/vehicle-details/vehicle-details-filter.pipe";
+import { FuelReportComponent } from './content/fuel_pumper/fuel-report/fuel-report.component';
 
 
 @NgModule({
@@ -56,7 +57,8 @@ import {VehicleDetailsFilterPipe} from "./content/fuel_pumper/vehicle-details/ve
     RegisterPumperComponent,
     RegisterFuelAdminComponent,
     VehicleDetailsComponent,
-    VehicleDetailsFilterPipe
+    VehicleDetailsFilterPipe,
+    FuelReportComponent
   ],
   imports: [
     BrowserModule,
@@ -65,7 +67,6 @@ import {VehicleDetailsFilterPipe} from "./content/fuel_pumper/vehicle-details/ve
     ZXingScannerModule,
     HttpClientModule,
     FormsModule,
-
 
 
 

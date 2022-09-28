@@ -28,4 +28,6 @@ public interface FuelPumperService {
     List<CustomerFuelStation> getVehicleDetailsByDate(String date);
 
     List<CustomerFuelStation> getVehicleDetailsByTypeAndDate(String vehicleType, String date);
+
+//    List<CustomerFuelStation> getVehicleCountAndFuelAmount(String vehicleType);
 }
