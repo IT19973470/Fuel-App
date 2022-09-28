@@ -1,3 +1,21 @@
+<div style="margin-top: 20px;display: flex">
+  <div style="display: flex;justify-content: left;margin-top: 20px;margin-left: 30px">
+    <select class="form-control" style="width: 200px;margin-right: 10px">
+      <option value="">District</option>
+      <option value="car">Car</option>
+    </select>
+    <button class="btn btn-warning">Search</button>
+  </div>
+
+  <div style="display: flex;justify-content: right;margin-top: 20px;width: calc(100% - 200px);margin-right: 30px">
+    <select class="form-control" style="width: 200px;margin-right: 10px">
+      <option value="">Order By</option>
+      <option value="car">Car</option>
+    </select>
+    <button class="btn btn-warning">Search</button>
+  </div>
+</div>
+
 <div class="row" style="margin-left: 0px;margin-right: 0px">
   <div class="col-12" style="padding: 20px 40px 20px 40px">
     <div class="row" style="border: 2px solid black">
@@ -14,20 +32,52 @@
             <div>Petrol 95 - 20L</div>
           </div>
         </div>
+        <div style="margin-top: 40px">
+          <span style="font-weight: bold">Fuel Supply per hour</span>
+          <div style="margin-left: 20px;margin-top: 10px">
+            <div>Petrol 92 - 10L</div>
+            <div>Petrol 95 - 20L</div>
+          </div>
+        </div>
+        <div style="margin-top: 40px">
+          <span style="font-weight: bold">Next Fuel availability</span>
+          <div style="margin-left: 20px;margin-top: 10px">
+            <div>Petrol 92 - 10L</div>
+            <div>Petrol 95 - 20L</div>
+          </div>
+        </div>
       </div>
 
       <div class="col-4" style="border-right: 2px solid black;margin-top: 20px;margin-bottom: 20px">
         <div style="margin: 10px 20px 20px 20px;text-align: center;border-bottom: 2px solid black;padding-bottom: 10px">
           <div style="font-weight: bold;margin-bottom: 30px">Vehicle count based on availability</div>
-          <div>Cars - 300</div>
-          <div>Bikes - 400</div>
+          <div><span style="font-weight: bold">Cars -</span> 300</div>
+          <div><span style="font-weight: bold">Bikes -</span> 400</div>
+          <div><span style="font-weight: bold">Three Wheelers -</span> 400</div>
+          <div><span style="font-weight: bold">Buses -</span> 400</div>
         </div>
         <div style="text-align: center">
           <div style="font-weight: bold;margin-bottom: 30px">Last vehicles scanned</div>
+          <div>
+            <span style="font-weight: bold">Cars -</span> 300 /
+            <span style="font-weight: bold">Pumped -</span> 1500
+          </div>
+          <div>
+            <span style="font-weight: bold">Bikes -</span> 400
+            <span style="font-weight: bold">Pumped -</span> 1500
+          </div>
+          <div>
+            <span style="font-weight: bold">Three Wheelers -</span> 400 /
+            <span style="font-weight: bold">Pumped -</span> 1500
+          </div>
+          <div>
+            <span style="font-weight: bold">Buses -</span> 400 /
+            <span style="font-weight: bold">Pumped -</span> 1500
+          </div>
         </div>
       </div>
 
-      <div class="col-4" style="margin-top: 20px;margin-bottom: 20px;text-align: center">
+      <div class="col-4" style="margin-top: 20px;margin-bottom: 20px;display: grid;justify-content: center;align-content: center">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d495.95751391288536!2d80.214118!3d6.0412888!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1664141585566!5m2!1sen!2slk"
           width="350" height="250" style="border:0;" allowfullscreen="" loading="lazy"
