@@ -8,6 +8,9 @@ import {environment} from "../../environments/environment";
 })
 export class FuelAdminService {
 
+  fuelIn;
+  fuelOut;
+
   constructor(private http: HttpClient) {
   }
 
@@ -25,6 +28,23 @@ export class FuelAdminService {
   getFuelAdminStockIn(): Observable<any> {
     return this.http.get<any>(environment.backend_url + "/fuel_admin/getFuelStockIn");
   }
+  getFuelAdminStockOut(): Observable<any> {
+    return this.http.get<any>(environment.backend_url + "/fuel_admin/getFuelStockOut");
+  }
+
+  updateStockIn(fuelIn): Observable<any> {
+    return this.http.put<any>(environment.backend_url + "/fuel_admin/updatefuelStockIn/" + fuelIn.id, fuelIn);
+  }
+
+  updateStockOut(fuelOut): Observable<any> {
+    return this.http.put<any>(environment.backend_url + "/fuel_admin/updatefuelStockOut/" + fuelOut.id, fuelOut);
+  }
+
+  deleteStockIn(fuelIn): Observable<any> {
+    return this.http.delete<any>(environment.backend_url + '/fuelPumper/deleteStockIn/' + fuelIn.id);
+  }
+
+
 
   newFuelAdmin() {
     return {
