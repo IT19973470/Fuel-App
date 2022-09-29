@@ -22,19 +22,24 @@ export class FuelStationService {
   getFuelStock(id): Observable<any> {
     return this.http.get<any>(environment.backend_url + "/fuel_station/getFuelStock/" + id);
   }
+
   getFuelStockIn(id): Observable<any> {
     return this.http.get<any>(environment.backend_url + "/fuel_station/getAvailableStocks/" + id);
   }
+
   getAttendence(): Observable<any> {
     return this.http.get<any>(environment.backend_url + "/fuel_station/getAttendence/");
   }
+
   getFuelAdmin(): Observable<any> {
     return this.http.get<any>(environment.backend_url + "/fuel_station/getAdmin/");
   }
-  getAllChats(): Observable<any>{
+
+  getAllChats(): Observable<any> {
     return this.http.get<any>(environment.backend_url + "/fuel_station/getchat");
   }
-  addChat(setItem: any): Observable<any>{
+
+  addChat(setItem: any): Observable<any> {
     console.log(setItem)
     return this.http.post(environment.backend_url + "/fuel_station/addChat", setItem);
   }
@@ -45,6 +50,10 @@ export class FuelStationService {
       id: '',
       name: '',
       address: '',
+      district:'',
+      fuelStationPlace: {
+        id: ''
+      },
       chassisNumber: '',
       appUser: {
         email: '',

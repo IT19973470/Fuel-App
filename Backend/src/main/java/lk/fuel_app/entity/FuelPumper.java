@@ -27,6 +27,13 @@ public class FuelPumper {
         this.nic = fuelPumper.nic;
         this.name = fuelPumper.name;
         this.address = fuelPumper.address;
-        this.fuelStation = fuelPumper.getFuelStation();
+        if (fuelPumper.getFuelStation() != null) {
+            this.fuelStation = new FuelStation(fuelPumper.getFuelStation());
+        }
     }
+
+//    public FuelPumper(FuelPumper fuelPumper, FuelStation fuelStation) {
+//        this(fuelPumper);
+//        this.fuelStation = fuelStation;
+//    }
 }

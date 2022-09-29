@@ -1,5 +1,6 @@
 package lk.fuel_app.service;
 
+import lk.fuel_app.dto.FuelAvailabilityDTO;
 import lk.fuel_app.entity.Customer;
 import lk.fuel_app.entity.CustomerFuelStation;
 
@@ -20,4 +21,5 @@ public interface CustomerService {
 
     Customer sendOTP(String email, String contactNumber);
 
+    List<FuelAvailabilityDTO> fuelAvailability(String place, String orderBy);
 }

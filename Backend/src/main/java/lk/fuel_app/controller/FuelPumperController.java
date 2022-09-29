@@ -63,4 +63,9 @@ public class FuelPumperController {
     public ResponseEntity getVehicleDetailsByTypeAndDate(@PathVariable String vehicleType, @PathVariable String date) {
         return ResponseEntity.ok(fuelPumperService.getVehicleDetailsByTypeAndDate(vehicleType, date));
     }
+
+    @GetMapping(value = "/getFuelTypes")
+    public ResponseEntity getFuelTypes() {
+        return ResponseEntity.ok(fuelPumperService.getFuelTypes());
+    }
 }
