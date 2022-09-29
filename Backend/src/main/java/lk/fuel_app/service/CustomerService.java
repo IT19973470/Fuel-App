@@ -21,5 +21,5 @@ public interface CustomerService {
 
     Customer sendOTP(String email, String contactNumber);
 
-    List<FuelAvailabilityDTO> fuelAvailability(String district, String orderBy);
+    List<FuelAvailabilityDTO> fuelAvailability(String place, String orderBy);
 }

@@ -18,6 +18,7 @@ public class FuelType {
     @Id
     private String id;
     private String name;
+    private int fuelOrder;
 
     public FuelType(FuelType fuelType) {
         this.id = fuelType.id;

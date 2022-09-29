@@ -30,6 +30,9 @@ public class Customer {
         this.vehicleType = customer.vehicleType;
         this.fuelType = customer.fuelType;
         this.quota = customer.quota;
+        if (customer.getFuelStationPlace() != null) {
+            this.fuelStationPlace = new FuelStationPlace(customer.getFuelStationPlace());
+        }
     }
 
     @ManyToOne

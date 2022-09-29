@@ -49,7 +49,7 @@ public class FuelStationServiceImpl implements FuelStationService {
         List<FuelStock> actualArrivalDesc = fuelStockRepository.getLastFuelPump(id);
         FuelStock fuelStockObj = actualArrivalDesc.get(0);
 //        Integer fuelPumpedVehicleCount = customerFuelStationRepository.getFuelPumpedVehicleCount(id, fuelStockObj.getActualArrival().toLocalDate());
-        List<FuelType> fuelTypes = fuelTypeRepository.findAll();
+        List<FuelType> fuelTypes = fuelTypeRepository.getFuelTypes();
         List<FuelStockDTO> fuelStockDTOS = new ArrayList<>();
         for (FuelType fuelType : fuelTypes) {
             FuelStockDTO fuelStockDTO = new FuelStockDTO();

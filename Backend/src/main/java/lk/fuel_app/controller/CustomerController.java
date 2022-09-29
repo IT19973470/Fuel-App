@@ -53,8 +53,8 @@ public class CustomerController {
         return customerService.sendOTP(email, contactNumber);
     }
 
-    @GetMapping(value = "/fuelAvailability/{district}/{orderBy}")
-    public List<FuelAvailabilityDTO> fuelAvailability(@PathVariable String district, @PathVariable String orderBy) {
-        return customerService.fuelAvailability(district, orderBy);
+    @GetMapping(value = "/fuelAvailability/{place}/{orderBy}")
+    public List<FuelAvailabilityDTO> fuelAvailability(@PathVariable String place, @PathVariable String orderBy) {
+        return customerService.fuelAvailability(place, orderBy);
     }
 }

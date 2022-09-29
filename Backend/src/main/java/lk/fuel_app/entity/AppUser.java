@@ -30,6 +30,9 @@ public class AppUser {
         if (appUser.getFuelPumper() != null) {
             this.fuelPumper = new FuelPumper(appUser.getFuelPumper());
         }
+        if (appUser.getCustomer() != null) {
+            this.customer = new Customer(appUser.getCustomer());
+        }
     }
 
 //    public AppUser(AppUser appUser, FuelPumper fuelPumper) {
@@ -39,6 +42,9 @@ public class AppUser {
 
     @Transient
     private FuelPumper fuelPumper;
+
+    @Transient
+    private Customer customer;
 
     @Transient
     private FuelStation fuelStation;

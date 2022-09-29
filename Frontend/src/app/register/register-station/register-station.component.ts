@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FuelStationService} from "../../_service/fuel-station.service";
 import {Route, Router} from "@angular/router";
 import {LoginService} from "../../login/login.service";
+import {UserService} from "../../_service/user.service";
 
 @Component({
   selector: 'app-register-station',
@@ -15,7 +16,7 @@ export class RegisterStationComponent implements OnInit {
   places
   districtPlaces = []
 
-  constructor(private fuelStationS: FuelStationService, private router: Router, private loginS: LoginService) {
+  constructor(private fuelStationS: FuelStationService, private router: Router, private userS: UserService) {
     this.fuelStation = fuelStationS.newFuelStation()
   }
 
@@ -32,10 +33,10 @@ export class RegisterStationComponent implements OnInit {
   }
 
   setDistricts() {
-    this.districts = this.loginS.districts
+    this.districts = this.userS.districts
   }
 
   getPlaces(district) {
-    this.districtPlaces = this.loginS.getPlaces(district)
+    this.districtPlaces = this.userS.getPlaces(district)
   }
 }

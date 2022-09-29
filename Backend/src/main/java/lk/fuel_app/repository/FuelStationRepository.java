@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface FuelStationRepository extends JpaRepository<FuelStation, String> {
 
-    List<FuelStation> getAllByFuelStationPlaceDistrict(String district);
+    List<FuelStation> getAllByFuelStationPlaceId(String place);
 
 }

@@ -1,8 +1,12 @@
 <div style="margin-top: 20px;display: flex">
   <div style="display: flex;justify-content: left;margin-top: 20px;margin-left: 30px">
-    <select class="form-control" style="width: 200px;margin-right: 10px">
+    <select [(ngModel)]="district" class="form-control" style="width: 200px;margin-right: 10px" (change)="getPlaces($event.target.value)">
       <option value="">District</option>
-      <option value="car">Car</option>
+      <option *ngFor="let district of districts" [value]="district">{{district}}</option>
+    </select>
+    <select [(ngModel)]="place" class="form-control" style="width: 200px;margin-right: 10px">
+      <option value="">Place</option>
+      <option *ngFor="let place of districtPlaces" [value]="place.id">{{place.place}}</option>
     </select>
     <button class="btn btn-warning">Search</button>
   </div>
@@ -16,21 +20,28 @@
   </div>
 </div>
 
-<div class="row" style="margin-left: 0px;margin-right: 0px">
+<div class="row" style="margin-left: 0px;margin-right: 0px" *ngFor="let fuelAvailability of fuelAvailabilities">
   <div class="col-12" style="padding: 20px 40px 20px 40px">
     <div class="row" style="border: 2px solid black">
 
       <div class="col-4" style="border-right: 2px solid black;margin-top: 20px;margin-bottom: 20px">
         <div style="margin-bottom: 30px">
           <span style="font-weight: bold">Fuel Station - </span>
-          <span>Piliyandala</span>
+          <span>{{fuelAvailability.fuelStation}}</span>
         </div>
         <div>
           <span style="font-weight: bold">Available Stock</span>
-          <div style="margin-left: 20px;margin-top: 10px">
-            <div>Petrol 92 - 10L</div>
-            <div>Petrol 95 - 20L</div>
-          </div>
+          <table style="margin-left: 20px;margin-top: 10px">
+            <tr *ngFor="let availableStock of fuelAvailability.availableStock">
+              <td>{{availableStock.fuelType}}</td>
+              <td>{{availableStock.quantity}}L</td>
+            </tr>
+          </table>
+          <!--<div style="margin-left: 20px;margin-top: 10px">-->
+            <!--<div *ngFor="let availableStock of fuelAvailability.availableStock">-->
+              <!--{{availableStock.fuelType}} - {{availableStock.quantity}}L-->
+            <!--</div>-->
+          <!--</div>-->
         </div>
         <div style="margin-top: 40px">
           <span style="font-weight: bold">Fuel Supply per hour</span>

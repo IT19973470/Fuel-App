@@ -20,10 +20,10 @@ public class InitDB {
     @EventListener
     public void appReady(ApplicationReadyEvent event) {
         if (fuelTypeRepository.findAll().size() == 0) {
-            fuelTypeRepository.save(new FuelType("Petrol 92", "Petrol 92"));
-            fuelTypeRepository.save(new FuelType("Petrol 95", "Petrol 95"));
-            fuelTypeRepository.save(new FuelType("Diesel", "Diesel"));
-            fuelTypeRepository.save(new FuelType("Super Diesel", "Super Diesel"));
+            fuelTypeRepository.save(new FuelType("1_Petrol_92", "Petrol 92", 1));
+            fuelTypeRepository.save(new FuelType("2_Petrol_95", "Petrol 95", 2));
+            fuelTypeRepository.save(new FuelType("3_Diesel", "Diesel", 3));
+            fuelTypeRepository.save(new FuelType("4_Super_Diesel", "Super Diesel", 4));
         }
 
         if (fuelStationPlaceRepository.findAll().size() == 0) {

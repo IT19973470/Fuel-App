@@ -101,6 +101,6 @@ public class FuelPumperServiceImpl implements FuelPumperService {
 
     @Override
     public List<FuelType> getFuelTypes() {
-        return fuelTypeRepository.findAll();
+        return fuelTypeRepository.getFuelTypes();
     }
 }

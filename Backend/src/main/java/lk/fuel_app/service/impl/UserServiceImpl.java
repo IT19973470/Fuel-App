@@ -1,9 +1,7 @@
 package lk.fuel_app.service.impl;
 
-import lk.fuel_app.entity.AppUser;
-import lk.fuel_app.entity.FuelPumper;
-import lk.fuel_app.entity.FuelStation;
-import lk.fuel_app.entity.FuelStationPlace;
+import lk.fuel_app.entity.*;
+import lk.fuel_app.repository.CustomerRepository;
 import lk.fuel_app.repository.FuelPumperRepository;
 import lk.fuel_app.repository.FuelStationPlaceRepository;
 import lk.fuel_app.repository.UserRepository;
@@ -24,6 +22,8 @@ public class UserServiceImpl implements UserService {
     private FuelPumperRepository fuelPumperRepository;
     @Autowired
     private FuelStationPlaceRepository fuelStationPlaceRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Override
     public AppUser login(AppUser appUser) {
@@ -37,6 +37,13 @@ public class UserServiceImpl implements UserService {
 //                    FuelStation fuelStation = fuelPumper.getFuelStation();
                     appUserObj.setFuelPumper(new FuelPumper(fuelPumper));
                 }
+            } else if (appUserObj.getUserType().equals("customer")) {
+                Optional<Customer> optionalCustomer = customerRepository.findById(appUserObj.getId());
+                if (optionalCustomer.isPresent()) {
+                    Customer customer = optionalCustomer.get();
+//                    FuelStation fuelStation = fuelPumper.getFuelStation();
+                    appUserObj.setCustomer(new Customer(customer));
+                }
             }
             return new AppUser(appUserObj);
         }
@@ -45,6 +52,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<FuelStationPlace> getPlaces() {
-        return fuelStationPlaceRepository.findAll();
+        return fuelStationPlaceRepository.getFuelStationPlaces();
     }
 }
