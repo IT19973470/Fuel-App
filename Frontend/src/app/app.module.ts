@@ -33,6 +33,7 @@ import {ScrollingModule} from "@angular/cdk/scrolling";
 import { VehicleDetailsComponent } from './content/fuel_pumper/vehicle-details/vehicle-details.component';
 import {VehicleDetailsFilterPipe} from "./content/fuel_pumper/vehicle-details/vehicle-details-filter.pipe";
 import { FuelAvailabilityCustomerComponent } from './content/customer/fuel-availability-customer/fuel-availability-customer.component';
+import { ViewStockOutAdminComponent } from './content/admin/view-stock-out-admin/view-stock-out-admin.component';
 
 
 @NgModule({
@@ -62,7 +63,8 @@ import { FuelAvailabilityCustomerComponent } from './content/customer/fuel-avail
     OrderComponent,
     VehicleDetailsComponent,
     VehicleDetailsFilterPipe,
-    FuelAvailabilityCustomerComponent
+    FuelAvailabilityCustomerComponent,
+    ViewStockOutAdminComponent
   ],
   imports: [
     BrowserModule,
