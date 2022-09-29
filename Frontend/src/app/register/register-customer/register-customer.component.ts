@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {CustomerService} from "../../_service/customer.service";
 import {Router} from "@angular/router";
+import {LoginService} from "../../login/login.service";
 
 @Component({
   selector: 'app-register-customer',
@@ -13,12 +14,16 @@ export class RegisterCustomerComponent implements OnInit {
   otp = 0
   otpEntered;
   otpReceived = false;
+  districts = [];
+  places
+  districtPlaces = []
 
-  constructor(private customerS: CustomerService, private router: Router) {
+  constructor(private customerS: CustomerService, private router: Router, private loginS: LoginService) {
     this.customer = this.customerS.newCustomer()
   }
 
   ngOnInit(): void {
+    this.setDistricts()
   }
 
   addCustomer() {
@@ -37,4 +42,11 @@ export class RegisterCustomerComponent implements OnInit {
     })
   }
 
+  setDistricts() {
+    this.districts = this.loginS.districts
+  }
+
+  getPlaces(district) {
+    this.districtPlaces = this.loginS.getPlaces(district)
+  }
 }

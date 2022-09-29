@@ -1,5 +1,6 @@
 package lk.fuel_app.controller;
 
+import lk.fuel_app.dto.FuelAvailabilityDTO;
 import lk.fuel_app.entity.Customer;
 import lk.fuel_app.entity.CustomerFuelStation;
 import lk.fuel_app.service.CustomerService;
@@ -50,5 +51,10 @@ public class CustomerController {
     @GetMapping(value = "/sendOTP/{email}/{contactNumber}")
     public Customer sendOTP(@PathVariable String email, @PathVariable String contactNumber) {
         return customerService.sendOTP(email, contactNumber);
+    }
+
+    @GetMapping(value = "/fuelAvailability/{district}/{orderBy}")
+    public List<FuelAvailabilityDTO> fuelAvailability(@PathVariable String district, @PathVariable String orderBy) {
+        return customerService.fuelAvailability(district, orderBy);
     }
 }

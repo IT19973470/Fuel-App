@@ -26,6 +26,28 @@
       Address is required
     </div>
 
+    <div style="margin-top: 20px">District</div>
+    <select class="form-control" [(ngModel)]="customer.district" name="district"
+            #district="ngModel" required style="margin-bottom: 0px" (change)="getPlaces(customer.district)">
+      <option value="">Select</option>
+      <option *ngFor="let district of districts" [value]="district">{{district}}</option>
+    </select>
+    <div *ngIf="(district.touched || regCustomerForm.submitted) && district.errors?.required"
+         class="validErr">
+      District is required
+    </div>
+
+    <div style="margin-top: 20px">Place</div>
+    <select class="form-control" [(ngModel)]="customer.fuelStationPlace.id" name="fuelStationPlace"
+            #fuelStationPlace="ngModel" required style="margin-bottom: 0px">
+      <option value="">Select</option>
+      <option *ngFor="let place of districtPlaces" [value]="place.id">{{place.place}}</option>
+    </select>
+    <div *ngIf="(fuelStationPlace.touched || regCustomerForm.submitted) && fuelStationPlace.errors?.required"
+         class="validErr">
+      Place is required
+    </div>
+
     <div style="margin-top: 20px">Contact Number</div>
     <input class="form-control" type="text" name="contact" placeholder="Enter Contact Number"
            [(ngModel)]="customer.appUser.contactNumber"

@@ -43,6 +43,10 @@ export class CustomerService {
       nic: '',
       name: '',
       address: '',
+      district:'',
+      fuelStationPlace: {
+        id: ''
+      },
       chassisNumber: '',
       vehicleNumber: '',
       vehicleType: '',

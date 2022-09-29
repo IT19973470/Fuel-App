@@ -13,14 +13,16 @@ import javax.persistence.Id;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FuelType {
+public class FuelStationPlace {
 
     @Id
     private String id;
-    private String name;
+    private String district;
+    private String place;
 
-    public FuelType(FuelType fuelType) {
-        this.id = fuelType.id;
-        this.name = fuelType.name;
+    public FuelStationPlace(FuelStationPlace fuelStationPlace) {
+        this.id = fuelStationPlace.id;
+        this.district = fuelStationPlace.district;
+        this.place = fuelStationPlace.place;
     }
 }
