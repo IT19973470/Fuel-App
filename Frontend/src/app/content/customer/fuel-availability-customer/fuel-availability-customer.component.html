@@ -61,7 +61,7 @@
           <table style="margin-left: 20px;margin-top: 10px">
             <tr *ngFor="let availableStock of fuelAvailability.availableStock">
               <td>{{availableStock.fuelType}}</td>
-              <td>{{availableStock.quantity}}L</td>
+              <td>{{availableStock.quantity}} L</td>
             </tr>
           </table>
           <!--<div style="margin-left: 20px;margin-top: 10px">-->
@@ -83,7 +83,7 @@
             <tr *ngFor="let nextFuelAvailability of fuelAvailability.nextFuelAvailability">
               <td>{{nextFuelAvailability.fuelType}}</td>
               <td *ngIf="nextFuelAvailability.quantity>0">
-                {{nextFuelAvailability.quantity}}L
+                {{nextFuelAvailability.quantity}} L
                 <span style="font-weight: bold">-></span>
                 {{nextFuelAvailability.nextFuelAmountDateAt}} / {{nextFuelAvailability.nextFuelAmountTimeAt}}
               </td>
