@@ -6,6 +6,9 @@ import lk.fuel_app.repository.*;
 import lk.fuel_app.service.CustomerService;
 import lk.fuel_app.service.SendEmailSMTP;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -25,6 +28,8 @@ public class CustomerServiceImpl implements CustomerService {
     private FuelStationRepository fuelStationRepository;
     @Autowired
     private FuelTypeRepository fuelTypeRepository;
+    @Autowired
+    private FuelStockNextRepository fuelStockNextRepository;
 
     @Autowired
     private SendEmailSMTP sendEmailSMTP;
@@ -105,32 +110,43 @@ public class CustomerServiceImpl implements CustomerService {
     public List<FuelAvailabilityDTO> fuelAvailability(String place, String orderBy) {
         List<FuelAvailabilityDTO> fuelAvailabilityDTOs = new ArrayList<>();
         List<FuelStation> fuelStations = fuelStationRepository.getAllByFuelStationPlaceId(place);
+
         for (FuelStation fuelStation : fuelStations) {
-//            double fuelAvailable = 0, total = 0, pumped = 0;
             FuelAvailabilityDTO fuelAvailabilityDTO = new FuelAvailabilityDTO();
-            fuelAvailabilityDTO.setFuelStation(fuelStation.getName());
-//            fuelAvailabilityDTO.setAvailableStock(new HashMap<>());
+            fuelAvailabilityDTO.setFuelStation(new FuelStation(fuelStation));
             Map<String, FuelAvailabilityDTO.FuelStock> availableStockObj = new HashMap<>();
+            Map<String, FuelAvailabilityDTO.FuelStock> nextStockObj = new HashMap<>();
 
             List<FuelType> fuelTypes = fuelTypeRepository.getFuelTypes();
             for (FuelType fuelType : fuelTypes) {
                 availableStockObj.put(fuelType.getId(), new FuelAvailabilityDTO.FuelStock(fuelType.getId(), fuelType.getName()));
+                nextStockObj.put(fuelType.getId(), new FuelAvailabilityDTO.FuelStock(fuelType.getId(), fuelType.getName()));
             }
 
             for (FuelStock fuelStock : fuelStation.getFuelStocks()) {
-//                total += fuelStock.getAmount();
                 FuelAvailabilityDTO.FuelStock fuelStockObj = availableStockObj.get(fuelStock.getFuelType().getId());
                 fuelStockObj.setQuantity(fuelStockObj.getQuantity() + fuelStock.getAmount());
                 availableStockObj.put(fuelStock.getFuelType().getId(), fuelStockObj);
             }
             for (CustomerFuelStation customerFuelStation : fuelStation.getFuelPumped()) {
-//                pumped += customerFuelStation.getFuelPumped();
                 FuelAvailabilityDTO.FuelStock fuelStockObj = availableStockObj.get(customerFuelStation.getFuelType().getId());
                 fuelStockObj.setQuantity(fuelStockObj.getQuantity() - customerFuelStation.getFuelPumped());
                 availableStockObj.put(customerFuelStation.getFuelType().getId(), fuelStockObj);
             }
+
+            List<FuelStockNext> fuelStockNexts = fuelStockNextRepository.getAllByFuelStationName(fuelStation.getName());
+            for (FuelStockNext fuelStockNext : fuelStockNexts) {
+                FuelAvailabilityDTO.FuelStock fuelStockObj = nextStockObj.get(fuelStockNext.getFuelType().getId());
+                fuelStockObj.setQuantity(fuelStockNext.getAmount());
+                fuelStockObj.setNextFuelAmountDateAt(fuelStockNext.getArrival().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                fuelStockObj.setNextFuelAmountTimeAt(fuelStockNext.getArrival().format(DateTimeFormatter.ofPattern("hh:mm a")));
+                nextStockObj.put(fuelStockNext.getFuelType().getId(), fuelStockObj);
+            }
+
             fuelAvailabilityDTO.setAvailableStock(new ArrayList<>(availableStockObj.values()));
+            fuelAvailabilityDTO.setNextFuelAvailability(new ArrayList<>(nextStockObj.values()));
             Collections.sort(fuelAvailabilityDTO.getAvailableStock());
+            Collections.sort(fuelAvailabilityDTO.getNextFuelAvailability());
             fuelAvailabilityDTOs.add(fuelAvailabilityDTO);
         }
         return fuelAvailabilityDTOs;

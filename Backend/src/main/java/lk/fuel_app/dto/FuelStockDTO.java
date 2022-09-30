@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,6 +18,9 @@ public class FuelStockDTO implements Comparable {
     private double availableStock;
     private double availableHours;
     private double fuelSupplyPerHour;
+    private double nextFuelAmount;
+    private String nextFuelAmountDateAt;
+    private String nextFuelAmountTimeAt;
 
     public FuelStockDTO(String fuelTypeId, String fuelType) {
         this.fuelTypeId = fuelTypeId;

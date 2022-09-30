@@ -3,6 +3,7 @@ package lk.fuel_app.controller;
 import lk.fuel_app.entity.Chat;
 import lk.fuel_app.entity.FuelStation;
 import lk.fuel_app.entity.FuelStock;
+import lk.fuel_app.entity.FuelStockNext;
 import lk.fuel_app.service.FuelStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,11 @@ public class FuelStationController {
     @PostMapping(value = "/addFuelStock")
     public ResponseEntity addFuelStock(@RequestBody FuelStock fuelStock) {
         return ResponseEntity.ok(fuelStationService.addFuelStock(fuelStock));
+    }
+
+    @PostMapping(value = "/addNextFuelStock")
+    public ResponseEntity addNextFuelStock(@RequestBody FuelStockNext fuelStockNext) {
+        return ResponseEntity.ok(fuelStationService.addNextFuelStock(fuelStockNext));
     }
 
     @GetMapping(value = "/getFuelStock/{id}")
