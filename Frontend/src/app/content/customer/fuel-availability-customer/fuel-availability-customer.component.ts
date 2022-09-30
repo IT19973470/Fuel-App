@@ -20,8 +20,8 @@ export class FuelAvailabilityCustomerComponent implements OnInit {
   constructor(private userS: UserService, private customerS: CustomerService) {
     userS.setPlace.subscribe((place: any) => {
       this.place = place.id;
-      this.getFuelAvailability(this.place)
-      console.log(this.place)
+      this.getFuelAvailability()
+      // console.log(this.place)
     })
     userS.setDistrictPlaces.subscribe(districtPlaces => {
       this.districtPlaces = districtPlaces;
@@ -32,8 +32,8 @@ export class FuelAvailabilityCustomerComponent implements OnInit {
     this.setDistricts();
   }
 
-  getFuelAvailability(placeId) {
-    this.customerS.getFuelAvailability(placeId, 'qbc').subscribe(fuelAvailability => {
+  getFuelAvailability() {
+    this.customerS.getFuelAvailability(this.place, 'qbc').subscribe(fuelAvailability => {
       console.log(fuelAvailability)
       this.fuelAvailabilities = fuelAvailability
     })
@@ -43,10 +43,14 @@ export class FuelAvailabilityCustomerComponent implements OnInit {
     this.districts = this.userS.districts
     this.district = JSON.parse(localStorage.getItem('user')).customer.fuelStationPlace.district
     // console.log(this.district)
-    // this.getPlaces(this.district, 1)
+    if (this.userS.place !== undefined) {
+      this.districtPlaces = this.userS.districtPlaces;
+      this.place = this.userS.place.id
+      this.getFuelAvailability()
+    }
   }
 
-  getPlaces(district, initVal = 0) {
+  getPlaces(district) {
     this.districtPlaces = this.userS.getPlaces(district)
     // if (initVal === 1) {
     //   this.place = JSON.parse(localStorage.getItem('user')).customer.fuelStationPlace.place

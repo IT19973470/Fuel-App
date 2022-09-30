@@ -66,13 +66,10 @@
         </div>
         <div style="margin-right: 20px;width: 100%">
           <span>Fuel Type</span>
-          <select class="form-control" [(ngModel)]="fuelStock.fuelType" name="fuelType"
+          <select class="form-control" [(ngModel)]="fuelStock.fuelType.id" name="fuelType"
                   #fuelType="ngModel" required>
             <option value="">Select</option>
-            <option value="92 Petrol">92 Petrol</option>
-            <option value="95 Petrol">95 Petrol</option>
-            <option value="Diesel">Diesel</option>
-            <option value="Super Diesel">Super Diesel</option>
+            <option *ngFor="let fuelTypeObj of fuelTypes" [value]="fuelTypeObj.id">{{fuelTypeObj.name}}</option>
           </select>
           <div *ngIf="(fuelType.touched || addStockForm.submitted) && fuelType.errors?.required"
                class="validErr">

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Observable, Subject} from "rxjs";
 import {environment} from "../../environments/environment";
@@ -38,10 +38,12 @@ export class UserService {
           this.districts.push(place.district)
         }
       }
-      if (JSON.parse(localStorage.getItem('user')).customer !== undefined) {
+      if (JSON.parse(localStorage.getItem('user')) !== null && JSON.parse(localStorage.getItem('user')).customer !== null) {
         this.getPlaces(JSON.parse(localStorage.getItem('user')).customer.fuelStationPlace.district)
         this.setDistrictPlaces.next(places)
+        this.districtPlaces = places
         this.setPlace.next(JSON.parse(localStorage.getItem('user')).customer.fuelStationPlace)
+        this.place = JSON.parse(localStorage.getItem('user')).customer.fuelStationPlace
         // this.place = JSON.parse(localStorage.getItem('user')).customer.fuelStationPlace.place;
       }
     })
@@ -53,5 +55,9 @@ export class UserService {
       return place.district == district
     })
     return this.districtPlaces;
+  }
+
+  getFuelTypes(): Observable<any> {
+    return this.http.get<any>(environment.backend_url + "/fuelPumper/getFuelTypes");
   }
 }

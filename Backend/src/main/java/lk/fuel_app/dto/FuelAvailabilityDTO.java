@@ -37,7 +37,7 @@ public class FuelAvailabilityDTO {
         @Override
         public int compareTo(Object o) {
             FuelStock fuelStock = (FuelStock) o;
-            return fuelTypeId.compareTo(fuelStock.fuelTypeId);
+            return fuelTypeId.compareTo(fuelStock.getFuelTypeId());
         }
     }
 

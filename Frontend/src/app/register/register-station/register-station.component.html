@@ -48,6 +48,27 @@
       Place is required
     </div>
 
+    <div style="display: flex">
+      <div style="width: 100%;margin-right: 10px">
+        <div style="margin-top: 20px">Location (Latitude)</div>
+        <input class="form-control" type="number" name="latitude"
+               [(ngModel)]="fuelStation.latitude" #latitude="ngModel" required>
+        <div *ngIf="(latitude.touched || regFuelStationForm.submitted) && latitude.errors?.required"
+             class="validErr">
+          Location (Latitude) is required
+        </div>
+      </div>
+      <div style="width: 100%;margin-left: 10px">
+        <div style="margin-top: 20px">Location (Longitude)</div>
+        <input class="form-control" type="number" name="longitude"
+               [(ngModel)]="fuelStation.longitude" #longitude="ngModel" required>
+        <div *ngIf="(longitude.touched || regFuelStationForm.submitted) && longitude.errors?.required"
+             class="validErr">
+          Location (Longitude) is required
+        </div>
+      </div>
+    </div>
+
     <div style="margin-top: 20px">Contact Number</div>
     <input class="form-control" type="text" name="contact" placeholder="Enter Contact Number"
            [(ngModel)]="fuelStation.appUser.contactNumber" #contactNumber="ngModel" required>

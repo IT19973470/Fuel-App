@@ -45,10 +45,6 @@ export class FuelPumperService {
     return this.http.get<any>(`${this.baseURL + "/fuelPumper/getVehicleDetailsByDate"}/${vehicleType}/${date}`);
   }
 
-  getFuelTypes(): Observable<any> {
-    return this.http.get<any>(`${this.baseURL + "/fuelPumper/getFuelTypes"}`);
-  }
-
   newFuelPumper() {
     return {
       nic: '',
