@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {LoginService} from "../../../login/login.service";
 import {CustomerService} from "../../../_service/customer.service";
 import {UserService} from "../../../_service/user.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'app-fuel-availability-customer',
@@ -17,7 +18,7 @@ export class FuelAvailabilityCustomerComponent implements OnInit {
   districtPlaces = []
   fuelAvailabilities = []
 
-  constructor(private userS: UserService, private customerS: CustomerService) {
+  constructor(private userS: UserService, private customerS: CustomerService,private domSanitizer: DomSanitizer) {
     userS.setPlace.subscribe((place: any) => {
       this.place = place.id;
       this.getFuelAvailability()
@@ -55,5 +56,9 @@ export class FuelAvailabilityCustomerComponent implements OnInit {
     // if (initVal === 1) {
     //   this.place = JSON.parse(localStorage.getItem('user')).customer.fuelStationPlace.place
     // }
+  }
+
+  transform(url) {
+    return this.domSanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }

@@ -19,6 +19,10 @@ export class FuelStationService {
     return this.http.post<any>(environment.backend_url + "/fuel_station/addFuelStock", fuelStock);
   }
 
+  addNextFuelStock(fuelStock): Observable<any> {
+    return this.http.post<any>(environment.backend_url + "/fuel_station/addNextFuelStock", fuelStock);
+  }
+
   getFuelStock(id): Observable<any> {
     return this.http.get<any>(environment.backend_url + "/fuel_station/getFuelStock/" + id);
   }

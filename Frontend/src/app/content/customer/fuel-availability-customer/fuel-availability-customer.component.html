@@ -54,7 +54,7 @@
       <div class="col-4" style="border-right: 2px solid black;margin-top: 20px;margin-bottom: 20px">
         <div style="margin-bottom: 30px">
           <span style="font-weight: bold">Fuel Station - </span>
-          <span>{{fuelAvailability.fuelStation}}</span>
+          <span>{{fuelAvailability.fuelStation.name}}</span>
         </div>
         <div>
           <span style="font-weight: bold">Available Stock</span>
@@ -79,10 +79,19 @@
         </div>
         <div style="margin-top: 40px">
           <span style="font-weight: bold">Next Fuel availability</span>
-          <div style="margin-left: 20px;margin-top: 10px">
-            <div>Petrol 92 - 10L</div>
-            <div>Petrol 95 - 20L</div>
-          </div>
+          <table style="margin-left: 20px;margin-top: 10px">
+            <tr *ngFor="let nextFuelAvailability of fuelAvailability.nextFuelAvailability">
+              <td>{{nextFuelAvailability.fuelType}}</td>
+              <td *ngIf="nextFuelAvailability.quantity>0">
+                {{nextFuelAvailability.quantity}}L
+                <span style="font-weight: bold">-></span>
+                {{nextFuelAvailability.nextFuelAmountDateAt}} / {{nextFuelAvailability.nextFuelAmountTimeAt}}
+              </td>
+              <td *ngIf="nextFuelAvailability.quantity===0">
+                N/A
+              </td>
+            </tr>
+          </table>
         </div>
       </div>
 
@@ -118,7 +127,7 @@
       <div class="col-4"
            style="margin-top: 20px;margin-bottom: 20px;display: grid;justify-content: center;align-content: center">
         <iframe
-          src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d495.95751391288536!2d80.214118!3d6.0412888!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1664141585566!5m2!1sen!2slk"
+          [src]="transform('https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d995.95751391288536!2d'+fuelAvailability.fuelStation.longitude+'!3d'+fuelAvailability.fuelStation.latitude+'!4m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1664141585566!5m2!1sen!2slk')"
           width="400" height="300" style="border: 2px solid black" allowfullscreen="" loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
@@ -126,6 +135,7 @@
 
     </div>
 
+    <!--[src]="'https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d495.95751391288536!2d80.214118!3d6.0412888!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2slk!4v1664141585566!5m2!1sen!2slk'"-->
 
     <!--<br>-->
 

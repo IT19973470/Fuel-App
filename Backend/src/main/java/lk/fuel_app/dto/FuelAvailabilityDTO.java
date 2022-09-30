@@ -1,5 +1,6 @@
 package lk.fuel_app.dto;
 
+import lk.fuel_app.entity.FuelStation;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,7 +13,7 @@ import java.util.Map;
 @Setter
 public class FuelAvailabilityDTO {
 
-    private String fuelStation;
+    private FuelStation fuelStation;
     private List<FuelStock> availableStock;
     private List<FuelStock> fuelSupplyPerHour;
     private List<FuelStock> nextFuelAvailability;
@@ -28,6 +29,8 @@ public class FuelAvailabilityDTO {
         private String fuelType;
         private double quantity;
         private LocalDateTime fuelAvailableAt;
+        private String nextFuelAmountDateAt;
+        private String nextFuelAmountTimeAt;
 
         public FuelStock(String fuelTypeId, String fuelType) {
             this.fuelTypeId = fuelTypeId;
