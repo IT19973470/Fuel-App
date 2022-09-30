@@ -50,7 +50,9 @@ export class FuelStationService {
       id: '',
       name: '',
       address: '',
-      district:'',
+      district: '',
+      latitude: 0,
+      longitude: 0,
       fuelStationPlace: {
         id: ''
       },
@@ -66,7 +68,9 @@ export class FuelStationService {
   newFuelStock() {
     return {
       id: '',
-      fuelType: '',
+      fuelType: {
+        id: ''
+      },
       amount: 0,
       driver: '',
       availability: false,

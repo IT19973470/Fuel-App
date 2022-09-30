@@ -111,6 +111,7 @@ public class CustomerServiceImpl implements CustomerService {
             fuelAvailabilityDTO.setFuelStation(fuelStation.getName());
 //            fuelAvailabilityDTO.setAvailableStock(new HashMap<>());
             Map<String, FuelAvailabilityDTO.FuelStock> availableStockObj = new HashMap<>();
+
             List<FuelType> fuelTypes = fuelTypeRepository.getFuelTypes();
             for (FuelType fuelType : fuelTypes) {
                 availableStockObj.put(fuelType.getId(), new FuelAvailabilityDTO.FuelStock(fuelType.getId(), fuelType.getName()));

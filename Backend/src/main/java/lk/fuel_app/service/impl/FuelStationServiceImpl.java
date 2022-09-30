@@ -1,5 +1,6 @@
 package lk.fuel_app.service.impl;
 
+import lk.fuel_app.dto.FuelAvailabilityDTO;
 import lk.fuel_app.dto.FuelStockDTO;
 import lk.fuel_app.entity.*;
 import lk.fuel_app.repository.*;
@@ -9,9 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class FuelStationServiceImpl implements FuelStationService {
@@ -41,33 +40,68 @@ public class FuelStationServiceImpl implements FuelStationService {
     @Override
     public FuelStock addFuelStock(FuelStock fuelStock) {
         fuelStock.setId(fuelStock.getFuelStation().getId() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss")));
-        return fuelStockRepository.save(fuelStock);
+        fuelStock.setAvailability(true);
+        fuelStockRepository.save(fuelStock);
+        return new FuelStock(fuelStock);
     }
 
     @Override
     public List<FuelStockDTO> getFuelStock(String id) {
-        List<FuelStock> actualArrivalDesc = fuelStockRepository.getLastFuelPump(id);
-        FuelStock fuelStockObj = actualArrivalDesc.get(0);
+//        List<FuelStock> actualArrivalDesc = fuelStockRepository.getLastFuelPump(id);
 //        Integer fuelPumpedVehicleCount = customerFuelStationRepository.getFuelPumpedVehicleCount(id, fuelStockObj.getActualArrival().toLocalDate());
-        List<FuelType> fuelTypes = fuelTypeRepository.getFuelTypes();
         List<FuelStockDTO> fuelStockDTOS = new ArrayList<>();
+
+        Map<String, FuelStockDTO> fuelStockObj = new HashMap<>();
+        List<FuelType> fuelTypes = fuelTypeRepository.getFuelTypes();
         for (FuelType fuelType : fuelTypes) {
-            FuelStockDTO fuelStockDTO = new FuelStockDTO();
-            fuelStockDTO.setFuelType(fuelType.getName());
-            Integer fuelStockAmount = fuelStockRepository.getFuelStocksAmount(id, fuelType.getName());
-//            for (FuelStock fuelStock : fuelStocks) {
-            if (fuelStockAmount != null) {
-                fuelStockDTO.setAvailableStock(fuelStockAmount);
-            }
-//            }
-            fuelStockDTOS.add(fuelStockDTO);
+            fuelStockObj.put(fuelType.getId(), new FuelStockDTO(fuelType.getId(), fuelType.getName()));
         }
+
+        Optional<FuelStation> fuelStationOptional = fuelStationRepository.findById(id);
+        if (fuelStationOptional.isPresent()) {
+            FuelStation fuelStation = fuelStationOptional.get();
+            for (FuelStock fuelStock : fuelStation.getFuelStocks()) {
+//                total += fuelStock.getAmount();
+                FuelStockDTO fuelStockDTO = fuelStockObj.get(fuelStock.getFuelType().getId());
+                fuelStockDTO.setAvailableStock(fuelStockDTO.getAvailableStock() + fuelStock.getAmount());
+                fuelStockObj.put(fuelStock.getFuelType().getId(), fuelStockDTO);
+            }
+            for (CustomerFuelStation customerFuelStation : fuelStation.getFuelPumped()) {
+//                pumped += customerFuelStation.getFuelPumped();
+                FuelStockDTO fuelStockDTO = fuelStockObj.get(customerFuelStation.getFuelType().getId());
+                fuelStockDTO.setAvailableStock(fuelStockDTO.getAvailableStock() - customerFuelStation.getFuelPumped());
+                fuelStockObj.put(customerFuelStation.getFuelType().getId(), fuelStockDTO);
+            }
+
+            fuelStockDTOS = new ArrayList<>(fuelStockObj.values());
+            Collections.sort(fuelStockDTOS);
+//            fuelStockDTOS.add(fuelAvailabilityDTO);
+        }
+//        FuelStock fuelStockObj = actualArrivalDesc.get(0);
+//        for (FuelType fuelType : fuelTypes) {
+//            FuelStockDTO fuelStockDTO = new FuelStockDTO();
+//            fuelStockDTO.setFuelType(fuelType.getName());
+//            for (FuelStock fuelStock : fuelStation.getFuelStocks()) {
+////                total += fuelStock.getAmount();
+//                FuelAvailabilityDTO.FuelStock fuelStockObj = availableStockObj.get(fuelStock.getFuelType().getId());
+//                fuelStockObj.setQuantity(fuelStockObj.getQuantity() + fuelStock.getAmount());
+//                availableStockObj.put(fuelStock.getFuelType().getId(), fuelStockObj);
+//            }
+//            for (CustomerFuelStation customerFuelStation : fuelStation.getFuelPumped()) {
+////                pumped += customerFuelStation.getFuelPumped();
+//                FuelAvailabilityDTO.FuelStock fuelStockObj = availableStockObj.get(customerFuelStation.getFuelType().getId());
+//                fuelStockObj.setQuantity(fuelStockObj.getQuantity() - customerFuelStation.getFuelPumped());
+//                availableStockObj.put(customerFuelStation.getFuelType().getId(), fuelStockObj);
+//            }
+////            }
+//            fuelStockDTOS.add(fuelStockDTO);
+//        }
         return fuelStockDTOS;
     }
 
     @Override
     public List<FuelAdminStockOut> getFuelStockIn(String id) {
-            return fuelAdminStockOutRepository.findAllByFuelStation_Id(id);
+        return fuelAdminStockOutRepository.findAllByFuelStation_Id(id);
     }
 
     @Override
@@ -88,7 +122,7 @@ public class FuelStationServiceImpl implements FuelStationService {
     @Override
     public Chat addChat(Chat chat) {
         String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss"));
-        chat.setChatId("chat"+dateTime);
+        chat.setChatId("chat" + dateTime);
         return chatRepository.save(chat);
     }
 

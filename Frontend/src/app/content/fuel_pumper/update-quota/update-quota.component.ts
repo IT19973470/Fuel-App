@@ -3,6 +3,7 @@ import {CustomerService} from "../../../_service/customer.service";
 import {FuelStationService} from "../../../_service/fuel-station.service";
 import {QrScanService} from "../../../qr-scan/qr-scan.service";
 import {FuelPumperService} from "../../../_service/fuel-pumper.service";
+import {UserService} from "../../../_service/user.service";
 
 @Component({
   selector: 'app-update-quota',
@@ -21,7 +22,7 @@ export class UpdateQuotaComponent implements OnInit {
     id: ''
   };
 
-  constructor(private customerS: CustomerService, private fuelPumperS: FuelPumperService, private qrScanS: QrScanService) {
+  constructor(private customerS: CustomerService, private fuelPumperS: FuelPumperService, private qrScanS: QrScanService,private userS:UserService) {
     this.customer = this.customerS.newCustomer()
     qrScanS.qrValue.subscribe(value => {
       this.getCustomerByVehicle(value)
@@ -33,7 +34,7 @@ export class UpdateQuotaComponent implements OnInit {
   }
 
   getFuelTypes() {
-    this.fuelPumperS.getFuelTypes().subscribe(fuelTypes => {
+    this.userS.getFuelTypes().subscribe(fuelTypes => {
       this.fuelTypes = fuelTypes;
     })
   }
