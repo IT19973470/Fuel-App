@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {FuelStationService} from "../../_service/fuel-station.service";
-import {FuelPumperService} from "../../_service/fuel-pumper.service";
-import {FuelAdminService} from "../../_service/fuel-admin.service";
+import {Router} from '@angular/router';
+import {FuelStationService} from '../../_service/fuel-station.service';
+import {FuelPumperService} from '../../_service/fuel-pumper.service';
+import {FuelAdminService} from '../../_service/fuel-admin.service';
 
 @Component({
   selector: 'app-register-fuel-admin',

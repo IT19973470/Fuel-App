@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {CustomerService} from "../../../_service/customer.service";
-import {Router} from "@angular/router";
+import {CustomerService} from '../../../_service/customer.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-update-profile',
@@ -9,10 +9,10 @@ import {Router} from "@angular/router";
 })
 export class UpdateProfileComponent implements OnInit {
 
-  customer
+  customer;
 
   constructor(private customerS: CustomerService, private router: Router) {
-    this.customer = this.customerS.customer
+    this.customer = this.customerS.customer;
   }
 
   ngOnInit(): void {
@@ -20,7 +20,7 @@ export class UpdateProfileComponent implements OnInit {
 
   updateCustomer() {
     this.customerS.updateCustomer(this.customer).subscribe(customer => {
-      this.router.navigate(['/my_profile'])
-    })
+      this.router.navigate(['/my_profile']);
+    });
   }
 }

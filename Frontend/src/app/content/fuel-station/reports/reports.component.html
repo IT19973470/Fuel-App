@@ -1,1 +1,66 @@
-<p>reports works!</p>
+<div class="row" style="display: flex;justify-content: center">
+  <div class="col-11" style="margin-top: 20px">
+
+    <!--<div>-->
+    <!--<span style="font-weight: bold">Search by :</span>-->
+    <!--<span style="margin-left: 20px">Deliveries for</span>-->
+    <!--<input type="date" style="margin-left: 20px;height: 37px" [(ngModel)]="deliveryDate">-->
+    <!--<button class="btn btn-warning" style="font-weight: bold;margin-left: 20px" (click)="getAllDeliveriesByDate()">-->
+    <!--Search-->
+    <!--</button>-->
+    <!--</div>-->
+    <div id="pdf">
+      <div style="margin-top: 20px;font-size: 25px">
+        Pumpers Report
+      </div>
+
+      <table class="table table-striped" style="margin-top: 20px">
+        <thead>
+        <tr>
+          <!--<th scope="col">#</th>-->
+          <th scope="col" width="20%"  *ngFor="let data of applicationdata; let i = index">{{data.id}}</th>
+          <th scope="col" width="5%" style="text-align: center">Count</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr >
+          <!--<th scope="row">{{i+1}}</th>-->
+          <td style="font-weight: bold" *ngFor="let data of applicationdata; let i = index">
+            <span style="color: #0c95cb" >In - {{data.timeIn}}</span> <br>
+            <span style="color: #018002">Out -{{data.timeOut}}
+          </span> <br>
+            <span style="color: #ff0a03">Count - 3</span>
+          </td>
+          <td style="text-align: center">
+            <button style="border: none"> <i class="fas fa-download" style="cursor: pointer"></i></button>
+
+          </td>
+          <!--<td style="text-align: center">-->
+          <!--<i class="fas fa-pen" style="cursor: pointer" (click)="goToUpdate(deliveryItem)"></i>-->
+          <!--</td>-->
+        </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top: 40px;font-size: 25px">
+        Transport requests (Graph)
+      </div>
+
+      <div id="chart" style="margin-top: 40px">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [dataLabels]="chartOptions.dataLabels"
+          [plotOptions]="chartOptions.plotOptions"
+          [yaxis]="chartOptions.yaxis"
+          [fill]="chartOptions.fill"
+          [stroke]="chartOptions.stroke"
+          [tooltip]="chartOptions.tooltip"
+          [xaxis]="chartOptions.xaxis"
+        ></apx-chart>
+      </div>
+    </div>
+    <hr style="margin-top: 80px;margin-bottom: 80px">
+
+  </div>
+</div>

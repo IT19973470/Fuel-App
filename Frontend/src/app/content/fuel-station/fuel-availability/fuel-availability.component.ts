@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FuelStationService} from "../../../_service/fuel-station.service";
+import {FuelStationService} from '../../../_service/fuel-station.service';
 
 @Component({
   selector: 'app-fuel-availability',
@@ -8,29 +8,29 @@ import {FuelStationService} from "../../../_service/fuel-station.service";
 })
 export class FuelAvailabilityComponent implements OnInit {
 
-  fuelStock
+  fuelStock;
   fuelStocks = [];
 
   constructor(private fuelStationS: FuelStationService) {
-    this.fuelStock = fuelStationS.newFuelStock()
+    this.fuelStock = fuelStationS.newFuelStock();
   }
 
   ngOnInit(): void {
-    this.getFuelStock()
+    this.getFuelStock();
   }
 
   addFuelStock() {
-    this.fuelStock.fuelStation.id = JSON.parse(localStorage.getItem('user')).id
+    this.fuelStock.fuelStation.id = JSON.parse(localStorage.getItem('user')).id;
     this.fuelStationS.addFuelStock(this.fuelStock).subscribe(() => {
-      this.getFuelStock()
-    })
+      this.getFuelStock();
+    });
   }
 
   getFuelStock() {
     this.fuelStationS.getFuelStock(JSON.parse(localStorage.getItem('user')).id).subscribe(fuelStocks => {
       // console.log(fuelStock)
-      this.fuelStocks = fuelStocks
-    })
+      this.fuelStocks = fuelStocks;
+    });
   }
 
 }

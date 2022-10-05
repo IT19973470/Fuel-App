@@ -23,6 +23,8 @@
     "@zxing/library": "^0.19.1",
     "@zxing/ngx-scanner": "^1.3.0",
     "angular2-qrcode": "^2.0.3",
+    "apexcharts": "^3.28.3",
+    "ng-apexcharts": "^1.5.12",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"

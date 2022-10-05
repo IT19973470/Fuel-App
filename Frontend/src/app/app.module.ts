@@ -32,7 +32,7 @@ import { OrderComponent } from './content/fuel-station/order/order.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import { VehicleDetailsComponent } from './content/fuel_pumper/vehicle-details/vehicle-details.component';
 import {VehicleDetailsFilterPipe} from "./content/fuel_pumper/vehicle-details/vehicle-details-filter.pipe";
-
+import {NgApexchartsModule} from "ng-apexcharts";
 
 @NgModule({
   declarations: [
@@ -69,7 +69,8 @@ import {VehicleDetailsFilterPipe} from "./content/fuel_pumper/vehicle-details/ve
     ZXingScannerModule,
     HttpClientModule,
     FormsModule,
-    ScrollingModule
+    ScrollingModule,
+    NgApexchartsModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

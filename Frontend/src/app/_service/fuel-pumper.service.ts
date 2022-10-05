@@ -33,16 +33,16 @@ export class FuelPumperService {
   }
 
   getVehicleDetailsByType(vehicleType: string): Observable<any> {
-    return this.http.get<any>(`${this.baseURL+"/fuelPumper/getVehicleDetailsByType"}/${vehicleType}`);
+    return this.http.get<any>(`${this.baseURL + '/fuelPumper/getVehicleDetailsByType'}/${vehicleType}`);
   }
 
   getVehicleDetailsByDate(date: any): Observable<any> {
-    return this.http.get<any>(`${this.baseURL+"/fuelPumper/getVehicleDetailsByDate"}/${date}`);
+    return this.http.get<any>(`${this.baseURL + '/fuelPumper/getVehicleDetailsByDate'}/${date}`);
   }
 
 
   getVehicleDetailsByTypeAndDate(vehicleType: string, date: any): Observable<any> {
-    return this.http.get<any>(`${this.baseURL+"/fuelPumper/getVehicleDetailsByDate"}/${vehicleType}/${date}`);
+    return this.http.get<any>(`${this.baseURL + '/fuelPumper/getVehicleDetailsByDate'}/${vehicleType}/${date}`);
   }
 
   newFuelPumper() {

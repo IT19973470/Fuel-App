@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
-import {environment} from "../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import {Observable} from 'rxjs';
+import {environment} from '../../environments/environment';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -12,31 +12,31 @@ export class FuelStationService {
   }
 
   addFuelStation(fuelStation): Observable<any> {
-    return this.http.post<any>(environment.backend_url + "/fuel_station/addFuelStation", fuelStation);
+    return this.http.post<any>(environment.backend_url + '/fuel_station/addFuelStation', fuelStation);
   }
 
   addFuelStock(fuelStock): Observable<any> {
-    return this.http.post<any>(environment.backend_url + "/fuel_station/addFuelStock", fuelStock);
+    return this.http.post<any>(environment.backend_url + '/fuel_station/addFuelStock', fuelStock);
   }
 
   getFuelStock(id): Observable<any> {
-    return this.http.get<any>(environment.backend_url + "/fuel_station/getFuelStock/" + id);
+    return this.http.get<any>(environment.backend_url + '/fuel_station/getFuelStock/' + id);
   }
   getFuelStockIn(id): Observable<any> {
-    return this.http.get<any>(environment.backend_url + "/fuel_station/getAvailableStocks/" + id);
+    return this.http.get<any>(environment.backend_url + '/fuel_station/getAvailableStocks/' + id);
   }
   getAttendence(): Observable<any> {
-    return this.http.get<any>(environment.backend_url + "/fuel_station/getAttendence/");
+    return this.http.get<any>(environment.backend_url + '/fuel_station/getAttendence/');
   }
   getFuelAdmin(): Observable<any> {
-    return this.http.get<any>(environment.backend_url + "/fuel_station/getAdmin/");
+    return this.http.get<any>(environment.backend_url + '/fuel_station/getAdmin/');
   }
   getAllChats(): Observable<any>{
-    return this.http.get<any>(environment.backend_url + "/fuel_station/getchat");
+    return this.http.get<any>(environment.backend_url + '/fuel_station/getchat');
   }
   addChat(setItem: any): Observable<any>{
-    console.log(setItem)
-    return this.http.post(environment.backend_url + "/fuel_station/addChat", setItem);
+    console.log(setItem);
+    return this.http.post(environment.backend_url + '/fuel_station/addChat', setItem);
   }
 
 
@@ -51,7 +51,7 @@ export class FuelStationService {
         password: '',
         contactNumber: ''
       }
-    }
+    };
   }
 
   newFuelStock() {
@@ -66,6 +66,6 @@ export class FuelStationService {
       fuelStation: {
         id: ''
       }
-    }
+    };
   }
 }

@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
-import {Subject} from "rxjs";
+import {Subject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NavbarService {
 
-  navBar = new Subject()
+  navBar = new Subject();
 
   constructor() {
   }

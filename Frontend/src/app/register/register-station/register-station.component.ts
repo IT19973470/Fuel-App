@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {FuelStationService} from "../../_service/fuel-station.service";
-import {Route, Router} from "@angular/router";
+import {FuelStationService} from '../../_service/fuel-station.service';
+import {Route, Router} from '@angular/router';
 
 @Component({
   selector: 'app-register-station',
@@ -9,20 +9,20 @@ import {Route, Router} from "@angular/router";
 })
 export class RegisterStationComponent implements OnInit {
 
-  fuelStation
+  fuelStation;
 
   constructor(private fuelStationS: FuelStationService, private router: Router) {
-    this.fuelStation = fuelStationS.newFuelStation()
+    this.fuelStation = fuelStationS.newFuelStation();
   }
 
   ngOnInit(): void {
   }
 
   addFuelStation() {
-    this.fuelStation.appUser.userType = 'fuelStation'
-    this.fuelStation.appUser.id = this.fuelStation.id
+    this.fuelStation.appUser.userType = 'fuelStation';
+    this.fuelStation.appUser.id = this.fuelStation.id;
     this.fuelStationS.addFuelStation(this.fuelStation).subscribe(fuelStation => {
-      this.router.navigate(['/login'])
-    })
+      this.router.navigate(['/login']);
+    });
   }
 }
