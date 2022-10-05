@@ -19,22 +19,29 @@ export class FuelStationService {
     return this.http.post<any>(environment.backend_url + '/fuel_station/addFuelStock', fuelStock);
   }
 
+  addNextFuelStock(fuelStock): Observable<any> {
+    return this.http.post<any>(environment.backend_url + "/fuel_station/addNextFuelStock", fuelStock);
+  }
+
   getFuelStock(id): Observable<any> {
     return this.http.get<any>(environment.backend_url + '/fuel_station/getFuelStock/' + id);
   }
+
   getFuelStockIn(id): Observable<any> {
     return this.http.get<any>(environment.backend_url + '/fuel_station/getAvailableStocks/' + id);
   }
+
   getAttendence(): Observable<any> {
     return this.http.get<any>(environment.backend_url + '/fuel_station/getAttendence/');
   }
+
   getFuelAdmin(): Observable<any> {
     return this.http.get<any>(environment.backend_url + '/fuel_station/getAdmin/');
   }
   getAllChats(): Observable<any>{
     return this.http.get<any>(environment.backend_url + '/fuel_station/getchat');
   }
-  addChat(setItem: any): Observable<any>{
+  addChat(setItem: any): Observable<any> {
     console.log(setItem);
     return this.http.post(environment.backend_url + '/fuel_station/addChat', setItem);
   }
@@ -45,6 +52,12 @@ export class FuelStationService {
       id: '',
       name: '',
       address: '',
+      district: '',
+      latitude: 0,
+      longitude: 0,
+      fuelStationPlace: {
+        id: ''
+      },
       chassisNumber: '',
       appUser: {
         email: '',
@@ -57,7 +70,9 @@ export class FuelStationService {
   newFuelStock() {
     return {
       id: '',
-      fuelType: '',
+      fuelType: {
+        id: ''
+      },
       amount: 0,
       driver: '',
       availability: false,

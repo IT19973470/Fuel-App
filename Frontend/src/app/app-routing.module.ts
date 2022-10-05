@@ -19,12 +19,14 @@ import {ReportsComponent} from "./content/fuel-station/reports/reports.component
 import {OrderComponent} from "./content/fuel-station/order/order.component";
 
 import {VehicleDetailsComponent} from "./content/fuel_pumper/vehicle-details/vehicle-details.component";
+import {FuelAvailabilityCustomerComponent} from "./content/customer/fuel-availability-customer/fuel-availability-customer.component";
+import {ViewStockOutAdminComponent} from "./content/admin/view-stock-out-admin/view-stock-out-admin.component";
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'my_profile',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -60,6 +62,10 @@ const routes: Routes = [
     component: MyProfileComponent,
   },
   {
+    path: 'fuel_availability_customer',
+    component: FuelAvailabilityCustomerComponent,
+  },
+  {
     path: 'update_profile',
     component: UpdateProfileComponent,
   },
@@ -90,6 +96,10 @@ const routes: Routes = [
   {
     path: 'vehicle_details',
     component: VehicleDetailsComponent,
+  },
+  {
+    path : 'view_stock_out',
+    component: ViewStockOutAdminComponent,
   }
 ];
 

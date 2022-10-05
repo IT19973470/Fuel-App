@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FuelStationService} from '../../../_service/fuel-station.service';
+import {UserService} from "../../../_service/user.service";
+
 
 @Component({
   selector: 'app-fuel-availability',
@@ -10,13 +12,24 @@ export class FuelAvailabilityComponent implements OnInit {
 
   fuelStock;
   fuelStocks = [];
+  fuelTypes = []
+  fuelStockNext
 
-  constructor(private fuelStationS: FuelStationService) {
-    this.fuelStock = fuelStationS.newFuelStock();
+
+  constructor(private fuelStationS: FuelStationService, private userS: UserService) {
+    this.fuelStock = fuelStationS.newFuelStock()
+    this.fuelStockNext = fuelStationS.newFuelStock()
   }
 
   ngOnInit(): void {
-    this.getFuelStock();
+    this.getFuelTypes()
+    this.getFuelStock()
+  }
+
+  getFuelTypes() {
+    this.userS.getFuelTypes().subscribe(fuelTypes => {
+      this.fuelTypes = fuelTypes;
+    })
   }
 
   addFuelStock() {
@@ -26,11 +39,18 @@ export class FuelAvailabilityComponent implements OnInit {
     });
   }
 
-  getFuelStock() {
-    this.fuelStationS.getFuelStock(JSON.parse(localStorage.getItem('user')).id).subscribe(fuelStocks => {
-      // console.log(fuelStock)
-      this.fuelStocks = fuelStocks;
-    });
+
+  nextFuelStock() {
+    this.fuelStockNext.fuelStation.id = JSON.parse(localStorage.getItem('user')).id
+    this.fuelStationS.addNextFuelStock(this.fuelStockNext).subscribe(() => {
+      this.getFuelStock()
+    })
   }
 
+  getFuelStock() {
+    this.fuelStationS.getFuelStock(JSON.parse(localStorage.getItem('user')).id).subscribe(fuelStocks => {
+      console.log(fuelStocks)
+      this.fuelStocks = fuelStocks
+    })
+  }
 }

@@ -32,5 +32,10 @@ public class FuelAdminController {
         return ResponseEntity.ok(fuelAdminService.viewStockIn());
     }
 
+    @GetMapping(value = "/getFuelStockOut")
+    public ResponseEntity getFuelStockOut() {
+        return ResponseEntity.ok(fuelAdminService.viewStockOut());
+    }
+
 
 }

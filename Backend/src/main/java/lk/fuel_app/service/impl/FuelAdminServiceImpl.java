@@ -42,5 +42,9 @@ public class FuelAdminServiceImpl implements FuelAdminService {
         return fuelAdminStockInRepository.findAll();
     }
 
+    @Override
+    public List<FuelAdminStockOut> viewStockOut() {
+        return fuelAdminStockOutRepository.findAll();    }
+
 
 }
