@@ -1,6 +1,7 @@
 package lk.fuel_app.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.CascadeType;
@@ -11,6 +12,7 @@ import javax.persistence.OneToOne;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class FuelAdminStockOut {
     @Id
     private String id;
@@ -21,6 +23,20 @@ public class FuelAdminStockOut {
     private String vehicleNumber;
     private String driverName;
     private String number;
+    
+    public FuelAdminStockOut (FuelAdminStockOut fuelAdminStockOut) {
+        this.id = fuelAdminStockOut.id;
+        this.fuelType = fuelAdminStockOut.fuelType;
+        this.date = fuelAdminStockOut.date;
+        this.time=fuelAdminStockOut.time;
+        this.amount=fuelAdminStockOut.amount;
+        this.vehicleNumber= fuelAdminStockOut.vehicleNumber;
+        this.driverName=fuelAdminStockOut.driverName;
+        this.number=fuelAdminStockOut.number;
+        if (fuelAdminStockOut.getFuelStation() != null) {
+            this.fuelStation = new FuelStation(fuelAdminStockOut.getFuelStation());
+        }
+    }
     @OneToOne(cascade = CascadeType.ALL)
     private FuelStation fuelStation;
 }

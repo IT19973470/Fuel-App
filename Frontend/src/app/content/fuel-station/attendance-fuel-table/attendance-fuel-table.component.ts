@@ -22,7 +22,8 @@ export class AttendanceFuelTableComponent implements OnInit {
   getCustomer() {
     this.fuelStationService.getFuelStockIn(JSON.parse(localStorage.getItem('user')).id).subscribe(res => {
       this.data = res;
-      console.log(this.data);
+      console.log(JSON.parse(localStorage.getItem('user')).id)
+      console.log(res);
     });
   }
 

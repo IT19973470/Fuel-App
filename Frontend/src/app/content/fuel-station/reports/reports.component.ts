@@ -185,7 +185,7 @@ export class ReportsComponent implements OnInit {
       },
       yaxis: {
         title: {
-          text: "Request"
+          text: "Count"
         }
       },
       fill: {

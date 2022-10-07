@@ -18,7 +18,7 @@
         <thead>
         <tr>
           <!--<th scope="col">#</th>-->
-          <th scope="col" width="20%"  *ngFor="let data of applicationdata; let i = index">{{data.id}}</th>
+          <th scope="col" width="20%"  *ngFor="let data of applicationdata; let i = index">{{data.fuelPumperAttendance.fuelPumper.name}}</th>
           <th scope="col" width="5%" style="text-align: center">Count</th>
         </tr>
         </thead>
@@ -26,8 +26,8 @@
         <tr >
           <!--<th scope="row">{{i+1}}</th>-->
           <td style="font-weight: bold" *ngFor="let data of applicationdata; let i = index">
-            <span style="color: #0c95cb" >In - {{data.timeIn}}</span> <br>
-            <span style="color: #018002">Out -{{data.timeOut}}
+            <span style="color: #0c95cb" >In - {{data.fuelPumperAttendance.timeIn}}</span> <br>
+            <span style="color: #018002">Out -{{data.fuelPumperAttendance.timeOut}}
           </span> <br>
             <span style="color: #ff0a03">Count - 3</span>
           </td>
