@@ -32,4 +32,7 @@ public interface CustomerFuelStationRepository extends JpaRepository<CustomerFue
 
     @Query(value = "from CustomerFuelStation where customer.vehicleType=:vehicleType and pumpedAtDate=:pumpedAtDate")
     List<CustomerFuelStation> getVehicleDetailsByTypeAndDate(@Param("vehicleType") String vehicleType, @Param("pumpedAtDate") LocalDate pumpedAtDate);
+
+//    @Query(value = "select sum(fuelPumped) from CustomerFuelStation where customer.vehicleType=:vehicleType")
+//    Double getVehicleCountAndFuelAmount(@Param("vehicleType") String vehicleType);
 }

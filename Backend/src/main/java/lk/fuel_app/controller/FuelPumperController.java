@@ -4,11 +4,17 @@ import lk.fuel_app.entity.CustomerFuelStation;
 import lk.fuel_app.entity.FuelPumper;
 import lk.fuel_app.entity.FuelPumperAttendance;
 import lk.fuel_app.service.FuelPumperService;
+import lk.fuel_app.util.ReportView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -64,8 +70,30 @@ public class FuelPumperController {
         return ResponseEntity.ok(fuelPumperService.getVehicleDetailsByTypeAndDate(vehicleType, date));
     }
 
+
+//    @GetMapping(value = "/getVehicleCountAndFuelAmount/{vehicleType}")
+//    public ResponseEntity getVehicleCountAndFuelAmount(@PathVariable String vehicleType) {
+//        return ResponseEntity.ok(fuelPumperService.getVehicleCountAndFuelAmount(vehicleType));
+//    }
+
+    @GetMapping(value="/allVehicleDetailsReport", produces= MediaType.APPLICATION_JSON_VALUE)
+    public Map generateVehicleDetailsReport() {
+        ReportView review = new ReportView();
+
+        List<CustomerFuelStation> customerFuelStations;
+        customerFuelStations = fuelPumperService.getAllVehicleDetails();
+        String reportValue = "";
+        try {
+            reportValue = review.pdfReportViewInlineSystemOpen("allVehicleDetails.jasper", "All Vehicle Details Report", customerFuelStations, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Collections.singletonMap("response", reportValue);
+    }
+
     @GetMapping(value = "/getFuelTypes")
     public ResponseEntity getFuelTypes() {
         return ResponseEntity.ok(fuelPumperService.getFuelTypes());
+
     }
 }

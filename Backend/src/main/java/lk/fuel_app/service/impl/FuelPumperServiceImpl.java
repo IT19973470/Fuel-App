@@ -99,8 +99,18 @@ public class FuelPumperServiceImpl implements FuelPumperService {
         return customerFuelStationRepository.getVehicleDetailsByTypeAndDate(vehicleType, localDate);
     }
 
+
+//    @Override
+//    public List<CustomerFuelStation> getVehicleCountAndFuelAmount(String vehicleType) {
+//        Integer noOfVehicles, fuelAmount;
+//        List<CustomerFuelStation> customerFuelStations = customerFuelStationRepository.getVehicleCountAndFuelAmount(vehicleType);
+//
+//        return customerFuelStations;
+//    }
+
     @Override
     public List<FuelType> getFuelTypes() {
         return fuelTypeRepository.getFuelTypes();
     }
+
 }
