@@ -26,5 +26,9 @@ public interface FuelPumperService {
 
     List<CustomerFuelStation> getVehicleDetailsByTypeAndDate(String vehicleType, String date);
 
+
+//    List<CustomerFuelStation> getVehicleCountAndFuelAmount(String vehicleType);
+
     List<FuelType> getFuelTypes();
+
 }

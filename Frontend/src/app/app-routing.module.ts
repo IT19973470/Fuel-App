@@ -19,8 +19,12 @@ import {ReportsComponent} from "./content/fuel-station/reports/reports.component
 import {OrderComponent} from "./content/fuel-station/order/order.component";
 
 import {VehicleDetailsComponent} from "./content/fuel_pumper/vehicle-details/vehicle-details.component";
+
+import {FuelReportComponent} from "./content/fuel_pumper/fuel-report/fuel-report.component";
+
 import {FuelAvailabilityCustomerComponent} from "./content/customer/fuel-availability-customer/fuel-availability-customer.component";
 import {ViewStockOutAdminComponent} from "./content/admin/view-stock-out-admin/view-stock-out-admin.component";
+
 
 
 const routes: Routes = [
@@ -96,6 +100,10 @@ const routes: Routes = [
   {
     path: 'vehicle_details',
     component: VehicleDetailsComponent,
+  },
+  {
+    path: 'fuel_report',
+    component: FuelReportComponent
   },
   {
     path : 'view_stock_out',
