@@ -83,12 +83,13 @@ public class FuelPumperController {
         List<CustomerFuelStation> customerFuelStations;
         customerFuelStations = fuelPumperService.getAllVehicleDetails();
         String reportValue = "";
-        try{
+        try {
             reportValue = review.pdfReportViewInlineSystemOpen("allVehicleDetails.jasper", "All Vehicle Details Report", customerFuelStations, null);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return Collections.singletonMap("response", reportValue);
+    }
 
     @GetMapping(value = "/getFuelTypes")
     public ResponseEntity getFuelTypes() {

@@ -16,6 +16,7 @@ export class FuelPumperService {
   }
 
   addCustomerFuel(customerFuel): Observable<any> {
+    console.log(customerFuel)
     return this.http.post<any>(environment.backend_url + '/fuelPumper/addCustomerFuel', customerFuel);
   }
 
