@@ -18,7 +18,6 @@ public class Customer {
     private String address;
     private String chassisNumber;
     private String vehicleNumber;
-    private String vehicleType;
     private String fuelType;
 
     public Customer(Customer customer) {
@@ -27,13 +26,18 @@ public class Customer {
         this.address = customer.address;
         this.chassisNumber = customer.chassisNumber;
         this.vehicleNumber = customer.vehicleNumber;
-        this.vehicleType = customer.vehicleType;
         this.fuelType = customer.fuelType;
         this.quota = customer.quota;
         if (customer.getFuelStationPlace() != null) {
             this.fuelStationPlace = new FuelStationPlace(customer.getFuelStationPlace());
         }
+        if (customer.getVehicleType() != null) {
+            this.vehicleType = new VehicleType(customer.getVehicleType());
+        }
     }
+
+    @ManyToOne
+    private VehicleType vehicleType;
 
     @ManyToOne
     private FuelStationPlace fuelStationPlace;

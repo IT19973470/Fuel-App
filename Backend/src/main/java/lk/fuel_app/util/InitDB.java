@@ -2,8 +2,10 @@ package lk.fuel_app.util;
 
 import lk.fuel_app.entity.FuelStationPlace;
 import lk.fuel_app.entity.FuelType;
+import lk.fuel_app.entity.VehicleType;
 import lk.fuel_app.repository.FuelStationPlaceRepository;
 import lk.fuel_app.repository.FuelTypeRepository;
+import lk.fuel_app.repository.VehicleTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -16,6 +18,8 @@ public class InitDB {
     private FuelTypeRepository fuelTypeRepository;
     @Autowired
     private FuelStationPlaceRepository fuelStationPlaceRepository;
+    @Autowired
+    private VehicleTypeRepository vehicleTypeRepository;
 
     @EventListener
     public void appReady(ApplicationReadyEvent event) {
@@ -33,6 +37,12 @@ public class InitDB {
             fuelStationPlaceRepository.save(new FuelStationPlace("Galle4", "Galle", "Galle"));
         }
 
+        if (vehicleTypeRepository.findAll().size() == 0) {
+            vehicleTypeRepository.save(new VehicleType("1_Car", "Car", "Cars", 1));
+            vehicleTypeRepository.save(new VehicleType("2_Motor_Bicycle", "Motor Bicycle", "Motor Bicycles", 2));
+            vehicleTypeRepository.save(new VehicleType("3_Three_Wheeler", "Three Wheeler", "Three Wheelers", 3));
+            vehicleTypeRepository.save(new VehicleType("4_Bus", "Bus", "Buses", 4));
+        }
 //
 //        if (subjectRepository.findAll().size() == 0) {
 //            subjectRepository.save(new Subject("S1","Physics","Physics A/L"));
