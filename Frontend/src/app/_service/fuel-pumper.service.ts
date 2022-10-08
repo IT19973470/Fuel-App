@@ -69,7 +69,7 @@ export class FuelPumperService {
     return {
       id: '',
       markedAt: '',
-      timeIn: '',
+      timeIn: Date,
       timeOut: '',
       fuelPumper: {
         nic: ''

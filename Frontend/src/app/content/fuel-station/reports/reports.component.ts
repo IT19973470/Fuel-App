@@ -34,37 +34,56 @@ export class ReportsComponent implements OnInit {
     }
   }
 
-  total={
-    name:'Total',
+  total= {
+    name:'Working Hrs',
     data: [],
     color: '#0c8dc0'
   }
   total2={
-    name:'Completed',
+    name:'Vehicle Count',
     data: [],
     color: '#018002'
   }
-  total3={
-    name:'Not-Completed',
-    data: [],
-    color: '#ff0a03'
-  }
+  // total3={
+  //   name:'Not-Completed',
+  //   data: [],
+  //   color: '#ff0a03'
+  // }
+
+pumpers=[]
 
 
   constructor(private fuelStationS: FuelStationService,private router: Router) {
-    // this.fillChart();
+     this.fillChart();
 
   }
 
   getAllApplication() {
     this.fuelStationS.getAttendence().subscribe((application) => {
-      console.log(application)
+      // console.log(application)
       this.applicationdata = application;
-
+      this.chartdata(application)
       // this.setvalues(application)
     })
   }
+ chartdata(application){
+    for (let data of application){
+      this.pumpers.push(data.fuelPumperAttendance.fuelPumper.name)
+       this.chartOptions.xaxis.categories.push(data.fuelPumperAttendance.fuelPumper.name)
+      console.log(data.fuelPumperAttendance.timeIn.substring(0,2))
+      console.log(data.fuelPumperAttendance.timeOut.substring(0,2))
+      this.total.data.push(data.fuelPumperAttendance.timeOut.substring(0,2)-data.fuelPumperAttendance.timeIn.substring(0,2))
+        // console.log(data.fuelPumperAttendance.timeOut.substring(0,2)-data.fuelPumperAttendance.timeIn.substring(0,2))
 
+    }
+   this.chartOptions.series.push(this.total)
+   // this.total.data.push(Math.floor(data.fuelPumperAttendance.timeIn)-Math.floor(data.fuelPumperAttendance.timeOut))
+  // console.log(Math.floor(data.fuelPumperAttendance.timeIn.now()))
+   // console.log( this.total.data)
+ //  this.chartOptions.xaxis.categories.push(this.pumpers)
+ //    this.chartOptions.series.push(this.pumpers,this.total)
+   // this.chartOptions.xaxis.categories.push(data.fuelPumperAttendance.fuelPumper.name)
+}
 
   setvalues(application){
     //  console.log(application)
@@ -124,10 +143,10 @@ export class ReportsComponent implements OnInit {
 
     //console.log(this.obj.pd.deliveries)
     this.weeklyDeliveries.push(this.obj)
-    this.total.data.push(passcount,itemReq,itemPass)
+    // this.total.data.push(passcount,itemReq,itemPass)
     this.total2.data.push(passcount-passcountCom,itemReq-itemcountCom,itemPass-itempasscountCom)
-    this.total3.data.push(passcountCom,itemcountCom,itempasscountCom)
-    this.chartOptions.series.push(this.total,this.total2,this.total3)
+    // this.total3.data.push(passcountCom,itemcountCom,itempasscountCom)
+    // this.chartOptions.series.push(this.total,this.total2,this.total3)
     // console.log(this.total)
     // console.log(this.chartOptions)
   }
@@ -156,7 +175,19 @@ export class ReportsComponent implements OnInit {
 
   fillChart() {
     this.chartOptions = {
-      series: [],
+      series: [
+        // {
+        //   name:'Attandance',
+        //   data: [],
+        //   color: '#0c8dc0'
+        // },
+         {
+          name:'A',
+          data: ["10","10"],
+          color: '#018002'
+        },
+
+      ],
       chart: {
         type: "bar",
         height: 350
@@ -178,9 +209,7 @@ export class ReportsComponent implements OnInit {
       },
       xaxis: {
         categories: [
-          "Passenger Reequests",
-          "Item Reequests",
-          "Item Passenger Reequests",
+
         ]
       },
       yaxis: {
