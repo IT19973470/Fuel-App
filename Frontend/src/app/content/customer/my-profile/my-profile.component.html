@@ -92,6 +92,7 @@
     <thead class="thead-dark">
     <th>#</th>
     <th>Date</th>
+    <th>Fuel Type</th>
     <th>Pumped</th>
     <th>Fuel Station</th>
     <th>Address</th>
@@ -100,6 +101,7 @@
     <tr *ngFor="let pump of pumps;let i = index">
       <td>{{i+1}}</td>
       <td>{{pump.pumpedAtFormatted}}</td>
+      <td>{{pump.fuelType.name}}</td>
       <td>{{pump.fuelPumped}}L</td>
       <td>{{pump.fuelStation.name}}</td>
       <td>{{pump.fuelStation.address}}</td>

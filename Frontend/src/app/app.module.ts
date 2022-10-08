@@ -36,6 +36,7 @@ import {VehicleDetailsFilterPipe} from "./content/fuel_pumper/vehicle-details/ve
 import { FuelReportComponent } from './content/fuel_pumper/fuel-report/fuel-report.component';
 
 import { FuelAvailabilityCustomerComponent } from './content/customer/fuel-availability-customer/fuel-availability-customer.component';
+import { ViewStockOutAdminComponent } from './content/admin/view-stock-out-admin/view-stock-out-admin.component';
 
 
 
@@ -67,7 +68,8 @@ import { FuelAvailabilityCustomerComponent } from './content/customer/fuel-avail
     VehicleDetailsComponent,
     VehicleDetailsFilterPipe,
     FuelReportComponent,
-    FuelAvailabilityCustomerComponent
+    FuelAvailabilityCustomerComponent,
+    ViewStockOutAdminComponent
   ],
   imports: [
     BrowserModule,

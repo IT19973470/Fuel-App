@@ -1,13 +1,7 @@
 package lk.fuel_app.service.impl;
 
-import lk.fuel_app.entity.Customer;
-import lk.fuel_app.entity.CustomerFuelStation;
-import lk.fuel_app.entity.FuelPumper;
-import lk.fuel_app.entity.FuelPumperAttendance;
-import lk.fuel_app.repository.CustomerFuelStationRepository;
-import lk.fuel_app.repository.CustomerRepository;
-import lk.fuel_app.repository.FuelPumperAttendanceRepository;
-import lk.fuel_app.repository.FuelPumperRepository;
+import lk.fuel_app.entity.*;
+import lk.fuel_app.repository.*;
 import lk.fuel_app.service.FuelPumperService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +26,7 @@ public class FuelPumperServiceImpl implements FuelPumperService {
     private FuelPumperAttendanceRepository fuelPumperAttendanceRepository;
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private FuelTypeRepository fuelTypeRepository;
 
     @Override
     public CustomerFuelStation addCustomerFuel(CustomerFuelStation customerFuelStation) {
@@ -45,7 +39,7 @@ public class FuelPumperServiceImpl implements FuelPumperService {
         customerFuelStation = customerFuelStationRepository.save(customerFuelStation);
         Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(customerFuelStation.getCustomer().getVehicleNumber(), LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
         customerFuelStation.getCustomer().setQuota(fuelPumpedAmount == null ? 0 : fuelPumpedAmount);
-        return customerFuelStation;
+        return new CustomerFuelStation(customerFuelStation);
     }
 
     @Override
@@ -105,6 +99,7 @@ public class FuelPumperServiceImpl implements FuelPumperService {
         return customerFuelStationRepository.getVehicleDetailsByTypeAndDate(vehicleType, localDate);
     }
 
+
 //    @Override
 //    public List<CustomerFuelStation> getVehicleCountAndFuelAmount(String vehicleType) {
 //        Integer noOfVehicles, fuelAmount;
@@ -112,4 +107,10 @@ public class FuelPumperServiceImpl implements FuelPumperService {
 //
 //        return customerFuelStations;
 //    }
+
+    @Override
+    public List<FuelType> getFuelTypes() {
+        return fuelTypeRepository.getFuelTypes();
+    }
+
 }

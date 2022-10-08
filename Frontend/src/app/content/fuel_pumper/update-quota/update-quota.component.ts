@@ -3,6 +3,7 @@ import {CustomerService} from "../../../_service/customer.service";
 import {FuelStationService} from "../../../_service/fuel-station.service";
 import {QrScanService} from "../../../qr-scan/qr-scan.service";
 import {FuelPumperService} from "../../../_service/fuel-pumper.service";
+import {UserService} from "../../../_service/user.service";
 
 @Component({
   selector: 'app-update-quota',
@@ -15,9 +16,13 @@ export class UpdateQuotaComponent implements OnInit {
   quota
   customerIndex;
   customers = []
-  val
+  val;
+  fuelTypes = [];
+  fuelType = {
+    id: ''
+  };
 
-  constructor(private customerS: CustomerService, private fuelPumperS: FuelPumperService, private qrScanS: QrScanService) {
+  constructor(private customerS: CustomerService, private fuelPumperS: FuelPumperService, private qrScanS: QrScanService,private userS:UserService) {
     this.customer = this.customerS.newCustomer()
     qrScanS.qrValue.subscribe(value => {
       this.getCustomerByVehicle(value)
@@ -25,7 +30,13 @@ export class UpdateQuotaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getFuelTypes();
+  }
 
+  getFuelTypes() {
+    this.userS.getFuelTypes().subscribe(fuelTypes => {
+      this.fuelTypes = fuelTypes;
+    })
   }
 
   getCustomerByVehicle(vehicle) {
@@ -54,7 +65,8 @@ export class UpdateQuotaComponent implements OnInit {
         fuelStation: {
           id: JSON.parse(localStorage.getItem('user')).fuelPumper.fuelStation.id
         },
-        fuelPumped: quota
+        fuelPumped: quota,
+        fuelType: this.fuelType
       }
       console.log(customerFuel)
       this.fuelPumperS.addCustomerFuel(customerFuel).subscribe(customerFuel => {

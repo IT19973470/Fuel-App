@@ -70,6 +70,7 @@ public class FuelPumperController {
         return ResponseEntity.ok(fuelPumperService.getVehicleDetailsByTypeAndDate(vehicleType, date));
     }
 
+
 //    @GetMapping(value = "/getVehicleCountAndFuelAmount/{vehicleType}")
 //    public ResponseEntity getVehicleCountAndFuelAmount(@PathVariable String vehicleType) {
 //        return ResponseEntity.ok(fuelPumperService.getVehicleCountAndFuelAmount(vehicleType));
@@ -88,5 +89,10 @@ public class FuelPumperController {
             e.printStackTrace();
         }
         return Collections.singletonMap("response", reportValue);
+
+    @GetMapping(value = "/getFuelTypes")
+    public ResponseEntity getFuelTypes() {
+        return ResponseEntity.ok(fuelPumperService.getFuelTypes());
+
     }
 }

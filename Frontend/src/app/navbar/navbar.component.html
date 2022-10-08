@@ -11,7 +11,7 @@
           <span class="nav_name">My Profile</span>
         </a>
         <a class="nav_link active" [routerLink]="'/fuel_availability_customer'">
-          <i class='bx bx-user nav_icon'></i>
+          <i class='bx bx-gas-pump nav_icon'></i>
           <span class="nav_name">Fuel Availability</span>
         </a>
       </div>
@@ -62,7 +62,7 @@
       <div class="nav_list" *ngIf="userType==='fuelAdmin'">
         <a class="nav_link active" [routerLink]="'/fuel_availability_admin'">
           <i class='bx bx-grid-alt nav_icon'></i>
-          <span class="nav_name">Fuel Availability</span>
+          <span class="nav_name">Stock In List</span>
         </a>
         <a class="nav_link" [routerLink]="'/stockIn_form'">
           <i class='bx bx-user nav_icon'></i>
@@ -71,6 +71,10 @@
         <a class="nav_link" [routerLink]="'/stockOut_form'">
           <i class='bx bx-user nav_icon'></i>
           <span class="nav_name">Stock Out</span>
+        </a>
+        <a class="nav_link" [routerLink]="'/view_stock_out'">
+          <i class='bx bx-grid-alt nav_icon'></i>
+          <span class="nav_name">Stock Out List</span>
         </a>
       </div>
 

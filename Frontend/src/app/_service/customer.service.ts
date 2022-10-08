@@ -37,12 +37,19 @@ export class CustomerService {
     return this.http.get<any>(environment.backend_url + "/customer/sendOTP/" + email + "/" + contactNumber);
   }
 
+  getFuelAvailability(place, orderBy): Observable<any> {
+    return this.http.get<any>(environment.backend_url + "/customer/fuelAvailability/" + place + "/" + orderBy);
+  }
 
   newCustomer() {
     return {
       nic: '',
       name: '',
       address: '',
+      district: '',
+      fuelStationPlace: {
+        id: ''
+      },
       chassisNumber: '',
       vehicleNumber: '',
       vehicleType: '',

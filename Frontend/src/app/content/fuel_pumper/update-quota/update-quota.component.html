@@ -40,7 +40,21 @@
               <td>20L</td>
             </tr>
             <tr>
-              <td>Pumped</td>
+              <td>Fuel Type</td>
+              <td>
+                <select class="form-control" [(ngModel)]="fuelType.id" name="fuelTypeC"
+                        #fuelTypeC="ngModel" required style="margin-bottom: 0px">
+                  <option value="">Select</option>
+                  <option *ngFor="let fuelTypeObj of fuelTypes" [value]="fuelTypeObj.id">{{fuelTypeObj.name}}</option>
+                </select>
+                <div *ngIf="(fuelTypeC.touched || updateQuotaForm.submitted) && fuelTypeC.errors?.required"
+                     class="validErr">
+                  Fuel Type is required
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Pumped (L)</td>
               <td>
                 <input type="number" class="form-control" style="margin: 0px" #quota="ngModel" required name="quota" [(ngModel)]="val">
                 <div *ngIf="(quota.touched || updateQuotaForm.submitted) && quota.errors?.required"

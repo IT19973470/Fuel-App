@@ -1,9 +1,6 @@
 package lk.fuel_app.service;
 
-import lk.fuel_app.entity.Customer;
-import lk.fuel_app.entity.CustomerFuelStation;
-import lk.fuel_app.entity.FuelPumper;
-import lk.fuel_app.entity.FuelPumperAttendance;
+import lk.fuel_app.entity.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -29,5 +26,9 @@ public interface FuelPumperService {
 
     List<CustomerFuelStation> getVehicleDetailsByTypeAndDate(String vehicleType, String date);
 
+
 //    List<CustomerFuelStation> getVehicleCountAndFuelAmount(String vehicleType);
+
+    List<FuelType> getFuelTypes();
+
 }

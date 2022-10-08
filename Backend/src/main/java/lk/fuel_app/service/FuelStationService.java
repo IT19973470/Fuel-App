@@ -17,4 +17,6 @@ public interface FuelStationService {
 
     public List<Chat> getChat();
     public Chat addChat(Chat chat);
+
+    FuelStockNext addNextFuelStock(FuelStockNext fuelStockNext);
 }

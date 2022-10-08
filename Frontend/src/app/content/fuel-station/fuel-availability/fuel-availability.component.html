@@ -1,91 +1,126 @@
 <div style="display: flex;justify-content: center">
-  <form action="" #addStockForm="ngForm"
-        (ngSubmit)="addStockForm.form.valid && addFuelStock()" novalidate>
-    <div style="margin-top: 20px">
-      <span style="font-weight: bold;color: #b68003;font-size: 21px">Fuel Stock</span>
-    </div>
-    <div class="row" style="margin-top: 20px;margin-left: 0px;margin-right: 0px">
-
-      <!--<form action="" (ngSubmit)="addFuelStock()">-->
-
-      <!--<div class="col-12" style="padding: 20px">-->
-      <!--<div>-->
-      <!--<span style="font-weight: bold;color: #b68003;font-size: 21px">Expected Arrival Date and Time</span>-->
-      <!--<div style="margin-left: 10px;margin-top: 10px;display: flex">-->
-      <!--<input type="datetime-local" class="form-control" style="width: 300px;margin-right: 20px"-->
-      <!--[(ngModel)]="fuelStock.expectedArrival">-->
-      <!--<button class="btn btn-warning">Display</button>-->
-      <!--</div>-->
-      <!--</div>-->
-      <!--</div>-->
-
-      <div class="col-12" style="padding: 20px;border-top: 1px solid #aeaeae;display: flex;justify-content: center">
-
-        <div style="margin-right: 20px;width: 100%">
-          <span>Amount (L)</span>
-          <input type="text" placeholder="Enter Amount" class="form-control" name="amount"
-                 [(ngModel)]="fuelStock.amount"
-                 #amount="ngModel" required>
-          <div *ngIf="(amount.touched || addStockForm.submitted) && amount.errors?.required"
-               class="validErr">
-            Amount is required
-          </div>
-        </div>
-        <div style="margin-right: 20px;width: 100%">
-          <span>Vehicle Number</span>
-          <input type="text" placeholder="Enter Vehicle Number" class="form-control" name="vehicleNumber"
-                 [(ngModel)]="fuelStock.vehicleNumber"
-                 #vehicleNumber="ngModel" required>
-          <div *ngIf="(vehicleNumber.touched || addStockForm.submitted) && vehicleNumber.errors?.required"
-               class="validErr">
-            Vehicle Number is required
-          </div>
-        </div>
-        <div style="width: 100%">
-          <span>Driver</span>
-          <input type="text" placeholder="Enter Driver" class="form-control" name="driver"
-                 [(ngModel)]="fuelStock.driver"
-                 #driver="ngModel" required>
-          <div *ngIf="(driver.touched || addStockForm.submitted) && driver.errors?.required"
-               class="validErr">
-            Driver is required
-          </div>
-        </div>
+  <div>
+    <form action="" #addStockForm="ngForm"
+          (ngSubmit)="addStockForm.form.valid && addFuelStock()" novalidate>
+      <div style="margin-top: 20px">
+        <span style="font-weight: bold;color: #b68003;font-size: 21px">Fuel Stock</span>
       </div>
+      <div class="row" style="margin-top: 20px;margin-left: 0px;margin-right: 0px">
 
-      <div class="col-12" style="padding: 20px;display: flex;justify-content: center">
-        <div style="margin-right: 20px;width: 100%">
-          <span>Actual Arrival Date and Time</span>
-          <input type="datetime-local" class="form-control" name="actualArrival"
-                 [(ngModel)]="fuelStock.actualArrival"
-                 #actualArrival="ngModel" required>
-          <div *ngIf="(actualArrival.touched || addStockForm.submitted) && actualArrival.errors?.required"
-               class="validErr">
-            Actual Arrival Date and Time is required
+        <div class="col-12" style="padding: 20px;border-top: 1px solid #aeaeae;display: flex;justify-content: center">
+
+          <div style="margin-right: 20px;width: 100%">
+            <span>Amount (L)</span>
+            <input type="text" placeholder="Enter Amount" class="form-control" name="amount"
+                   [(ngModel)]="fuelStock.amount"
+                   #amount="ngModel" required>
+            <div *ngIf="(amount.touched || addStockForm.submitted) && amount.errors?.required"
+                 class="validErr">
+              Amount is required
+            </div>
+          </div>
+          <div style="margin-right: 20px;width: 100%">
+            <span>Vehicle Number</span>
+            <input type="text" placeholder="Enter Vehicle Number" class="form-control" name="vehicleNumber"
+                   [(ngModel)]="fuelStock.vehicleNumber"
+                   #vehicleNumber="ngModel" required>
+            <div *ngIf="(vehicleNumber.touched || addStockForm.submitted) && vehicleNumber.errors?.required"
+                 class="validErr">
+              Vehicle Number is required
+            </div>
+          </div>
+          <div style="width: 100%">
+            <span>Driver</span>
+            <input type="text" placeholder="Enter Driver" class="form-control" name="driver"
+                   [(ngModel)]="fuelStock.driver"
+                   #driver="ngModel" required>
+            <div *ngIf="(driver.touched || addStockForm.submitted) && driver.errors?.required"
+                 class="validErr">
+              Driver is required
+            </div>
           </div>
         </div>
-        <div style="margin-right: 20px;width: 100%">
-          <span>Fuel Type</span>
-          <select class="form-control" [(ngModel)]="fuelStock.fuelType" name="fuelType"
-                  #fuelType="ngModel" required>
-            <option value="">Select</option>
-            <option value="92 Petrol">92 Petrol</option>
-            <option value="95 Petrol">95 Petrol</option>
-            <option value="Diesel">Diesel</option>
-            <option value="Super Diesel">Super Diesel</option>
-          </select>
-          <div *ngIf="(fuelType.touched || addStockForm.submitted) && fuelType.errors?.required"
-               class="validErr">
-            Fuel Type is required
+
+        <div class="col-12" style="padding: 20px;display: flex;justify-content: center">
+          <div style="margin-right: 20px;width: 100%">
+            <span>Actual Arrival Date and Time</span>
+            <input type="datetime-local" class="form-control" name="actualArrival"
+                   [(ngModel)]="fuelStock.actualArrival"
+                   #actualArrival="ngModel" required>
+            <div *ngIf="(actualArrival.touched || addStockForm.submitted) && actualArrival.errors?.required"
+                 class="validErr">
+              Actual Arrival Date and Time is required
+            </div>
+          </div>
+          <div style="margin-right: 20px;width: 100%">
+            <span>Fuel Type</span>
+            <select class="form-control" [(ngModel)]="fuelStock.fuelType.id" name="fuelType"
+                    #fuelType="ngModel" required>
+              <option value="">Select</option>
+              <option *ngFor="let fuelTypeObj of fuelTypes" [value]="fuelTypeObj.id">{{fuelTypeObj.name}}</option>
+            </select>
+            <div *ngIf="(fuelType.touched || addStockForm.submitted) && fuelType.errors?.required"
+                 class="validErr">
+              Fuel Type is required
+            </div>
+          </div>
+          <div style="width: 100%">
+            <button class="btn btn-success" type="submit" style="margin-top: 22px;text-align: center">Add Stock</button>
           </div>
         </div>
-        <div style="width: 100%">
-          <button class="btn btn-success" type="submit" style="margin-top: 22px;text-align: center">Add Stock</button>
-        </div>
+
       </div>
+    </form>
 
-    </div>
-  </form>
+    <form action="" #nextStockForm="ngForm"
+          (ngSubmit)="nextStockForm.form.valid && nextFuelStock()" novalidate>
+      <div style="margin-top: 20px">
+        <span style="font-weight: bold;color: #b68003;font-size: 21px">Next Fuel Stock</span>
+      </div>
+      <div class="row" style="margin-top: 20px;margin-left: 0px;margin-right: 0px">
+
+        <div class="col-12" style="padding: 20px;border-top: 1px solid #aeaeae;display: flex;justify-content: center">
+          <div style="margin-right: 20px;width: 100%">
+            <span>Amount (L)</span>
+            <input type="text" placeholder="Enter Amount" class="form-control" name="amount"
+                   [(ngModel)]="fuelStockNext.amount"
+                   #amountNext="ngModel" required>
+            <div *ngIf="(amountNext.touched || nextStockForm.submitted) && amountNext.errors?.required"
+                 class="validErr">
+              Amount is required
+            </div>
+          </div>
+          <div style="margin-right: 20px;width: 100%">
+            <span>Actual Arrival Date and Time</span>
+            <input type="datetime-local" class="form-control" name="actualArrival"
+                   [(ngModel)]="fuelStockNext.arrival"
+                   #actualArrivalNext="ngModel" required>
+            <div *ngIf="(actualArrivalNext.touched || nextStockForm.submitted) && actualArrivalNext.errors?.required"
+                 class="validErr">
+              Actual Arrival Date and Time is required
+            </div>
+          </div>
+          <div style="margin-right: 20px;width: 100%">
+            <span>Fuel Type</span>
+            <select class="form-control" [(ngModel)]="fuelStockNext.fuelType.id" name="fuelType"
+                    #fuelTypeNext="ngModel" required>
+              <option value="">Select</option>
+              <option *ngFor="let fuelTypeObj of fuelTypes" [value]="fuelTypeObj.id">{{fuelTypeObj.name}}</option>
+            </select>
+            <div *ngIf="(fuelTypeNext.touched || nextStockForm.submitted) && fuelTypeNext.errors?.required"
+                 class="validErr">
+              Fuel Type is required
+            </div>
+          </div>
+          <div style="width: 100%">
+            <button class="btn btn-success" type="submit" style="margin-top: 22px;text-align: center">Next Stock
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
 </div>
 
 <div style="border-top: 1px solid #aeaeae;margin: 10px">
@@ -118,6 +153,16 @@
       <tr>
         <td>Fuel Supply per hour</td>
         <td>500</td>
+      </tr>
+      <tr>
+        <td>Next Fuel Stock</td>
+        <td width="500px" *ngIf="fuelStock.nextFuelAmount>0">
+          {{fuelStock.nextFuelAmount}}L <span style="font-weight: bold">-></span>
+          {{fuelStock.nextFuelAmountDateAt}} / {{fuelStock.nextFuelAmountTimeAt}}
+        </td>
+        <td width="500px" *ngIf="fuelStock.nextFuelAmount===0">
+          N/A
+        </td>
       </tr>
       </tbody>
     </table>

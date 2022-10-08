@@ -23,6 +23,7 @@ import {VehicleDetailsComponent} from "./content/fuel_pumper/vehicle-details/veh
 import {FuelReportComponent} from "./content/fuel_pumper/fuel-report/fuel-report.component";
 
 import {FuelAvailabilityCustomerComponent} from "./content/customer/fuel-availability-customer/fuel-availability-customer.component";
+import {ViewStockOutAdminComponent} from "./content/admin/view-stock-out-admin/view-stock-out-admin.component";
 
 
 
@@ -102,7 +103,11 @@ const routes: Routes = [
   },
   {
     path: 'fuel_report',
-    component: FuelReportComponent,
+    component: FuelReportComponent
+  },
+  {
+    path : 'view_stock_out',
+    component: ViewStockOutAdminComponent,
   }
 ];
 
