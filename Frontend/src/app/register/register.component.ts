@@ -7,7 +7,7 @@ import {Component, OnInit} from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  registration = 'customer'
+  registration = 'customer';
 
   constructor() {
   }

@@ -1,5 +1,7 @@
 package lk.fuel_app.service.impl;
 
+import lk.fuel_app.dto.AttandanceDTO;
+import lk.fuel_app.dto.FuelAdminStockOutDTO;
 import lk.fuel_app.dto.FuelAvailabilityDTO;
 import lk.fuel_app.dto.FuelStockDTO;
 import lk.fuel_app.entity.*;
@@ -109,13 +111,27 @@ public class FuelStationServiceImpl implements FuelStationService {
     }
 
     @Override
-    public List<FuelAdminStockOut> getFuelStockIn(String id) {
-        return fuelAdminStockOutRepository.findAllByFuelStation_Id(id);
+    public List<FuelAdminStockOutDTO> getFuelStockIn(String id) {
+        List<FuelAdminStockOutDTO> fuelAdminStockOutDTOS = new ArrayList<>();
+        List<FuelAdminStockOut> fuelAdminStockOuts= fuelAdminStockOutRepository.findAllByFuelStation_Id(id);
+        for (FuelAdminStockOut fuelAdminStockOut : fuelAdminStockOuts) {
+            FuelAdminStockOutDTO fuelAdminStockOutDTO = new FuelAdminStockOutDTO();
+            fuelAdminStockOutDTO.setFuelAdminStockOut(new FuelAdminStockOut(fuelAdminStockOut));
+            fuelAdminStockOutDTOS.add(fuelAdminStockOutDTO);
+        }
+        return fuelAdminStockOutDTOS;
     }
 
     @Override
-    public List<FuelPumperAttendance> getAttendence() {
-        return fuelPumperAttendanceRepository.findAll();
+    public List<AttandanceDTO> getAttendence() {
+        List<AttandanceDTO> attandanceDTOS = new ArrayList<>();
+        List<FuelPumperAttendance> fuelPumperAttendances= fuelPumperAttendanceRepository.findAll();
+        for (FuelPumperAttendance fuelPumperAttendance : fuelPumperAttendances) {
+            AttandanceDTO attandanceDTO = new AttandanceDTO();
+            attandanceDTO.setFuelPumperAttendance(new FuelPumperAttendance(fuelPumperAttendance));
+            attandanceDTOS.add(attandanceDTO);
+        }
+      return attandanceDTOS;
     }
 
     @Override

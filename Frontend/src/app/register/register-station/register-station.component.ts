@@ -4,12 +4,14 @@ import {Route, Router} from "@angular/router";
 import {LoginService} from "../../login/login.service";
 import {UserService} from "../../_service/user.service";
 
+
 @Component({
   selector: 'app-register-station',
   templateUrl: './register-station.component.html',
   styleUrls: ['./register-station.component.css']
 })
 export class RegisterStationComponent implements OnInit {
+
 
   fuelStation
   districts = [];
@@ -18,6 +20,7 @@ export class RegisterStationComponent implements OnInit {
 
   constructor(private fuelStationS: FuelStationService, private router: Router, private userS: UserService) {
     this.fuelStation = fuelStationS.newFuelStation()
+
   }
 
   ngOnInit(): void {
@@ -25,11 +28,11 @@ export class RegisterStationComponent implements OnInit {
   }
 
   addFuelStation() {
-    this.fuelStation.appUser.userType = 'fuelStation'
-    this.fuelStation.appUser.id = this.fuelStation.id
+    this.fuelStation.appUser.userType = 'fuelStation';
+    this.fuelStation.appUser.id = this.fuelStation.id;
     this.fuelStationS.addFuelStation(this.fuelStation).subscribe(fuelStation => {
-      this.router.navigate(['/login'])
-    })
+      this.router.navigate(['/login']);
+    });
   }
 
   setDistricts() {

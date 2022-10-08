@@ -12,9 +12,9 @@
       <tbody>
       <tr *ngFor="let d1 of attendance let i = index">
         <th scope="row">{{i+1}}</th>
-        <th>{{d1.fuelPumper.nic}}</th>
-        <td>{{d1.timeIn}}</td>
-        <td>{{d1.timeOut}}</td>
+        <th>{{d1.fuelPumperAttendance.fuelPumper.nic}}</th>
+        <td>{{d1.fuelPumperAttendance.markedAt}}  {{d1.fuelPumperAttendance.timeIn}}</td>
+        <td>{{d1.fuelPumperAttendance.markedAt}}  {{d1.fuelPumperAttendance.timeOut}}</td>
         <td>1</td>
       </tr>
       </tbody>
@@ -35,11 +35,11 @@
       <tr>
       <tr *ngFor="let d of data let i = index">
         <th scope="row">{{i+1}}</th>
-        <td>{{d.date}}</td>
-        <td>{{d.fuelType}}</td>
-        <td>{{d.vehicleNumber}}</td>
-        <td>{{d.driverName}}</td>
-        <td>{{d.amount}}</td>
+        <td>{{d.fuelAdminStockOut.date}}</td>
+        <td>{{d.fuelAdminStockOut.fuelType}}</td>
+        <td>{{d.fuelAdminStockOut.vehicleNumber}}</td>
+        <td>{{d.fuelAdminStockOut.driverName}}</td>
+        <td>{{d.fuelAdminStockOut.amount}}</td>
       </tr>
       </tbody>
     </table>

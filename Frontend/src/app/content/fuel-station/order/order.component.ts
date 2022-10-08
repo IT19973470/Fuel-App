@@ -21,24 +21,24 @@ export class OrderComponent implements OnInit {
   constructor(private router: Router, private fuelStationS: FuelStationService,  private confirmBox: ConfirmBoxService) {
     this.c.chaterName = localStorage.getItem('user') !== null ? JSON.parse(localStorage.getItem('user') as string)['email'] : ''
     console.log(this.c.chaterName)
-    this.startTimer();
+    // this.startTimer();
   }
 
   interval:any;
 
-  startTimer() {
-    this.interval = setInterval(() => {
-      this.getAllChats()
-    },1000)
-  }
-  getAllChats() {
-    this.fuelStationS.getAllChats().subscribe(data => {
-      this.chatyou=data
-      this.you=this.chatyou[0]
-      // console.log(data)
-
-    })
-  }
+  // startTimer() {
+  //   this.interval = setInterval(() => {
+  //     this.getAllChats()
+  //   },1000)
+  // }
+  // getAllChats() {
+  //   this.fuelStationS.getAllChats().subscribe(data => {
+  //     this.chatyou=data
+  //     this.you=this.chatyou[0]
+  //     // console.log(data)
+  //
+  //   })
+  // }
 
   ngOnInit(): void {
     this.getAdminDetails()

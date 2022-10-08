@@ -32,9 +32,8 @@ import { OrderComponent } from './content/fuel-station/order/order.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
 import { VehicleDetailsComponent } from './content/fuel_pumper/vehicle-details/vehicle-details.component';
 import {VehicleDetailsFilterPipe} from "./content/fuel_pumper/vehicle-details/vehicle-details-filter.pipe";
-
+import {NgApexchartsModule} from "ng-apexcharts";
 import { FuelReportComponent } from './content/fuel_pumper/fuel-report/fuel-report.component';
-
 import { FuelAvailabilityCustomerComponent } from './content/customer/fuel-availability-customer/fuel-availability-customer.component';
 import { ViewStockOutAdminComponent } from './content/admin/view-stock-out-admin/view-stock-out-admin.component';
 
@@ -78,7 +77,8 @@ import { ViewStockOutAdminComponent } from './content/admin/view-stock-out-admin
     ZXingScannerModule,
     HttpClientModule,
     FormsModule,
-    ScrollingModule
+    ScrollingModule,
+    NgApexchartsModule,
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

@@ -37,15 +37,19 @@ export class FuelPumperService {
   }
 
   getVehicleDetailsByType(vehicleType: string): Observable<any> {
-    return this.http.get<any>(`${this.baseURL + "/fuelPumper/getVehicleDetailsByType"}/${vehicleType}`);
+    return this.http.get<any>(`${this.baseURL + '/fuelPumper/getVehicleDetailsByType'}/${vehicleType}`);
   }
+
 
   getVehicleDetailsByDate(date: any): Observable<any> {
     return this.http.get<any>(`${this.baseURL + "/fuelPumper/getVehicleDetailsByDate"}/${date}`);
+
   }
 
   getVehicleDetailsByTypeAndDate(vehicleType: string, date: any): Observable<any> {
-    return this.http.get<any>(`${this.baseURL + "/fuelPumper/getVehicleDetailsByDate"}/${vehicleType}/${date}`);
+
+    return this.http.get<any>(`${this.baseURL + '/fuelPumper/getVehicleDetailsByDate'}/${vehicleType}/${date}`);
+
   }
 
   getVehicleCountAndFuelAmount(vehicleType: string): Observable<any> {
@@ -76,7 +80,7 @@ export class FuelPumperService {
     return {
       id: '',
       markedAt: '',
-      timeIn: '',
+      timeIn: Date,
       timeOut: '',
       fuelPumper: {
         nic: ''

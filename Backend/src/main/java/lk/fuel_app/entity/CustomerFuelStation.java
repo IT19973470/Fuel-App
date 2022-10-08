@@ -48,6 +48,9 @@ public class CustomerFuelStation {
 
     @ManyToOne
     private FuelStation fuelStation;
+    
+    @ManyToOne
+    private FuelPumper fuelPumper;
 
     @ManyToOne
     private FuelType fuelType;
