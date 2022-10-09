@@ -10,8 +10,8 @@
           (ngSubmit)="stockOutForm.form.valid && addFuelStockOut()" novalidate>
 
       <div>Fuel Type</div>
-      <select class="form-control" name="type" [(ngModel)]="fuelStockOut.fuelType"
-              #fuelType="ngModel" required>
+      <select class="form-control" name="type"  [(ngModel)]="fuelStockOut.fuelType"
+              #fuelType="ngModel" required   >
         <option value="">Select</option>
         <option value="car">Petrol 92</option>
         <option value="car">Petrol 95</option>
@@ -25,10 +25,10 @@
 
       <div style="margin-top: 20px">Destination</div>
       <select class="form-control" name="destination" [(ngModel)]="fuelStockOut.fuelStation.id"
-              #fuelStation="ngModel" required>
-        <option value="">Select</option>
-        <option value="1">Bandarawela</option>
-        <option value="2">Colombo</option>
+              #fuelStation="ngModel">
+        <option *ngFor="let option of fuelStations" [value]="option.fuelStation.id">
+          {{option.fuelStation.address}}
+        </option>
       </select>
       <div *ngIf="(fuelStation.touched || stockOutForm.submitted) && fuelStation.errors?.required"
            class="validErr">

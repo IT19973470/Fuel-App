@@ -9,6 +9,7 @@ import java.util.List;
 public interface FuelStationRepository extends JpaRepository<FuelStation, String> {
 
     List<FuelStation> getAllByFuelStationPlaceId(String place);
+    FuelStation getByAppUserId(String id);
 
 //    @Query("from FuelStation where ")
 //    List<FuelStation> getFuelStationPlaceId(String place);
