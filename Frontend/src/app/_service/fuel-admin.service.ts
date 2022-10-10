@@ -10,6 +10,7 @@ export class FuelAdminService {
 
   fuelIn;
   fuelOut;
+  fuelOrders;
 
   constructor(private http: HttpClient) {
   }
@@ -30,6 +31,10 @@ export class FuelAdminService {
   }
   getFuelAdminStockOut(): Observable<any> {
     return this.http.get<any>(environment.backend_url + "/fuel_admin/getFuelStockOut");
+  }
+
+  getFuelOrders(): Observable<any>{
+    return this.http.get<any>(environment.backend_url + "fuel_admin/getFuelOrders");
   }
 
   getFuelStations(): Observable<any> {

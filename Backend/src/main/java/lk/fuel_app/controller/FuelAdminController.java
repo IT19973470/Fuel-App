@@ -37,10 +37,60 @@ public class FuelAdminController {
         return ResponseEntity.ok(fuelAdminService.viewStockOut());
     }
 
+    @GetMapping(value = "/getFuelOrders")
+    public ResponseEntity getFuelOrders(){
+        return ResponseEntity.ok(fuelAdminService.viewFuelOrders());
+    }
+
     @GetMapping(value = "/getFuelStation")
     public ResponseEntity getFuelStation() {
         return ResponseEntity.ok(fuelAdminService.viewFuelStation());
     }
 
+    //Getting order for approve or deny
+    @GetMapping(value = "/getOrder")
+    public ResponseEntity getOrder() {
+        return ResponseEntity.ok(fuelAdminService.getOrder());
+    }
+
+    @PutMapping(value = "/updateStockIn/{id}")
+    public ResponseEntity updateStockIn(@PathVariable String id, @RequestBody FuelAdminStockIn fuelAdminStockIn){
+        return ResponseEntity.ok(fuelAdminService.updateStockIn(id,fuelAdminStockIn));
+    }
+
+    @DeleteMapping(value = "/deleteStockIn/{id}")
+    public ResponseEntity deleteStockIn(@PathVariable String id){
+        return ResponseEntity.ok(fuelAdminService.deleteStockIn(id));
+    }
+
+    @GetMapping(value = "/getStockInBystockFromStockFrom/{stockFrom}")
+    public ResponseEntity getStockInBystockFrom(@PathVariable String stockFrom) {
+        return ResponseEntity.ok(fuelAdminService.getStockInBystockFrom(stockFrom));
+    }
+
+    @GetMapping(value = "/getStockInByType/{type}")
+    public ResponseEntity getStockInByType(@PathVariable String type) {
+        return ResponseEntity.ok(fuelAdminService.getStockInByType(type));
+    }
+
+    @PutMapping(value = "/updateStockOut/{id}")
+    public ResponseEntity updateStockOut(@PathVariable String id, @RequestBody FuelAdminStockOut fuelAdminStockOut){
+        return ResponseEntity.ok(fuelAdminService.updateStockOut(id,fuelAdminStockOut));
+    }
+
+    @DeleteMapping(value = "/deleteStockOut/{id}")
+    public ResponseEntity deleteStockOut(@PathVariable String id){
+        return ResponseEntity.ok(fuelAdminService.deleteStockOut(id));
+    }
+
+    @GetMapping(value = "/getStockOutBystockFromStockFrom/{fuel_station_id}")
+    public ResponseEntity getStockOutByStation(@PathVariable String fuel_station_id) {
+        return ResponseEntity.ok(fuelAdminService.getStockOutByStation(fuel_station_id));
+    }
+
+    @GetMapping(value = "/getStockOutByType/{type}")
+    public ResponseEntity getStockOutByType(@PathVariable String type) {
+        return ResponseEntity.ok(fuelAdminService.getStockOutByType(type));
+    }
 
 }

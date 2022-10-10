@@ -26,6 +26,8 @@ import {FuelAvailabilityCustomerComponent} from "./content/customer/fuel-availab
 import {ViewStockOutAdminComponent} from "./content/admin/view-stock-out-admin/view-stock-out-admin.component";
 import {FuelApproveComponent} from "./content/admin/fuel-approve/fuel-approve.component";
 import {ViewReportComponent} from "./content/admin/view-report/view-report.component";
+import {UpdateStockInComponent} from "./content/admin/update-stock-in/update-stock-in.component";
+import {UpdateStockOutComponent} from "./content/admin/update-stock-out/update-stock-out.component";
 
 
 
@@ -118,6 +120,14 @@ const routes: Routes = [
   {
     path: 'view_report',
     component : ViewReportComponent
+  },
+  {
+    path: 'update-stockIn',
+    component : UpdateStockInComponent
+  },
+  {
+    path: 'update-stockOut',
+    component : UpdateStockOutComponent
   }
 ];
 

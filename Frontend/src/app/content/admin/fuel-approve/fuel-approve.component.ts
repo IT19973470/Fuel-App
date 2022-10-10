@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {FuelAdminService} from "../../../_service/fuel-admin.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-fuel-approve',
@@ -6,13 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./fuel-approve.component.css']
 })
 export class FuelApproveComponent implements OnInit {
-  data = []
-  constructor() { }
-
-  ngOnInit(): void {
-  }
 
   updateStockIn() {
 
   }
+
+  data = []
+  constructor(private fuelAdminService: FuelAdminService, private router: Router) {
+  }
+
+  ngOnInit(): void {
+    this.getFuelOrders()
+  }
+
+  getFuelOrders() {
+    this.fuelAdminService.getFuelOrders().subscribe(res => {
+      this.data = res
+      console.log(this.data)
+    })
+  }
 }
+
+
