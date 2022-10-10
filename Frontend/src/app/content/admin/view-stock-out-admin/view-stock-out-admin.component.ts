@@ -30,4 +30,10 @@ export class ViewStockOutAdminComponent implements OnInit {
     // });
   }
 
+  deleteStockOut(id: string){
+    this.fuelAdminService.deleteStockOut(id).subscribe(data => {
+      this.getStockOut();
+    });
+  }
+
 }

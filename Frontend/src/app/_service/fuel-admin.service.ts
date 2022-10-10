@@ -49,8 +49,13 @@ export class FuelAdminService {
     return this.http.put<any>(environment.backend_url + "/fuel_admin/updatefuelStockOut/" + fuelOut.id, fuelOut);
   }
 
-  deleteStockIn(fuelIn): Observable<any> {
-    return this.http.delete<any>(environment.backend_url + '/fuelPumper/deleteStockIn/' + fuelIn.id);
+  deleteStockIn(id: string): Observable<any> {
+    console.log(id);
+    return this.http.delete<any>(environment.backend_url + '/fuel_admin/deleteStockIn/' + id);
+  }
+
+  deleteStockOut(id: string): Observable<any> {
+    return this.http.delete<any>(environment.backend_url + '/fuel_admin/deleteStockOut/' + id);
   }
 
 
