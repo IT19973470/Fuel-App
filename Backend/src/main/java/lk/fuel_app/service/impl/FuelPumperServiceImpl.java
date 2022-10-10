@@ -27,6 +27,8 @@ public class FuelPumperServiceImpl implements FuelPumperService {
 
     @Autowired
     private FuelTypeRepository fuelTypeRepository;
+    @Autowired
+    private FuelStationFuelTypeRepository fuelStationFuelTypeRepository;
 
     @Override
     public CustomerFuelStation addCustomerFuel(CustomerFuelStation customerFuelStation) {
@@ -39,6 +41,8 @@ public class FuelPumperServiceImpl implements FuelPumperService {
         customerFuelStation = customerFuelStationRepository.save(customerFuelStation);
         Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(customerFuelStation.getCustomer().getVehicleNumber(), LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
         customerFuelStation.getCustomer().setQuota(fuelPumpedAmount == null ? 0 : fuelPumpedAmount);
+
+        updateFuelAmount(customerFuelStation.getFuelPumped(), "add", customerFuelStation.getFuelStation().getId(), customerFuelStation.getFuelType().getId());
         return new CustomerFuelStation(customerFuelStation);
     }
 
@@ -61,9 +65,23 @@ public class FuelPumperServiceImpl implements FuelPumperService {
             Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(customerFuelStation.getCustomer().getVehicleNumber(), LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
             customerFuelStation.getCustomer().setQuota(fuelPumpedAmount == null ? 0 : fuelPumpedAmount);
             customerFuelStationRepository.deleteById(customerFuelStation.getId());
+            updateFuelAmount(customerFuelStation.getFuelPumped(), "deduct", fuelStation, customerFuelStation.getFuelType().getId());
             return customerFuelStation;
         }
         return null;
+    }
+
+    private void updateFuelAmount(double fuelAmount, String val, String fuelStationId, String fuelTypeId) {
+        Optional<FuelStationFuelType> fuelStationFuelTypeOpt = fuelStationFuelTypeRepository.getAllByFuelStation_IdAndFuelType_Id(fuelStationId, fuelTypeId);
+        if (fuelStationFuelTypeOpt.isPresent()) {
+            FuelStationFuelType fuelStationFuelType = fuelStationFuelTypeOpt.get();
+            if (val.equals("add")) {
+                fuelStationFuelType.setFuelAmount(fuelStationFuelType.getFuelAmount() - fuelAmount);
+            } else {
+                fuelStationFuelType.setFuelAmount(fuelStationFuelType.getFuelAmount() + fuelAmount);
+            }
+            fuelStationFuelTypeRepository.save(fuelStationFuelType);
+        }
     }
 
     @Override

@@ -33,6 +33,8 @@ public class FuelStationServiceImpl implements FuelStationService {
     private FuelAdminRepository fuelAdminRepository;
     @Autowired
     private ChatRepository chatRepository;
+    @Autowired
+    private FuelStationFuelTypeRepository fuelStationFuelTypeRepository;
 
     @Override
     public FuelStation addFuelStation(FuelStation fuelStation) {
@@ -44,13 +46,27 @@ public class FuelStationServiceImpl implements FuelStationService {
         fuelStock.setId(fuelStock.getFuelStation().getId() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss")));
         fuelStock.setAvailability(true);
         fuelStockRepository.save(fuelStock);
+
+        Optional<FuelStationFuelType> fuelStationFuelTypeOpt = fuelStationFuelTypeRepository.getAllByFuelStation_IdAndFuelType_Id(fuelStock.getFuelStation().getId(), fuelStock.getFuelType().getId());
+        if (fuelStationFuelTypeOpt.isPresent()) {
+            FuelStationFuelType fuelStationFuelType = fuelStationFuelTypeOpt.get();
+            fuelStationFuelType.setFuelAmount(fuelStationFuelType.getFuelAmount() + fuelStock.getAmount());
+            fuelStationFuelTypeRepository.save(fuelStationFuelType);
+        } else {
+            FuelStationFuelType fuelStationFuelType = new FuelStationFuelType();
+            fuelStationFuelType.setId(fuelStock.getFuelStation().getId() + fuelStock.getFuelType().getId());
+            fuelStationFuelType.setFuelStation(fuelStock.getFuelStation());
+            fuelStationFuelType.setFuelType(fuelStock.getFuelType());
+            fuelStationFuelType.setFuelAmount(fuelStock.getAmount());
+            fuelStationFuelTypeRepository.save(fuelStationFuelType);
+        }
         return new FuelStock(fuelStock);
     }
 
     @Override
     public List<FuelStockDTO> getFuelStock(String id) {
 //        List<FuelStock> actualArrivalDesc = fuelStockRepository.getLastFuelPump(id);
-//        Integer fuelPumpedVehicleCount = customerFuelStationRepository.getFuelPumpedVehicleCount(id, fuelStockObj.getActualArrival().toLocalDate());
+//        Integer fuelPumpedVehicleCount = customerFuelStationRepository.getFuelPumpedVehicles(id, fuelStockObj.getActualArrival().toLocalDate());
         List<FuelStockDTO> fuelStockDTOS = new ArrayList<>();
 
         Map<String, FuelStockDTO> fuelStockObj = new HashMap<>();
@@ -75,7 +91,7 @@ public class FuelStationServiceImpl implements FuelStationService {
                 fuelStockObj.put(customerFuelStation.getFuelType().getId(), fuelStockDTO);
             }
 
-            List<FuelStockNext> fuelStockNexts = fuelStockNextRepository.getAllByFuelStationName(fuelStation.getName());
+            List<FuelStockNext> fuelStockNexts = fuelStockNextRepository.getAllByFuelStation_Id(fuelStation.getId());
             for (FuelStockNext fuelStockNext : fuelStockNexts) {
                 FuelStockDTO fuelStockDTO = fuelStockObj.get(fuelStockNext.getFuelType().getId());
                 fuelStockDTO.setNextFuelAmount(fuelStockNext.getAmount());
@@ -113,7 +129,7 @@ public class FuelStationServiceImpl implements FuelStationService {
     @Override
     public List<FuelAdminStockOutDTO> getFuelStockIn(String id) {
         List<FuelAdminStockOutDTO> fuelAdminStockOutDTOS = new ArrayList<>();
-        List<FuelAdminStockOut> fuelAdminStockOuts= fuelAdminStockOutRepository.findAllByFuelStation_Id(id);
+        List<FuelAdminStockOut> fuelAdminStockOuts = fuelAdminStockOutRepository.findAllByFuelStation_Id(id);
         for (FuelAdminStockOut fuelAdminStockOut : fuelAdminStockOuts) {
             FuelAdminStockOutDTO fuelAdminStockOutDTO = new FuelAdminStockOutDTO();
             fuelAdminStockOutDTO.setFuelAdminStockOut(new FuelAdminStockOut(fuelAdminStockOut));
@@ -125,13 +141,13 @@ public class FuelStationServiceImpl implements FuelStationService {
     @Override
     public List<AttandanceDTO> getAttendence() {
         List<AttandanceDTO> attandanceDTOS = new ArrayList<>();
-        List<FuelPumperAttendance> fuelPumperAttendances= fuelPumperAttendanceRepository.findAll();
+        List<FuelPumperAttendance> fuelPumperAttendances = fuelPumperAttendanceRepository.findAll();
         for (FuelPumperAttendance fuelPumperAttendance : fuelPumperAttendances) {
             AttandanceDTO attandanceDTO = new AttandanceDTO();
             attandanceDTO.setFuelPumperAttendance(new FuelPumperAttendance(fuelPumperAttendance));
             attandanceDTOS.add(attandanceDTO);
         }
-      return attandanceDTOS;
+        return attandanceDTOS;
     }
 
     @Override
