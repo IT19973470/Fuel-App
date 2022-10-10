@@ -49,7 +49,7 @@ pumpers=[]
  chartdata(application){
     for (let data of application){
       // this.pumpers.push(data.fuelPumperAttendance.fuelPumper.name)
-       this.chartOptions.xaxis.categories.push(data.fuelPumperAttendance.fuelPumper.name)
+       this.chartOptions.xaxis.categories.push(data.fuelPumperAttendance.fuelPumper.name+':-'+data.fuelPumperAttendance.markedAt)
       console.log(data.fuelPumperAttendance.timeIn.substring(0,2))
       console.log(data.fuelPumperAttendance.timeOut.substring(0,2))
       let count =data.fuelPumperAttendance.timeOut.substring(0,2)-data.fuelPumperAttendance.timeIn.substring(0,2)
