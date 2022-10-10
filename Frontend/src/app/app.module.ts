@@ -16,7 +16,7 @@ import {FuelAvailabilityComponent} from './content/fuel-station/fuel-availabilit
 import {AttendanceFuelTableComponent} from './content/fuel-station/attendance-fuel-table/attendance-fuel-table.component';
 import {StockOutAdminComponent} from './content/admin/stock-out-admin/stock-out-admin.component';
 import {StockInAdminComponent} from './content/admin/stock-in-admin/stock-in-admin.component';
-import {FuelAvailabilityAdminComponent} from './content/admin/fuel-availability-admin/fuel-availability-admin.component';
+import {FuelAvailabilityAdminComponent} from './content/admin/view-fuel-in-admin/fuel-availability-admin.component';
 import {QrScanComponent} from './qr-scan/qr-scan.component';
 import {ZXingScannerModule} from "@zxing/ngx-scanner";
 import {MarkAttendanceComponent} from './content/fuel_pumper/mark-attendance/mark-attendance.component';
@@ -37,6 +37,10 @@ import { FuelReportComponent } from './content/fuel_pumper/fuel-report/fuel-repo
 import { FuelAvailabilityCustomerComponent } from './content/customer/fuel-availability-customer/fuel-availability-customer.component';
 import { ViewStockOutAdminComponent } from './content/admin/view-stock-out-admin/view-stock-out-admin.component';
 import { VehicleReportComponent } from './content/fuel-station/vehicle-report/vehicle-report.component';
+import { UpdateStockInComponent } from './content/admin/update-stock-in/update-stock-in.component';
+import { UpdateStockOutComponent } from './content/admin/update-stock-out/update-stock-out.component';
+import { FuelApproveComponent } from './content/admin/fuel-approve/fuel-approve.component';
+import { ViewReportComponent } from './content/admin/view-report/view-report.component';
 
 
 
@@ -70,7 +74,11 @@ import { VehicleReportComponent } from './content/fuel-station/vehicle-report/ve
     FuelReportComponent,
     FuelAvailabilityCustomerComponent,
     ViewStockOutAdminComponent,
-    VehicleReportComponent
+    VehicleReportComponent,
+    UpdateStockInComponent,
+    UpdateStockOutComponent,
+    FuelApproveComponent,
+    ViewReportComponent
   ],
   imports: [
     BrowserModule,

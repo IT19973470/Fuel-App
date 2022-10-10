@@ -91,9 +91,18 @@ public class FuelPumperController {
         return Collections.singletonMap("response", reportValue);
     }
 
+    @GetMapping(value = "/getAllVehicleTypes")
+    public ResponseEntity getAllVehicleTypes() {
+        return ResponseEntity.ok(fuelPumperService.getAllVehicleTypes());
+    }
+
     @GetMapping(value = "/getFuelTypes")
     public ResponseEntity getFuelTypes() {
         return ResponseEntity.ok(fuelPumperService.getFuelTypes());
+    }
 
+    @GetMapping(value = "/getAllFuelRecord/{startDate}/{endDate}")
+    public ResponseEntity getAllFuelRecord(@PathVariable String startDate, @PathVariable String endDate) {
+        return ResponseEntity.ok(fuelPumperService.getAllFuelRecord(startDate, endDate));
     }
 }

@@ -38,10 +38,10 @@ public class InitDB {
         }
 
         if (vehicleTypeRepository.findAll().size() == 0) {
-            vehicleTypeRepository.save(new VehicleType("1_Car", "Car", "Cars", 1));
-            vehicleTypeRepository.save(new VehicleType("2_Motor_Bicycle", "Motor Bicycle", "Motor Bicycles", 2));
-            vehicleTypeRepository.save(new VehicleType("3_Three_Wheeler", "Three Wheeler", "Three Wheelers", 3));
-            vehicleTypeRepository.save(new VehicleType("4_Bus", "Bus", "Buses", 4));
+            vehicleTypeRepository.save(new VehicleType("1_Car", "Car", "Cars", 20, 1));
+            vehicleTypeRepository.save(new VehicleType("2_Motor_Bicycle", "Motor Bicycle", "Motor Bicycles", 4, 2));
+            vehicleTypeRepository.save(new VehicleType("3_Three_Wheeler", "Three Wheeler", "Three Wheelers", 5, 3));
+            vehicleTypeRepository.save(new VehicleType("4_Bus", "Bus", "Buses", 50, 4));
         }
 //
 //        if (subjectRepository.findAll().size() == 0) {

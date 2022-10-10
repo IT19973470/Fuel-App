@@ -5,7 +5,7 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="projectName" class="java.lang.String"/>
 	<parameter name="createdBy" class="java.lang.String"/>
-	<field name="customer.vehicleType" class="java.lang.String"/>
+	<field name="customer.vehicleType.name" class="java.lang.String"/>
 	<field name="customer.vehicleNumber" class="java.lang.String"/>
 	<field name="pumpedAtDate" class="java.lang.String"/>
 	<field name="fuelPumped" class="java.lang.String"/>
@@ -18,7 +18,7 @@
 	<pageHeader>
 		<band height="78">
 			<frame>
-				<reportElement mode="Opaque" x="1" y="0" width="779" height="73" forecolor="#FF9933" backcolor="#FF9933" uuid="e911ae36-76dd-481e-868a-1a380e0f69de"/>
+				<reportElement mode="Opaque" x="1" y="0" width="789" height="78" forecolor="#FF9933" backcolor="#FF9933" uuid="e911ae36-76dd-481e-868a-1a380e0f69de"/>
 			</frame>
 			<elementGroup>
 				<staticText>
@@ -43,7 +43,7 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Vehicle Tyoe]]></text>
+				<text><![CDATA[Vehicle Type]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="229" y="4" width="203" height="20" forecolor="#000066" uuid="728faf3b-febf-44af-8746-a6cb4c398655"/>
@@ -84,11 +84,6 @@
 	<detail>
 		<band height="20">
 			<textField>
-				<reportElement x="24" y="0" width="205" height="20" uuid="f23d60b6-8013-4e34-8276-010eb4a48e45"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{customer.vehicleType}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="229" y="0" width="203" height="20" uuid="4608f1fc-6d94-48d9-b86d-895b65cc65c1"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{customer.vehicleNumber}]]></textFieldExpression>
@@ -102,6 +97,11 @@
 				<reportElement x="608" y="0" width="172" height="20" uuid="3f0d2414-d6e7-4b96-997d-b40fc06e137d"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{fuelPumped}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="24" y="0" width="204" height="20" uuid="5f7b35e7-1fa0-4b5e-a5fb-0d988493a216"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{customer.vehicleType.name}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -131,20 +131,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="142" y="4" width="57" height="19" uuid="77217753-9cae-497c-8ac3-351aac32b12b"/>
-				<textElement>
-					<font fontName="Calibri" size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Created By:]]></text>
-			</staticText>
-			<textField>
-				<reportElement x="197" y="4" width="213" height="20" uuid="729735ec-af7f-4230-a1fd-991a12edeef6"/>
-				<textElement>
-					<font fontName="Calibri"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{createdBy}]]></textFieldExpression>
-			</textField>
 		</band>
 	</pageFooter>
 	<lastPageFooter>
@@ -163,13 +149,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="198" y="4" width="212" height="20" uuid="3ed5568f-601c-4c1d-bb28-623fa69a2151"/>
-				<textElement>
-					<font fontName="Calibri"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$P{createdBy}]]></textFieldExpression>
-			</textField>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="25" y="4" width="100" height="13" uuid="6b7d438a-ba49-4eea-a653-80c2693953e4"/>
 				<textElement>
@@ -177,13 +156,6 @@
 				</textElement>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
-			<staticText>
-				<reportElement x="143" y="4" width="57" height="19" uuid="ee7802d9-265b-4dd0-ab7f-1b1a820bd8e1"/>
-				<textElement>
-					<font fontName="Calibri" size="10" isBold="false"/>
-				</textElement>
-				<text><![CDATA[Created By:]]></text>
-			</staticText>
 		</band>
 	</lastPageFooter>
 	<summary>
