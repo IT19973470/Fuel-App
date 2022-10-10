@@ -14,13 +14,8 @@
             <select [(ngModel)]="vehicleType" (change)="searchByType()" style="margin-right: 20px;margin-left: 20px;"
                     class="btn btn-outline-primary dropdown-toggle">
               <option value="All">All</option>
-              <option value="Car">Car</option>
-              <option value="Van">Van</option>
-              <option value="Bike">Bike</option>
-              <option value="Bus">Bus</option>
-              <option value="Jeep">Jeep</option>
-              <option value="Three Wheeler">Three Wheeler</option>
-              <option value="Lorry">Lorry</option>
+              <option *ngFor="let vehicleType of vehicleTypes" value="" [value]="vehicleType.id" >{{vehicleType.name}}</option>
+
             </select>
           </div>
           <div class="col-2">
@@ -49,7 +44,7 @@
             <tr *ngFor="let v of vehicles">
               <!--              <ng-container *ngIf="(vehicleType != 'Car' && v.customer.vehicleType == vehicleType)||(vehicleType == 'Car' && v.customer.vehicleType != vehicleType)">-->
               <td>{{v.customer.vehicleNumber}}</td>
-              <td>{{v.customer.vehicleType}}</td>
+              <td>{{v.customer.vehicleType.name}}</td>
               <td>{{v.pumpedAtDate}}</td>
               <td>{{v.fuelPumped}}</td>
               <!--              </ng-container>-->
@@ -93,10 +88,10 @@
             <section class="section">
               <div class="row" align="right">
                 <div class="col-10">
-                  <label class="border border-dark rounded text-center" style="width: 50px">{{vehicleType}}</label>
+                  <label class="border border-dark rounded text-center" style="width: fit-content; padding: 2px">{{vehicleType}}</label>
                 </div>
                 <div class="col-2 ml-0">
-                  <label class="border border-dark rounded text-center" style="width: 90px;">{{date}}</label>
+                  <label class="border border-dark rounded text-center" style="width: fit-content; padding: 2px">{{date}}</label>
                 </div>
               </div>
               <br>

@@ -31,4 +31,8 @@ public interface FuelPumperService {
 
     List<FuelType> getFuelTypes();
 
+    List<VehicleType> getAllVehicleTypes();
+
+    List<CustomerFuelStation> getAllFuelRecord(String startDate, String endDate);
+
 }
