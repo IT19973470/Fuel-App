@@ -12,7 +12,7 @@ import {RegisterPumperComponent} from "./content/fuel-station/register-pumper/re
 import {FuelAvailabilityComponent} from "./content/fuel-station/fuel-availability/fuel-availability.component";
 import {AttendanceFuelTableComponent} from "./content/fuel-station/attendance-fuel-table/attendance-fuel-table.component";
 import {RegisterFuelAdminComponent} from "./register/register-fuel-admin/register-fuel-admin.component";
-import {FuelAvailabilityAdminComponent} from "./content/admin/fuel-availability-admin/fuel-availability-admin.component";
+import {FuelAvailabilityAdminComponent} from "./content/admin/view-fuel-in-admin/fuel-availability-admin.component";
 import {StockInAdminComponent} from "./content/admin/stock-in-admin/stock-in-admin.component";
 import {StockOutAdminComponent} from "./content/admin/stock-out-admin/stock-out-admin.component";
 import {ReportsComponent} from "./content/fuel-station/reports/reports.component";
@@ -24,6 +24,8 @@ import {FuelReportComponent} from "./content/fuel_pumper/fuel-report/fuel-report
 
 import {FuelAvailabilityCustomerComponent} from "./content/customer/fuel-availability-customer/fuel-availability-customer.component";
 import {ViewStockOutAdminComponent} from "./content/admin/view-stock-out-admin/view-stock-out-admin.component";
+import {FuelApproveComponent} from "./content/admin/fuel-approve/fuel-approve.component";
+import {ViewReportComponent} from "./content/admin/view-report/view-report.component";
 
 
 
@@ -108,6 +110,14 @@ const routes: Routes = [
   {
     path : 'view_stock_out',
     component: ViewStockOutAdminComponent,
+  },
+  {
+    path : 'fuel_approve',
+    component : FuelApproveComponent,
+  },
+  {
+    path: 'view_report',
+    component : ViewReportComponent
   }
 ];
 

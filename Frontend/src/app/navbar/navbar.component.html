@@ -68,44 +68,25 @@
           <i class='bx bx-user nav_icon'></i>
           <span class="nav_name">Stock In</span>
         </a>
-        <a class="nav_link" [routerLink]="'/stockOut_form'">
-          <i class='bx bx-user nav_icon'></i>
-          <span class="nav_name">Stock Out</span>
-        </a>
         <a class="nav_link" [routerLink]="'/view_stock_out'">
           <i class='bx bx-grid-alt nav_icon'></i>
           <span class="nav_name">Stock Out List</span>
         </a>
+        <a class="nav_link" [routerLink]="'/stockOut_form'">
+          <i class='bx bx-user nav_icon'></i>
+          <span class="nav_name">Stock Out</span>
+        </a>
+        <a class="nav_link" [routerLink]="'/fuel_approve'">
+          <i class='bx bxs-ev-station nav_icon'></i>
+          <span class="nav_name">Fuel Approve</span>
+        </a>
+        <a class="nav_link" [routerLink]="'/view_report'">
+        <i class='bx bxs-pie-chart-alt-2 nav_icon' ></i>
+        <span class="nav_name">Total Availability</span>
+        </a>
       </div>
-
-      <!--<div class="nav_list" *ngIf="userType==='fuelStation'">-->
-      <!--<a class="nav_link active" [routerLink]="'/register_pumper'">-->
-      <!--<i class='bx bx-grid-alt nav_icon'></i>-->
-      <!--<span class="nav_name">Register Pumper</span>-->
-      <!--</a>-->
-      <!--<a class="nav_link" [routerLink]="'/register_pumper'">-->
-      <!--<i class='bx bx-user nav_icon'></i>-->
-      <!--<span class="nav_name">Users</span>-->
-      <!--</a>-->
-      <!--<a href="#" class="nav_link">-->
-      <!--<i class='bx bx-message-square-detail nav_icon'></i>-->
-      <!--<span class="nav_name">Messages</span>-->
-      <!--</a>-->
-      <!--<a href="#" class="nav_link">-->
-      <!--<i class='bx bx-bookmark nav_icon'></i>-->
-      <!--<span class="nav_name">Bookmark</span>-->
-      <!--</a>-->
-      <!--<a href="#" class="nav_link">-->
-      <!--<i class='bx bx-folder nav_icon'></i>-->
-      <!--<span class="nav_name">Files</span>-->
-      <!--</a>-->
-      <!--<a href="#" class="nav_link">-->
-      <!--<i class='bx bx-bar-chart-alt-2 nav_icon'></i>-->
-      <!--<span class="nav_name">Stats</span>-->
-      <!--</a>-->
-      <!--</div>-->
-
     </div>
+
 
     <a (click)="signOut()" class="nav_link"> <i class='bx bx-log-out nav_icon'></i> <span
       class="nav_name">SignOut</span> </a>
