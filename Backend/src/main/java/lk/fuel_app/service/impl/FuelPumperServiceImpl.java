@@ -154,7 +154,7 @@ public class FuelPumperServiceImpl implements FuelPumperService {
 
     @Override
     public List<VehicleType> getAllVehicleTypes() {
-        return vehicleTypeRepository.getAllVehicleTypes();
+        return vehicleTypeRepository.getVehicleTypes();
     }
 
     @Override
