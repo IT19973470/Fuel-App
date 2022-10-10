@@ -1,15 +1,14 @@
 package lk.fuel_app.service.impl;
 
-import lk.fuel_app.dto.AttandanceDTO;
-import lk.fuel_app.dto.FuelAdminStockOutDTO;
-import lk.fuel_app.dto.FuelAvailabilityDTO;
-import lk.fuel_app.dto.FuelStockDTO;
+import lk.fuel_app.dto.*;
 import lk.fuel_app.entity.*;
 import lk.fuel_app.repository.*;
 import lk.fuel_app.service.FuelStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -35,6 +34,8 @@ public class FuelStationServiceImpl implements FuelStationService {
     private ChatRepository chatRepository;
     @Autowired
     private FuelStationFuelTypeRepository fuelStationFuelTypeRepository;
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Override
     public FuelStation addFuelStation(FuelStation fuelStation) {
@@ -61,6 +62,14 @@ public class FuelStationServiceImpl implements FuelStationService {
             fuelStationFuelTypeRepository.save(fuelStationFuelType);
         }
         return new FuelStock(fuelStock);
+    }
+
+    @Override
+    public OrderData addOrder(OrderData order) {
+        System.out.println(order);
+        order.setId("O" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss")));
+        order.setFuelAdmin(order.getFuelAdmin());
+        return orderRepository.save(order);
     }
 
     @Override
@@ -141,10 +150,16 @@ public class FuelStationServiceImpl implements FuelStationService {
     @Override
     public List<AttandanceDTO> getAttendence() {
         List<AttandanceDTO> attandanceDTOS = new ArrayList<>();
+        int countdata = 0;
         List<FuelPumperAttendance> fuelPumperAttendances = fuelPumperAttendanceRepository.findAll();
         for (FuelPumperAttendance fuelPumperAttendance : fuelPumperAttendances) {
             AttandanceDTO attandanceDTO = new AttandanceDTO();
             attandanceDTO.setFuelPumperAttendance(new FuelPumperAttendance(fuelPumperAttendance));
+            countdata = fuelPumperAttendanceRepository.getFuelPumpedCount(fuelPumperAttendance.getMarkedAt(), fuelPumperAttendance.getFuelPumper().getNic());
+            if (countdata != 0) {
+                attandanceDTO.setCountdata(countdata);
+            }
+
             attandanceDTOS.add(attandanceDTO);
         }
         return attandanceDTOS;
@@ -161,6 +176,19 @@ public class FuelStationServiceImpl implements FuelStationService {
     }
 
     @Override
+    public List<OrderDTO> getFuelOrder(String id) {
+        List<OrderDTO> orderDTOS = new ArrayList<>();
+        List<OrderData> orderData = orderRepository.getAllByFuelStationId(id);
+        for (OrderData orderData1 : orderData) {
+            OrderDTO orderData2 = new OrderDTO();
+            orderData2.setOrderData(orderData1);
+            orderDTOS.add(orderData2);
+        }
+
+        return orderDTOS;
+    }
+
+    @Override
     public Chat addChat(Chat chat) {
         String dateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss"));
         chat.setChatId("chat" + dateTime);
@@ -172,6 +200,25 @@ public class FuelStationServiceImpl implements FuelStationService {
         fuelStockNext.setId(fuelStockNext.getFuelStation().getId());
         fuelStockNextRepository.save(fuelStockNext);
         return new FuelStockNext(fuelStockNext);
+    }
+
+    public FuelStationDTO viewFuelStation(String id) {
+        FuelStation fuelStations = fuelStationRepository.getByAppUserId(id);
+        FuelStationDTO fuelStationDTO = new FuelStationDTO();
+        fuelStationDTO.setFuelStation(fuelStations);
+        return fuelStationDTO;
+    }
+
+    @Override
+    public OrderData updateOrder(OrderData orderData, String id) {
+        Optional<OrderData> orderoptional = orderRepository.findById(id);
+        if (orderoptional.isPresent()) {
+            OrderData orderObj = orderoptional.get();
+            orderObj.setAmount(orderData.getAmount());
+            orderObj.setFuelType(orderData.getFuelType());
+            return orderRepository.save(orderObj);
+        }
+        return null;
     }
 
 }

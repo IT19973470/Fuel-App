@@ -16,17 +16,27 @@ export class VehicleDetailsComponent implements OnInit {
   totalFuelAmount: number = 0;
   vehiclesByType = [];
   vehiclesByDate = [];
-  vehicleType: string;
-  type: string;
+  vehicleType;
+  type;
   date: any;
   result: Result=new Result();
+  vehicleTypes = [];
 
 
   constructor(private fuelPumperService: FuelPumperService) {
+    this.vehicleType = this.fuelPumperService.newVehicleType();
   }
 
   ngOnInit(): void {
     // this.getAllVehicles();
+    this.getAllVehicleTypes();
+  }
+
+  getAllVehicleTypes(){
+    this.fuelPumperService.getAllVehicleTypes().subscribe(data => {
+      this.vehicleTypes = data;
+      console.log(data)
+    })
   }
 
   getAllVehicles() {
@@ -82,22 +92,9 @@ export class VehicleDetailsComponent implements OnInit {
   searchByType() {
     if (this.vehicleType == 'All') {
       this.getAllVehicles();
-    } else if (this.vehicleType == 'Car') {
-      this.getVehiclesByType(this.vehicleType);
-    } else if (this.vehicleType == 'Van') {
-      this.getVehiclesByType(this.vehicleType);
-    } else if (this.vehicleType == 'Bike') {
-      this.getVehiclesByType(this.vehicleType);
-    } else if (this.vehicleType == 'Bus') {
-      this.getVehiclesByType(this.vehicleType);
-    } else if (this.vehicleType == 'Three Wheeler') {
-      this.getVehiclesByType(this.vehicleType);
-    } else if (this.vehicleType == 'Lorry') {
-      this.getVehiclesByType(this.vehicleType);
-    } else if (this.vehicleType == 'Jeep') {
+    }else{
       this.getVehiclesByType(this.vehicleType);
     }
-
   }
 
   searchByDate() {

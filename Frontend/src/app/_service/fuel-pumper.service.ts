@@ -60,6 +60,14 @@ export class FuelPumperService {
     return this.http.get<Result>(`${this.baseURL+"/fuelPumper/allVehicleDetailsReport"}`);
   }
 
+  getAllVehicleTypes(): Observable<any> {
+    return this.http.get<any>(environment.backend_url + '/fuelPumper/getAllVehicleTypes');
+  }
+
+  getAllFuelRecord(startDate:string,endDate:string):Observable<any>{
+    return this.http.get<any>(`${this.baseURL+"/fuelPumper/getAllFuelRecord"}/${startDate}/${endDate}`);
+  }
+
   newFuelPumper() {
     return {
       nic: '',
@@ -86,5 +94,13 @@ export class FuelPumperService {
         nic: ''
       }
     };
+  }
+
+  newVehicleType(){
+    return{
+      id:'',
+      name: '',
+      fuelOrder: ''
+    }
   }
 }

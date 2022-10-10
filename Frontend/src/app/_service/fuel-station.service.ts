@@ -45,6 +45,19 @@ export class FuelStationService {
     console.log(setItem);
     return this.http.post(environment.backend_url + '/fuel_station/addChat', setItem);
   }
+  getFuelStationDetails(id): Observable<any> {
+    console.log(id)
+    return this.http.get<any>(environment.backend_url + "/fuel_station/getFuelStation/"+id);
+  }
+  addOrder(data)   : Observable<any> {
+   return this.http.post<any>(environment.backend_url + '/fuel_station/order', data)
+  }
+  getOrder(id)   : Observable<any> {
+    return this.http.get<any>(environment.backend_url + '/fuel_station/getorder/'+id)
+  }
+  updateOrder(id,data): Observable<any> {
+    return this.http.put<any>(environment.backend_url + '/fuel_station/updateOrder/'+id, data);
+  }
 
 
   newFuelStation() {
@@ -83,4 +96,25 @@ export class FuelStationService {
       }
     };
   }
+
+
+  order() {
+    return {
+      id: '',
+      fuelType: '',
+      location: '',
+      amount: '',
+      date: '',
+      status:'',
+      fuelAdmin:{
+        nic:''
+      },
+      fuelStation:{
+        id:''
+      }
+    };
+  }
+
+
+
 }

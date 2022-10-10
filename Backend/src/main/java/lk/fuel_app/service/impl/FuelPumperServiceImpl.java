@@ -10,6 +10,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +30,9 @@ public class FuelPumperServiceImpl implements FuelPumperService {
     private FuelTypeRepository fuelTypeRepository;
     @Autowired
     private FuelStationFuelTypeRepository fuelStationFuelTypeRepository;
+
+    @Autowired
+    private VehicleTypeRepository vehicleTypeRepository;
 
     @Override
     public CustomerFuelStation addCustomerFuel(CustomerFuelStation customerFuelStation) {
@@ -97,18 +101,35 @@ public class FuelPumperServiceImpl implements FuelPumperService {
 
     @Override
     public List<CustomerFuelStation> getAllVehicleDetails() {
-        return customerFuelStationRepository.findAll();
+        List<CustomerFuelStation> fuelStations = customerFuelStationRepository.findAll();
+        List<CustomerFuelStation> customerFuelStations = new ArrayList<>();
+        for (CustomerFuelStation customerFuelStation : fuelStations) {
+            customerFuelStations.add(new CustomerFuelStation(customerFuelStation));
+        }
+
+        return customerFuelStations;
     }
 
     @Override
     public List<CustomerFuelStation> getVehicleDetailsByType(String vehicleType) {
-        return customerFuelStationRepository.getVehicleDetailsByType(vehicleType);
+        List<CustomerFuelStation> vehicleDetailsByType = customerFuelStationRepository.getVehicleDetailsByType(vehicleType);
+        List<CustomerFuelStation> customerFuelStations = new ArrayList<>();
+        for (CustomerFuelStation customerFuelStation : vehicleDetailsByType) {
+            customerFuelStations.add(new CustomerFuelStation(customerFuelStation));
+        }
+
+        return customerFuelStations;
     }
 
     @Override
     public List<CustomerFuelStation> getVehicleDetailsByDate(String date) {
         LocalDate localDate = LocalDate.parse(date);
-        return customerFuelStationRepository.getVehicleDetailsByDate(localDate);
+        List<CustomerFuelStation> vehicleDetailsByDate = customerFuelStationRepository.getVehicleDetailsByDate(localDate);
+        List<CustomerFuelStation> customerFuelStations = new ArrayList<>();
+        for (CustomerFuelStation customerFuelStation : vehicleDetailsByDate) {
+            customerFuelStations.add(new CustomerFuelStation(customerFuelStation));
+        }
+        return customerFuelStations;
     }
 
     @Override
@@ -129,6 +150,24 @@ public class FuelPumperServiceImpl implements FuelPumperService {
     @Override
     public List<FuelType> getFuelTypes() {
         return fuelTypeRepository.getFuelTypes();
+    }
+
+    @Override
+    public List<VehicleType> getAllVehicleTypes() {
+        return vehicleTypeRepository.getAllVehicleTypes();
+    }
+
+    @Override
+    public List<CustomerFuelStation> getAllFuelRecord(String startDate, String endDate) {
+        LocalDate sDate = LocalDate.parse(startDate);
+        LocalDate eDate = LocalDate.parse(endDate);
+
+        List<CustomerFuelStation> fuelRecordByDateRange = customerFuelStationRepository.getAllFuelRecord(sDate, eDate);
+        List<CustomerFuelStation> customerFuelStations = new ArrayList<>();
+        for (CustomerFuelStation customerFuelStation : fuelRecordByDateRange) {
+            customerFuelStations.add(new CustomerFuelStation(customerFuelStation));
+        }
+        return customerFuelStations;
     }
 
 }

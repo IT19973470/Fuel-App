@@ -27,7 +27,7 @@ public interface CustomerFuelStationRepository extends JpaRepository<CustomerFue
 //    @Query(value = "select sum(fuelPumped) from CustomerFuelStation where id=?1 and pumpedAtDate >= ?3")
 //    Integer getFuelPumpedVehicles(String id,String fuelType, LocalDate pumpedFrom);
 
-    @Query(value = "from CustomerFuelStation where customer.vehicleType=:vehicleType")
+    @Query(value = "from CustomerFuelStation where customer.vehicleType.id=:vehicleType")
     List<CustomerFuelStation> getVehicleDetailsByType(@Param("vehicleType") String vehicleType);
 
     @Query(value = "from CustomerFuelStation where pumpedAtDate=:pumpedAtDate")
@@ -38,4 +38,7 @@ public interface CustomerFuelStationRepository extends JpaRepository<CustomerFue
 
 //    @Query(value = "select sum(fuelPumped) from CustomerFuelStation where customer.vehicleType=:vehicleType")
 //    Double getVehicleCountAndFuelAmount(@Param("vehicleType") String vehicleType);
+
+    @Query("select a from  CustomerFuelStation a where a.pumpedAtDate between :startDate and :endDate")
+    public List<CustomerFuelStation> getAllFuelRecord(@Param("startDate") LocalDate startDate,@Param("endDate") LocalDate endDate);
 }
