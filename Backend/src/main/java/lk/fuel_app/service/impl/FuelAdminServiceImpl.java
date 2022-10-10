@@ -1,15 +1,16 @@
 package lk.fuel_app.service.impl;
 
+import lk.fuel_app.dto.FuelAdminStockOutDTO;
+import lk.fuel_app.dto.FuelStationDTO;
 import lk.fuel_app.entity.*;
-import lk.fuel_app.repository.FuelAdminRepository;
-import lk.fuel_app.repository.FuelAdminStockInRepository;
-import lk.fuel_app.repository.FuelAdminStockOutRepository;
+import lk.fuel_app.repository.*;
 import lk.fuel_app.service.FuelAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -21,6 +22,8 @@ public class FuelAdminServiceImpl implements FuelAdminService {
     private FuelAdminStockInRepository fuelAdminStockInRepository;
     @Autowired
     private FuelAdminStockOutRepository fuelAdminStockOutRepository;
+    @Autowired
+    private FuelStationRepository fuelStationRepository;
 
     @Override
     public FuelAdmin addFuelAdmin(FuelAdmin fuelAdmin) {
@@ -45,6 +48,21 @@ public class FuelAdminServiceImpl implements FuelAdminService {
     @Override
     public List<FuelAdminStockOut> viewStockOut() {
         return fuelAdminStockOutRepository.findAll();    }
+
+
+    @Override
+    public List<FuelStationDTO> viewFuelStation() {
+        
+        List<FuelStationDTO> fuelStationDTOS = new ArrayList<>();
+        List<FuelStation> fuelStations= fuelStationRepository.findAll();
+        for (FuelStation fuelStation : fuelStations) {
+            FuelStationDTO fuelStationDTO = new FuelStationDTO();
+            fuelStationDTO.setFuelStation(new FuelStation(fuelStation));
+            fuelStationDTOS.add(fuelStationDTO);
+        }
+        return fuelStationDTOS;
+        
+    }
 
 
 }

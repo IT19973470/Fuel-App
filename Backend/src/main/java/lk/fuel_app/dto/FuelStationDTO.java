@@ -1,12 +1,12 @@
 package lk.fuel_app.dto;
 
 import lk.fuel_app.entity.FuelPumperAttendance;
+import lk.fuel_app.entity.FuelStation;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class AttandanceDTO {
-   public FuelPumperAttendance fuelPumperAttendance;
-   private int Countdata;
+public class FuelStationDTO {
+    public FuelStation fuelStation;
 }

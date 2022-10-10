@@ -1,9 +1,6 @@
 package lk.fuel_app.controller;
 
-import lk.fuel_app.entity.Chat;
-import lk.fuel_app.entity.FuelStation;
-import lk.fuel_app.entity.FuelStock;
-import lk.fuel_app.entity.FuelStockNext;
+import lk.fuel_app.entity.*;
 import lk.fuel_app.service.FuelStationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -57,5 +54,23 @@ public class FuelStationController {
     public ResponseEntity addChats(@RequestBody Chat chat){
         return ResponseEntity.ok(fuelStationService.addChat(chat));
     }
-
+    @GetMapping(value = "/getFuelStation/{id}")
+    public ResponseEntity getFuelStation(@PathVariable String id) {
+        return ResponseEntity.ok(fuelStationService.viewFuelStation(id));
+    }
+    @PostMapping(value = "/order")
+    public ResponseEntity addOrder(@RequestBody OrderData order){
+        System.out.println(order);
+       return ResponseEntity.ok(fuelStationService.addOrder(order));
+    }
+    @GetMapping(value = "/getorder/{id}")
+    public ResponseEntity getOrder(@PathVariable String id) {
+        return ResponseEntity.ok(fuelStationService.getFuelOrder(id));
+    }
+    @PutMapping(value = "/updateOrder/{id}")
+    public ResponseEntity updateOrder(@RequestBody OrderData orderData, @PathVariable String id) {
+        return ResponseEntity.ok(fuelStationService.updateOrder(orderData, id));
+    }
+    
+    
 }
