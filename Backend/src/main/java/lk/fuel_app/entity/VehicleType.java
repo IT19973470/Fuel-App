@@ -19,6 +19,7 @@ public class VehicleType {
     private String id;
     private String name;
     private String namePlural;
+    private double fuelReference;
     private int vehicleOrder;
 
     public VehicleType(VehicleType vehicleType) {

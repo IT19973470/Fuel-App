@@ -10,6 +10,6 @@ import java.util.List;
 public interface FuelStockNextRepository extends JpaRepository<FuelStockNext, String> {
 
     //    @Query("from FuelStockNext order by arrival desc limit 1")
-    List<FuelStockNext> getAllByFuelStationName(String stationName);
+    List<FuelStockNext> getAllByFuelStation_Id(String stationId);
 
 }
