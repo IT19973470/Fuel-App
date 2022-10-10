@@ -9,6 +9,8 @@ import {FuelAdminService} from "../../../_service/fuel-admin.service";
 export class StockOutAdminComponent implements OnInit {
 
   fuelStockOut;
+  fuelStations=[];
+
 
   constructor(private fuelAdminService: FuelAdminService) {
     this.fuelStockOut = this.fuelAdminService.newOutFuelStock()
@@ -20,6 +22,14 @@ export class StockOutAdminComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getFuelStations()
+  }
+
+  getFuelStations(){
+    this.fuelAdminService.getFuelStations().subscribe((data) => {
+      console.log(data)
+      this.fuelStations=data
+    })
   }
 
 }

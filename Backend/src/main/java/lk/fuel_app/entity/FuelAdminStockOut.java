@@ -37,6 +37,6 @@ public class FuelAdminStockOut {
             this.fuelStation = new FuelStation(fuelAdminStockOut.getFuelStation());
         }
     }
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     private FuelStation fuelStation;
 }

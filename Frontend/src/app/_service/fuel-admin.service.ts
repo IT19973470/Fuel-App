@@ -32,6 +32,10 @@ export class FuelAdminService {
     return this.http.get<any>(environment.backend_url + "/fuel_admin/getFuelStockOut");
   }
 
+  getFuelStations(): Observable<any> {
+    return this.http.get<any>(environment.backend_url + "/fuel_admin/getFuelStation");
+  }
+
   updateStockIn(fuelIn): Observable<any> {
     return this.http.put<any>(environment.backend_url + "/fuel_admin/updatefuelStockIn/" + fuelIn.id, fuelIn);
   }
