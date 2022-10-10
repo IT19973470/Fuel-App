@@ -6,6 +6,70 @@
     <div class="card">
       <div class="card-body">
         <h3 class="card-title"></h3>
+        <div id="pdf">
+          <h3>Select Date Range</h3><br>
+            <div class="row">
+              <div class="col-2">
+                <label>Choose Start Date:</label>
+                <input type="date" name="startDate" [(ngModel)]="startDate">
+              </div>
+              <div class="col-2">
+                <label>Choose End Date:</label>
+                <input type="date" name="endDate" [(ngModel)]="endDate">
+              </div>
+              <div class="col-1">
+                <button type="button"><i (click)="getAllFuelRecord()" class="fa-solid fa-magnifying-glass"></i></button>
+              </div>
+            </div>
+          <table class="table table-striped" style="margin-top: 20px">
+            <thead>
+            <tr>
+              <th scope="col" width="18%"  *ngFor="let data of applicationData; let i = index">{{data.fuelType.name}}</th>
+<!--              <th scope="col" width="5%" style="text-align: center">Fuel Amount(L)</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            <tr >
+              <!--<th scope="row">{{i+1}}</th>-->
+              <td style="font-weight: bold" *ngFor="let data of applicationData; let i = index">
+                <span style="color: #0c95cb" >start date - {{startDate}}</span> <br>
+                <span style="color: #018002">end date -{{endDate}}
+          </span> <br>
+                <span style="color: #ff0a03" *ngIf="data.fuelType.name=='Petrol 95'">fuel amount -{{totalPetrol95FuelAmount}}</span>
+                <span style="color: #ff0a03" *ngIf="data.fuelType.name=='Super Diesel'">fuel amount -{{totalSuperDieselFuelAmount}}</span>
+                <span style="color: #ff0a03" *ngIf="data.fuelType.name=='Petrol 92'">fuel amount -{{totalPetrol92FuelAmount}}</span>
+                <span style="color: #ff0a03" *ngIf="data.fuelType.name=='Diesel'">fuel amount -{{totalDieselFuelAmount}}</span>
+              </td>
+<!--              <td style="text-align: center">-->
+<!--                <button style="border: none"> <i class="fas fa-download" style="cursor: pointer"></i></button>-->
+
+<!--              </td>-->
+              <!--<td style="text-align: center">-->
+              <!--<i class="fas fa-pen" style="cursor: pointer" (click)="goToUpdate(deliveryItem)"></i>-->
+              <!--</td>-->
+            </tr>
+            </tbody>
+          </table>
+
+          <div style="margin-top: 40px;font-size: 25px">
+            Fuel Report(Graph)
+          </div>
+
+          <div id="chart" style="margin-top: 40px">
+            <apx-chart
+              [series]="chartOptions.series"
+              [chart]="chartOptions.chart"
+              [dataLabels]="chartOptions.dataLabels"
+              [plotOptions]="chartOptions.plotOptions"
+              [yaxis]="chartOptions.yaxis"
+              [fill]="chartOptions.fill"
+              [stroke]="chartOptions.stroke"
+              [tooltip]="chartOptions.tooltip"
+              [xaxis]="chartOptions.xaxis"
+            ></apx-chart>
+          </div>
+        </div>
+        <hr style="margin-top: 80px;margin-bottom: 80px">
       </div>
     </div>
   </div>
