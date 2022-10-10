@@ -1,0 +1,101 @@
+<!--<div style="display: flex;justify-content: center">-->
+<!--<div class="row" style="margin-top: 20px;margin-left: 0px;margin-right: 0px">-->
+
+<div class="" style="padding: 20px;display: flex;justify-content: center">
+  <div style="width: 600px">
+    <div style="margin-bottom: 20px">
+      <span style="font-weight: bold;color: #b68003;font-size: 21px">Stock Out Form</span>
+    </div>
+    <form style="padding-top: 10px;background-color: white;" #stockOutForm="ngForm"
+          (ngSubmit)="stockOutForm.form.valid && updateFuelStockOut()" novalidate>
+
+      <div>Fuel Type</div>
+      <select class="form-control" name="type"  [(ngModel)]="updatefuelStockOut.fuelType"
+              #fuelType="ngModel" required   >
+        <option value="">Select</option>
+        <option value="car">Petrol 92</option>
+        <option value="car">Petrol 95</option>
+        <option value="car">Super Diesel</option>
+        <option value="car">Auto Diesel</option>
+      </select>
+      <div *ngIf="(fuelType.touched || stockOutForm.submitted) && fuelType.errors?.required"
+           class="validErr">
+        Fuel Type is required
+      </div>
+
+      <div style="margin-top: 20px">Destination</div>
+      <select class="form-control" name="destination" [(ngModel)]="updatefuelStockOut.fuelStation.id"
+              #fuelStation="ngModel">
+        <option *ngFor="let option of fuelStations" [value]="option.fuelStation.id">
+          {{option.fuelStation.address}}
+        </option>
+      </select>
+      <div *ngIf="(fuelStation.touched || stockOutForm.submitted) && fuelStation.errors?.required"
+           class="validErr">
+        Destination is required
+      </div>
+
+      <div style="margin-top: 20px">Date</div>
+      <input type="date" class="form-control" name="date" [(ngModel)]="updatefuelStockOut.date"
+             #date="ngModel" required>
+      <div *ngIf="(date.touched || stockOutForm.submitted) && date.errors?.required"
+           class="validErr">
+        Date is required
+      </div>
+
+      <div style="margin-top: 20px">Time</div>
+      <input type="time" class="form-control" name="time" [(ngModel)]="updatefuelStockOut.time"
+             #time="ngModel" required>
+      <div *ngIf="(time.touched || stockOutForm.submitted) && time.errors?.required"
+           class="validErr">
+        Time is required
+      </div>
+
+      <div style="margin-top: 20px">Amount</div>
+      <input type="number" placeholder="Enter Amount" name="amount" class="form-control"
+             [(ngModel)]="updatefuelStockOut.amount"
+             #amount="ngModel" required>
+      <div *ngIf="(amount.touched || stockOutForm.submitted) && amount.errors?.required"
+           class="validErr">
+        Amount is required
+      </div>
+
+      <div style="margin-top: 20px">Vehicle Number</div>
+      <input type="text" placeholder="Enter Vehicle Number" class="form-control" name="vehicleNumber"
+             [(ngModel)]="updatefuelStockOut.vehicleNumber"
+             #vehicleNumber="ngModel" required>
+      <div *ngIf="(vehicleNumber.touched || stockOutForm.submitted) && vehicleNumber.errors?.required"
+           class="validErr">
+        Vehicle Number is required
+      </div>
+
+      <div style="margin-top: 20px">Driver Name</div>
+      <input type="text" placeholder="Enter Driver Name" class="form-control" name="driverName"
+             [(ngModel)]="updatefuelStockOut.driverName"
+             #driverName="ngModel" required>
+      <div *ngIf="(driverName.touched || stockOutForm.submitted) && driverName.errors?.required"
+           class="validErr">
+        Driver Name is required
+      </div>
+
+      <div style="margin-top: 20px">Driver Number</div>
+      <input type="text" placeholder="Enter Driver Number" class="form-control" name="number"
+             [(ngModel)]="updatefuelStockOut.number"
+             #number="ngModel" required>
+      <div *ngIf="(number.touched || stockOutForm.submitted) && number.errors?.required"
+           class="validErr">
+        Driver Number is required
+      </div>
+
+      <div style="text-align: right;margin-top: 30px">
+        <button class="btn btn-success">Supply Stock</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--<div class="col-12" style="padding: 20px;display: flex">-->
+
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
