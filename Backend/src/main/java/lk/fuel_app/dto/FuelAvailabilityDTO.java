@@ -46,9 +46,22 @@ public class FuelAvailabilityDTO {
 
     @Getter
     @Setter
-    public static class Vehicle {
+    @NoArgsConstructor
+    public static class Vehicle implements Comparable {
+        private String vehicleTypeId;
         private String vehicleType;
         private int vehicleCount;
         private double pumped;
+
+        public Vehicle(String vehicleTypeId, String vehicleType) {
+            this.vehicleTypeId = vehicleTypeId;
+            this.vehicleType = vehicleType;
+        }
+
+        @Override
+        public int compareTo(Object o) {
+            Vehicle vehicle = (Vehicle) o;
+            return vehicleTypeId.compareTo(vehicle.getVehicleTypeId());
+        }
     }
 }
