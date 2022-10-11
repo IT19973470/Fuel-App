@@ -5,7 +5,7 @@
     </div>
 
     <form style="padding-top: 10px;background-color: white;" #pumperAttForm="ngForm"
-          (ngSubmit)="pumperAttForm.form.valid && addFuelPumperAttendance()" novalidate>
+          (ngSubmit)="pumperAttForm.form.valid" novalidate>
 
       <div style="margin-top: 20px">Name</div>
       <input class="form-control" type="text" placeholder="Enter Name" disabled
@@ -27,7 +27,7 @@
           </div>
         </div>
         <div class="col-4" style="text-align: right;">
-          <button class="btn btn-success" type="button" (click)="addFuelPumperAttendance()">Mark</button>
+          <button class="btn btn-success"type="button" (click)="addFuelPumperAttendance()" >Mark</button>
         </div>
       </div>
 
@@ -37,13 +37,13 @@
           <input class="form-control" type="time" name="timeOut" placeholder="Time Out"
                  [(ngModel)]="fuelPumperAttendance.timeOut"
                  #timeOut="ngModel" required>
-          <div *ngIf="(timeOut.touched || pumperAttForm.submitted) && timeOut.errors?.required"
-               class="validErr">
-            Time Out is required
-          </div>
+<!--          <div *ngIf="(timeOut.touched || pumperAttForm.submitted) && timeOut.errors?.required"-->
+<!--               class="validErr">-->
+<!--            Time Out is required-->
+<!--          </div>-->
         </div>
         <div class="col-4" style="text-align: right">
-          <button class="btn btn-success" type="submit">Mark</button>
+          <button class="btn btn-success" type="button" (click)="markTimeOutAttendance()">Mark</button>
         </div>
 
       </div>

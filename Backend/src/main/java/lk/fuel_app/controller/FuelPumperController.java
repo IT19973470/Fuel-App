@@ -1,5 +1,6 @@
 package lk.fuel_app.controller;
 
+import lk.fuel_app.entity.Customer;
 import lk.fuel_app.entity.CustomerFuelStation;
 import lk.fuel_app.entity.FuelPumper;
 import lk.fuel_app.entity.FuelPumperAttendance;
@@ -47,6 +48,17 @@ public class FuelPumperController {
     @PostMapping(value = "/addFuelPumperAttendance")
     public ResponseEntity addFuelPumperAttendance(@RequestBody FuelPumperAttendance fuelPumperAttendance) {
         return ResponseEntity.ok(fuelPumperService.addFuelPumperAttendance(fuelPumperAttendance));
+    }
+
+    @PutMapping(value = "/markTimeOutAttendance/{id}")
+    public ResponseEntity markTimeOutAttendance(@RequestBody FuelPumperAttendance fuelPumperAttendance, @PathVariable String id) {
+        System.out.println("aaaaaaaaa");
+        return ResponseEntity.ok(fuelPumperService.markTimeOutAttendance(fuelPumperAttendance, id));
+    }
+
+    @GetMapping(value = "/getAttendance")
+    public ResponseEntity getAttendance() {
+        return ResponseEntity.ok(fuelPumperService.getAttendance());
     }
 
     @GetMapping(value = "/getAllVehicleDetails")
@@ -104,5 +116,10 @@ public class FuelPumperController {
     @GetMapping(value = "/getAllFuelRecord/{startDate}/{endDate}")
     public ResponseEntity getAllFuelRecord(@PathVariable String startDate, @PathVariable String endDate) {
         return ResponseEntity.ok(fuelPumperService.getAllFuelRecord(startDate, endDate));
+    }
+
+    @GetMapping(value = "/getAllFuelRecordChart/{startDate}/{endDate}")
+    public ResponseEntity getAllFuelRecordChart(@PathVariable String startDate, @PathVariable String endDate) {
+        return ResponseEntity.ok(fuelPumperService.getAllFuelRecordChart(startDate, endDate));
     }
 }

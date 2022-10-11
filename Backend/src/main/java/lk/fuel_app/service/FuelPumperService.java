@@ -1,5 +1,6 @@
 package lk.fuel_app.service;
 
+import lk.fuel_app.dto.FuelAvailabilityDTO;
 import lk.fuel_app.entity.*;
 
 import java.time.LocalDate;
@@ -18,6 +19,9 @@ public interface FuelPumperService {
 
     FuelPumperAttendance addFuelPumperAttendance(FuelPumperAttendance fuelPumperAttendance);
 
+    FuelPumperAttendance markTimeOutAttendance(FuelPumperAttendance fuelPumperAttendance, String id);
+
+    List<FuelPumperAttendance>  getAttendance();
     List<CustomerFuelStation> getAllVehicleDetails();
 
     List<CustomerFuelStation> getVehicleDetailsByType(String vehicleType);
@@ -31,8 +35,11 @@ public interface FuelPumperService {
 
     List<FuelType> getFuelTypes();
 
+
     List<VehicleType> getAllVehicleTypes();
 
-    List<CustomerFuelStation> getAllFuelRecord(String startDate, String endDate);
+    List<FuelAvailabilityDTO> getAllFuelRecord(String startDate, String endDate);
+
+    List<CustomerFuelStation> getAllFuelRecordChart(String startDate, String endDate);
 
 }

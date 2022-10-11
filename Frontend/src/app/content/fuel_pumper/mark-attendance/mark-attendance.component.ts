@@ -10,6 +10,8 @@ import {DatePipe} from '@angular/common';
 export class MarkAttendanceComponent implements OnInit {
 
   fuelPumperAttendance;
+  attendance = [];
+  attendanceId;
 
   constructor(private fuelPumperS: FuelPumperService, private datePipe: DatePipe) {
     this.fuelPumperAttendance = fuelPumperS.newFuelPumperAttendance();
@@ -17,13 +19,36 @@ export class MarkAttendanceComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCurDate();
+    this.getAttendance();
   }
 
   addFuelPumperAttendance() {
     this.fuelPumperAttendance.fuelPumper.nic = JSON.parse(localStorage.getItem('user')).id;
-    this.fuelPumperS.addFuelPumperAttendance(this.fuelPumperAttendance).subscribe(() => {
+    this.fuelPumperS.addFuelPumperAttendance(this.fuelPumperAttendance).subscribe(data => {
+      console.log(data)
+    });
+  }
+
+  markTimeOutAttendance(){
+    this.fuelPumperAttendance.id = JSON.parse(localStorage.getItem('user')).id;
+    this.fuelPumperAttendance.id = this.attendanceId;
+    console.log(this.fuelPumperAttendance)
+    this.fuelPumperS.markTimeOutAttendance(this.fuelPumperAttendance).subscribe(data => {
 
     });
+  }
+
+  getAttendance(){
+    this.fuelPumperAttendance.id = JSON.parse(localStorage.getItem('user')).id;
+    this.fuelPumperS.getAttendance().subscribe(data =>{
+      this.attendance = data;
+      for(var i in data){
+        if(data[i].fuelPumper.nic == this.fuelPumperAttendance.id){
+          this.attendanceId = data[i].id;
+        }
+      }
+      console.log(data)
+    })
   }
 
   getName() {
