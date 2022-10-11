@@ -38,6 +38,9 @@ public class FuelStationServiceImpl implements FuelStationService {
     private OrderRepository orderRepository;
     @Autowired
     private CustomerFuelStationRepository customerFuelStationRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
+
 
     @Override
     public FuelStation addFuelStation(FuelStation fuelStation) {
@@ -225,15 +228,17 @@ public class FuelStationServiceImpl implements FuelStationService {
 
     @Override
     public List<VehicleReportDTO> getVehicleReport(String id) {
-
         List<VehicleReportDTO> vehicleReportDTOS = new ArrayList<>();
-        List<CustomerFuelStation> orderData= customerFuelStationRepository.getAllByFuelStationId(id);
-        for (OrderData orderData1 : orderData) {
-            OrderDTO orderData2 = new OrderDTO();
-            orderData2.setOrderData(orderData1);
-            orderDTOS.add(orderData2);
+        List<Object[]> customerCount = customerRepository.getCustomerCount();
+        for (Object[] obj : customerCount) {
+            VehicleReportDTO vehicleReportDTO = new VehicleReportDTO();
+            vehicleReportDTO.setVehicleType(obj[0].toString());
+            vehicleReportDTO.setCount(Integer.parseInt(obj[1].toString()));
+            
+            vehicleReportDTOS.add(vehicleReportDTO);
         }
-        return chatRepository.findAll();
+        
+        return vehicleReportDTOS;
     }
 
 }

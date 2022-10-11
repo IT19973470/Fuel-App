@@ -7,5 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class VehicleReportDTO {
-    public CustomerFuelStation customerFuelStation;
+    private int count;
+   private String vehicleType;
 }

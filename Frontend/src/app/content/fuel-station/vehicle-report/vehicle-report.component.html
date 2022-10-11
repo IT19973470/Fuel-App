@@ -38,14 +38,12 @@
             </tr>
             </thead>
             <tbody>
-<!--            <tr *ngFor="let v of vehicles">-->
-<!--              &lt;!&ndash;              <ng-container *ngIf="(vehicleType != 'Car' && v.customer.vehicleType == vehicleType)||(vehicleType == 'Car' && v.customer.vehicleType != vehicleType)">&ndash;&gt;-->
-<!--              <td>{{v.customer.vehicleNumber}}</td>-->
-<!--              <td>{{v.customer.vehicleType.name}}</td>-->
-<!--              <td>{{v.pumpedAtDate}}</td>-->
-<!--              <td>{{v.fuelPumped}}</td>-->
-<!--              &lt;!&ndash;              </ng-container>&ndash;&gt;-->
-<!--            </tr>-->
+            <tr *ngFor="let v of data">
+              <!--              <ng-container *ngIf="(vehicleType != 'Car' && v.customer.vehicleType == vehicleType)||(vehicleType == 'Car' && v.customer.vehicleType != vehicleType)">-->
+              <td>{{v.vehicleType}}</td>
+              <td>{{v.count}}</td>
+              <!--              </ng-container>-->
+            </tr>
             </tbody>
           </table>
         </div>
@@ -56,62 +54,10 @@
           <button class="btn btn-outline-info btn-lg"  style="width: 310px; height: 50px">
             Generate Report
           </button>
-          <button class="btn btn-outline-info btn-lg " style="margin-left: 15px; width: 310px; height: 50px"
-                  data-bs-target="#search_fuel_report" data-bs-toggle="modal">
-            Generate Summary Report
-          </button>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="modal fade" style="width: 2000px" id="search_fuel_report" tabindex="-1" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="pagetitle">
-          <span style="font-size: 25px;font-weight: bold;color: #750202">Fuel Report
-          </span>
-        </div>
-
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="card">
-          <div class="card-body">
-
-            <section class="section">
-              <div class="row" align="right">
-                <div class="col-10">
-                  <label class="border border-dark rounded text-center" style="width: fit-content; padding: 2px">v</label>
-                </div>
-                <div class="col-2 ml-0">
-                  <label class="border border-dark rounded text-center" style="width: fit-content; padding: 2px">v</label>
-                </div>
-              </div>
-              <br>
-              <table id="leadTable" class="table table-striped" dense>
-                <thead>
-                <tr style="background-color: aliceblue;">
-                  <th>Vehicle Type</th>
-                  <th>Total Fuel Amount (L)</th>
-                  <th>Total Vehicle Count</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>a</td>
-                  <td>a</td>
-                  <td>a</td>
-                </tr>
-                </tbody>
-              </table>
-            </section>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<
