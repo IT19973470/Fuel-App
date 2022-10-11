@@ -8,12 +8,18 @@ import {FuelAdminService} from "../../../_service/fuel-admin.service";
 })
 export class UpdateStockInComponent implements OnInit {
   updatefuelStockIn;
+  fuelIn;
 
   constructor(private fuelAdminService: FuelAdminService) {
+    console.log(this.fuelAdminService.fuelIn.id);
+    this.updatefuelStockIn = this.fuelAdminService.fuelIn.id;
     // this.updatefuelStockIn = this.fuelAdminService.updateStockIn()
   }
 
   updateFuelStockIn(){
+    this.fuelAdminService.updateStockIn(this.updatefuelStockIn).subscribe(data => {
+
+    })
   }
 
 

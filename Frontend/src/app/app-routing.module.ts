@@ -17,16 +17,16 @@ import {StockInAdminComponent} from "./content/admin/stock-in-admin/stock-in-adm
 import {StockOutAdminComponent} from "./content/admin/stock-out-admin/stock-out-admin.component"
 import {ReportsComponent} from "./content/fuel-station/reports/reports.component"
 import {OrderComponent} from "./content/fuel-station/order/order.component"
-
 import {VehicleDetailsComponent} from "./content/fuel_pumper/vehicle-details/vehicle-details.component"
-
 import {FuelReportComponent} from "./content/fuel_pumper/fuel-report/fuel-report.component"
-
 import {FuelAvailabilityCustomerComponent} from "./content/customer/fuel-availability-customer/fuel-availability-customer.component"
 import {ViewStockOutAdminComponent} from "./content/admin/view-stock-out-admin/view-stock-out-admin.component"
 import {VehicleReportComponent} from "./content/fuel-station/vehicle-report/vehicle-report.component"
 import {FuelApproveComponent} from "./content/admin/fuel-approve/fuel-approve.component"
 import {ViewReportComponent} from "./content/admin/view-report/view-report.component"
+import {UpdateStockInComponent} from "./content/admin/update-stock-in/update-stock-in.component";
+import {UpdateStockOutComponent} from "./content/admin/update-stock-out/update-stock-out.component";
+
 
 
 
@@ -121,8 +121,16 @@ const routes: Routes = [
     component: FuelApproveComponent
   },
   {
-    path: "view_report",
-    component: ViewReportComponent
+    path: 'view_report',
+    component : ViewReportComponent
+  },
+  {
+    path: 'update-stockIn',
+    component : UpdateStockInComponent
+  },
+  {
+    path: 'update-stockOut',
+    component : UpdateStockOutComponent
   }
 ]
 
