@@ -58,6 +58,9 @@ export class FuelStationService {
   updateOrder(id,data): Observable<any> {
     return this.http.put<any>(environment.backend_url + '/fuel_station/updateOrder/'+id, data);
   }
+  getVehicleReport(id)   : Observable<any> {
+    return this.http.get<any>(environment.backend_url + '/fuel_station/getVehicleReport/'+id)
+  }
 
 
   newFuelStation() {

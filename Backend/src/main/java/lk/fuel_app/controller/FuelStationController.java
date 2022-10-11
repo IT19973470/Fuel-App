@@ -71,6 +71,10 @@ public class FuelStationController {
     public ResponseEntity updateOrder(@RequestBody OrderData orderData, @PathVariable String id) {
         return ResponseEntity.ok(fuelStationService.updateOrder(orderData, id));
     }
+    @GetMapping(value = "/getVehicleReport/{id}")
+    public ResponseEntity getVehicleReport(@PathVariable String id) {
+        return ResponseEntity.ok(fuelStationService.getVehicleReport(id));
+    }
     
     
 }

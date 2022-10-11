@@ -22,5 +22,6 @@ public interface FuelStationService {
     FuelStationDTO viewFuelStation(String id);
     List<OrderDTO> getFuelOrder(String id);
     OrderData updateOrder(OrderData orderData, String id);
+    List<VehicleReportDTO> getVehicleReport(String id);
     
 }

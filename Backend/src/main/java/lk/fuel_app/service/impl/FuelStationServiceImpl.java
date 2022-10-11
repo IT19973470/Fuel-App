@@ -36,6 +36,11 @@ public class FuelStationServiceImpl implements FuelStationService {
     private FuelStationFuelTypeRepository fuelStationFuelTypeRepository;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private CustomerFuelStationRepository customerFuelStationRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
+
 
     @Override
     public FuelStation addFuelStation(FuelStation fuelStation) {
@@ -219,6 +224,21 @@ public class FuelStationServiceImpl implements FuelStationService {
             return orderRepository.save(orderObj);
         }
         return null;
+    }
+
+    @Override
+    public List<VehicleReportDTO> getVehicleReport(String id) {
+        List<VehicleReportDTO> vehicleReportDTOS = new ArrayList<>();
+        List<Object[]> customerCount = customerRepository.getCustomerCount();
+        for (Object[] obj : customerCount) {
+            VehicleReportDTO vehicleReportDTO = new VehicleReportDTO();
+            vehicleReportDTO.setVehicleType(obj[0].toString());
+            vehicleReportDTO.setCount(Integer.parseInt(obj[1].toString()));
+            
+            vehicleReportDTOS.add(vehicleReportDTO);
+        }
+        
+        return vehicleReportDTOS;
     }
 
 }
