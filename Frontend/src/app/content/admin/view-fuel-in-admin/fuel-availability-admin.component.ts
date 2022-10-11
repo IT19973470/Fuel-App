@@ -9,26 +9,36 @@ import {Router} from "@angular/router";
 })
 export class FuelAvailabilityAdminComponent implements OnInit {
 
-  data = []
-  fuelIn;
+  // data = []
+  data;
   constructor(private fuelAdminService: FuelAdminService, private router: Router) {
-    this.fuelIn = this.fuelAdminService.fuelIn;
+    this.data = this.fuelAdminService.newAddFuelStock();
   }
 
   ngOnInit(): void {
-    this.getCustomer()
+    this.getCustomer();
   }
 
   getCustomer() {
     this.fuelAdminService.getFuelAdminStockIn().subscribe(res => {
-      this.data = res
-      console.log(this.data)
+      console.log(res);
+      this.data = res;
+      console.log(this.data);
     })
   }
 
   updateStockIn() {
-    this.fuelAdminService.updateStockIn(this.fuelIn).subscribe(customer => {
-      this.router.navigate(['/update-stockIn'])
+    // console.log(id)
+    // this.fuelAdminService.updateStockIn(this.fuelIn).subscribe(customer => {
+    // this.fuelAdminService.fuelIn.id = id;
+    this.fuelAdminService.fuelIn = this.data;
+      this.router.navigate(['/update-stockIn']);
+    // });
+  }
+
+  deleteStockIn(id: string){
+    this.fuelAdminService.deleteStockIn(id).subscribe(data => {
+      this.getCustomer();
     })
   }
 

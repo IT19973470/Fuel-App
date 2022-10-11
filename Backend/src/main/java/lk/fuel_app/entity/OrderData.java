@@ -15,6 +15,17 @@ import java.util.Date;
 public class OrderData {
     @Id
     private String id;
+
+    public OrderData(OrderData orderData) {
+        this.id = orderData.id;
+        this.fuelType = orderData.fuelType;
+        this.amount = orderData.amount;
+        this.date = orderData.date;
+        this.status = orderData.status;
+        this.fuelAdmin = orderData.fuelAdmin;
+        this.fuelStation = orderData.fuelStation;
+    }
+
     private String fuelType;
     private  String amount;
     private LocalDate date;
@@ -26,4 +37,7 @@ public class OrderData {
     @ManyToOne
     private FuelStation fuelStation;
 
+    public OrderData() {
+
+    }
 }

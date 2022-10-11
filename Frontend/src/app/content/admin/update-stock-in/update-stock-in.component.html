@@ -1,0 +1,75 @@
+<!--<div style="display: flex;justify-content: center">-->
+<!--<div class="row" style="margin-top: 20px;margin-left: 0px;margin-right: 0px">-->
+
+<div class="" style="padding: 10px;display: flex;justify-content: center">
+  <div style="width: 600px">
+    <div style="margin-bottom: 20px">
+      <span style="font-weight: bold;color: #b68003;font-size: 21px">Stock In Update Form</span>
+    </div>
+    <form style="padding-top: 20px;background-color: white;" #stockInForm="ngForm"
+          (ngSubmit)="stockInForm.form.valid && updateFuelStockIn()" novalidate>
+
+      <div>Fuel Type</div>
+      <select class="form-control" name="type" [(ngModel)]="updatefuelStockIn.fuelType"
+              #fuelType="ngModel" required>
+        <option value="">Select</option>
+        <option value="Petrol92">Petrol 92</option>
+        <option value="Petrol95">Petrol 95</option>
+        <option value="SuperDiesel">Super Diesel</option>
+        <option value="AutoDiesel">Auto Diesel</option>
+      </select>
+      <div *ngIf="(fuelType.touched || stockInForm.submitted) && fuelType.errors?.required"
+           class="validErr">
+        Fuel Type is required
+      </div>
+
+      <div style="margin-top: 20px">Stock From</div>
+      <select class="form-control" name="From" [(ngModel)]="updatefuelStockIn.stockFrom"
+              #stockFrom="ngModel" required>
+        <option value="">Select</option>
+        <option value="Russia">Russia</option>
+        <option value="India">India</option>
+        <option value="Iraq">Iraq</option>
+      </select>
+      <div *ngIf="(stockFrom.touched || stockInForm.submitted) && stockFrom.errors?.required"
+           class="validErr">
+        Stock From is required
+      </div>
+
+      <div style="margin-top: 20px">Date</div>
+      <input type="date" class="form-control" name="date" [(ngModel)]="updatefuelStockIn.date"
+             #date="ngModel" required>
+<!--      <div *ngIf="(date.touched || stockInForm.submitted) && date.errors?.required"-->
+<!--           class="validErr">-->
+<!--        Date is required-->
+<!--      </div>-->
+
+      <div style="margin-top: 20px">Time</div>
+      <input type="time" class="form-control" name="time" [(ngModel)]="updatefuelStockIn.time"
+             #time="ngModel" required>
+<!--      <div *ngIf="(time.touched || stockInForm.submitted) && time.errors?.required"-->
+<!--           class="validErr">-->
+<!--        Time is required-->
+<!--      </div>-->
+
+      <div style="margin-top: 20px">Amount</div>
+      <input type="number" name="amount" placeholder="Enter Amount" class="form-control"
+             [(ngModel)]="updatefuelStockIn.amount"
+             #amount="ngModel" required>
+      <div *ngIf="(amount.touched || stockInForm.submitted) && amount.errors?.required"
+           class="validErr">
+        Amount is required
+      </div>
+
+      <div style="text-align: right;margin-top: 30px">
+        <button class="btn btn-success" type="submit">Update Stock</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--<div class="col-12" style="padding: 20px;display: flex">-->
+
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
