@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -116,36 +117,107 @@ public class CustomerServiceImpl implements CustomerService {
             fuelAvailabilityDTO.setFuelStation(new FuelStation(fuelStation));
             Map<String, FuelAvailabilityDTO.FuelStock> availableStockObj = new HashMap<>();
             Map<String, FuelAvailabilityDTO.FuelStock> nextStockObj = new HashMap<>();
-            Map<String, FuelAvailabilityDTO.Vehicle> availableVehiclesObj = new HashMap<>();
+            Map<String, FuelAvailabilityDTO.FuelStock> fuelSupplyObj = new HashMap<>();
             Map<String, FuelAvailabilityDTO.Vehicle> distributedVehiclesObj = new HashMap<>();
+
+            Map<String, Map<String, FuelAvailabilityDTO.FuelStock>> vehicleCountAvgObj = new HashMap<>();
+            Map<String, Map<String, FuelAvailabilityDTO.FuelStock>> fuelCountAvgObj = new HashMap<>();
+
+//            for (Map<String, FuelAvailabilityDTO.FuelStock> vehicleCountAvgObjO : vehicleCountAvgObj.values()) {
+//                vehicleCountAvgObjO = new HashMap<>();
+//            }
+//            for (Map<String, FuelAvailabilityDTO.FuelStock> fuelCountAvgObjO : fuelCountAvgObj.values()) {
+//                fuelCountAvgObjO = new HashMap<>();
+//            }
 
             List<FuelType> fuelTypes = fuelTypeRepository.getFuelTypes();
             for (FuelType fuelType : fuelTypes) {
                 availableStockObj.put(fuelType.getId(), new FuelAvailabilityDTO.FuelStock(fuelType.getId(), fuelType.getName()));
                 nextStockObj.put(fuelType.getId(), new FuelAvailabilityDTO.FuelStock(fuelType.getId(), fuelType.getName()));
+                fuelSupplyObj.put(fuelType.getId(), new FuelAvailabilityDTO.FuelStock(fuelType.getId(), fuelType.getName()));
             }
 
-            for (VehicleType vehicleType : vehicleTypeRepository.getVehicleTypes()) {
-                availableVehiclesObj.put(vehicleType.getId(), new FuelAvailabilityDTO.Vehicle(vehicleType.getId(), vehicleType.getName()));
+            List<VehicleType> vehicleTypes = vehicleTypeRepository.getVehicleTypes();
+            for (VehicleType vehicleType : vehicleTypes) {
                 distributedVehiclesObj.put(vehicleType.getId(), new FuelAvailabilityDTO.Vehicle(vehicleType.getId(), vehicleType.getNamePlural()));
+
+                Map<String, FuelAvailabilityDTO.FuelStock> fuelList = new HashMap<>();
+                for (FuelType fuelType : fuelTypes) {
+                    fuelList.put(fuelType.getId(), new FuelAvailabilityDTO.FuelStock(fuelType.getId(), fuelType.getName()));
+                }
+                vehicleCountAvgObj.put(vehicleType.getId(), fuelList);
+                fuelList = new HashMap<>();
+                for (FuelType fuelType : fuelTypes) {
+                    fuelList.put(fuelType.getId(), new FuelAvailabilityDTO.FuelStock(fuelType.getId(), fuelType.getName()));
+                }
+                fuelCountAvgObj.put(vehicleType.getId(), fuelList);
             }
 
             List<FuelStationFuelType> fuelStationFuelTypeOpt = fuelStationFuelTypeRepository.getAllByFuelStation_Id(fuelStation.getId());
             for (FuelStationFuelType fuelStationFuelType : fuelStationFuelTypeOpt) {
                 FuelAvailabilityDTO.FuelStock fuelStockObj = availableStockObj.get(fuelStationFuelType.getFuelType().getId());
                 fuelStockObj.setQuantity(fuelStationFuelType.getFuelAmount());
-                availableStockObj.put(fuelStationFuelType.getFuelType().getId(), fuelStockObj);
+//                availableStockObj.put(fuelStationFuelType.getFuelType().getId(), fuelStockObj);
             }
 
-            List<CustomerFuelStation> fuelPumpedVehicles = customerFuelStationRepository.getFuelPumpedVehicles(fuelStation.getId(), LocalDate.now());
+            List<CustomerFuelStation> fuelPumpedVehicles = customerFuelStationRepository.getFuelPumpedVehicles(fuelStation.getId(), LocalDate.now().minusDays(1), LocalDate.now());
             for (CustomerFuelStation customerFuelStation : fuelPumpedVehicles) {
 //                FuelAvailabilityDTO.FuelStock fuelStockObj = availableStockObj.get(customerFuelStation.getFuelType().getId());
 //                fuelStockObj.setQuantity(fuelStockObj.getQuantity() - customerFuelStation.getFuelPumped());
 //                availableStockObj.put(customerFuelStation.getFuelType().getId(), fuelStockObj);
-
                 FuelAvailabilityDTO.Vehicle vehicle = distributedVehiclesObj.get(customerFuelStation.getCustomer().getVehicleType().getId());
                 vehicle.setVehicleCount(vehicle.getVehicleCount() + 1);
-                distributedVehiclesObj.put(customerFuelStation.getCustomer().getVehicleType().getId(), vehicle);
+//                distributedVehiclesObj.put(customerFuelStation.getCustomer().getVehicleType().getId(), vehicle);
+
+            }
+
+            List<CustomerFuelStation> fuelSupplyPerHour = customerFuelStationRepository.getFuelSupplyPerHour(fuelStation.getId(), LocalDateTime.now().minusHours(24), LocalDateTime.now());
+            for (CustomerFuelStation customerFuelStation : fuelSupplyPerHour) {
+                FuelAvailabilityDTO.FuelStock fuelStockObj = fuelSupplyObj.get(customerFuelStation.getFuelType().getId());
+                fuelStockObj.setQuantity(fuelStockObj.getQuantity() + customerFuelStation.getFuelPumped());
+//                fuelSupplyObj.put(customerFuelStation.getFuelType().getId(), fuelStockObj);
+
+                Map<String, FuelAvailabilityDTO.FuelStock> vehicleCountAvgMap = vehicleCountAvgObj.get(customerFuelStation.getCustomer().getVehicleType().getId());
+                FuelAvailabilityDTO.FuelStock vehicleCountAvg = vehicleCountAvgMap.get(customerFuelStation.getFuelType().getId());
+                vehicleCountAvg.setCount(vehicleCountAvg.getCount() + 1);
+//                vehicleCountAvgMap.put(customerFuelStation.getCustomer().getVehicleType().getId(), vehicleCountAvg);
+
+                Map<String, FuelAvailabilityDTO.FuelStock> fuelCountAvgMap = fuelCountAvgObj.get(customerFuelStation.getCustomer().getVehicleType().getId());
+                FuelAvailabilityDTO.FuelStock fuelCountAvg = fuelCountAvgMap.get(customerFuelStation.getFuelType().getId());
+                fuelCountAvg.setCount(fuelCountAvg.getCount() + customerFuelStation.getFuelPumped());
+//                fuelCountAvgMap.put(customerFuelStation.getCustomer().getVehicleType().getId(), fuelCountAvg);
+            }
+
+            for (VehicleType vehicleType : vehicleTypes) {
+                Map<String, FuelAvailabilityDTO.FuelStock> vehicleCountAvg = vehicleCountAvgObj.get(vehicleType.getId());
+                Map<String, FuelAvailabilityDTO.FuelStock> fuelCountAvg = fuelCountAvgObj.get(vehicleType.getId());
+                for (FuelType fuelType : fuelTypes) {
+                    FuelAvailabilityDTO.FuelStock vehicleCount = vehicleCountAvg.get(fuelType.getId());
+                    vehicleCount.setCount(vehicleCount.getCount() / 24.0);
+
+                    FuelAvailabilityDTO.FuelStock fuelStock = fuelCountAvg.get(fuelType.getId());
+                    fuelStock.setCount(fuelStock.getCount() / 24.0);
+                    fuelStock.setCount(fuelStock.getCount() * vehicleCount.getCount());
+                }
+            }
+
+            for (FuelType fuelType : fuelTypes) {
+                FuelAvailabilityDTO.FuelStock fuelStockObj = fuelSupplyObj.get(fuelType.getId());
+                fuelStockObj.setQuantity(fuelStockObj.getQuantity() / 24.0);
+//                fuelSupplyObj.put(fuelType.getId(), fuelStockObj);
+                double fuelTotal = 0;
+                for (Map<String, FuelAvailabilityDTO.FuelStock> fuelCountAvg : fuelCountAvgObj.values()) {
+                    FuelAvailabilityDTO.FuelStock fuelStock = fuelCountAvg.get(fuelType.getId());
+                    fuelTotal += fuelStock.getCount();
+                }
+                if (fuelTotal == 0) {
+                    fuelTotal = 1;
+                }
+                FuelAvailabilityDTO.FuelStock fuelStock = availableStockObj.get(fuelType.getId());
+                for (Map<String, FuelAvailabilityDTO.FuelStock> vehicleCountMap : vehicleCountAvgObj.values()) {
+                    FuelAvailabilityDTO.FuelStock vehicleCountAvg = vehicleCountMap.get(fuelType.getId());
+                    vehicleCountAvg.setCount(vehicleCountAvg.getCount() * (fuelStock.getQuantity() / fuelTotal));
+                }
             }
 
             List<FuelStockNext> fuelStockNexts = fuelStockNextRepository.getAllByFuelStation_Id(fuelStation.getId());
@@ -154,15 +226,29 @@ public class CustomerServiceImpl implements CustomerService {
                 fuelStockObj.setQuantity(fuelStockNext.getAmount());
                 fuelStockObj.setNextFuelAmountDateAt(fuelStockNext.getArrival().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                 fuelStockObj.setNextFuelAmountTimeAt(fuelStockNext.getArrival().format(DateTimeFormatter.ofPattern("hh:mm a")));
-                nextStockObj.put(fuelStockNext.getFuelType().getId(), fuelStockObj);
+//                nextStockObj.put(fuelStockNext.getFuelType().getId(), fuelStockObj);
             }
 
             fuelAvailabilityDTO.setAvailableStock(new ArrayList<>(availableStockObj.values()));
             fuelAvailabilityDTO.setNextFuelAvailability(new ArrayList<>(nextStockObj.values()));
             fuelAvailabilityDTO.setDistributedVehicles(new ArrayList<>(distributedVehiclesObj.values()));
+            fuelAvailabilityDTO.setFuelSupplyPerHour(new ArrayList<>(fuelSupplyObj.values()));
+
+            ArrayList<FuelAvailabilityDTO.Vehicle> availableVehicleTypes = new ArrayList<>();
+            for (Map.Entry<String, Map<String, FuelAvailabilityDTO.FuelStock>> stringMapEntry : vehicleCountAvgObj.entrySet()) {
+                FuelAvailabilityDTO.Vehicle vehicle = new FuelAvailabilityDTO.Vehicle();
+                vehicle.setVehicleTypeId(stringMapEntry.getKey());
+                vehicle.setVehicleType(distributedVehiclesObj.get(stringMapEntry.getKey()).getVehicleType());
+                vehicle.setVehicles(new ArrayList(stringMapEntry.getValue().values()));
+                availableVehicleTypes.add(vehicle);
+            }
+            fuelAvailabilityDTO.setAvailableVehicles(availableVehicleTypes);
+
             Collections.sort(fuelAvailabilityDTO.getAvailableStock());
             Collections.sort(fuelAvailabilityDTO.getNextFuelAvailability());
             Collections.sort(fuelAvailabilityDTO.getDistributedVehicles());
+            Collections.sort(fuelAvailabilityDTO.getFuelSupplyPerHour());
+            Collections.sort(fuelAvailabilityDTO.getAvailableVehicles());
             fuelAvailabilityDTOs.add(fuelAvailabilityDTO);
         }
         return fuelAvailabilityDTOs;

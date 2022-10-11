@@ -72,10 +72,12 @@
         </div>
         <div style="margin-top: 40px">
           <span style="font-weight: bold">Fuel Supply per hour</span>
-          <div style="margin-left: 20px;margin-top: 10px">
-            <div>Petrol 92 - 10L</div>
-            <div>Petrol 95 - 20L</div>
-          </div>
+          <table style="margin-left: 20px;margin-top: 10px">
+            <tr *ngFor="let fuelSupply of fuelAvailability.fuelSupplyPerHour">
+              <td>{{fuelSupply.fuelType}}</td>
+              <td>{{fuelSupply.quantity | number : '1.2-2'}} L/h</td>
+            </tr>
+          </table>
         </div>
         <div style="margin-top: 40px">
           <span style="font-weight: bold">Next Fuel availability</span>
@@ -96,12 +98,20 @@
       </div>
 
       <div class="col-4" style="border-right: 2px solid black;margin-top: 20px;margin-bottom: 20px">
-        <div style="margin: 10px 20px 20px 20px;text-align: center;border-bottom: 2px solid black;padding-bottom: 10px">
-          <div style="font-weight: bold;margin-bottom: 30px">Vehicle count based on availability</div>
-          <div><span style="font-weight: bold">Cars -</span> 300</div>
-          <div><span style="font-weight: bold">Bikes -</span> 400</div>
-          <div><span style="font-weight: bold">Three Wheelers -</span> 400</div>
-          <div><span style="font-weight: bold">Buses -</span> 400</div>
+        <div style="margin: 10px 20px 20px 20px;border-bottom: 2px solid black;padding-bottom: 10px;display: flex;justify-content: center;">
+          <div>
+            <div style="font-weight: bold;margin-bottom: 30px">Vehicle count based on availability</div>
+            <div *ngFor="let availableVehicle of fuelAvailability.availableVehicles">
+              <div style="font-weight: bold;margin-top: 20px">{{availableVehicle.vehicleType}}</div>
+              <table style="margin-left: 20px;margin-top: 10px">
+                <tr *ngFor="let vehicle of availableVehicle.vehicles">
+                  <td>{{vehicle.fuelType}}</td>
+                  <td>-></td>
+                  <td><span style="font-weight: bold">{{vehicle.count}}</span> {{availableVehicle.vehicleType}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
         </div>
         <div style="display: flex;justify-content: center;">
           <div>
@@ -119,20 +129,20 @@
             </table>
           </div>
           <!--<div>-->
-            <!--<span style="font-weight: bold">Cars -</span> 300 /-->
-            <!--<span style="font-weight: bold">Pumped -</span> 1500-->
+          <!--<span style="font-weight: bold">Cars -</span> 300 /-->
+          <!--<span style="font-weight: bold">Pumped -</span> 1500-->
           <!--</div>-->
           <!--<div>-->
-            <!--<span style="font-weight: bold">Bikes -</span> 400 /-->
-            <!--<span style="font-weight: bold">Pumped -</span> 1500-->
+          <!--<span style="font-weight: bold">Bikes -</span> 400 /-->
+          <!--<span style="font-weight: bold">Pumped -</span> 1500-->
           <!--</div>-->
           <!--<div>-->
-            <!--<span style="font-weight: bold">Three Wheelers -</span> 400 /-->
-            <!--<span style="font-weight: bold">Pumped -</span> 1500-->
+          <!--<span style="font-weight: bold">Three Wheelers -</span> 400 /-->
+          <!--<span style="font-weight: bold">Pumped -</span> 1500-->
           <!--</div>-->
           <!--<div>-->
-            <!--<span style="font-weight: bold">Buses -</span> 400 /-->
-            <!--<span style="font-weight: bold">Pumped -</span> 1500-->
+          <!--<span style="font-weight: bold">Buses -</span> 400 /-->
+          <!--<span style="font-weight: bold">Pumped -</span> 1500-->
           <!--</div>-->
         </div>
       </div>

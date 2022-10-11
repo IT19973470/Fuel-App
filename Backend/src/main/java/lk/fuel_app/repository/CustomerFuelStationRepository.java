@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,8 +20,8 @@ public interface CustomerFuelStationRepository extends JpaRepository<CustomerFue
     @Query(value = "select sum(fuelPumped) from CustomerFuelStation where customer.vehicleNumber=?1 and pumpedAtDate between ?2 and ?3")
     Double getFuelPumpedAmount(String vehicleNumber, LocalDate startDate, LocalDate endDate);
 
-    @Query(value = "from CustomerFuelStation where fuelStation.id=?1 and pumpedAtDate=?2")
-    List<CustomerFuelStation> getFuelPumpedVehicles(String fuelStation, LocalDate startDate);
+    @Query(value = "from CustomerFuelStation where fuelStation.id=?1 and pumpedAtDate between ?2 and ?3")
+    List<CustomerFuelStation> getFuelPumpedVehicles(String fuelStation, LocalDate startDate, LocalDate endDate);
 
     List<CustomerFuelStation> getAllByCustomerNicOrderByPumpedAtDesc(String nic);
 
@@ -40,5 +41,8 @@ public interface CustomerFuelStationRepository extends JpaRepository<CustomerFue
 //    Double getVehicleCountAndFuelAmount(@Param("vehicleType") String vehicleType);
 
     @Query("select a from  CustomerFuelStation a where a.pumpedAtDate between :startDate and :endDate")
-    public List<CustomerFuelStation> getAllFuelRecord(@Param("startDate") LocalDate startDate,@Param("endDate") LocalDate endDate);
+    public List<CustomerFuelStation> getAllFuelRecord(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+    @Query("from CustomerFuelStation where fuelStation.id=?1 and pumpedAt between ?2 and ?3")
+    List<CustomerFuelStation> getFuelSupplyPerHour(String fuelStation, LocalDateTime before, LocalDateTime timeNow);
 }
