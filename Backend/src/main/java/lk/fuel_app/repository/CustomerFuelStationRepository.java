@@ -41,4 +41,11 @@ public interface CustomerFuelStationRepository extends JpaRepository<CustomerFue
 
     @Query("select a from  CustomerFuelStation a where a.pumpedAtDate between :startDate and :endDate")
     public List<CustomerFuelStation> getAllFuelRecord(@Param("startDate") LocalDate startDate,@Param("endDate") LocalDate endDate);
+
+    @Query("select count(id) from  CustomerFuelStation  where fuelType.id=?1 group by fuelType")
+    int getCountVehicle(String id);
+
+    @Query("select sum(fuelPumped) from  CustomerFuelStation  where fuelType.id=?1 group by fuelType")
+    int getSumDistribution(String id);
+    
 }

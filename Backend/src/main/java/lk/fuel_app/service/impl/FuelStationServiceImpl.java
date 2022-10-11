@@ -96,7 +96,10 @@ public class FuelStationServiceImpl implements FuelStationService {
             FuelStation fuelStation = fuelStationOptional.get();
             for (FuelStock fuelStock : fuelStation.getFuelStocks()) {
                 FuelStockDTO fuelStockDTO = fuelStockObj.get(fuelStock.getFuelType().getId());
-                fuelStockDTO.setAvailableStock(fuelStockDTO.getAvailableStock() + fuelStock.getAmount());
+              //  fuelStockDTO.setAvailableStock(fuelStockDTO.getAvailableStock() + fuelStock.getAmount());
+                fuelStockDTO.setAvailableStock(fuelStockRepository.getTotalStockAmount(fuelStock.getFuelType().getId()));
+                fuelStockDTO.setDistributedVehicleCount(customerFuelStationRepository.getCountVehicle(fuelStock.getFuelType().getId()));
+               fuelStockDTO.setDistributedFuel(customerFuelStationRepository.getSumDistribution(fuelStock.getFuelType().getId()));
                 fuelStockObj.put(fuelStock.getFuelType().getId(), fuelStockDTO);
             }
             for (CustomerFuelStation customerFuelStation : fuelStation.getFuelPumped()) {
