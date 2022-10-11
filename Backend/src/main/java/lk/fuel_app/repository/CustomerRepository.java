@@ -16,8 +16,8 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
     Optional<Customer> getAllByAppUserEmailOrAppUserContactNumber(String email, String contactNumber);
 
 //    select c.vehicle_type, count(c.id) from customer_fuel_station cf, customer c where cf.customer_nic=c.nic group by c.vehicle_type;
-    @Query(value = "select c.vehicle_type, count(c.nic) from customer_fuel_station cf, customer c where cf.customer_nic=c.nic group by c.vehicle_type",nativeQuery = true)
-     List<Object[]> getCustomerCount();
+    @Query(value = "select c.vehicle_type, count(c.nic) from customer_fuel_station cf, customer c where cf.customer_nic=c.nic and cf.fuel_station_id =?1 group by c.vehicle_type ",nativeQuery = true)
+     List<Object[]> getCustomerCount(String fuel_station_id );
 //    @Query(value = "select c.vehicleType from CustomerFuelStation cf, Customer c where cf.customer.nic=c.nic group by c.vehicleType")
 //    int  getCustomerCount();
     

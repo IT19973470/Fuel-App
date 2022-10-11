@@ -43,6 +43,9 @@ export class OrderComponent implements OnInit {
   //  this.order.fuelStation=localStorage.getItem('user').
   }
 
+  delete(){
+    this.fuelStationS.deleteOrder(this.id).subscribe()
+  }
 
    btnupdate=0;
    btnadd=0
@@ -63,6 +66,9 @@ export class OrderComponent implements OnInit {
     console.log(data)
     this.order.fuelAdmin.nic=data.nic
   }
+  getDataorder2(data){
+    this.id=data.orderData.id
+  }
 
   updateorder(){
     console.log(this.id)
@@ -71,19 +77,19 @@ export class OrderComponent implements OnInit {
 
   interval:any;
 
-  // startTimer() {
-  //   this.interval = setInterval(() => {
-  //     this.getAllChats()
-  //   },1000)
-  // }
-  // getAllChats() {
-  //   this.fuelStationS.getAllChats().subscribe(data => {
-  //     this.chatyou=data
-  //     this.you=this.chatyou[0]
-  //     // console.log(data)
-  //
-  //   })
-  // }
+  startTimer() {
+    this.interval = setInterval(() => {
+      this.getAllChats()
+    },1000)
+  }
+  getAllChats() {
+    this.fuelStationS.getAllChats().subscribe(data => {
+      this.chatyou=data
+      this.you=this.chatyou[0]
+      // console.log(data)
+
+    })
+  }
 
   ngOnInit(): void {
     this.getAdminDetails()

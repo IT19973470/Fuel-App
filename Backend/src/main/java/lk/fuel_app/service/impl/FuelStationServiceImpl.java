@@ -169,7 +169,26 @@ public class FuelStationServiceImpl implements FuelStationService {
         }
         return attandanceDTOS;
     }
+    @Override
+    public List<AttandanceDTO> getAttendenceByDate(String startDate, String endDate) {
+        List<AttandanceDTO> attandanceDTOS = new ArrayList<>();
+        LocalDate sDate = LocalDate.parse(startDate);
+        LocalDate eDate = LocalDate.parse(endDate);
+        int countdata = 0;
+        List<FuelPumperAttendance> fuelPumperAttendances = fuelPumperAttendanceRepository.FindAllBetween(sDate,eDate);
+        for (FuelPumperAttendance fuelPumperAttendance : fuelPumperAttendances) {
+            AttandanceDTO attandanceDTO = new AttandanceDTO();
+            attandanceDTO.setFuelPumperAttendance(new FuelPumperAttendance(fuelPumperAttendance));
+            countdata = fuelPumperAttendanceRepository.getFuelPumpedCount(fuelPumperAttendance.getMarkedAt(), fuelPumperAttendance.getFuelPumper().getNic());
+            if (countdata != 0) {
+                attandanceDTO.setCountdata(countdata);
+            }
 
+            attandanceDTOS.add(attandanceDTO);
+        }
+        return attandanceDTOS;
+    }
+    
     @Override
     public List<FuelAdmin> viewFuelAdmin() {
         return fuelAdminRepository.findAll();
@@ -186,7 +205,9 @@ public class FuelStationServiceImpl implements FuelStationService {
         List<OrderData> orderData = orderRepository.getAllByFuelStationId(id);
         for (OrderData orderData1 : orderData) {
             OrderDTO orderData2 = new OrderDTO();
-            orderData2.setOrderData(orderData1);
+            orderData2.setOrderData(new OrderData(orderData1));
+           orderData2.setFuelStation(new FuelStation(orderData1.getFuelStation()));
+           orderData2.setFuelAdmin(orderData1.getFuelAdmin());
             orderDTOS.add(orderData2);
         }
 
@@ -210,7 +231,7 @@ public class FuelStationServiceImpl implements FuelStationService {
     public FuelStationDTO viewFuelStation(String id) {
         FuelStation fuelStations = fuelStationRepository.getByAppUserId(id);
         FuelStationDTO fuelStationDTO = new FuelStationDTO();
-        fuelStationDTO.setFuelStation(fuelStations);
+        fuelStationDTO.setFuelStation(new FuelStation(fuelStations));
         return fuelStationDTO;
     }
 
@@ -229,7 +250,7 @@ public class FuelStationServiceImpl implements FuelStationService {
     @Override
     public List<VehicleReportDTO> getVehicleReport(String id) {
         List<VehicleReportDTO> vehicleReportDTOS = new ArrayList<>();
-        List<Object[]> customerCount = customerRepository.getCustomerCount();
+        List<Object[]> customerCount = customerRepository.getCustomerCount(id);
         for (Object[] obj : customerCount) {
             VehicleReportDTO vehicleReportDTO = new VehicleReportDTO();
             vehicleReportDTO.setVehicleType(obj[0].toString());
@@ -239,6 +260,11 @@ public class FuelStationServiceImpl implements FuelStationService {
         }
         
         return vehicleReportDTOS;
+    }
+    @Override
+    public boolean deleteOrder(String id){
+        orderRepository.deleteById(id);
+        return true;
     }
 
 }
