@@ -24,8 +24,8 @@ export class ViewStockOutAdminComponent implements OnInit {
     })
   }
 
-  updateStockOut() {
-    this.fuelAdminService.fuelOut = this.data;
+  updateStockOut(d) {
+    this.fuelAdminService.fuelOut = d;
     this.router.navigate(['/update-stockOut']);
     // });
   }

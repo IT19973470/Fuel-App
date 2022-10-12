@@ -12,6 +12,8 @@ export class FuelAdminService {
   fuelOut;
   fuelOrders;
 
+  private baseURL = environment.backend_url;
+
   constructor(private http: HttpClient) {
   }
 
@@ -42,11 +44,13 @@ export class FuelAdminService {
   }
 
   updateStockIn(fuelIn): Observable<any> {
-    return this.http.put<any>(environment.backend_url + "/fuel_admin/updatefuelStockIn/" + fuelIn.id, fuelIn);
+   // console.log("pppppp")
+    console.log(fuelIn)
+    return this.http.put<any>(environment.backend_url + "/fuel_admin/updateStockIn/" + fuelIn.id, fuelIn);
   }
 
   updateStockOut(fuelOut): Observable<any> {
-    return this.http.put<any>(environment.backend_url + "/fuel_admin/updatefuelStockOut/" + fuelOut.id, fuelOut);
+    return this.http.put<any>(environment.backend_url + "/fuel_admin/updateStockOut/" + fuelOut.id, fuelOut);
   }
 
   deleteStockIn(id: string): Observable<any> {
@@ -57,6 +61,12 @@ export class FuelAdminService {
   deleteStockOut(id: string): Observable<any> {
     return this.http.delete<any>(environment.backend_url + '/fuel_admin/deleteStockOut/' + id);
   }
+
+  getStockInById(id: string): Observable<any> {
+    return this.http.get<any>(`${this.baseURL + '/fuel_admin/getStockInById'}/${id}`);
+
+  }
+
 
 
 
@@ -93,7 +103,8 @@ export class FuelAdminService {
       driverName: '',
       number: '',
       fuelStation: {
-        id: ''
+        id: '',
+        address:''
       }
     };
   }

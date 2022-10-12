@@ -11,12 +11,15 @@ export class UpdateStockInComponent implements OnInit {
   fuelIn;
 
   constructor(private fuelAdminService: FuelAdminService) {
-    console.log(this.fuelAdminService.fuelIn.id);
-    this.updatefuelStockIn = this.fuelAdminService.fuelIn.id;
-    // this.updatefuelStockIn = this.fuelAdminService.updateStockIn()
+
+    this.updatefuelStockIn = this.fuelAdminService.fuelIn;
+    console.log(">>>>")
+    console.log(this.updatefuelStockIn);
+    this.updatefuelStockIn = this.fuelAdminService.newAddFuelStock()
   }
 
   updateFuelStockIn(){
+    console.log(this.updatefuelStockIn.id + "...");
     this.fuelAdminService.updateStockIn(this.updatefuelStockIn).subscribe(data => {
 
     })
@@ -24,6 +27,7 @@ export class UpdateStockInComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.updatefuelStockIn = this.fuelAdminService.fuelIn;
   }
 
 }
