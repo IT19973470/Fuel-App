@@ -32,6 +32,15 @@ export class FuelPumperService {
     return this.http.post<any>(environment.backend_url + '/fuelPumper/addFuelPumperAttendance', fuelPumperAttendance);
   }
 
+  markTimeOutAttendance(fuelPumperAttendance): Observable<any> {
+    console.log(fuelPumperAttendance)
+    return this.http.put<any>(environment.backend_url + '/fuelPumper/markTimeOutAttendance/'+fuelPumperAttendance.id, fuelPumperAttendance);
+  }
+
+  getAttendance(): Observable<any> {
+    return this.http.get<any>(environment.backend_url + '/fuelPumper/getAttendance');
+  }
+
   getAllVehicleDetails(): Observable<any> {
     return this.http.get<any>(environment.backend_url + '/fuelPumper/getAllVehicleDetails');
   }
@@ -66,6 +75,10 @@ export class FuelPumperService {
 
   getAllFuelRecord(startDate:string,endDate:string):Observable<any>{
     return this.http.get<any>(`${this.baseURL+"/fuelPumper/getAllFuelRecord"}/${startDate}/${endDate}`);
+  }
+
+  getAllFuelRecordChart(startDate:string,endDate:string):Observable<any>{
+    return this.http.get<any>(`${this.baseURL+"/fuelPumper/getAllFuelRecordChart"}/${startDate}/${endDate}`);
   }
 
   newFuelPumper() {
