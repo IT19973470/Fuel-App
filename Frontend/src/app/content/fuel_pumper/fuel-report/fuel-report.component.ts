@@ -24,6 +24,7 @@ export class FuelReportComponent implements OnInit {
   deliveryItemDetails = [];
   weeklyDeliveries = [];
   applicationData=[];
+  applicationDataChart=[];
   fuelType;
 
   obj= {
@@ -54,38 +55,57 @@ export class FuelReportComponent implements OnInit {
     this.fillChart();
   }
 
+  getDataToReport(){
+    this.getAllFuelRecord();
+    this.getAllFuelRecordChart();
+  }
+
   getAllFuelRecord(){
     this.fuelPumperService.getAllFuelRecord(this.startDate, this.endDate).subscribe(data => {
       this.applicationData = data;
-      this.chartdata(data)
-      console.log(this.applicationData)
-      for (var i of data) {
-        if(i.fuelType.name == 'Petrol 95'){
-          this.totalPetrol95FuelAmount = this.totalPetrol95FuelAmount + i.fuelPumped;
-        }if(i.fuelType.name == 'Petrol 92'){
-          this.totalPetrol92FuelAmount = this.totalPetrol92FuelAmount + i.fuelPumped;
-        }if(i.fuelType.name == 'Super Diesel'){
-          this.totalSuperDieselFuelAmount = this.totalSuperDieselFuelAmount + i.fuelPumped;
-        }else {
-          this.totalDieselFuelAmount = this.totalDieselFuelAmount + i.fuelPumped;
-        }
-      }
+      // this.chartdata(data)
+      // console.log(this.applicationData)
+      // for (var i of data) {
+      //   if(i.fuelType.name == 'Petrol 95'){
+      //     this.totalPetrol95FuelAmount = this.totalPetrol95FuelAmount + i.fuelPumped;
+      //   }if(i.fuelType.name == 'Petrol 92'){
+      //     this.totalPetrol92FuelAmount = this.totalPetrol92FuelAmount + i.fuelPumped;
+      //   }if(i.fuelType.name == 'Super Diesel'){
+      //     this.totalSuperDieselFuelAmount = this.totalSuperDieselFuelAmount + i.fuelPumped;
+      //   }else {
+      //     this.totalDieselFuelAmount = this.totalDieselFuelAmount + i.fuelPumped;
+      //   }
+      // }
       // console.log(this.totalPetrolFuelAmount, this.totalPetrolFuelAmount+"........")
     })
   }
 
+  getAllFuelRecordChart(){
+    this.fuelPumperService.getAllFuelRecordChart(this.startDate, this.endDate).subscribe(data => {
+      this.applicationDataChart = data;
+      this.chartdata(data)
+      console.log(data)
+    })
+  }
+
   chartdata(application){
+    // console.log(application)
     for (let data of application){
-      console.log(data.fuelType.name)
       this.chartOptions.xaxis.categories.push(data.pumpedAtDate)
-      console.log(data.pumpedAtDate)
+      // this.chartOptions.xaxis.categories.push(''+data.fuelPumpedAt)
+      // this.type1.data.push(data.quantity);
+      // console.log(data.fuelPumpedAt)
+
       if(data.fuelType.name == 'Petrol 95') {
         this.type1.data.push(data.fuelPumped);
-      }else if(data.fuelType.name == 'Petrol 92'){
+      }
+      else if(data.fuelType.name == 'Petrol 92'){
         this.type2.data.push(data.fuelPumped);
-      }else if(data.fuelType.name == 'Super Diesel'){
+      }
+      else if(data.fuelType.name == 'Super Diesel'){
         this.type3.data.push(data.fuelPumped);
-      }else{
+      }
+      else{
         this.type4.data.push(data.fuelPumped);
       }
       // this.total2.data.push(data.p)
@@ -111,24 +131,24 @@ export class FuelReportComponent implements OnInit {
 
   type1= {
     name:'Petrol 95',
-    data: ["100"],
+    data: [],
     color: '#0c8dc0'
   }
   type2={
     name:'Petrol 92',
-    data: ["10"],
+    data: [],
     color: '#018002'
   }
 
   type3={
     name:'Super Diesel',
-    data: ["90"],
+    data: [],
     color: '#38049f'
   }
 
   type4={
     name:'Diesel',
-    data: ["90"],
+    data: [],
     color: '#e5c706'
   }
 
@@ -143,7 +163,7 @@ export class FuelReportComponent implements OnInit {
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: "35%",
+          columnWidth: "20%",
           endingShape: "rounded"
         }
       },
