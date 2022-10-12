@@ -12,12 +12,13 @@ export class UpdateStockOutComponent implements OnInit {
   fuelIn;
 
   constructor(private fuelAdminService: FuelAdminService) {
-    this.fuelIn = this.fuelAdminService.fuelIn;
-    // this.updatefuelStockIn = this.fuelAdminService.updateStockIn()
+    this.updatefuelStockOut = this.fuelAdminService.fuelOut;
+    console.log(fuelAdminService.fuelOut);
+     // this.updatefuelStockOut = this.fuelAdminService.fuelIn();
   }
 
   updateFuelStockOut(){
-
+ this.fuelAdminService.updateStockOut(this.updatefuelStockOut).subscribe()
   }
 
   ngOnInit(): void {

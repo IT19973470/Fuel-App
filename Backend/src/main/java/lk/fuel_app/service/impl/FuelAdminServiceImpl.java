@@ -74,6 +74,16 @@ public class FuelAdminServiceImpl implements FuelAdminService {
     }
 
     @Override
+    public Optional<FuelAdminStockIn> getStockInById(String id) {
+//        Optional<FuelAdminStockIn> fuelAdminStockIn = fuelAdminStockInRepository.findById(id);
+//        if(fuelAdminStockIn.isPresent()){
+//            return fuelAdminStockIn;
+//        }
+
+        return fuelAdminStockInRepository.findById(id);
+    }
+
+    @Override
     public List<FuelStationDTO> viewFuelStation() {
         
         List<FuelStationDTO> fuelStationDTOS = new ArrayList<>();
