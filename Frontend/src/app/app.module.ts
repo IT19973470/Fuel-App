@@ -36,6 +36,7 @@ import {NgApexchartsModule} from "ng-apexcharts";
 import { FuelReportComponent } from './content/fuel_pumper/fuel-report/fuel-report.component';
 import { FuelAvailabilityCustomerComponent } from './content/customer/fuel-availability-customer/fuel-availability-customer.component';
 import { ViewStockOutAdminComponent } from './content/admin/view-stock-out-admin/view-stock-out-admin.component';
+import { VehicleReportComponent } from './content/fuel-station/vehicle-report/vehicle-report.component';
 import { UpdateStockInComponent } from './content/admin/update-stock-in/update-stock-in.component';
 import { UpdateStockOutComponent } from './content/admin/update-stock-out/update-stock-out.component';
 import { FuelApproveComponent } from './content/admin/fuel-approve/fuel-approve.component';
@@ -73,6 +74,7 @@ import { ViewReportComponent } from './content/admin/view-report/view-report.com
     FuelReportComponent,
     FuelAvailabilityCustomerComponent,
     ViewStockOutAdminComponent,
+    VehicleReportComponent,
     UpdateStockInComponent,
     UpdateStockOutComponent,
     FuelApproveComponent,
