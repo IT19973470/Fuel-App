@@ -3,6 +3,7 @@ package lk.fuel_app.controller;
 import lk.fuel_app.dto.FuelAvailabilityDTO;
 import lk.fuel_app.entity.Customer;
 import lk.fuel_app.entity.CustomerFuelStation;
+import lk.fuel_app.entity.FuelConsumption;
 import lk.fuel_app.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -56,5 +57,15 @@ public class CustomerController {
     @GetMapping(value = "/fuelAvailability/{place}/{orderBy}")
     public List<FuelAvailabilityDTO> fuelAvailability(@PathVariable String place, @PathVariable String orderBy) {
         return customerService.fuelAvailability(place, orderBy);
+    }
+
+    @PostMapping(value = "/addFuelConsumption")
+    public ResponseEntity addFuelConsumption(@RequestBody FuelConsumption fuelConsumption) {
+        return ResponseEntity.ok(customerService.addFuelConsumption(fuelConsumption));
+    }
+
+    @GetMapping(value = "/getFuelConsumptions/{id}")
+    public List<FuelConsumption> getFuelConsumptions(@PathVariable String id) {
+        return customerService.getFuelConsumptions(id);
     }
 }

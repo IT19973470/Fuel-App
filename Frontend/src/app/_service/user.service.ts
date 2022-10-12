@@ -60,4 +60,8 @@ export class UserService {
   getFuelTypes(): Observable<any> {
     return this.http.get<any>(environment.backend_url + "/fuelPumper/getFuelTypes");
   }
+
+  getVehicleTypes(): Observable<any> {
+    return this.http.get<any>(environment.backend_url + '/fuelPumper/getAllVehicleTypes');
+  }
 }

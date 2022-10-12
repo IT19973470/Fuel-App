@@ -19,7 +19,7 @@ export class RegisterCustomerComponent implements OnInit {
   districts = [];
   places
   districtPlaces = []
-
+  vehicleTypes = []
 
   constructor(private customerS: CustomerService, private router: Router, private userS: UserService) {
     this.customer = this.customerS.newCustomer()
@@ -27,6 +27,7 @@ export class RegisterCustomerComponent implements OnInit {
 
   ngOnInit(): void {
     this.setDistricts()
+    this.getVehicleTypes()
   }
 
   addCustomer() {
@@ -51,5 +52,11 @@ export class RegisterCustomerComponent implements OnInit {
 
   getPlaces(district) {
     this.districtPlaces = this.userS.getPlaces(district)
+  }
+
+  getVehicleTypes() {
+    this.userS.getVehicleTypes().subscribe(vehicleTypes => {
+      this.vehicleTypes = vehicleTypes;
+    })
   }
 }

@@ -21,8 +21,9 @@ export class UpdateQuotaComponent implements OnInit {
   fuelType = {
     id: ''
   };
+  fullTanked = false
 
-  constructor(private customerS: CustomerService, private fuelPumperS: FuelPumperService, private qrScanS: QrScanService,private userS:UserService) {
+  constructor(private customerS: CustomerService, private fuelPumperS: FuelPumperService, private qrScanS: QrScanService, private userS: UserService) {
     this.customer = this.customerS.newCustomer()
     qrScanS.qrValue.subscribe(value => {
       this.getCustomerByVehicle(value)
@@ -66,11 +67,13 @@ export class UpdateQuotaComponent implements OnInit {
           id: JSON.parse(localStorage.getItem('user')).fuelPumper.fuelStation.id
         },
         fuelPumped: quota,
-        fuelType: this.fuelType
+        fuelType: this.fuelType,
+        fullTanked: this.fullTanked
       }
-      console.log(customerFuel)
+      // console.log(customerFuel)
       this.fuelPumperS.addCustomerFuel(customerFuel).subscribe(customerFuel => {
-        this.customer = customerFuel.customer
+        // console.log(customerFuel)
+        this.customer.quota = customerFuel.customer.quota
       })
     }
   }

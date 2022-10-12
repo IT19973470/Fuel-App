@@ -21,6 +21,10 @@ export class CustomerService {
     return this.http.put<any>(environment.backend_url + '/customer/updateCustomer/' + customer.nic, customer);
   }
 
+  deleteCustomer(id): Observable<any> {
+    return this.http.delete<any>(environment.backend_url + '/customer/deleteCustomer/' + id);
+  }
+
   getCustomer(email, contactNumber): Observable<any> {
     return this.http.get<any>(environment.backend_url + '/customer/getCustomer/' + email + '/' + contactNumber);
   }
@@ -41,6 +45,14 @@ export class CustomerService {
     return this.http.get<any>(environment.backend_url + "/customer/fuelAvailability/" + place + "/" + orderBy);
   }
 
+  addFuelConsumption(fuelConsumption): Observable<any> {
+    return this.http.post<any>(environment.backend_url + '/customer/addFuelConsumption', fuelConsumption);
+  }
+
+  getFuelConsumptions(id): Observable<any> {
+    return this.http.get<any>(environment.backend_url + "/customer/getFuelConsumptions/" + id);
+  }
+
   newCustomer() {
     return {
       nic: '',
@@ -50,10 +62,14 @@ export class CustomerService {
       fuelStationPlace: {
         id: ''
       },
-      chassisNumber: '',
-      vehicleNumber: '',
-      vehicleType: '',
-      fuelType: '',
+      vehicle: {
+        vehicleType: {
+          id: ''
+        },
+        chassisNumber: '',
+        vehicleNumber: '',
+        fuelType: '',
+      },
       quota: 0,
       appUser: {
         email: '',

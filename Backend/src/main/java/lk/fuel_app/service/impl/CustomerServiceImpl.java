@@ -31,12 +31,17 @@ public class CustomerServiceImpl implements CustomerService {
     private VehicleTypeRepository vehicleTypeRepository;
     @Autowired
     private FuelStationFuelTypeRepository fuelStationFuelTypeRepository;
+    @Autowired
+    private VehicleRepository vehicleRepository;
+    @Autowired
+    private FuelConsumptionRepository fuelConsumptionRepository;
 
     @Autowired
     private SendEmailSMTP sendEmailSMTP;
 
     @Override
     public Customer addCustomer(Customer customer) {
+        customer.setVehicle(vehicleRepository.save(customer.getVehicle()));
         return customerRepository.save(customer);
     }
 
@@ -71,7 +76,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomerByVehicle(String vehicleNumber) {
-        Optional<Customer> customer = customerRepository.getAllByVehicleNumber(vehicleNumber);
+        Optional<Customer> customer = customerRepository.getAllByVehicleVehicleNumber(vehicleNumber);
         if (customer.isPresent()) {
             Customer customerObj = customer.get();
             Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(vehicleNumber, LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
@@ -165,7 +170,7 @@ public class CustomerServiceImpl implements CustomerService {
 //                FuelAvailabilityDTO.FuelStock fuelStockObj = availableStockObj.get(customerFuelStation.getFuelType().getId());
 //                fuelStockObj.setQuantity(fuelStockObj.getQuantity() - customerFuelStation.getFuelPumped());
 //                availableStockObj.put(customerFuelStation.getFuelType().getId(), fuelStockObj);
-                FuelAvailabilityDTO.Vehicle vehicle = distributedVehiclesObj.get(customerFuelStation.getCustomer().getVehicleType().getId());
+                FuelAvailabilityDTO.Vehicle vehicle = distributedVehiclesObj.get(customerFuelStation.getCustomer().getVehicle().getVehicleType().getId());
                 vehicle.setVehicleCount(vehicle.getVehicleCount() + 1);
 //                distributedVehiclesObj.put(customerFuelStation.getCustomer().getVehicleType().getId(), vehicle);
 
@@ -177,12 +182,12 @@ public class CustomerServiceImpl implements CustomerService {
                 fuelStockObj.setQuantity(fuelStockObj.getQuantity() + customerFuelStation.getFuelPumped());
 //                fuelSupplyObj.put(customerFuelStation.getFuelType().getId(), fuelStockObj);
 
-                Map<String, FuelAvailabilityDTO.FuelStock> vehicleCountAvgMap = vehicleCountAvgObj.get(customerFuelStation.getCustomer().getVehicleType().getId());
+                Map<String, FuelAvailabilityDTO.FuelStock> vehicleCountAvgMap = vehicleCountAvgObj.get(customerFuelStation.getCustomer().getVehicle().getVehicleType().getId());
                 FuelAvailabilityDTO.FuelStock vehicleCountAvg = vehicleCountAvgMap.get(customerFuelStation.getFuelType().getId());
                 vehicleCountAvg.setCount(vehicleCountAvg.getCount() + 1);
 //                vehicleCountAvgMap.put(customerFuelStation.getCustomer().getVehicleType().getId(), vehicleCountAvg);
 
-                Map<String, FuelAvailabilityDTO.FuelStock> fuelCountAvgMap = fuelCountAvgObj.get(customerFuelStation.getCustomer().getVehicleType().getId());
+                Map<String, FuelAvailabilityDTO.FuelStock> fuelCountAvgMap = fuelCountAvgObj.get(customerFuelStation.getCustomer().getVehicle().getVehicleType().getId());
                 FuelAvailabilityDTO.FuelStock fuelCountAvg = fuelCountAvgMap.get(customerFuelStation.getFuelType().getId());
                 fuelCountAvg.setCount(fuelCountAvg.getCount() + customerFuelStation.getFuelPumped());
 //                fuelCountAvgMap.put(customerFuelStation.getCustomer().getVehicleType().getId(), fuelCountAvg);
@@ -210,7 +215,7 @@ public class CustomerServiceImpl implements CustomerService {
                     FuelAvailabilityDTO.FuelStock fuelStock = fuelCountAvg.get(fuelType.getId());
                     fuelTotal += fuelStock.getCount();
                 }
-                if (fuelTotal == 0) {
+                if (fuelTotal <= 1) {
                     fuelTotal = 1;
                 }
                 FuelAvailabilityDTO.FuelStock fuelStock = availableStockObj.get(fuelType.getId());
@@ -252,5 +257,23 @@ public class CustomerServiceImpl implements CustomerService {
             fuelAvailabilityDTOs.add(fuelAvailabilityDTO);
         }
         return fuelAvailabilityDTOs;
+    }
+
+    @Override
+    public FuelConsumption addFuelConsumption(FuelConsumption fuelConsumption) {
+        LocalDate localDate = LocalDate.now();
+        fuelConsumption.setId(fuelConsumption.getCustomer().getVehicle().getVehicleNumber() + localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        fuelConsumption.setCheckedAt(localDate);
+        return new FuelConsumption(fuelConsumptionRepository.save(fuelConsumption));
+    }
+
+    @Override
+    public List<FuelConsumption> getFuelConsumptions(String id) {
+        List<FuelConsumption> allByCustomerNic = fuelConsumptionRepository.getAllByCustomerNic(id);
+        List<FuelConsumption> fuelConsumptions = new ArrayList<>();
+        for (FuelConsumption fuelConsumption : allByCustomerNic) {
+            fuelConsumptions.add(new FuelConsumption(fuelConsumption));
+        }
+        return fuelConsumptions;
     }
 }

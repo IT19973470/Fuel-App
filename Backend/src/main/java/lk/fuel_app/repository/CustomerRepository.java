@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface CustomerRepository extends JpaRepository<Customer, String> {
 
-    Optional<Customer> getAllByVehicleNumber(String vehicle);
+    Optional<Customer> getAllByVehicleVehicleNumber(String vehicle);
 
     Optional<Customer> getAllByAppUserEmailOrAppUserContactNumber(String email, String contactNumber);
 

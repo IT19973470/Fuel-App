@@ -36,8 +36,49 @@ import {NgApexchartsModule} from "ng-apexcharts";
 import { FuelReportComponent } from './content/fuel_pumper/fuel-report/fuel-report.component';
 import { FuelAvailabilityCustomerComponent } from './content/customer/fuel-availability-customer/fuel-availability-customer.component';
 import { ViewStockOutAdminComponent } from './content/admin/view-stock-out-admin/view-stock-out-admin.component';
+import { FuelConsumptionCustomerComponent } from './content/customer/fuel-consumption-customer/fuel-consumption-customer.component';
+import {NotifierModule, NotifierOptions} from "angular-notifier";
 
-
+const customNotifierOptions: NotifierOptions = {
+  position: {
+    horizontal: {
+      position: "middle",
+      distance: 5
+    },
+    vertical: {
+      position: "top",
+      distance: 10,
+      gap: 10
+    }
+  },
+  theme: "material",
+  behaviour: {
+    autoHide: 5000,
+    onClick: false,
+    onMouseover: "pauseAutoHide",
+    showDismissButton: false,
+    stacking: 4
+  },
+  animations: {
+    enabled: true,
+    show: {
+      preset: "slide",
+      speed: 300,
+      easing: "ease"
+    },
+    hide: {
+      preset: "fade",
+      speed: 300,
+      easing: "ease",
+      offset: 50
+    },
+    shift: {
+      speed: 300,
+      easing: "ease"
+    },
+    overlap: 150
+  }
+};
 
 @NgModule({
   declarations: [
@@ -68,7 +109,8 @@ import { ViewStockOutAdminComponent } from './content/admin/view-stock-out-admin
     VehicleDetailsFilterPipe,
     FuelReportComponent,
     FuelAvailabilityCustomerComponent,
-    ViewStockOutAdminComponent
+    ViewStockOutAdminComponent,
+    FuelConsumptionCustomerComponent
   ],
   imports: [
     BrowserModule,
@@ -79,6 +121,7 @@ import { ViewStockOutAdminComponent } from './content/admin/view-stock-out-admin
     FormsModule,
     ScrollingModule,
     NgApexchartsModule,
+    NotifierModule.withConfig(customNotifierOptions)
   ],
   providers: [DatePipe],
   bootstrap: [AppComponent]

@@ -38,12 +38,12 @@ public class FuelPumperServiceImpl implements FuelPumperService {
     public CustomerFuelStation addCustomerFuel(CustomerFuelStation customerFuelStation) {
         LocalDateTime localDateTime = LocalDateTime.now();
         customerFuelStation.setId(
-                customerFuelStation.getCustomer().getVehicleNumber() + customerFuelStation.getFuelStation().getId() + localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss"))
+                customerFuelStation.getCustomer().getVehicle().getVehicleNumber() + customerFuelStation.getFuelStation().getId() + localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss"))
         );
         customerFuelStation.setPumpedAt(localDateTime);
         customerFuelStation.setPumpedAtDate(LocalDate.now());
         customerFuelStation = customerFuelStationRepository.save(customerFuelStation);
-        Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(customerFuelStation.getCustomer().getVehicleNumber(), LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
+        Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(customerFuelStation.getCustomer().getVehicle().getVehicleNumber(), LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
         customerFuelStation.getCustomer().setQuota(fuelPumpedAmount == null ? 0 : fuelPumpedAmount);
 
         updateFuelAmount(customerFuelStation.getFuelPumped(), "add", customerFuelStation.getFuelStation().getId(), customerFuelStation.getFuelType().getId());
@@ -66,7 +66,7 @@ public class FuelPumperServiceImpl implements FuelPumperService {
         Optional<CustomerFuelStation> customerFuelStationOptional = customerFuelStationRepository.getTopByCustomerNicAndFuelStationIdOrderByPumpedAtDesc(customerNic, fuelStation);
         if (customerFuelStationOptional.isPresent()) {
             CustomerFuelStation customerFuelStation = customerFuelStationOptional.get();
-            Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(customerFuelStation.getCustomer().getVehicleNumber(), LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
+            Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(customerFuelStation.getCustomer().getVehicle().getVehicleNumber(), LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
             customerFuelStation.getCustomer().setQuota(fuelPumpedAmount == null ? 0 : fuelPumpedAmount);
             customerFuelStationRepository.deleteById(customerFuelStation.getId());
             updateFuelAmount(customerFuelStation.getFuelPumped(), "deduct", fuelStation, customerFuelStation.getFuelType().getId());

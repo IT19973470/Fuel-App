@@ -18,7 +18,7 @@ export class FuelAvailabilityCustomerComponent implements OnInit {
   districtPlaces = []
   fuelAvailabilities = []
 
-  constructor(private userS: UserService, private customerS: CustomerService,private domSanitizer: DomSanitizer) {
+  constructor(private userS: UserService, private customerS: CustomerService, private domSanitizer: DomSanitizer) {
     userS.setPlace.subscribe((place: any) => {
       this.place = place.id;
       this.getFuelAvailability()
@@ -60,5 +60,9 @@ export class FuelAvailabilityCustomerComponent implements OnInit {
 
   transform(url) {
     return this.domSanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  getWholeNumber(val) {
+    return Math.floor(val)
   }
 }
