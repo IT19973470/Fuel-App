@@ -1,5 +1,6 @@
 package lk.fuel_app.service.impl;
 
+import lk.fuel_app.dto.FuelAvailabilityDTO;
 import lk.fuel_app.entity.*;
 import lk.fuel_app.repository.*;
 import lk.fuel_app.service.FuelPumperService;
@@ -10,9 +11,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class FuelPumperServiceImpl implements FuelPumperService {
@@ -38,12 +37,12 @@ public class FuelPumperServiceImpl implements FuelPumperService {
     public CustomerFuelStation addCustomerFuel(CustomerFuelStation customerFuelStation) {
         LocalDateTime localDateTime = LocalDateTime.now();
         customerFuelStation.setId(
-                customerFuelStation.getCustomer().getVehicleNumber() + customerFuelStation.getFuelStation().getId() + localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss"))
+                customerFuelStation.getCustomer().getVehicle().getVehicleNumber() + customerFuelStation.getFuelStation().getId() + localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss"))
         );
         customerFuelStation.setPumpedAt(localDateTime);
         customerFuelStation.setPumpedAtDate(LocalDate.now());
         customerFuelStation = customerFuelStationRepository.save(customerFuelStation);
-        Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(customerFuelStation.getCustomer().getVehicleNumber(), LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
+        Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(customerFuelStation.getCustomer().getVehicle().getVehicleNumber(), LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
         customerFuelStation.getCustomer().setQuota(fuelPumpedAmount == null ? 0 : fuelPumpedAmount);
 
         updateFuelAmount(customerFuelStation.getFuelPumped(), "add", customerFuelStation.getFuelStation().getId(), customerFuelStation.getFuelType().getId());
@@ -66,7 +65,7 @@ public class FuelPumperServiceImpl implements FuelPumperService {
         Optional<CustomerFuelStation> customerFuelStationOptional = customerFuelStationRepository.getTopByCustomerNicAndFuelStationIdOrderByPumpedAtDesc(customerNic, fuelStation);
         if (customerFuelStationOptional.isPresent()) {
             CustomerFuelStation customerFuelStation = customerFuelStationOptional.get();
-            Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(customerFuelStation.getCustomer().getVehicleNumber(), LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
+            Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(customerFuelStation.getCustomer().getVehicle().getVehicleNumber(), LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
             customerFuelStation.getCustomer().setQuota(fuelPumpedAmount == null ? 0 : fuelPumpedAmount);
             customerFuelStationRepository.deleteById(customerFuelStation.getId());
             updateFuelAmount(customerFuelStation.getFuelPumped(), "deduct", fuelStation, customerFuelStation.getFuelType().getId());
@@ -100,10 +99,37 @@ public class FuelPumperServiceImpl implements FuelPumperService {
     }
 
     @Override
+    public FuelPumperAttendance markTimeOutAttendance(FuelPumperAttendance fuelPumperAttendance, String id) {
+        Optional<FuelPumperAttendance> fuelPumperAttendance1 = fuelPumperAttendanceRepository.findById(id);
+
+        if(fuelPumperAttendance1.isPresent()){
+            FuelPumperAttendance attendance1 = fuelPumperAttendance1.get();
+            attendance1.setTimeOut(fuelPumperAttendance.getTimeOut());
+            return fuelPumperAttendanceRepository.save(attendance1);
+        }
+        return null;
+    }
+
+    @Override
+    public List<FuelPumperAttendance> getAttendance() {
+        List<FuelPumperAttendance> fuelPumperAttendances = fuelPumperAttendanceRepository.findAll();
+        List<FuelPumperAttendance> pumperAttendances = new ArrayList<>();
+        for (FuelPumperAttendance attendance : fuelPumperAttendances) {
+            pumperAttendances.add(new FuelPumperAttendance(attendance));
+        }
+        return pumperAttendances;
+
+//        return fuelPumperAttendanceRepository.findAll();
+    }
+
+    @Override
     public List<CustomerFuelStation> getAllVehicleDetails() {
         List<CustomerFuelStation> fuelStations = customerFuelStationRepository.findAll();
         List<CustomerFuelStation> customerFuelStations = new ArrayList<>();
         for (CustomerFuelStation customerFuelStation : fuelStations) {
+//            customerFuelStation.setCustomer(null);
+            customerFuelStation.setFuelStation(null);
+            customerFuelStation.setFuelType(null);
             customerFuelStations.add(new CustomerFuelStation(customerFuelStation));
         }
 
@@ -158,7 +184,34 @@ public class FuelPumperServiceImpl implements FuelPumperService {
     }
 
     @Override
-    public List<CustomerFuelStation> getAllFuelRecord(String startDate, String endDate) {
+    public List<FuelAvailabilityDTO> getAllFuelRecord(String startDate, String endDate) {
+        List<FuelAvailabilityDTO> fuelAvailabilityDTOs;
+        LocalDate sDate = LocalDate.parse(startDate);
+        LocalDate eDate = LocalDate.parse(endDate);
+
+        Map<String, FuelAvailabilityDTO.FuelStock> pumpedStockObj = new HashMap<>();
+
+        List<FuelType> fuelTypes = fuelTypeRepository.getFuelTypes();
+        for (FuelType fuelType : fuelTypes) {
+            pumpedStockObj.put(fuelType.getId(), new FuelAvailabilityDTO.FuelStock(fuelType.getId(), fuelType.getName()));
+        }
+
+        List<CustomerFuelStation> fuelRecordByDateRange = customerFuelStationRepository.getAllFuelRecord(sDate, eDate);
+//        List<CustomerFuelStation> customerFuelStations = new ArrayList<>();
+        for (CustomerFuelStation customerFuelStation : fuelRecordByDateRange) {
+//            customerFuelStations.add(new CustomerFuelStation(customerFuelStation));
+            FuelAvailabilityDTO.FuelStock fuelStockObj = pumpedStockObj.get(customerFuelStation.getFuelType().getId());
+            fuelStockObj.setQuantity(fuelStockObj.getQuantity() + customerFuelStation.getFuelPumped());
+            fuelStockObj.setFuelPumpedAt(customerFuelStation.getPumpedAtDate().format(DateTimeFormatter.ofPattern("yyy-MM-dd")));
+            pumpedStockObj.put(customerFuelStation.getFuelType().getId(), fuelStockObj);
+        }
+        fuelAvailabilityDTOs = new ArrayList(pumpedStockObj.values());
+//        Collections.sort(fuelAvailabilityDTOs);
+        return fuelAvailabilityDTOs;
+    }
+
+    @Override
+    public List<CustomerFuelStation> getAllFuelRecordChart(String startDate, String endDate) {
         LocalDate sDate = LocalDate.parse(startDate);
         LocalDate eDate = LocalDate.parse(endDate);
 
@@ -169,5 +222,6 @@ public class FuelPumperServiceImpl implements FuelPumperService {
         }
         return customerFuelStations;
     }
+
 
 }

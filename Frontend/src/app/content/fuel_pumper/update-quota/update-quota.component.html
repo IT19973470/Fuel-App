@@ -5,12 +5,12 @@
   </div>
 
   <div class="row">
-    <div class="col-md-6" style="display: flex;justify-content: center">
+    <div class="col-md-4" style="display: flex;justify-content: center">
       <div style="width: 300px;margin-top: 60px">
         <app-qr-scan></app-qr-scan>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-8">
       <div style="margin-top: 20px">
         <form #updateQuotaForm="ngForm"
               (ngSubmit)="updateQuotaForm.form.valid && updateCustomerFuel(quota.value)" novalidate>
@@ -21,23 +21,23 @@
             </tr>
             <tr>
               <td>Vehicle Number</td>
-              <td>{{customer.vehicleNumber}}</td>
+              <td>{{customer.vehicle.vehicleNumber}}</td>
             </tr>
             <tr>
               <td>Vehicle Type</td>
-              <td>{{customer.vehicleType.name}}</td>
+              <td>{{customer.vehicle.vehicleType.name}}</td>
             </tr>
             <tr>
               <td>Fuel Type</td>
-              <td>{{customer.fuelType}}</td>
+              <td>{{customer.vehicle.fuelType}}</td>
             </tr>
             <tr>
               <td>Chassis Number</td>
-              <td>{{customer.chassisNumber}}</td>
+              <td>{{customer.vehicle.chassisNumber}}</td>
             </tr>
             <tr>
               <td>Weekly Quota</td>
-              <td>20L</td>
+              <td>{{customer.vehicle.vehicleType.fuelReference}}L</td>
             </tr>
             <tr>
               <td>Fuel Type</td>
@@ -56,20 +56,34 @@
             <tr>
               <td>Pumped (L)</td>
               <td>
-                <input type="number" class="form-control" style="margin: 0px" #quota="ngModel" required name="quota" [(ngModel)]="val">
+                <input type="number" class="form-control" style="margin: 0px" #quota="ngModel" required name="quota"
+                       [(ngModel)]="val">
                 <div *ngIf="(quota.touched || updateQuotaForm.submitted) && quota.errors?.required"
                      class="validErr">
                   Fuel Amount is required
                 </div>
               </td>
+            </tr>
+            <tr>
+              <td>Full Tanked</td>
               <td>
-                <button class="btn btn-warning" style="margin-right: 20px" type="submit" [disabled]="customer.nic===''">Submit</button>
+                <input type="checkbox" style="width: 20px;height: 20px" name="fullTanked"
+                       [checked]="fullTanked"
+                       (change)="fullTanked?fullTanked=false:fullTanked=true">
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <button class="btn btn-warning" style="margin-right: 20px" type="submit" [disabled]="customer.nic===''">
+                  Submit
+                </button>
                 <button class="btn btn-danger" (click)="updateCustomerFuel(0)" type="button">Set as not pumped</button>
               </td>
             </tr>
             <tr>
               <td>Balanced Quota</td>
-              <td>{{20-customer.quota}}L</td>
+              <td>{{customer.vehicle.vehicleType.fuelReference-customer.quota}}L</td>
             </tr>
           </table>
         </form>
@@ -96,9 +110,9 @@
     </thead>
     <tbody>
     <tr *ngFor="let customer of customers;let i=index">
-      <td>{{customer.vehicleType.name}}</td>
-      <td>{{customer.vehicleNumber}}</td>
-      <td>{{customer.fuelType}}</td>
+      <td>{{customer.vehicle.vehicleType.name}}</td>
+      <td>{{customer.vehicle.vehicleNumber}}</td>
+      <td>{{customer.vehicle.fuelType}}</td>
       <!--<td>-->
       <!--<i class="fa fa-pencil" style="font-size: 20px;color: #000071;font-weight: bold;margin-right: 50px"></i>-->
       <!--<i class="fa fa-times" style="font-size: 30px;color: red;font-weight: bold"></i>-->

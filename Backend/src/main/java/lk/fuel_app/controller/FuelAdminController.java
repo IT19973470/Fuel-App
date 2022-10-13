@@ -93,4 +93,8 @@ public class FuelAdminController {
         return ResponseEntity.ok(fuelAdminService.getStockOutByType(type));
     }
 
+    @GetMapping(value = "/getStockInById/{id}")
+    public ResponseEntity getStockInById(@PathVariable String id) {
+        return ResponseEntity.ok(fuelAdminService.getStockInById(id));
+    }
 }

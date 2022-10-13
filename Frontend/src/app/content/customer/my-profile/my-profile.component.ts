@@ -10,9 +10,7 @@ import {Router} from '@angular/router';
 export class MyProfileComponent implements OnInit {
 
   customer;
-  pumps = [];
-  consumption = 0;
-  trip;
+
 
   constructor(private customerS: CustomerService, private router: Router) {
     this.customer = this.customerS.newCustomer();
@@ -20,15 +18,15 @@ export class MyProfileComponent implements OnInit {
 
   ngOnInit(): void {
     // console.log(this.customer)
-    this.customerS.getCustomer(JSON.parse(localStorage.getItem('user')).email, JSON.parse(localStorage.getItem('user')).contactNumber).subscribe(customer => {
-      this.customer = customer;
-      this.getCustomer();
-      this.getPumpedAmounts();
-    });
+    // this.customerS.getCustomer(JSON.parse(localStorage.getItem('user')).email, JSON.parse(localStorage.getItem('user')).contactNumber).subscribe(customer => {
+    //   this.customer = customer;
+    //   console.log(this.customer)
+    this.getCustomer();
+    // });
   }
 
   getCustomer() {
-    this.customerS.getCustomerByVehicle(this.customer.vehicleNumber).subscribe(customer => {
+    this.customerS.getCustomerByVehicle(JSON.parse(localStorage.getItem('user')).customer.vehicle.vehicleNumber).subscribe(customer => {
       this.customer = customer;
     });
   }
@@ -38,16 +36,10 @@ export class MyProfileComponent implements OnInit {
     this.router.navigate(['/update_profile']);
   }
 
-  getPumpedAmounts() {
-    this.customerS.getPumpedAmounts(this.customer.nic).subscribe(pumps => {
-      this.pumps = pumps;
-    });
+  deleteCustomer() {
+    this.customerS.deleteCustomer(JSON.parse(localStorage.getItem('user')).id).subscribe(() => {
+      this.router.navigate(['/login']);
+    })
   }
 
-  calculateLastTrip() {
-    if (this.pumps.length >= 2) {
-      console.log(this.pumps[1]);
-      this.consumption = this.trip / (this.pumps[1].fuelPumped - this.pumps[0].fuelPumped);
-    }
-  }
 }

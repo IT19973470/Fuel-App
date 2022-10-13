@@ -23,15 +23,17 @@ export class FuelAvailabilityAdminComponent implements OnInit {
     this.fuelAdminService.getFuelAdminStockIn().subscribe(res => {
       console.log(res);
       this.data = res;
-      console.log(this.data);
+      // this.fuelAdminService.fuelIn = res;
+      // console.log(this.data);
     })
   }
 
-  updateStockIn() {
-    // console.log(id)
-    // this.fuelAdminService.updateStockIn(this.fuelIn).subscribe(customer => {
-    // this.fuelAdminService.fuelIn.id = id;
-    this.fuelAdminService.fuelIn = this.data;
+
+  updateStockIn(d) {
+    console.log(this.fuelAdminService.fuelIn)
+
+    this.fuelAdminService.fuelIn = d;
+    // console.log(this.fuelAdminService.fuelIn.id)
       this.router.navigate(['/update-stockIn']);
     // });
   }

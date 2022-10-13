@@ -24,10 +24,10 @@
       </div>
 
       <div style="margin-top: 20px">Destination</div>
-      <select class="form-control" name="destination" [(ngModel)]="updatefuelStockOut.fuelStation.id"
+      <select class="form-control" name="destination" [(ngModel)]="updatefuelStockOut.fuelStation.address"
               #fuelStation="ngModel">
-        <option *ngFor="let option of fuelStations" [value]="option.fuelStation.id">
-          {{option.fuelStation.address}}
+        <option  [value]="updatefuelStockOut.fuelStation.id">
+          {{updatefuelStockOut.fuelStation.address}}
         </option>
       </select>
       <div *ngIf="(fuelStation.touched || stockOutForm.submitted) && fuelStation.errors?.required"
@@ -88,7 +88,7 @@
       </div>
 
       <div style="text-align: right;margin-top: 30px">
-        <button class="btn btn-success">Update Supply Stock</button>
+        <button class="btn btn-success" (click)="updateFuelStockOut()">Update Supply Stock</button>
       </div>
     </form>
   </div>

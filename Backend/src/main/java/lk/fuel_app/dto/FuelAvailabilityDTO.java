@@ -15,6 +15,7 @@ public class FuelAvailabilityDTO {
 
     private FuelStation fuelStation;
     private List<FuelStock> availableStock;
+    private List<FuelStock> pumpedStock;
     private List<FuelStock> fuelSupplyPerHour;
     private List<FuelStock> nextFuelAvailability;
     private List<FuelStock> totalPumped;
@@ -28,9 +29,11 @@ public class FuelAvailabilityDTO {
         private String fuelTypeId;
         private String fuelType;
         private double quantity;
+        private double count;
         private LocalDateTime fuelAvailableAt;
         private String nextFuelAmountDateAt;
         private String nextFuelAmountTimeAt;
+        private String fuelPumpedAt;
 
         public FuelStock(String fuelTypeId, String fuelType) {
             this.fuelTypeId = fuelTypeId;
@@ -52,6 +55,7 @@ public class FuelAvailabilityDTO {
         private String vehicleType;
         private int vehicleCount;
         private double pumped;
+        private List<Vehicle> vehicles;
 
         public Vehicle(String vehicleTypeId, String vehicleType) {
             this.vehicleTypeId = vehicleTypeId;
