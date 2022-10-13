@@ -64,6 +64,11 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.addFuelConsumption(fuelConsumption));
     }
 
+    @DeleteMapping(value = "/deleteFuelConsumption/{id}")
+    public boolean deleteFuelConsumption(@PathVariable String id) {
+        return customerService.deleteFuelConsumption(id);
+    }
+
     @GetMapping(value = "/getFuelConsumptions/{id}")
     public List<FuelConsumption> getFuelConsumptions(@PathVariable String id) {
         return customerService.getFuelConsumptions(id);

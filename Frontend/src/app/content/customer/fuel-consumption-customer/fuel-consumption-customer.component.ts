@@ -12,6 +12,7 @@ export class FuelConsumptionCustomerComponent implements OnInit {
   // customer;
   pumps = [];
   consumption = 0;
+  consumed = 0;
   trip;
   fuelConsumptions = []
 
@@ -35,29 +36,38 @@ export class FuelConsumptionCustomerComponent implements OnInit {
     if (!(this.pumps[0].fullTanked && this.pumps[1].fullTanked)) {
       this.notifierService.notify("error", "Both fuel pumps #1 and #2 should be full tank");
     }
+    if (this.pumps.length < 2) {
+      this.notifierService.notify("error", "Minimum two full pumps should be needed");
+    }
     if (this.pumps.length >= 2 && this.pumps[0].fullTanked && this.pumps[1].fullTanked) {
       // let diff = this.pumps[1].fuelPumped - this.pumps[0].fuelPumped
       // if (diff === 0) {
       //   diff = 1.0
       // }
-      this.consumption = this.trip / this.pumps[1].fuelPumped;
+      this.consumed = this.pumps[0].fuelPumped
+      this.consumption = this.trip / this.pumps[0].fuelPumped;
     }
   }
 
   addFuelConsumption() {
     let fuelConsumption = {
-      customer: {
-        nic: JSON.parse(localStorage.getItem('user')).nic
-      },
-      consumption: this.consumption
+      customer: JSON.parse(localStorage.getItem('user')).customer,
+      consumed: this.consumed,
+      trip: this.trip
     }
     this.customerS.addFuelConsumption(fuelConsumption).subscribe(() => {
       this.getFuelConsumptions()
     })
   }
 
+  deleteFuelConsumption(id){
+    this.customerS.deleteFuelConsumption(id).subscribe(() => {
+      this.getFuelConsumptions()
+    })
+  }
+
   getFuelConsumptions() {
-    this.customerS.getFuelConsumptions(JSON.parse(localStorage.getItem('user')).nic).subscribe(fuelConsumptions => {
+    this.customerS.getFuelConsumptions(JSON.parse(localStorage.getItem('user')).id).subscribe(fuelConsumptions => {
       this.fuelConsumptions = fuelConsumptions
     })
   }

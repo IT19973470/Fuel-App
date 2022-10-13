@@ -49,6 +49,10 @@ export class CustomerService {
     return this.http.post<any>(environment.backend_url + '/customer/addFuelConsumption', fuelConsumption);
   }
 
+  deleteFuelConsumption(id): Observable<any> {
+    return this.http.delete<any>(environment.backend_url + '/customer/deleteFuelConsumption/' + id);
+  }
+
   getFuelConsumptions(id): Observable<any> {
     return this.http.get<any>(environment.backend_url + "/customer/getFuelConsumptions/" + id);
   }

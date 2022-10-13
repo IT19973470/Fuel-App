@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface FuelConsumptionRepository extends JpaRepository<FuelConsumption, String> {
 
-    List<FuelConsumption> getAllByCustomerNic(String nic);
+    List<FuelConsumption> getAllByCustomerNicOrderByCheckedAtDesc(String nic);
 
 }

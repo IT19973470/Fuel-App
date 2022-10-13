@@ -20,11 +20,13 @@ public class FuelConsumption {
     @ManyToOne
     private Customer customer;
     private LocalDate checkedAt;
-    private double consumption;
+    private double consumed;
+    private double trip;
 
     public FuelConsumption(FuelConsumption fuelConsumption) {
         this.id = fuelConsumption.getId();
         this.checkedAt = fuelConsumption.getCheckedAt();
-        this.consumption = fuelConsumption.getConsumption();
+        this.consumed = fuelConsumption.getConsumed();
+        this.trip = fuelConsumption.getTrip();
     }
 }

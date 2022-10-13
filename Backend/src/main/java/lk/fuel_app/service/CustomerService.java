@@ -27,4 +27,6 @@ public interface CustomerService {
     FuelConsumption addFuelConsumption(FuelConsumption fuelConsumption);
 
     List<FuelConsumption> getFuelConsumptions(String id);
+
+    boolean deleteFuelConsumption(String id);
 }

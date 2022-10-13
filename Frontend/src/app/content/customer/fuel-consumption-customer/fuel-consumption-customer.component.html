@@ -21,6 +21,9 @@
           </div>
         </form>
       </div>
+      <div style="margin-top: 20px"><span style="font-weight: bold;margin-right: 20px">Consumed</span>
+        {{consumed}} L
+      </div>
       <div style="margin-top: 20px"><span style="font-weight: bold;margin-right: 20px">Consumption</span>
         {{consumption}} Km/L
       </div>
@@ -70,6 +73,8 @@
       <thead class="thead-dark">
       <th>#</th>
       <th>Date</th>
+      <th>Trip</th>
+      <th>Consumed</th>
       <th>Consumption</th>
       <th>Remove</th>
       </thead>
@@ -77,8 +82,10 @@
       <tr *ngFor="let fuelConsumption of fuelConsumptions;let i = index">
         <td>{{i+1}}</td>
         <td>{{fuelConsumption.checkedAt}}</td>
-        <td>{{fuelConsumption.consumption}}</td>
-        <td style="text-align: center;color: red;font-weight: bold">Remove</td>
+        <td>{{fuelConsumption.trip}} Km</td>
+        <td>{{fuelConsumption.consumed}} L</td>
+        <td>{{(fuelConsumption.trip/fuelConsumption.consumed) | number : '1.2-2'}} Km/L</td>
+        <td style="text-align: center;color: red;font-weight: bold" (click)="deleteFuelConsumption(fuelConsumption.id)">Remove</td>
       </tr>
       </tbody>
     </table>

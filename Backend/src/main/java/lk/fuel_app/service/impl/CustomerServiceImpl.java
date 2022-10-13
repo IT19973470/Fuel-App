@@ -269,11 +269,17 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<FuelConsumption> getFuelConsumptions(String id) {
-        List<FuelConsumption> allByCustomerNic = fuelConsumptionRepository.getAllByCustomerNic(id);
+        List<FuelConsumption> allByCustomerNic = fuelConsumptionRepository.getAllByCustomerNicOrderByCheckedAtDesc(id);
         List<FuelConsumption> fuelConsumptions = new ArrayList<>();
         for (FuelConsumption fuelConsumption : allByCustomerNic) {
             fuelConsumptions.add(new FuelConsumption(fuelConsumption));
         }
         return fuelConsumptions;
+    }
+
+    @Override
+    public boolean deleteFuelConsumption(String id) {
+        fuelConsumptionRepository.deleteById(id);
+        return true;
     }
 }
