@@ -14,6 +14,7 @@ import java.util.Map;
 public class FuelAvailabilityDTO {
 
     private FuelStation fuelStation;
+    private String fuelStationStr;
     private List<FuelStock> availableStock;
     private List<FuelStock> pumpedStock;
     private List<FuelStock> fuelSupplyPerHour;
@@ -21,6 +22,7 @@ public class FuelAvailabilityDTO {
     private List<FuelStock> totalPumped;
     private List<Vehicle> availableVehicles;
     private List<Vehicle> distributedVehicles;
+    private List<FuelReport> fuelReports;
 
     @Getter
     @Setter
@@ -67,5 +69,13 @@ public class FuelAvailabilityDTO {
             Vehicle vehicle = (Vehicle) o;
             return vehicleTypeId.compareTo(vehicle.getVehicleTypeId());
         }
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class FuelReport {
+        private int week;
+        private List<FuelStock> fuelStocks;
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
@@ -35,6 +36,8 @@ public class CustomerServiceImpl implements CustomerService {
     private VehicleRepository vehicleRepository;
     @Autowired
     private FuelConsumptionRepository fuelConsumptionRepository;
+    @Autowired
+    private FuelStockRepository fuelStockRepository;
 
     @Autowired
     private SendEmailSMTP sendEmailSMTP;
@@ -281,5 +284,66 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean deleteFuelConsumption(String id) {
         fuelConsumptionRepository.deleteById(id);
         return true;
+    }
+
+    @Override
+    public List<FuelAvailabilityDTO> getFuelAvailabilityM(String place) {
+        List<FuelAvailabilityDTO> fuelAvailabilityDTOS = new ArrayList<>();
+        LocalDateTime localDateTimeCur = LocalDateTime.of(LocalDate.now(), LocalTime.parse("23:59"));
+        Map<String, FuelAvailabilityDTO.FuelStock> availableStockObj;
+        Map<Integer, Map<String, FuelAvailabilityDTO.FuelStock>> stockWeeksObj;
+        Map<String, Map<Integer, Map<String, FuelAvailabilityDTO.FuelStock>>> fuelStations = new HashMap<>();
+        List<FuelType> fuelTypes = fuelTypeRepository.getFuelTypes();
+
+        for (int i = 0; i < 4; i++) {
+            localDateTimeCur = localDateTimeCur.minusWeeks(i);
+            LocalDateTime localDateTimePre = localDateTimeCur.minusWeeks(i + 1);
+            List<FuelStock> fuelAvailabilityM = fuelStockRepository.getFuelAvailabilityM(place, localDateTimeCur, localDateTimePre);
+
+            for (FuelStock fuelStock : fuelAvailabilityM) {
+                Map<Integer, Map<String, FuelAvailabilityDTO.FuelStock>> fuelStationsMap = fuelStations.get(fuelStock.getFuelStation().getName());
+                if (fuelStationsMap == null) {
+                    stockWeeksObj = new HashMap<>();
+                    for (int j = 0; j < 4; j++) {
+                        availableStockObj = new HashMap<>();
+                        for (FuelType fuelType : fuelTypes) {
+                            FuelAvailabilityDTO.FuelStock fuelStockObj = new FuelAvailabilityDTO.FuelStock(fuelType.getId(), fuelType.getName());
+                            fuelStockObj.setQuantity(100);
+                            availableStockObj.put(fuelType.getId(), fuelStockObj);
+                        }
+                        stockWeeksObj.put(j, availableStockObj);
+                    }
+                    fuelStations.put(fuelStock.getFuelStation().getName(), stockWeeksObj);
+                    fuelStationsMap = fuelStations.get(fuelStock.getFuelStation().getName());
+                }
+                Map<String, FuelAvailabilityDTO.FuelStock> fuelStockMap = fuelStationsMap.get(4 - (i + 1));
+                FuelAvailabilityDTO.FuelStock fuelStockObj = fuelStockMap.get(fuelStock.getFuelType().getId());
+                fuelStockObj.setQuantity(fuelStockObj.getQuantity() + fuelStock.getAmount() - 100);
+            }
+        }
+
+        for (Map.Entry<String, Map<Integer, Map<String, FuelAvailabilityDTO.FuelStock>>> fuelStationsObj : fuelStations.entrySet()) {
+            FuelAvailabilityDTO fuelAvailabilityDTO = new FuelAvailabilityDTO();
+            fuelAvailabilityDTO.setFuelStationStr(fuelStationsObj.getKey());
+            List<FuelAvailabilityDTO.FuelReport> fuelReports = new ArrayList<>();
+            for (Map.Entry<Integer, Map<String, FuelAvailabilityDTO.FuelStock>> weeklyObj : fuelStationsObj.getValue().entrySet()) {
+                FuelAvailabilityDTO.FuelReport fuelReport = new FuelAvailabilityDTO.FuelReport();
+                fuelReport.setWeek(weeklyObj.getKey());
+                List<FuelAvailabilityDTO.FuelStock> fuelStocks = new ArrayList<>();
+                for (Map.Entry<String, FuelAvailabilityDTO.FuelStock> fuelStockObj : weeklyObj.getValue().entrySet()) {
+                    fuelStocks.add(fuelStockObj.getValue());
+                }
+                fuelReport.setFuelStocks(fuelStocks);
+                fuelReports.add(fuelReport);
+            }
+            fuelAvailabilityDTO.setFuelReports(fuelReports);
+            fuelAvailabilityDTOS.add(fuelAvailabilityDTO);
+        }
+
+//        for (Map<Integer, Map<String, FuelAvailabilityDTO.FuelStock>> fuelStationsObj :) {
+//            FuelAvailabilityDTO fuelAvailabilityDTO = new FuelAvailabilityDTO();
+//            fuelAvailabilityDTO.setFuelStation(fuelStationsObj.);
+//        }
+        return fuelAvailabilityDTOS;
     }
 }

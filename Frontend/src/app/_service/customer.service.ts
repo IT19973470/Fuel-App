@@ -57,6 +57,10 @@ export class CustomerService {
     return this.http.get<any>(environment.backend_url + "/customer/getFuelConsumptions/" + id);
   }
 
+  getFuelAvailabilityM(place): Observable<any> {
+    return this.http.get<any>(environment.backend_url + "/customer/getFuelAvailabilityM/" + place);
+  }
+
   newCustomer() {
     return {
       nic: '',
