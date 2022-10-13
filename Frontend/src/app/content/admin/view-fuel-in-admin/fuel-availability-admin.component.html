@@ -34,8 +34,8 @@
       <td>{{d.date}}</td>
       <td>{{d.time}}</td>
       <td style="text-align: center">
-        <i  class="fas fa-pencil" (click)="updateStockIn()"></i>
-        <i  class="fas fa-trash" style="padding-left: 10px"></i>
+        <i  class="fas fa-pencil" (click)="updateStockIn(d)"></i>
+        <i  class="fas fa-trash" (click)="deleteStockIn(d.id)" style="padding-left: 10px"></i>
       </td>
     </tr>
     </tbody>

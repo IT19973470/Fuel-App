@@ -1,6 +1,6 @@
 <div style="margin: 10px;">
   <div style="display: flex">
-    <span style="font-weight: bold;color: #b68003;font-size: 21px;width: 100%;margin-top: 25px">Stock Out List</span>
+    <span style="font-weight: bold;color: #b68003;font-size: 21px;width: 100%;margin-top: 25px">Order List</span>
     <div style="display: flex;justify-content: right;margin-top: 20px;width: 100%">
       <select class="form-control" style="width: 200px;margin-right: 10px">
         <option value="">Search By Fuel Type</option>
@@ -19,28 +19,24 @@
     <thead class="thead-dark">
     <th scope="col">#</th>
     <th>Fuel Type</th>
-    <th>Destination</th>
-    <th>Amount</th>
+    <th>Name</th>
     <th>Date</th>
-    <th>Time</th>
-    <th style="text-align: center">Update or Delete</th>
+    <th>Destination</th>
+    <th>Amount Needed</th>
+    <th style="text-align: center">Approve or Deny</th>
     </thead>
     <tbody>
     <tr *ngFor="let d of data let i = index">
       <th scope="row">{{i+1}}</th>
       <td>{{d.fuelType}}</td>
-      <td>{{d.fuelStation.address}}</td>
-      <td>{{d.amount}}</td>
+      <td>{{d.name}}</td>
       <td>{{d.date}}</td>
+      <td>{{d.amount}}</td>
       <td>{{d.time}}</td>
       <td style="text-align: center">
-        <i  class="fas fa-pencil" (click)="updateStockOut(d)"></i>
-        <i  class="fas fa-trash" (click)="deleteStockOut(d.id)" style="padding-left: 10px"></i>
+        <i  class="fas fa-pencil" (click)="updateStockIn()"></i>
       </td>
     </tr>
     </tbody>
   </table>
-  <div style="text-align: right;margin-top: 30px">
-    <button class="btn btn-success">Generate PDF</button>
-  </div>
 </div>

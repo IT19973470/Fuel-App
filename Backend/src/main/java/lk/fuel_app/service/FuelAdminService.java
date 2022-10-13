@@ -4,6 +4,7 @@ import lk.fuel_app.dto.FuelStationDTO;
 import lk.fuel_app.entity.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface FuelAdminService {
 
@@ -13,5 +14,26 @@ public interface FuelAdminService {
     List<FuelAdminStockIn> viewStockIn();
     List<FuelAdminStockOut> viewStockOut();
     List<FuelStationDTO> viewFuelStation();
-    
+
+    List<OrderData> getOrder();
+
+    Object updateStockIn(String id, FuelAdminStockIn fuelAdminStockIn);
+
+    boolean deleteStockIn(String id);
+
+    FuelAdminStockIn getStockInBystockFrom(String stockFrom);
+
+    FuelAdminStockIn getStockInByType(String type);
+
+    Object updateStockOut(String id, FuelAdminStockOut fuelAdminStockOut);
+
+    boolean deleteStockOut(String id);
+
+    FuelAdminStockOut getStockOutByStation(String fuel_station_id);
+
+    FuelAdminStockOut getStockOutByType(String type);
+
+    List<OrderData> viewFuelOrders();
+
+    Optional<FuelAdminStockIn> getStockInById(String id);
 }

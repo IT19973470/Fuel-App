@@ -18,13 +18,13 @@
                 <input type="date" name="endDate" [(ngModel)]="endDate">
               </div>
               <div class="col-1">
-                <button type="button"><i (click)="getAllFuelRecord()" class="fa-solid fa-magnifying-glass"></i></button>
+                <button type="button"><i (click)="getDataToReport()" class="fa-solid fa-magnifying-glass"></i></button>
               </div>
             </div>
           <table class="table table-striped" style="margin-top: 20px">
             <thead>
             <tr>
-              <th scope="col" width="18%"  *ngFor="let data of applicationData; let i = index">{{data.fuelType.name}}</th>
+              <th scope="col" width="18%"  *ngFor="let data of applicationData; let i = index">{{data.fuelType}}</th>
 <!--              <th scope="col" width="5%" style="text-align: center">Fuel Amount(L)</th>-->
             </tr>
             </thead>
@@ -32,13 +32,13 @@
             <tr >
               <!--<th scope="row">{{i+1}}</th>-->
               <td style="font-weight: bold" *ngFor="let data of applicationData; let i = index">
-                <span style="color: #0c95cb" >start date - {{startDate}}</span> <br>
-                <span style="color: #018002">end date -{{endDate}}
+                <span style="color: #0c95cb" >start date : {{startDate}}</span> <br>
+                <span style="color: #018002">end date : {{endDate}}
           </span> <br>
-                <span style="color: #ff0a03" *ngIf="data.fuelType.name=='Petrol 95'">fuel amount -{{totalPetrol95FuelAmount}}</span>
-                <span style="color: #ff0a03" *ngIf="data.fuelType.name=='Super Diesel'">fuel amount -{{totalSuperDieselFuelAmount}}</span>
-                <span style="color: #ff0a03" *ngIf="data.fuelType.name=='Petrol 92'">fuel amount -{{totalPetrol92FuelAmount}}</span>
-                <span style="color: #ff0a03" *ngIf="data.fuelType.name=='Diesel'">fuel amount -{{totalDieselFuelAmount}}</span>
+                <span style="color: #ff0a03" *ngIf="data.fuelType=='Petrol 95' || data.fuelType=='Super Diesel' || data.fuelType=='Petrol 92' || data.fuelType=='Diesel'">fuel amount : {{data.quantity}}</span>
+<!--                <span style="color: #ff0a03" *ngIf="data.fuelType=='Super Diesel'">fuel amount -{{totalSuperDieselFuelAmount}}</span>-->
+<!--                <span style="color: #ff0a03" *ngIf="data.fuelType=='Petrol 92'">fuel amount -{{totalPetrol92FuelAmount}}</span>-->
+<!--                <span style="color: #ff0a03" *ngIf="data.fuelType=='Diesel'">fuel amount -{{totalDieselFuelAmount}}</span>-->
               </td>
 <!--              <td style="text-align: center">-->
 <!--                <button style="border: none"> <i class="fas fa-download" style="cursor: pointer"></i></button>-->

@@ -16,28 +16,33 @@ import {FuelAvailabilityComponent} from './content/fuel-station/fuel-availabilit
 import {AttendanceFuelTableComponent} from './content/fuel-station/attendance-fuel-table/attendance-fuel-table.component';
 import {StockOutAdminComponent} from './content/admin/stock-out-admin/stock-out-admin.component';
 import {StockInAdminComponent} from './content/admin/stock-in-admin/stock-in-admin.component';
-import {FuelAvailabilityAdminComponent} from './content/admin/fuel-availability-admin/fuel-availability-admin.component';
+import {FuelAvailabilityAdminComponent} from './content/admin/view-fuel-in-admin/fuel-availability-admin.component';
 import {QrScanComponent} from './qr-scan/qr-scan.component';
 import {ZXingScannerModule} from "@zxing/ngx-scanner";
 import {MarkAttendanceComponent} from './content/fuel_pumper/mark-attendance/mark-attendance.component';
 import {UpdateQuotaComponent} from './content/fuel_pumper/update-quota/update-quota.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule} from "@angular/forms";
-import { UpdateProfileComponent } from './content/customer/update-profile/update-profile.component';
-import { RegisterPumperComponent } from './content/fuel-station/register-pumper/register-pumper.component';
+import {UpdateProfileComponent} from './content/customer/update-profile/update-profile.component';
+import {RegisterPumperComponent} from './content/fuel-station/register-pumper/register-pumper.component';
 import {DatePipe} from "@angular/common";
-import { RegisterFuelAdminComponent } from './register/register-fuel-admin/register-fuel-admin.component';
-import { ReportsComponent } from './content/fuel-station/reports/reports.component';
-import { OrderComponent } from './content/fuel-station/order/order.component';
+import {RegisterFuelAdminComponent} from './register/register-fuel-admin/register-fuel-admin.component';
+import {ReportsComponent} from './content/fuel-station/reports/reports.component';
+import {OrderComponent} from './content/fuel-station/order/order.component';
 import {ScrollingModule} from "@angular/cdk/scrolling";
-import { VehicleDetailsComponent } from './content/fuel_pumper/vehicle-details/vehicle-details.component';
+import {VehicleDetailsComponent} from './content/fuel_pumper/vehicle-details/vehicle-details.component';
 import {VehicleDetailsFilterPipe} from "./content/fuel_pumper/vehicle-details/vehicle-details-filter.pipe";
 import {NgApexchartsModule} from "ng-apexcharts";
-import { FuelReportComponent } from './content/fuel_pumper/fuel-report/fuel-report.component';
-import { FuelAvailabilityCustomerComponent } from './content/customer/fuel-availability-customer/fuel-availability-customer.component';
-import { ViewStockOutAdminComponent } from './content/admin/view-stock-out-admin/view-stock-out-admin.component';
-import { FuelConsumptionCustomerComponent } from './content/customer/fuel-consumption-customer/fuel-consumption-customer.component';
+import {FuelReportComponent} from './content/fuel_pumper/fuel-report/fuel-report.component';
+import {FuelAvailabilityCustomerComponent} from './content/customer/fuel-availability-customer/fuel-availability-customer.component';
+import {ViewStockOutAdminComponent} from './content/admin/view-stock-out-admin/view-stock-out-admin.component';
+import {FuelConsumptionCustomerComponent} from './content/customer/fuel-consumption-customer/fuel-consumption-customer.component';
 import {NotifierModule, NotifierOptions} from "angular-notifier";
+import {VehicleReportComponent} from './content/fuel-station/vehicle-report/vehicle-report.component';
+import {UpdateStockInComponent} from './content/admin/update-stock-in/update-stock-in.component';
+import {UpdateStockOutComponent} from './content/admin/update-stock-out/update-stock-out.component';
+import {FuelApproveComponent} from './content/admin/fuel-approve/fuel-approve.component';
+import {ViewReportComponent} from './content/admin/view-report/view-report.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -110,7 +115,12 @@ const customNotifierOptions: NotifierOptions = {
     FuelReportComponent,
     FuelAvailabilityCustomerComponent,
     ViewStockOutAdminComponent,
-    FuelConsumptionCustomerComponent
+    FuelConsumptionCustomerComponent,
+    VehicleReportComponent,
+    UpdateStockInComponent,
+    UpdateStockOutComponent,
+    FuelApproveComponent,
+    ViewReportComponent
   ],
   imports: [
     BrowserModule,

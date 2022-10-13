@@ -1,18 +1,30 @@
 <div class="row" style="display: flex;justify-content: center">
   <div class="col-11" style="margin-top: 20px">
+    <div class="card">
+      <div class="card-body">
+        <div style="margin-top: 20px;font-size: 25px">
+          <h1>  Pumpers Report |</h1>
+        </div>
+        <hr/>
+        <h5 class="card-title"></h5>
+        <div class="row">
+          <h3 class="col-12" >Select Date Range</h3><br>
+        </div>
 
-    <!--<div>-->
-    <!--<span style="font-weight: bold">Search by :</span>-->
-    <!--<span style="margin-left: 20px">Deliveries for</span>-->
-    <!--<input type="date" style="margin-left: 20px;height: 37px" [(ngModel)]="deliveryDate">-->
-    <!--<button class="btn btn-warning" style="font-weight: bold;margin-left: 20px" (click)="getAllDeliveriesByDate()">-->
-    <!--Search-->
-    <!--</button>-->
-    <!--</div>-->
-    <div id="pdf">
-      <div style="margin-top: 20px;font-size: 25px">
-        Pumpers Report
+    <div class="row">
+      <div class="col-4">
+        <label>Choose Start Date:</label>
+        <input type="date" name="startDate">
       </div>
+      <div class="col-4">
+        <label>Choose End Date:</label>
+        <input type="date" name="endDate" >
+      </div>
+      <div class="col-4">
+        <button type="button"><i  class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+    </div>
+    <div id="pdf">
 
       <table class="table table-striped" style="margin-top: 20px">
         <thead>
@@ -26,6 +38,7 @@
         <tr >
           <!--<th scope="row">{{i+1}}</th>-->
           <td style="font-weight: bold" *ngFor="let data of applicationdata; let i = index">
+            <span style="color: #E020DD" >Date - {{data.fuelPumperAttendance.markedAt}}</span> <br>
             <span style="color: #0c95cb" >In - {{data.fuelPumperAttendance.timeIn}}</span> <br>
             <span style="color: #018002">Out -{{data.fuelPumperAttendance.timeOut}}
           </span> <br>
@@ -61,6 +74,7 @@
       </div>
     </div>
     <hr style="margin-top: 80px;margin-bottom: 80px">
-
+      </div>
+    </div>
   </div>
 </div>

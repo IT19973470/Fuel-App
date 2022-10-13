@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FuelAdminService} from "../../../_service/fuel-admin.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-view-stock-out-admin',
@@ -9,7 +10,7 @@ import {FuelAdminService} from "../../../_service/fuel-admin.service";
 export class ViewStockOutAdminComponent implements OnInit {
 
   data = []
-  constructor(private fuelAdminService: FuelAdminService) {
+  constructor(private fuelAdminService: FuelAdminService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -21,6 +22,18 @@ export class ViewStockOutAdminComponent implements OnInit {
       this.data = res
       console.log(this.data)
     })
+  }
+
+  updateStockOut(d) {
+    this.fuelAdminService.fuelOut = d;
+    this.router.navigate(['/update-stockOut']);
+    // });
+  }
+
+  deleteStockOut(id: string){
+    this.fuelAdminService.deleteStockOut(id).subscribe(data => {
+      this.getStockOut();
+    });
   }
 
 }
