@@ -33,19 +33,20 @@ export class FuelConsumptionCustomerComponent implements OnInit {
   }
 
   calculateLastTrip() {
-    if (!(this.pumps[0].fullTanked && this.pumps[1].fullTanked)) {
-      this.notifierService.notify("error", "Both fuel pumps #1 and #2 should be full tank");
-    }
-    if (this.pumps.length < 2) {
+    if (this.pumps.length >= 2) {
+      if (!(this.pumps[0].fullTanked && this.pumps[1].fullTanked)) {
+        this.notifierService.notify("error", "Both fuel pumps #1 and #2 should be full tank");
+      }
+      if (this.pumps.length >= 2 && this.pumps[0].fullTanked && this.pumps[1].fullTanked) {
+        // let diff = this.pumps[1].fuelPumped - this.pumps[0].fuelPumped
+        // if (diff === 0) {
+        //   diff = 1.0
+        // }
+        this.consumed = this.pumps[0].fuelPumped
+        this.consumption = this.trip / this.pumps[0].fuelPumped;
+      }
+    } else {
       this.notifierService.notify("error", "Minimum two full pumps should be needed");
-    }
-    if (this.pumps.length >= 2 && this.pumps[0].fullTanked && this.pumps[1].fullTanked) {
-      // let diff = this.pumps[1].fuelPumped - this.pumps[0].fuelPumped
-      // if (diff === 0) {
-      //   diff = 1.0
-      // }
-      this.consumed = this.pumps[0].fuelPumped
-      this.consumption = this.trip / this.pumps[0].fuelPumped;
     }
   }
 
@@ -60,7 +61,7 @@ export class FuelConsumptionCustomerComponent implements OnInit {
     })
   }
 
-  deleteFuelConsumption(id){
+  deleteFuelConsumption(id) {
     this.customerS.deleteFuelConsumption(id).subscribe(() => {
       this.getFuelConsumptions()
     })
