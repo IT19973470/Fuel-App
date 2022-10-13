@@ -4,6 +4,7 @@ import lk.fuel_app.entity.FuelAdmin;
 import lk.fuel_app.entity.FuelStation;
 import lk.fuel_app.entity.OrderData;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -12,4 +13,8 @@ public class OrderDTO {
     public OrderData orderData;
     private FuelAdmin fuelAdmin;
     private FuelStation fuelStation;
+
+
+
+
 }
