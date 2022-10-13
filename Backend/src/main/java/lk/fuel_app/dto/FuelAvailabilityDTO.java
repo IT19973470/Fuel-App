@@ -29,6 +29,7 @@ public class FuelAvailabilityDTO {
         private String fuelTypeId;
         private String fuelType;
         private double quantity;
+        private double count;
         private LocalDateTime fuelAvailableAt;
         private String nextFuelAmountDateAt;
         private String nextFuelAmountTimeAt;
@@ -54,6 +55,7 @@ public class FuelAvailabilityDTO {
         private String vehicleType;
         private int vehicleCount;
         private double pumped;
+        private List<Vehicle> vehicles;
 
         public Vehicle(String vehicleTypeId, String vehicleType) {
             this.vehicleTypeId = vehicleTypeId;

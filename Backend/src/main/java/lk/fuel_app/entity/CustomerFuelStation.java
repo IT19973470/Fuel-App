@@ -22,6 +22,7 @@ public class CustomerFuelStation {
     private double fuelPumped;
     private LocalDateTime pumpedAt;
     private LocalDate pumpedAtDate;
+    private boolean fullTanked;
 
     public CustomerFuelStation(CustomerFuelStation customerFuelStation) {
         this.id = customerFuelStation.id;
@@ -29,6 +30,7 @@ public class CustomerFuelStation {
         this.pumpedAt = customerFuelStation.pumpedAt;
         this.pumpedAtDate = customerFuelStation.pumpedAtDate;
         this.pumpedAtFormatted = customerFuelStation.pumpedAtFormatted;
+        this.fullTanked = customerFuelStation.isFullTanked();
         if (customerFuelStation.getCustomer() != null) {
             this.customer = new Customer(customerFuelStation.getCustomer());
         }
@@ -48,7 +50,7 @@ public class CustomerFuelStation {
 
     @ManyToOne
     private FuelStation fuelStation;
-    
+
     @ManyToOne
     private FuelPumper fuelPumper;
 
