@@ -34,8 +34,8 @@ export class ReportFuelAvailabilityCustomerComponent implements OnInit {
   constructor(private customerS: CustomerService, private userS: UserService) {
     userS.setPlace.subscribe((place: any) => {
       this.place = place.id;
-      this.getFuelTypes()
       // console.log(this.place)
+      this.getFuelTypes()
     })
     userS.setDistrictPlaces.subscribe(districtPlaces => {
       this.districtPlaces = districtPlaces;
@@ -45,53 +45,56 @@ export class ReportFuelAvailabilityCustomerComponent implements OnInit {
   ngOnInit(): void {
     this.setDistricts()
     this.fillChart()
+    this.getFuelTypes()
   }
 
   getFuelAvailabilityM() {
     // console.log(this.selectedFuelType)
     this.fuelStations = []
     this.customerS.getFuelAvailabilityM(this.place).subscribe(fuelStations => {
-      let fuel;
-      let fuelStationObj;
-      let chartOptions;
-      let data;
-      let index;
-      let i = 0;
-      let fuelTypes = []
-      for (let fuelStock of fuelStations[0].fuelReports[0].fuelStocks) {
-        fuelTypes.push(fuelStock.fuelType)
-        if (this.selectedFuelType == fuelStock.fuelTypeId) {
-          index = i
+      if (fuelStations.length > 0) {
+        let fuel;
+        let fuelStationObj;
+        let chartOptions;
+        let data;
+        let index;
+        let i = 0;
+        let fuelTypes = []
+        for (let fuelStock of fuelStations[0].fuelReports[0].fuelStocks) {
+          fuelTypes.push(fuelStock.fuelType)
+          if (this.selectedFuelType == fuelStock.fuelTypeId) {
+            index = i
+          }
+          i++
         }
-        i++
-      }
-      fuelStations = this.sortByFuel(fuelStations, index)
-      console.log(fuelStations)
-      for (let fuelStation of fuelStations) {
-        fuel = []
-        chartOptions = this.fillChart()
-        for (let fuelType of fuelTypes) {
-          data = []
-          for (let fuelReport of fuelStation.fuelReports) {
-            for (let fuelStock of fuelReport.fuelStocks) {
-              if (fuelStock.fuelType == fuelType) {
-                data.push(fuelStock.quantity)
+        fuelStations = this.sortByFuel(fuelStations, index)
+        console.log(fuelStations)
+        for (let fuelStation of fuelStations) {
+          fuel = []
+          chartOptions = this.fillChart()
+          for (let fuelType of fuelTypes) {
+            data = []
+            for (let fuelReport of fuelStation.fuelReports) {
+              for (let fuelStock of fuelReport.fuelStocks) {
+                if (fuelStock.fuelType == fuelType) {
+                  data.push(fuelStock.quantity)
+                }
               }
             }
+            fuel.push(
+              {
+                name: fuelType,
+                data: data
+              }
+            )
           }
-          fuel.push(
-            {
-              name: fuelType,
-              data: data
-            }
-          )
+          chartOptions.series = fuel
+          fuelStationObj = {
+            fuelStation: fuelStation.fuelStationStr,
+            chartOptions: chartOptions
+          }
+          this.fuelStations.push(fuelStationObj)
         }
-        chartOptions.series = fuel
-        fuelStationObj = {
-          fuelStation: fuelStation.fuelStationStr,
-          chartOptions: chartOptions
-        }
-        this.fuelStations.push(fuelStationObj)
       }
     })
   }
