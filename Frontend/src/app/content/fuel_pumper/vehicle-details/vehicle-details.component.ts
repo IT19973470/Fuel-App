@@ -67,6 +67,8 @@ export class VehicleDetailsComponent implements OnInit {
   }
 
   getVehiclesByType(type: string) {
+    console.log(type)
+    this.vehicleType = type;
     this.totalFuelAmount = 0;
     let vehiclesArr = [];
     this.fuelPumperService.getVehicleDetailsByType(type).subscribe(vehicles => {
@@ -139,6 +141,16 @@ export class VehicleDetailsComponent implements OnInit {
     link.href = source;
     link.download = `${fileName}.pdf`
     link.click();
+  }
+
+  downloadSummaryReport(vehicleType: string, totalFuelAmount: number, totalVehicleCount: number){
+    console.log(vehicleType, totalFuelAmount, totalVehicleCount)
+    this.fuelPumperService.getSummaryReport(vehicleType, totalFuelAmount, totalVehicleCount).subscribe(data => {
+      this.result = data;
+      let base64String = this.result.response;
+      // @ts-ignore
+      this.downloadPdf(base64String, "Summary Report");
+    })
   }
 
 }
