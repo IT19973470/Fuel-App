@@ -29,4 +29,6 @@ public interface CustomerService {
     List<FuelConsumption> getFuelConsumptions(String id);
 
     boolean deleteFuelConsumption(String id);
+
+    List<FuelAvailabilityDTO> getFuelAvailabilityM(String id);
 }
