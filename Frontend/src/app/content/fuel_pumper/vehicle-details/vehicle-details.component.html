@@ -12,7 +12,7 @@
           </div>
           <div class="col-4">
             <select [(ngModel)]="vehicleType" (change)="searchByType(vehicleType)" style="margin-right: 20px;margin-left: 20px;"
-                    class="btn  dropdown-toggle">
+                    class="btn border border-primary dropdown-toggle">
               <option value="All">All</option>
               <option *ngFor="let vehicleType of vehicleTypes" value="" [value]="vehicleType.id" >{{vehicleType.name}}</option>
 
@@ -111,6 +111,9 @@
                 </tr>
                 </tbody>
               </table>
+              <button class="btn btn-outline-info btn-lg " style="margin-left: 15px; width: 310px; height: 50px" (click)="downloadSummaryReport(vehicleType, totalFuelAmount, totalVehicleCount)">
+                Download
+              </button>
             </section>
           </div>
         </div>

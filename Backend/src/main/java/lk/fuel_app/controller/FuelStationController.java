@@ -2,11 +2,16 @@ package lk.fuel_app.controller;
 
 import lk.fuel_app.entity.*;
 import lk.fuel_app.service.FuelStationService;
+import lk.fuel_app.util.ReportView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -93,6 +98,21 @@ public class FuelStationController {
     public ResponseEntity getAllVehicleTypes() {
         return ResponseEntity.ok(fuelStationService.getAllVehicleTypes());
     }
-    
+
+    @GetMapping(value="/allVehicleDetailsReport", produces= MediaType.APPLICATION_JSON_VALUE)
+    public Map generateVehicleDetailsReport() {
+        System.out.println(".................");
+        ReportView review = new ReportView();
+
+        List<CustomerFuelStation> customerFuelStations;
+        customerFuelStations = fuelStationService.getAllVehicleDetails();
+        String reportValue = "";
+        try {
+            reportValue = review.pdfReportViewInlineSystemOpen("allVehicleDetails.jasper", "All Vehicle Details Report", customerFuelStations, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Collections.singletonMap("response", reportValue);
+    }
     
 }

@@ -3,6 +3,7 @@ import {Router} from "@angular/router";
 import {FuelStationService} from "../../../_service/fuel-station.service";
 import {FuelPumperService} from "../../../_service/fuel-pumper.service";
 import {ConfirmBoxService} from "../../../_service/confirm-box.service";
+import {NotifierService} from "angular-notifier"
 
 @Component({
   selector: 'app-order',
@@ -21,21 +22,27 @@ export class OrderComponent implements OnInit {
     msg:""
   }
   you;
-  constructor(private router: Router, private fuelStationS: FuelStationService,  private confirmBox: ConfirmBoxService) {
+  constructor(private router: Router, private fuelStationS: FuelStationService,  private confirmBox: ConfirmBoxService,private notifierService:NotifierService) {
     this.c.chaterName = localStorage.getItem('user') !== null ? JSON.parse(localStorage.getItem('user') as string)['email'] : ''
     console.log(this.c.chaterName)
     this.order=fuelStationS.order()
-    // this.startTimer();
+     this.startTimer();
   }
 
   addorder(){
-
     this.fuelStationS.getFuelStationDetails(JSON.parse(localStorage.getItem('user') as string)['id']).subscribe((d) => {
       console.log(d)
       this.order.fuelStation.id=d.fuelStation.id;
       this.order.status="pending"
       this.order.date=new Date();
-      this.fuelStationS.addOrder(this.order).subscribe();
+      this.fuelStationS.addOrder(this.order).subscribe(()=> {
+        console.log(d)
+        this.notifierService.notify("success", "Oder added successfully");
+        this.ngOnInit()
+      },(err) => {
+        this.notifierService.notify("error", "Oder added fail");
+      });
+      this.ngOnInit()
     })
     // this.order.date=new Date();
     // this.fuelStationS.addOrder(this.order).subscribe()
@@ -44,7 +51,12 @@ export class OrderComponent implements OnInit {
   }
 
   delete(){
-    this.fuelStationS.deleteOrder(this.id).subscribe()
+    this.fuelStationS.deleteOrder(this.id).subscribe((d)=>{
+      this.notifierService.notify("success", "Oder deleted successfully");
+      this.ngOnInit()
+      },(err) => {
+      this.notifierService.notify("error", "Oder deleted fail");
+    });
   }
 
    btnupdate=0;
@@ -72,7 +84,12 @@ export class OrderComponent implements OnInit {
 
   updateorder(){
     console.log(this.id)
-    this.fuelStationS.updateOrder(this.id,this.order).subscribe()
+    this.fuelStationS.updateOrder(this.id,this.order).subscribe(()=>{
+      this.notifierService.notify("success", "Oder updated successfully");
+      this.ngOnInit()
+    },(err) => {
+      this.notifierService.notify("error", "Oder update fail");
+    });
   }
 
   interval:any;

@@ -81,6 +81,10 @@ export class FuelPumperService {
     return this.http.get<any>(`${this.baseURL+"/fuelPumper/getAllFuelRecordChart"}/${startDate}/${endDate}`);
   }
 
+  getSummaryReport(vehicleType: string, totalFuelAmount: number, totalVehicleCount: number):Observable<Result>{
+    return this.http.get<Result>(`${this.baseURL+"/fuelPumper/summaryReport"}/${vehicleType}/${totalFuelAmount}/${totalVehicleCount}`);
+  }
+
   newFuelPumper() {
     return {
       nic: '',

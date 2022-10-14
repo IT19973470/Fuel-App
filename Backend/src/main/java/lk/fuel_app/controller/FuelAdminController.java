@@ -86,7 +86,7 @@ public class FuelAdminController {
 
     @GetMapping(value = "/getStockInByType/{type}")
     public ResponseEntity getStockInByType(@PathVariable String type) {
-//        System.out.println(type);
+        System.out.println(type);
         return ResponseEntity.ok(fuelAdminService.getStockInByType(type));
     }
 
@@ -110,11 +110,6 @@ public class FuelAdminController {
     public ResponseEntity getStockOutByStation(@PathVariable String fuel_station_id) {
         return ResponseEntity.ok(fuelAdminService.getStockOutByStation(fuel_station_id));
     }
-
-//    @GetMapping(value = "/getStockOutByType/{type}")
-//    public ResponseEntity getStockOutByType(@PathVariable String type) {
-//        return ResponseEntity.ok(fuelAdminService.getStockOutByType(type));
-//    }
 
     @GetMapping(value = "/getStockInById/{id}")
     public ResponseEntity getStockInById(@PathVariable String id) {
@@ -162,4 +157,37 @@ public class FuelAdminController {
         }
         return Collections.singletonMap("response", reportValue);
     }
+
+    @GetMapping(value="/stockInPieChart", produces= MediaType.APPLICATION_JSON_VALUE)
+    public Map generateStockInPieChart() {
+
+        ReportView review = new ReportView();
+
+        List<FuelAdminStockIn> fuelAdminStockIns;
+        fuelAdminStockIns = fuelAdminService.viewStockIn();
+
+        String reportValue = "";
+        try {
+            reportValue = review.pdfReportViewInlineSystemOpen("report1.jasper", "Stock in Details Report", fuelAdminStockIns, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Collections.singletonMap("response", reportValue);
+    }
+
+    @GetMapping(value="/stockOutPieChart", produces= MediaType.APPLICATION_JSON_VALUE)
+    public Map generateStockOutReportPieChart() {
+        ReportView review = new ReportView();
+
+        List<FuelAdminStockOut> fuelAdminStockIns;
+        fuelAdminStockIns = fuelAdminService.viewStockOut();
+        String reportValue = "";
+        try {
+            reportValue = review.pdfReportViewInlineSystemOpen("report1.jasper", "Stock Out Details Report", fuelAdminStockIns, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Collections.singletonMap("response", reportValue);
+    }
+
 }
