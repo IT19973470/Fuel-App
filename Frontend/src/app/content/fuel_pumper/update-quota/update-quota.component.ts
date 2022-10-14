@@ -69,7 +69,10 @@ export class UpdateQuotaComponent implements OnInit {
         },
         fuelPumped: quota,
         fuelType: this.fuelType,
-        fullTanked: this.fullTanked
+        fullTanked: this.fullTanked,
+        fuelPumper:{
+          nic:JSON.parse(localStorage.getItem('user')).id
+        }
       }
       // console.log(customerFuel)
       this.fuelPumperS.addCustomerFuel(customerFuel).subscribe(customerFuel => {

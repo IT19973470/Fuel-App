@@ -97,10 +97,10 @@ public class FuelStationServiceImpl implements FuelStationService {
             FuelStation fuelStation = fuelStationOptional.get();
             for (FuelStock fuelStock : fuelStation.getFuelStocks()) {
                 FuelStockDTO fuelStockDTO = fuelStockObj.get(fuelStock.getFuelType().getId());
-              //  fuelStockDTO.setAvailableStock(fuelStockDTO.getAvailableStock() + fuelStock.getAmount());
-                fuelStockDTO.setAvailableStock(fuelStockRepository.getTotalStockAmount(fuelStock.getFuelType().getId()));
-                fuelStockDTO.setDistributedVehicleCount(customerFuelStationRepository.getCountVehicle(fuelStock.getFuelType().getId()));
-               fuelStockDTO.setDistributedFuel(customerFuelStationRepository.getSumDistribution(fuelStock.getFuelType().getId()));
+                fuelStockDTO.setAvailableStock(fuelStockDTO.getAvailableStock() + fuelStock.getAmount());
+                 fuelStockDTO.setAvailableStock(fuelStockRepository.getTotalStockAmount(fuelStock.getFuelType().getId()));
+               fuelStockDTO.setDistributedVehicleCount(customerFuelStationRepository.getCountVehicle(fuelStock.getFuelType().getId()));
+              fuelStockDTO.setDistributedFuel(customerFuelStationRepository.getSumDistribution(fuelStock.getFuelType().getId()));
                int hour=0;
 //                hour =customerFuelStationRepository.getoneHourDeistibution(fuelStock.getFuelType().getId(), LocalDateTime.now().minusHours(48), LocalDateTime.now());
 //                if(hour!=0){
@@ -277,7 +277,7 @@ public class FuelStationServiceImpl implements FuelStationService {
     }
     public List<VehicleReportDTO> getVehicleReportType(String id,String type) {
         List<VehicleReportDTO> vehicleReportDTOS = new ArrayList<>();
-        List<Object[]> customerCount = customerRepository.getCustomerCountType(type,id);
+        List<Object[]> customerCount = customerRepository.getCustomerCountType(id,type);
         for (Object[] obj : customerCount) {
             VehicleReportDTO vehicleReportDTO = new VehicleReportDTO();
             vehicleReportDTO.setVehicleType(obj[0].toString());
