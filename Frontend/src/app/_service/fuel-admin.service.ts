@@ -36,7 +36,7 @@ export class FuelAdminService {
   }
 
   getFuelOrders(): Observable<any>{
-    return this.http.get<any>(environment.backend_url + "fuel_admin/getFuelOrders");
+    return this.http.get<any>(environment.backend_url + "/fuel_admin/getOrder");
   }
 
   getFuelStations(): Observable<any> {
@@ -80,7 +80,17 @@ export class FuelAdminService {
   }
 
   getOrder(id)   : Observable<any> {
-    return this.http.get<any>(environment.backend_url + '/fuel_station/getorder/'+id)
+    return this.http.get<any>(environment.backend_url + '/fuel_admin/getorder/'+id)
+  }
+
+  approveOrder(order): Observable<any> {
+    console.log(order)
+    return this.http.put<any>(environment.backend_url + "/fuel_admin/approveOrder/" + order.id, order);
+  }
+
+  denyOrder(order): Observable<any> {
+    console.log(order)
+    return this.http.put<any>(environment.backend_url + "/fuel_admin/denyOrder/" + order.id, order);
   }
 
 

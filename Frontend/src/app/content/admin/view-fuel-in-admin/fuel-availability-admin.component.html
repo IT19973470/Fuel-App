@@ -1,12 +1,11 @@
 <div style="margin: 10px;">
   <div style="display: flex">
-    <span style="font-weight: bold;color: #b68003;font-size: 21px;width: 100%;margin-top: 25px">Stock In List</span>
+    <span style="font-weight: bold;color: #b68003;font-size: 21px;width: 50%;margin-top: 25px">Stock In List</span>
     <div style="display: flex;justify-content: right;margin-top: 20px;width: 100%">
       <select class="form-control" style="width: 200px;margin-right: 10px" [(ngModel)]="fuelType" >
-        <option value="">Search By Fuel Type</option>
         <option value="car" *ngFor="let fuelType of fuelTypes" [value]="fuelType.name" >{{fuelType.name}}</option>
       </select>
-      <button class="btn btn-warning" style="margin-right: 40px" (click)="getStockInListByFuelType(fuelType)">Search</button>
+      <button class="btn btn-warning" style="margin-right: 40px" (click)="getStockInListByFuelType(fuelType)">Search by Fuel Type</button>
       <select class="form-control" style="width: 200px;margin-right: 10px" [(ngModel)]="data.stockFrom">
         <option value="">Search By Destination</option>
 <!--        <option *ngFor="let destination of destinations" id="dest" [value]="destination">{{destination}}</option>-->
@@ -14,7 +13,7 @@
         <option value="china" id="dest">China</option>
         <option value="pakistan" id="dest">Pakistan</option>
       </select>
-      <button class="btn btn-warning"  (click)="getStockInByStockFrom()">Search</button>
+      <button class="btn btn-warning"  (click)="getStockInByStockFrom()">Search by Arrival</button>
     </div>
   </div>
 
@@ -22,7 +21,7 @@
     <thead class="thead-dark">
     <th scope="col">#</th>
     <th>Fuel Type</th>
-    <th>From</th>
+    <th>Arrival From</th>
     <th>Amount</th>
     <th>Date</th>
     <th>Time</th>
