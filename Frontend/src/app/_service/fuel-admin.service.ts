@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
+import {Result} from "../content/fuel_pumper/result";
 
 @Injectable({
   providedIn: 'root'
@@ -95,6 +96,14 @@ export class FuelAdminService {
   denyOrder(order): Observable<any> {
     console.log(order)
     return this.http.put<any>(environment.backend_url + "/fuel_admin/denyOrder/" + order.id, order);
+  }
+
+  stockInReport():Observable<Result>{
+    return this.http.get<Result>(`${this.baseURL+"/fuel_admin/stockInReport"}`);
+  }
+
+  stockOutReport():Observable<Result>{
+    return this.http.get<Result>(`${this.baseURL+"/fuel_admin/stockOutReport"}`);
   }
 
 
