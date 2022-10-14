@@ -148,10 +148,12 @@ public class FuelAdminController {
 
     @GetMapping(value="/stockInReport", produces= MediaType.APPLICATION_JSON_VALUE)
     public Map generateStockInReport() {
+
         ReportView review = new ReportView();
 
         List<FuelAdminStockIn> fuelAdminStockIns;
         fuelAdminStockIns = fuelAdminService.viewStockIn();
+
         String reportValue = "";
         try {
             reportValue = review.pdfReportViewInlineSystemOpen("stocksInReport.jasper", "Stock in Details Report", fuelAdminStockIns, null);

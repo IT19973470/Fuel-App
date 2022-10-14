@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FuelAdminService} from "../../../_service/fuel-admin.service";
 import {Router} from "@angular/router";
+import {NotifierService} from "angular-notifier";
 
 @Component({
   selector: 'app-update-stock-out',
@@ -11,7 +12,7 @@ export class UpdateStockOutComponent implements OnInit {
   updatefuelStockOut;
   fuelStations=[];
 
-  constructor(private fuelAdminService: FuelAdminService,private router: Router) {
+  constructor(private fuelAdminService: FuelAdminService,private router: Router, private notifierService: NotifierService) {
     this.updatefuelStockOut = this.fuelAdminService.fuelOut;
     // console.log(fuelAdminService.fuelOut);
     // this.updatefuelStockOut = this.fuelAdminService.newOutFuelStock();
@@ -21,7 +22,8 @@ export class UpdateStockOutComponent implements OnInit {
 
   updateFuelStockOut(){
     this.fuelAdminService.updateStockOut(this.updatefuelStockOut).subscribe(data =>{
-    this.router.navigate(['/view_stock_out']);
+      this.notifierService.notify('success', "Stocks out updated Successfully");
+      this.router.navigate(['/view_stock_out']);
   })}
 
   ngOnInit(): void {

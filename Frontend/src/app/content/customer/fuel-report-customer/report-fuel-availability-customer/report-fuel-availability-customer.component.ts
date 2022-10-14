@@ -9,8 +9,8 @@ import {UserService} from "../../../../_service/user.service";
 })
 export class ReportFuelAvailabilityCustomerComponent implements OnInit {
 
-  district;
-  place;
+  district = '';
+  place = '';
   districts = [];
   places
   districtPlaces = []
@@ -32,13 +32,13 @@ export class ReportFuelAvailabilityCustomerComponent implements OnInit {
   // }
 
   constructor(private customerS: CustomerService, private userS: UserService) {
-    userS.setPlace.subscribe((place: any) => {
-      this.place = place.id;
-      // this.getFuelTypes()
-    })
-    userS.setDistrictPlaces.subscribe(districtPlaces => {
-      this.districtPlaces = districtPlaces;
-    })
+    // userS.setPlace.subscribe((place: any) => {
+    //   this.place = place.id;
+    //   // this.getFuelTypes()
+    // })
+    // userS.setDistrictPlaces.subscribe(districtPlaces => {
+    //   this.districtPlaces = districtPlaces;
+    // })
   }
 
   ngOnInit(): void {
@@ -125,13 +125,13 @@ export class ReportFuelAvailabilityCustomerComponent implements OnInit {
 
   setDistricts() {
     this.districts = this.userS.districts
-    this.district = JSON.parse(localStorage.getItem('user')).customer.fuelStationPlace.district
-    // console.log(this.district)
-    if (this.userS.place !== undefined) {
-      this.districtPlaces = this.userS.districtPlaces;
-      this.place = this.userS.place.id
-      this.getFuelAvailabilityM()
-    }
+    // this.district = JSON.parse(localStorage.getItem('user')).customer.fuelStationPlace.district
+    // // console.log(this.district)
+    // if (this.userS.place !== undefined) {
+    //   this.districtPlaces = this.userS.districtPlaces;
+    //   this.place = this.userS.place.id
+    //   this.getFuelAvailabilityM()
+    // }
   }
 
   getPlaces(district) {
