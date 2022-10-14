@@ -84,7 +84,12 @@ export class OrderComponent implements OnInit {
 
   updateorder(){
     console.log(this.id)
-    this.fuelStationS.updateOrder(this.id,this.order).subscribe(()=>{  this.ngOnInit()})
+    this.fuelStationS.updateOrder(this.id,this.order).subscribe(()=>{
+      this.notifierService.notify("success", "Oder updated successfully");
+      this.ngOnInit()
+    },(err) => {
+      this.notifierService.notify("error", "Oder update fail");
+    });
   }
 
   interval:any;

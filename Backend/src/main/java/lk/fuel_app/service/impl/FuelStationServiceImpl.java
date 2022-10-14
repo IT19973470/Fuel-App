@@ -271,7 +271,8 @@ public class FuelStationServiceImpl implements FuelStationService {
             OrderData orderObj = orderoptional.get();
             orderObj.setAmount(orderData.getAmount());
             orderObj.setFuelType(orderData.getFuelType());
-            return orderRepository.save(orderObj);
+            OrderData orderData1 = orderRepository.save(orderObj);;
+            return new OrderData(orderData1);
         }
         return null;
     }
