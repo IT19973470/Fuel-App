@@ -26,5 +26,8 @@ public interface FuelStationService {
     OrderData updateOrder(OrderData orderData, String id);
     List<VehicleReportDTO> getVehicleReport(String id);
     public boolean deleteOrder(String id);
+    List<VehicleType> getAllVehicleTypes();
+    List<VehicleReportDTO> getVehicleReportType(String id,String type);
+    
     
 }

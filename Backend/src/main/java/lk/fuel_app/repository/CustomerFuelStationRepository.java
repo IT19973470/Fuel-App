@@ -45,10 +45,13 @@ public interface CustomerFuelStationRepository extends JpaRepository<CustomerFue
 
     @Query("select sum(fuelPumped) from  CustomerFuelStation  where fuelType.id=?1 group by fuelType")
     int getSumDistribution(String id);
+
+    @Query("select sum(fuelPumped) from  CustomerFuelStation  where fuelType.id=?1 and  pumpedAt between ?2 and ?3 group by fuelType")
+    int getoneHourDeistibution(String id,LocalDateTime before, LocalDateTime timeNow);
     
     @Query("from CustomerFuelStation where fuelStation.id=?1 and pumpedAt between ?2 and ?3")
     List<CustomerFuelStation> getFuelSupplyPerHour(String fuelStation, LocalDateTime before, LocalDateTime timeNow);
-
+  //  SELECT fuel_type_id,sum(fuel_pumped) from customer_fuel_station where fuel_type_id="1_Petrol_92" and  pumped_at between "2022-10-08 21:43:34" and "2022-10-08 21:43:36" group by  fuel_type_id
     @Query("from CustomerFuelStation where pumpedAtDate between :startDate and :endDate")
     List<CustomerFuelStation> getAllFuelRecord(@Param("startDate") LocalDate startDate,@Param("endDate") LocalDate endDate);
 }

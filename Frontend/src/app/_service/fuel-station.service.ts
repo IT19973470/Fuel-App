@@ -63,11 +63,16 @@ export class FuelStationService {
   getVehicleReport(id)   : Observable<any> {
     return this.http.get<any>(environment.backend_url + '/fuel_station/getVehicleReport/'+id)
   }
+  getAllVehicleTypes(): Observable<any> {
+    return this.http.get<any>(environment.backend_url + '/fuel_station/getAllVehicleTypes/');
+  }
 
   deleteOrder(id): Observable<any> {
     return this.http.delete<any>(environment.backend_url + '/fuel_station/deleteOrder/' + id );
   }
-
+  getTypes(type,id): Observable<any> {
+    return this.http.get<any>(environment.backend_url + '/fuel_station/getVehicleReport/' + id+"/"+ type);
+  }
 
   newFuelStation() {
     return {

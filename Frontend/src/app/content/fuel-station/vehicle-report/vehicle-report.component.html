@@ -1,6 +1,8 @@
 <div class="row" style="padding: 20px;display: flex;justify-content: flex-start; margin-left: 170px">
   <div class="">
     <div class="mb-3">
+      <div id="pdf">
+      <div>
       <span style="font-weight: bold;color: #b68003;font-size: 25px">Vehicle Details</span>
     </div>
     <div class="card">
@@ -11,18 +13,18 @@
             <label>Filter by Vehicle Type:</label>
           </div>
           <div class="col-4">
-            <select   style="margin-right: 20px;margin-left: 20px;"
-                    class="btn btn-outline-primary dropdown-toggle">
+            <select   style="margin-right: 20px;margin-left: 20px;" class="btn btn-outline-primary dropdown-toggle" [(ngModel)]="type">
               <option value="All">All</option>
-              <option ></option>
+              <option *ngFor="let v of types ">{{v.name}}</option>
 
             </select>
           </div>
           <div class="col-2">
-            <label>Filter by Vehicle Date:</label>
           </div>
           <div class="col-2">
-            <input type="date" name="date" class="form-control border border-primary">
+            <div class="col-4">
+              <button type="button" (click)="getType()"><i  class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
           </div>
         </div>
 
@@ -51,13 +53,16 @@
           <hr>
         </div>
         <div class="col-lg-11" align="right">
-          <button class="btn btn-outline-info btn-lg"  style="width: 310px; height: 50px">
+          <button class="btn btn-outline-info btn-lg"  style="width: 310px; height: 50px" (click)="sendToPdf()">
             Generate Report
           </button>
         </div>
       </div>
     </div>
+    </div>
+  </div>
   </div>
 </div>
 
-<
+
+

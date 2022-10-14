@@ -81,9 +81,17 @@ public class FuelStationController {
     public ResponseEntity getVehicleReport(@PathVariable String id) {
         return ResponseEntity.ok(fuelStationService.getVehicleReport(id));
     }
+    @GetMapping(value = "/getVehicleReport/{id}/{type}")
+    public ResponseEntity getVehicleReportType(@PathVariable String id,@PathVariable String type) {
+        return ResponseEntity.ok(fuelStationService.getVehicleReportType(id,type));
+    }
     @DeleteMapping(value = "/deleteOrder/{id}")
     public ResponseEntity deleteOrder(@PathVariable String id) {
         return ResponseEntity.ok(fuelStationService.deleteOrder(id));
+    }
+    @GetMapping(value = "/getAllVehicleTypes/")
+    public ResponseEntity getAllVehicleTypes() {
+        return ResponseEntity.ok(fuelStationService.getAllVehicleTypes());
     }
     
     
