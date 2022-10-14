@@ -6,38 +6,62 @@
         <span class="nav_logo-name">BBBootstrap</span>
       </a>
       <div class="nav_list" *ngIf="userType==='customer'">
-        <a class="nav_link active" [routerLink]="'/my_profile'">
+        <a class="nav_link" [routerLink]="'/my_profile'"
+           #my_profile="routerLinkActive"
+           routerLinkActive
+           [ngClass]="my_profile.isActive?'active':''">
           <i class='bx bx-user nav_icon'></i>
           <span class="nav_name">My Profile</span>
         </a>
-        <a class="nav_link" [routerLink]="'/fuel_consumption_customer'">
+        <a class="nav_link" [routerLink]="'/fuel_consumption_customer'"
+           #fuel_consumption_customer="routerLinkActive"
+           routerLinkActive
+           [ngClass]="fuel_consumption_customer.isActive?'active':''">
           <i class='bx bx-tachometer nav_icon'></i>
           <span class="nav_name">Fuel Consumption</span>
         </a>
-        <a class="nav_link" [routerLink]="'/fuel_availability_customer'">
+        <a class="nav_link" [routerLink]="'/fuel_availability_customer'"
+           #fuel_availability_customer="routerLinkActive"
+           routerLinkActive
+           [ngClass]="fuel_availability_customer.isActive?'active':''">
           <i class='bx bx-gas-pump nav_icon'></i>
           <span class="nav_name">Fuel Availability</span>
         </a>
-        <a class="nav_link" [routerLink]="'/fuel_report_customer'">
+        <a class="nav_link" [routerLink]="'/fuel_report_customer'"
+           #fuel_report_customer="routerLinkActive"
+           routerLinkActive
+           [ngClass]="fuel_report_customer.isActive?'active':''">
           <i class="fa-solid fa-chart-simple nav_icon"></i>
           <span class="nav_name">Customer Reports</span>
         </a>
       </div>
 
       <div class="nav_list" *ngIf="userType==='fuelPumper'">
-        <a class="nav_link active" [routerLink]="'/update_quota'">
+        <a class="nav_link" [routerLink]="'/update_quota'"
+           #update_quota_fuelPumper="routerLinkActive"
+           routerLinkActive
+           [ngClass]="update_quota_fuelPumper.isActive?'active':''">
           <i class='bx bx-qr nav_icon'></i>
           <span class="nav_name">Fuel Quota</span>
         </a>
-        <a class="nav_link" active [routerLink]="'/mark_attendance'">
+        <a class="nav_link" [routerLink]="'/mark_attendance'"
+           #mark_attendance_fuelPumper="routerLinkActive"
+           routerLinkActive
+           [ngClass]="mark_attendance_fuelPumper.isActive?'active':''">
           <i class='bx bx-user nav_icon'></i>
           <span class="nav_name">Attendance</span>
         </a>
-        <a class="nav_link" active [routerLink]="'/vehicle_details'">
+        <a class="nav_link" [routerLink]="'/vehicle_details'"
+           #vehicle_details_fuelPumper="routerLinkActive"
+           routerLinkActive
+           [ngClass]="vehicle_details_fuelPumper.isActive?'active':''">
           <i class='bx bxs-car nav_icon'></i>
           <span class="nav_name">Vehicle Details</span>
         </a>
-        <a class="nav_link " active [routerLink]="'/fuel_report'">
+        <a class="nav_link" [routerLink]="'/fuel_report'"
+           #fuel_report_fuelPumper="routerLinkActive"
+           routerLinkActive
+           [ngClass]="fuel_report_fuelPumper.isActive?'active':''">
           <i class='fa-solid fa-chart-simple nav_icon'></i>
           <span class="nav_name">Fuel Report</span>
         </a>
@@ -45,54 +69,90 @@
 
 
       <div class="nav_list" *ngIf="userType==='fuelStation'">
-        <a class="nav_link" [routerLink]="'/order-oil'">
+        <a class="nav_link" [routerLink]="'/order-oil'"
+           #order_oil_fuelStation="routerLinkActive"
+           routerLinkActive
+           [ngClass]="order_oil_fuelStation.isActive?'active':''">
           <i class="fa-solid fa-plus nav_icon"></i>
           <span class="nav_name">Order Oil</span>
         </a>
-        <a class="nav_link active" [routerLink]="'/fuel_availability'">
+        <a class="nav_link" [routerLink]="'/fuel_availability'"
+           #fuel_availability_fuelStation="routerLinkActive"
+           routerLinkActive
+           [ngClass]="fuel_availability_fuelStation.isActive?'active':''">
           <i class='bx bx-grid-alt nav_icon'></i>
           <span class="nav_name">Fuel Availability</span>
         </a>
-        <a class="nav_link" [routerLink]="'/attendance_fuel'">
+        <a class="nav_link" [routerLink]="'/attendance_fuel'"
+           #attendance_fuel_fuelStation="routerLinkActive"
+           routerLinkActive
+           [ngClass]="attendance_fuel_fuelStation.isActive?'active':''">
           <i class="fa-solid fa-solid fa-clock nav_icon"></i>
           <span class="nav_name">Attendance Fuel</span>
         </a>
-        <a class="nav_link" [routerLink]="'/register_pumper'">
+        <a class="nav_link" [routerLink]="'/register_pumper'"
+           #register_pumper_fuelStation="routerLinkActive"
+           routerLinkActive
+           [ngClass]="register_pumper_fuelStation.isActive?'active':''">
           <i class='bx bx-user nav_icon'></i>
           <span class="nav_name">Register Pumper</span>
         </a>
-        <a class="nav_link" [routerLink]="'/reports'">
+        <a class="nav_link" [routerLink]="'/reports'"
+           #reports_fuelStation="routerLinkActive"
+           routerLinkActive
+           [ngClass]="reports_fuelStation.isActive?'active':''">
           <i class="fa-solid fa-chart-simple nav_icon"></i>
           <span class="nav_name">Pumpers Reports</span>
         </a>
-        <a class="nav_link" [routerLink]="'/vehicle-reports'">
+        <a class="nav_link" [routerLink]="'/vehicle-reports'"
+           #vehicle_reports_fuelStation="routerLinkActive"
+           routerLinkActive
+           [ngClass]="vehicle_reports_fuelStation.isActive?'active':''">
           <i class='bx bxs-pie-chart-alt-2 nav_icon' ></i>
           <span class="nav_name">Vehicle Reports</span>
         </a>
       </div>
 
       <div class="nav_list" *ngIf="userType==='fuelAdmin'">
-        <a class="nav_link active" [routerLink]="'/fuel_availability_admin'">
+        <a class="nav_link active" [routerLink]="'/fuel_availability_admin'"
+           #fuelAdmin_admin="routerLinkActive"
+           routerLinkActive
+           [ngClass]="fuelAdmin_admin.isActive?'active':''">
           <i class='bx bx-grid-alt nav_icon'></i>
           <span class="nav_name">Stock In List</span>
         </a>
-        <a class="nav_link" [routerLink]="'/stockIn_form'">
+        <a class="nav_link" [routerLink]="'/stockIn_form'"
+           #stockIn_form_admin="routerLinkActive"
+           routerLinkActive
+           [ngClass]="stockIn_form_admin.isActive?'active':''">
           <i class='bx bx-user nav_icon'></i>
           <span class="nav_name">Stock In</span>
         </a>
-        <a class="nav_link" [routerLink]="'/view_stock_out'">
+        <a class="nav_link" [routerLink]="'/view_stock_out'"
+           #view_stock_out_admin="routerLinkActive"
+           routerLinkActive
+           [ngClass]="view_stock_out_admin.isActive?'active':''">
           <i class='bx bx-grid-alt nav_icon'></i>
           <span class="nav_name">Stock Out List</span>
         </a>
-        <a class="nav_link" [routerLink]="'/stockOut_form'">
+        <a class="nav_link" [routerLink]="'/stockOut_form'"
+           #stockOut_form_admin="routerLinkActive"
+           routerLinkActive
+           [ngClass]="stockOut_form_admin.isActive?'active':''">
           <i class='bx bx-user nav_icon'></i>
           <span class="nav_name">Stock Out</span>
         </a>
-        <a class="nav_link" [routerLink]="'/fuel_approve'">
+        <a class="nav_link" [routerLink]="'/fuel_approve'"
+           #fuel_approve_admin="routerLinkActive"
+           routerLinkActive
+           [ngClass]="fuel_approve_admin.isActive?'active':''">
           <i class='bx bxs-ev-station nav_icon'></i>
           <span class="nav_name">Fuel Approve</span>
         </a>
-        <a class="nav_link" [routerLink]="'/view_report'">
+        <a class="nav_link" [routerLink]="'/view_report'"
+           #view_report_admin="routerLinkActive"
+           routerLinkActive
+           [ngClass]="view_report_admin.isActive?'active':''">
         <i class='bx bxs-pie-chart-alt-2 nav_icon' ></i>
         <span class="nav_name">Total Availability</span>
         </a>
