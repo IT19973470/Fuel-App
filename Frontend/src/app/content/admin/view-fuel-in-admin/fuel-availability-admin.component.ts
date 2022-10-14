@@ -30,7 +30,7 @@ export class FuelAvailabilityAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.d = (document.getElementById('dest') as HTMLFontElement)['value'];
-    this.getCustomer();
+    this.getStockIn();
     this.getAllFuelTypes();
   }
 
@@ -49,15 +49,15 @@ export class FuelAvailabilityAdminComponent implements OnInit {
     })
   }
 
-  getStockInByStockFrom(){
+  getStockInByStockFrom(d){
     // var d = (document.getElementById('dest') as HTMLFontElement)['value'];
     console.log(this.d + ".................")
-    this.fuelAdminService.getStockInByStockFrom(this.d).subscribe(data => {
+    this.fuelAdminService.getStockInByStockFrom(d).subscribe(data => {
       this.data = data
     })
   }
 
-  getCustomer() {
+  getStockIn() {
     this.fuelAdminService.getFuelAdminStockIn().subscribe(res => {
       // console.log(res);
       this.data = res;
@@ -77,7 +77,7 @@ export class FuelAvailabilityAdminComponent implements OnInit {
 
   deleteStockIn(id: string){
     this.fuelAdminService.deleteStockIn(id).subscribe(data => {
-      this.getCustomer();
+      this.getStockIn();
     })
   }
 

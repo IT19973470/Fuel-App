@@ -29,6 +29,7 @@ export class UpdateStockInComponent implements OnInit {
 
   ngOnInit(): void {
     this.updatefuelStockIn = this.fuelAdminService.fuelIn;
+    console.log(this.updatefuelStockIn.fuelType)
   }
 
 }

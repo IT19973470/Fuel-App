@@ -75,6 +75,10 @@ export class FuelAdminService {
     return this.http.get<any>(`${this.baseURL + '/fuel_admin/getStockInByType'}/${fuelType}`);
   }
 
+  getStockOutListByFuelType(fuelType: string): Observable<any>{
+    return this.http.get<any>(`${this.baseURL + '/fuel_admin/getStockOutByType'}/${fuelType}`);
+  }
+
   getStockInByStockFrom(destination: string): Observable<any> {
     return this.http.get<any>(`${this.baseURL + '/fuel_admin/getStockInBystockFromStockFrom'}/${destination}`);
   }
