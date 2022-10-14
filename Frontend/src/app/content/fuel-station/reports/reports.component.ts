@@ -103,7 +103,7 @@ pumpers=[]
       let pdf = new jsPDF('l', 'mm', 'a4'); // A4 size page of PDF
       let position = 10;
       pdf.addImage(contentDataURL, 'PNG', 10, position, imgWidth, imgHeight)
-      pdf.save('MYPdf.pdf'); // Generated PDF
+      pdf.save('pumpers.pdf'); // Generated PDF
     });
   }
 

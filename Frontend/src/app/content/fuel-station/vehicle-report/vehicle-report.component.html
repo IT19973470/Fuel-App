@@ -2,6 +2,7 @@
   <div class="">
     <div class="mb-3">
       <div id="pdf">
+
       <div>
       <span style="font-weight: bold;color: #b68003;font-size: 25px">Vehicle Details</span>
     </div>
@@ -49,20 +50,31 @@
             </tbody>
           </table>
         </div>
+      </div>
         <div class=" col-lg-11">
           <hr>
         </div>
-        <div class="col-lg-11" align="right">
-          <button class="btn btn-outline-info btn-lg"  style="width: 310px; height: 50px" (click)="sendToPdf()">
-            Generate Report
-          </button>
+        <div>
+          <div class ="row" align="center">
+            <div class="col-6">
+            <button class="btn btn-outline-info btn-lg"   style="width: 310px; height: 50px" (click)="downloadReport()">
+              Generate Detail Report
+            </button>
+            </div>
+          <div class="col-6">
+            <button class="btn btn-outline-info btn-lg"  align="left" style="width: 310px; height: 50px" (click)="sendToPdf()">
+              Download
+            </button>
+          </div>
         </div>
+          <br/>
       </div>
     </div>
-    </div>
+
+
   </div>
   </div>
 </div>
-
+</div>
 
 

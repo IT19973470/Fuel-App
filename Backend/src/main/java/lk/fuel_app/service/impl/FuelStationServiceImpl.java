@@ -75,7 +75,23 @@ public class FuelStationServiceImpl implements FuelStationService {
         System.out.println(order);
         order.setId("O" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss")));
         order.setFuelAdmin(order.getFuelAdmin());
-        return orderRepository.save(order);
+        OrderData orderData = orderRepository.save(order);
+        return new OrderData(orderData);
+    }
+
+
+    @Override
+    public List<CustomerFuelStation> getAllVehicleDetails() {
+        List<CustomerFuelStation> fuelStations = customerFuelStationRepository.findAll();
+        List<CustomerFuelStation> customerFuelStations = new ArrayList<>();
+        for (CustomerFuelStation customerFuelStation : fuelStations) {
+//            customerFuelStation.setCustomer(null);
+            customerFuelStation.setFuelStation(null);
+            customerFuelStation.setFuelType(null);
+            customerFuelStations.add(new CustomerFuelStation(customerFuelStation));
+        }
+
+        return customerFuelStations;
     }
 
     @Override
@@ -191,7 +207,7 @@ public class FuelStationServiceImpl implements FuelStationService {
         List<FuelPumperAttendance> fuelPumperAttendances = fuelPumperAttendanceRepository.FindAllBetween(sDate, eDate);
         for (FuelPumperAttendance fuelPumperAttendance : fuelPumperAttendances) {
             AttandanceDTO attandanceDTO = new AttandanceDTO();
-            attandanceDTO.setFuelPumperAttendance(new FuelPumperAttendance(fuelPumperAttendance));
+            attandanceDTO.setFuelPumperAttendance(new FuelPumperAttendance(fuelPumperAttendance, fuelPumperAttendance.getFuelPumper()));
             countdata = fuelPumperAttendanceRepository.getFuelPumpedCount(fuelPumperAttendance.getMarkedAt(), fuelPumperAttendance.getFuelPumper().getNic());
             if (countdata != 0) {
                 attandanceDTO.setCountdata(countdata);
@@ -255,7 +271,8 @@ public class FuelStationServiceImpl implements FuelStationService {
             OrderData orderObj = orderoptional.get();
             orderObj.setAmount(orderData.getAmount());
             orderObj.setFuelType(orderData.getFuelType());
-            return orderRepository.save(orderObj);
+            OrderData orderData1 = orderRepository.save(orderObj);;
+            return new OrderData(orderData1);
         }
         return null;
     }
