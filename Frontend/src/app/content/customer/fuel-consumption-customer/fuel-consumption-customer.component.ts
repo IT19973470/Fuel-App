@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {CustomerService} from "../../../_service/customer.service";
 import {NotifierService} from "angular-notifier";
+import {DomSanitizer} from "@angular/platform-browser";
+import {AlertBoxService} from "../../../alert-box/alert-box.service";
 
 @Component({
   selector: 'app-fuel-consumption-customer',
@@ -18,7 +20,13 @@ export class FuelConsumptionCustomerComponent implements OnInit {
   selectedOrderBy1 = ''
   selectedOrderBy2 = ''
 
-  constructor(private customerS: CustomerService, private notifierService: NotifierService) {
+  alertBox = {
+    alert: false,
+    msg: '',
+    value: ''
+  };
+
+  constructor(private customerS: CustomerService, private notifierService: NotifierService, private alertService: AlertBoxService) {
     // this.customer = this.customerS.newCustomer();
   }
 
@@ -70,8 +78,16 @@ export class FuelConsumptionCustomerComponent implements OnInit {
   }
 
   deleteFuelConsumption(id) {
-    this.customerS.deleteFuelConsumption(id).subscribe(() => {
-      this.getFuelConsumptions()
+    this.alertBox.alert = true;
+    this.alertBox.msg = 'Do you want to delete the record?';
+    this.alertService.reply.observers = [];
+    this.alertService.reply.subscribe(reply => {
+      if (reply) {
+        this.customerS.deleteFuelConsumption(id).subscribe(() => {
+          this.getFuelConsumptions()
+        })
+      }
+      this.alertBox.alert = false;
     })
   }
 

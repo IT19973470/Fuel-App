@@ -3,6 +3,8 @@ import {LoginService} from "../../../login/login.service";
 import {CustomerService} from "../../../_service/customer.service";
 import {UserService} from "../../../_service/user.service";
 import {DomSanitizer} from "@angular/platform-browser";
+import {Router} from "@angular/router";
+import {AlertBoxService} from "../../../alert-box/alert-box.service";
 
 @Component({
   selector: 'app-fuel-availability-customer',
@@ -11,8 +13,8 @@ import {DomSanitizer} from "@angular/platform-browser";
 })
 export class FuelAvailabilityCustomerComponent implements OnInit {
 
-  district;
-  place;
+  district='';
+  place='';
   districts = [];
   places
   districtPlaces = []
@@ -23,14 +25,14 @@ export class FuelAvailabilityCustomerComponent implements OnInit {
   fuelTypes = []
 
   constructor(private userS: UserService, private customerS: CustomerService, private domSanitizer: DomSanitizer) {
-    userS.setPlace.subscribe((place: any) => {
-      this.place = place.id;
-      this.getFuelAvailability()
-      // console.log(this.place)
-    })
-    userS.setDistrictPlaces.subscribe(districtPlaces => {
-      this.districtPlaces = districtPlaces;
-    })
+    // userS.setPlace.subscribe((place: any) => {
+    //   this.place = place.id;
+    //   this.getFuelAvailability()
+    //   // console.log(this.place)
+    // })
+    // userS.setDistrictPlaces.subscribe(districtPlaces => {
+    //   this.districtPlaces = districtPlaces;
+    // })
   }
 
   ngOnInit(): void {
@@ -47,13 +49,13 @@ export class FuelAvailabilityCustomerComponent implements OnInit {
 
   setDistricts() {
     this.districts = this.userS.districts
-    this.district = JSON.parse(localStorage.getItem('user')).customer.fuelStationPlace.district
-    // console.log(this.district)
-    if (this.userS.place !== undefined) {
-      this.districtPlaces = this.userS.districtPlaces;
-      this.place = this.userS.place.id
-      this.getFuelAvailability()
-    }
+    // this.district = JSON.parse(localStorage.getItem('user')).customer.fuelStationPlace.district
+    // // console.log(this.district)
+    // if (this.userS.place !== undefined) {
+    //   this.districtPlaces = this.userS.districtPlaces;
+    //   this.place = this.userS.place.id
+    //   this.getFuelAvailability()
+    // }
   }
 
   getPlaces(district) {

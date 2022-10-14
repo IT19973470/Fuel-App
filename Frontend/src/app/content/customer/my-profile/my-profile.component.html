@@ -1,9 +1,10 @@
+<app-alert-box *ngIf="alertBox.alert" [alertMsg]="alertBox"></app-alert-box>
 <div class="row" style="margin-top: 75px;margin-left: 0px;margin-right: 0px">
   <div class="col-md-5 col-sm-12" style="border-right: 1px solid #aeaeae">
     <div style="padding: 20px;display: flex;justify-content: center">
       <div style="margin-top: 20px">
         <div style="border: 0px solid black;margin-bottom: 20px">
-          <div id="qrImg" style="display: flex;justify-content: center;background-color: white">
+          <div id="qrImg" style="display: flex;justify-content: center;background-color: white;padding: 10px">
             <div>
               <qr-code [value]="customer!==null?customer.vehicle.secKey:''" size="250"></qr-code>
               <div style="text-align: center">{{customer.vehicle.vehicleNumber}}</div>

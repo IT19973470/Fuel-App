@@ -33,7 +33,7 @@
   </div>
 
   <div style="display: flex;justify-content: right;margin-top: 20px;width: calc(100% - 200px);margin-right: 30px">
-    <select [(ngModel)]="selectedFuelType" class="form-control" style="width: 200px;margin-right: 10px"
+    <select [(ngModel)]="selectedFuelType" class="form-control" style="width: 200px"
             (change)="selectedFuelType=$event.target.value" name="district"
             #districtC="ngModel" required>
       <option value="">Select</option>
