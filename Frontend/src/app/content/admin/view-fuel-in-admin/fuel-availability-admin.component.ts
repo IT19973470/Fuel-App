@@ -11,17 +11,54 @@ export class FuelAvailabilityAdminComponent implements OnInit {
 
   // data = []
   data;
+  fuelTypes = [];
+  fuelType;
+  destination;
+  d;
+  destinations =[
+    "India",
+    "Russia",
+    "China",
+    "Pakistan"
+  ];
   constructor(private fuelAdminService: FuelAdminService, private router: Router) {
     this.data = this.fuelAdminService.newAddFuelStock();
+    this.destination = fuelAdminService.newAddFuelStock().stockFrom;
+    console.log(this.destination + "]]]")
+    this.fuelType = this.fuelAdminService.newFuelType();
   }
 
   ngOnInit(): void {
+    this.d = (document.getElementById('dest') as HTMLFontElement)['value'];
     this.getCustomer();
+    this.getAllFuelTypes();
+  }
+
+  getAllFuelTypes(){
+    this.fuelAdminService.getFuelTypes().subscribe(data => {
+      this.fuelTypes = data;
+      console.log(this.fuelTypes)
+    })
+  }
+
+  getStockInListByFuelType(type){
+    this.fuelAdminService.getStockInListByFuelType(type).subscribe(data => {
+        this.data = data;
+      this.getAllFuelTypes();
+    })
+  }
+
+  getStockInByStockFrom(){
+    // var d = (document.getElementById('dest') as HTMLFontElement)['value'];
+    console.log(this.d + ".................")
+    this.fuelAdminService.getStockInByStockFrom(this.d).subscribe(data => {
+      this.data = data
+    })
   }
 
   getCustomer() {
     this.fuelAdminService.getFuelAdminStockIn().subscribe(res => {
-      console.log(res);
+      // console.log(res);
       this.data = res;
       // this.fuelAdminService.fuelIn = res;
       // console.log(this.data);
