@@ -47,6 +47,11 @@ import { FuelReportCustomerComponent } from './content/customer/fuel-report-cust
 import { ReportFuelAvailabilityCustomerComponent } from './content/customer/fuel-report-customer/report-fuel-availability-customer/report-fuel-availability-customer.component';
 import { ReportFuelConsumptionCustomerComponent } from './content/customer/fuel-report-customer/report-fuel-consumption-customer/report-fuel-consumption-customer.component';
 import { AlertBoxComponent } from './alert-box/alert-box.component';
+import { EmailValidatorDirective } from './_validator/email-validator.directive';
+import { NicValidatorDirective } from './_validator/nic-validator.directive';
+import { TelephoneValidatorDirective } from './_validator/telephone-validator.directive';
+import { VehicleNumberValidatorDirective } from './_validator/vehicle-number-validator.directive';
+import { LoginValidatorDirective } from './_validator/login-validator.directive';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -128,7 +133,12 @@ const customNotifierOptions: NotifierOptions = {
     FuelReportCustomerComponent,
     ReportFuelAvailabilityCustomerComponent,
     ReportFuelConsumptionCustomerComponent,
-    AlertBoxComponent
+    AlertBoxComponent,
+    EmailValidatorDirective,
+    NicValidatorDirective,
+    TelephoneValidatorDirective,
+    VehicleNumberValidatorDirective,
+    LoginValidatorDirective
   ],
   imports: [
     BrowserModule,

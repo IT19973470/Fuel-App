@@ -71,18 +71,26 @@
 
     <div style="margin-top: 20px">Contact Number</div>
     <input class="form-control" type="text" name="contact" placeholder="Enter Contact Number"
-           [(ngModel)]="fuelStation.appUser.contactNumber" #contactNumber="ngModel" required>
+           [(ngModel)]="fuelStation.appUser.contactNumber" #contactNumber="ngModel" required appTelephoneValidator>
     <div *ngIf="(contactNumber.touched || regFuelStationForm.submitted) && contactNumber.errors?.required"
          class="validErr">
       Contact Number is required
     </div>
+    <div *ngIf="(contactNumber.dirty) && contactNumber.errors?.telephoneInvalid"
+         class="validErr">
+      Invalid Contact Number
+    </div>
 
     <div style="margin-top: 20px">Email</div>
     <input class="form-control" type="text" name="email" placeholder="Enter Email"
-           [(ngModel)]="fuelStation.appUser.email" #email="ngModel" required>
+           [(ngModel)]="fuelStation.appUser.email" #email="ngModel" required appEmailValidator>
     <div *ngIf="(email.touched || regFuelStationForm.submitted) && email.errors?.required"
          class="validErr">
       Email is required
+    </div>
+    <div *ngIf="(email.dirty) && email.errors?.emailInvalid"
+         class="validErr">
+      Invalid Email
     </div>
 
     <div style="margin-top: 20px">Password</div>
