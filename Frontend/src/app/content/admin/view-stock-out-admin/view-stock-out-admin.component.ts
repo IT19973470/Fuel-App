@@ -35,7 +35,6 @@ export class ViewStockOutAdminComponent implements OnInit {
       this.data = res
       this.dataTable=res
       for (let fuelStation of res) {
-        console.log(fuelStation)
         this.destinations.add(fuelStation.fuelStation.address)
       }
     })
@@ -62,21 +61,14 @@ export class ViewStockOutAdminComponent implements OnInit {
   getAllFuelTypes() {
     this.fuelAdminService.getFuelTypes().subscribe(data => {
       this.fuelTypes = data;
-      console.log(this.fuelTypes)
     })
-  }
-
-  getStockInListByFuelType(type) {
-    console.log(type)
-    this.fuelAdminService.getStockInListByFuelType(type).subscribe(data => {
-      this.data = data;
-      this.getAllFuelTypes();
-    });
   }
 
   getStockOutListByFuelType(type) {
     this.fuelAdminService.getStockOutListByFuelType(type).subscribe(data => {
       this.data = data;
+      console.log(">>>",type)
+      console.log(this.data)
       this.getAllFuelTypes();
     });
 

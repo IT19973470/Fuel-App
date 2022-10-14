@@ -17,7 +17,7 @@ public class FuelAdminStockIn {
     private String stockFrom;
     private String date;
     private String time;
-    private String amount;
+    private double amount;
 
     public FuelAdminStockIn(FuelAdminStockIn fuelAdminStockIn) {
         if (fuelAdminStockIn != null) {
