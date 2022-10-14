@@ -2,8 +2,13 @@
   <div class="col-md-5 col-sm-12" style="border-right: 1px solid #aeaeae">
     <div style="padding: 20px;display: flex;justify-content: center">
       <div style="margin-top: 20px">
-        <div style="width: 250px;height: 250px;border: 0px solid black;margin-bottom: 20px">
-          <qr-code [value]="customer!==null?customer.vehicle.vehicleNumber:''" size="250"></qr-code>
+        <div style="border: 0px solid black;margin-bottom: 20px">
+          <div id="qrImg" style="display: flex;justify-content: center;background-color: white">
+            <div>
+              <qr-code [value]="customer!==null?customer.vehicle.secKey:''" size="250"></qr-code>
+              <div style="text-align: center">{{customer.vehicle.vehicleNumber}}</div>
+            </div>
+          </div>
         </div>
         <div style="margin-top: 0px;display: flex;justify-content: center;width: 100%">
           <table>
@@ -18,8 +23,10 @@
           </table>
         </div>
         <div style="margin-top: 20px;display: flex;justify-content: center;width: 100%">
-          <button class="btn btn-warning" type="button" (click)="deleteCustomer()">Download QR
+          <button class="btn btn-success" type="button" (click)="regenerateQR()" style="margin-right: 10px">Regenerate
+            QR
           </button>
+          <button class="btn btn-warning" type="button" (click)="generateImage()">Download QR</button>
         </div>
       </div>
     </div>
@@ -61,4 +68,14 @@
   </div>
 </div>
 
+<!--<div >-->
+  <!--&lt;!&ndash;<a id="qrLink"></a>&ndash;&gt;-->
+  <!--<div id="qrImg"-->
+       <!--style="display: none;position: absolute;width: 300px;height: 300px;top: 0px;left: 0px;justify-content: center;align-content: center;background-color: white">-->
+    <!--<div>-->
+      <!--<qr-code [value]="customer!==null?customer.vehicle.secKey:''" size="250"></qr-code>-->
+      <!--<div style="text-align: center">{{customer.vehicle.vehicleNumber}}</div>-->
+    <!--</div>-->
+  <!--</div>-->
+<!--</div>-->
 

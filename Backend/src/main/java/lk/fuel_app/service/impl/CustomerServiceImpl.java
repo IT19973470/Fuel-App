@@ -16,6 +16,10 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
@@ -45,8 +49,22 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer addCustomer(Customer customer) {
-        customer.setVehicle(vehicleRepository.save(customer.getVehicle()));
+        Optional<Vehicle> vehicleOptional = vehicleRepository.findById(customer.getVehicle().getChassisNumber());
+        if (vehicleOptional.isPresent()) {
+            customer.setVehicle(vehicleOptional.get());
+        } else {
+            customer.getVehicle().setSecKey(customer.getVehicle().getChassisNumber() + "_" + new Random().nextInt(100000) + 1);
+            customer.setVehicle(vehicleRepository.save(customer.getVehicle()));
+        }
         return customerRepository.save(customer);
+    }
+
+    @Override
+    public Vehicle regenerateQR(String vehicle) {
+        Vehicle vehicleNumber = vehicleRepository.getByVehicleNumber(vehicle);
+        vehicleNumber.setSecKey(vehicleNumber.getChassisNumber() + "_" + new Random().nextInt(100000) + 1);
+        vehicleRepository.save(vehicleNumber);
+        return vehicleNumber;
     }
 
     @Override
@@ -80,10 +98,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomerByVehicle(String vehicleNumber) {
-        Optional<Customer> customer = customerRepository.getAllByVehicleVehicleNumber(vehicleNumber);
+        Optional<Customer> customer = customerRepository.getAllByVehicleSecKey(vehicleNumber);
         if (customer.isPresent()) {
             Customer customerObj = customer.get();
-            Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(vehicleNumber, LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
+            Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(customerObj.getVehicle().getVehicleNumber(), LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
             customerObj.setQuota(fuelPumpedAmount == null ? 0 : fuelPumpedAmount);
             return customerObj;
         }
@@ -109,6 +127,12 @@ public class CustomerServiceImpl implements CustomerService {
             public void run() {
                 sendEmailSMTP.sendEmail(email, "Fuel OTP",
                         "You OTP is " + randomVal);
+
+                Twilio.init("AC1081fa4f4b8ec36917116545e734496e", "a890c5740bc997dd2724fc708af62c19");
+//                Twilio.setUsername("AC1081fa4f4b8ec36917116545e734496e");
+//                Twilio.setPassword("a890c5740bc997dd2724fc708af62c19");
+                Message.creator(new PhoneNumber("+94750788890"),
+                        new PhoneNumber("+94776788890"), "Hello from Twilio").create();
             }
         }).start();
         Customer customer = new Customer();
@@ -414,4 +438,5 @@ public class CustomerServiceImpl implements CustomerService {
 //        }
         return fuelAvailabilityDTO;
     }
+
 }

@@ -13,6 +13,8 @@ public interface CustomerRepository extends JpaRepository<Customer, String> {
 
     Optional<Customer> getAllByVehicleVehicleNumber(String vehicle);
 
+    Optional<Customer> getAllByVehicleSecKey(String vehicle);
+
     Optional<Customer> getAllByAppUserEmailOrAppUserContactNumber(String email, String contactNumber);
 
 //    select c.vehicle_type, count(c.id) from customer_fuel_station cf, customer c where cf.customer_nic=c.nic group by c.vehicle_type;
