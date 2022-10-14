@@ -90,7 +90,7 @@
 
     <span>Vehicle Number</span>
     <input class="form-control" type="text" name="vehicleNumber" placeholder="Vehicle Number"
-           [(ngModel)]="customer.vehicleNumber" [readonly]="!(otpReceived&&otp==otpEntered)"
+           [(ngModel)]="customer.vehicle.vehicleNumber" [readonly]="!(otpReceived&&otp==otpEntered)"
            #vehicleNumber="ngModel" required>
     <div *ngIf="(vehicleNumber.touched || regCustomerForm.submitted) && vehicleNumber.errors?.required"
          class="validErr">
@@ -99,7 +99,7 @@
 
     <div style="margin-top: 20px">Chassis Number</div>
     <input class="form-control" type="text" name="chassisNumber" placeholder="Chassis Number"
-           [(ngModel)]="customer.chassisNumber" [readonly]="!(otpReceived&&otp==otpEntered)"
+           [(ngModel)]="customer.vehicle.chassisNumber" [readonly]="!(otpReceived&&otp==otpEntered)"
            #chassisNumber="ngModel" required>
     <div *ngIf="(chassisNumber.touched || regCustomerForm.submitted) && chassisNumber.errors?.required"
          class="validErr">
@@ -107,10 +107,10 @@
     </div>
 
     <div style="margin-top: 20px">Vehicle Type</div>
-    <select class="form-control" [(ngModel)]="customer.vehicleType" name="vehicleType"
-            #vehicleType="ngModel" required style="margin-bottom: 0px">
+    <select class="form-control" [(ngModel)]="customer.vehicle.vehicleType.id" name="vehicle"
+            #vehicleType="ngModel" required>
       <option value="">Select</option>
-      <option value="Car">Car</option>
+      <option *ngFor="let vehicleTypeObj of vehicleTypes" [value]="vehicleTypeObj.id">{{vehicleTypeObj.name}}</option>
     </select>
     <div *ngIf="(vehicleType.touched || regCustomerForm.submitted) && vehicleType.errors?.required"
          class="validErr">
@@ -125,20 +125,20 @@
       <div
         style="width: 350px;text-align: center;border: 1px solid #f18f03;padding: 10px;margin-right: 5px;font-weight: bold"
         [ngStyle]="{
-        'color':customer.fuelType==='Petrol'?'white':'black',
-        'background-color':customer.fuelType==='Petrol'?'#f18f03':'white'
-        }" (click)="customer.fuelType='Petrol'">Petrol
+        'color':customer.vehicle.fuelType==='Petrol'?'white':'black',
+        'background-color':customer.vehicle.fuelType==='Petrol'?'#f18f03':'white'
+        }" (click)="customer.vehicle.fuelType='Petrol'">Petrol
       </div>
       <div
         style="width: 350px;text-align: center;border: 1px solid #f18f03;padding: 10px;margin-left: 5px;font-weight: bold"
         [ngStyle]="{
-        'color':customer.fuelType==='Diesel'?'white':'black',
-        'background-color':customer.fuelType==='Diesel'?'#f18f03':'white'
-        }" (click)="customer.fuelType='Diesel'">
+        'color':customer.vehicle.fuelType==='Diesel'?'white':'black',
+        'background-color':customer.vehicle.fuelType==='Diesel'?'#f18f03':'white'
+        }" (click)="customer.vehicle.fuelType='Diesel'">
         Diesel
       </div>
     </div>
-    <div *ngIf="customer.fuelType==='' && regCustomerForm.submitted"
+    <div *ngIf="customer.vehicle.fuelType==='' && regCustomerForm.submitted"
          class="validErr">
       Fuel Type is required
     </div>

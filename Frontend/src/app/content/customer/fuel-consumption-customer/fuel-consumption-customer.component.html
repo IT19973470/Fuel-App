@@ -1,0 +1,97 @@
+<div class="row" style="margin-top: 75px;margin-left: 0px;margin-right: 0px">
+  <div style="margin-top: 20px">
+    <span style="font-weight: bold;color: #b68003;font-size: 21px">Fuel Consumption</span>
+    <div style="margin-left: 10px;margin-top: 10px">
+      <div>
+        <span style="font-weight: bold">Enter the last trip</span>
+        <form #tripForm="ngForm" (ngSubmit)="tripForm.form.valid && calculateLastTrip()" novalidate>
+          <div style="display: flex;margin-top: 10px">
+            <div>
+              <input class="form-control" type="number" style="margin-right: 10px" [(ngModel)]="trip"
+                     #tripVal="ngModel" required name="tripVal">
+              <div *ngIf="(tripVal.touched || tripForm.submitted) && tripVal.errors?.required"
+                   class="validErr">
+                Trip value is required
+              </div>
+            </div>
+            <button class="btn btn-success" type="submit" style="margin-left: 20px">Check</button>
+            <button class="btn btn-warning" type="button" style="margin-left: 20px" (click)="addFuelConsumption()">
+              Save
+            </button>
+          </div>
+        </form>
+      </div>
+      <div style="margin-top: 20px"><span style="font-weight: bold;margin-right: 20px">Consumed</span>
+        {{consumed}} L
+      </div>
+      <div style="margin-top: 20px"><span style="font-weight: bold;margin-right: 20px">Consumption</span>
+        {{consumption}} Km/L
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" style="border-top: 1px solid #aeaeae;margin: 10px">
+  <div class="col-6">
+    <div style="display: flex;justify-content: right;margin-top: 20px">
+      <select class="form-control" style="width: 200px;margin-right: 10px">
+        <option value="">Order By</option>
+        <option value="car">Car</option>
+      </select>
+      <button class="btn btn-warning">Search</button>
+    </div>
+
+    <table class="table" width="100%" style="margin-top: 20px" border="1px solid black">
+      <thead class="thead-dark">
+      <th>#</th>
+      <th>Date</th>
+      <th>Fuel Type</th>
+      <th>Pumped</th>
+      <th>Fuel Station</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let pump of pumps;let i = index">
+        <td>{{i+1}}</td>
+        <td>{{pump.pumpedAtFormatted}}</td>
+        <td>{{pump.fuelType.name}}</td>
+        <td>{{pump.fuelPumped}}L {{pump.fullTanked?'/ Full':''}}</td>
+        <td>{{pump.fuelStation.name}}</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-6">
+    <div style="display: flex;justify-content: right;margin-top: 20px">
+      <select class="form-control" style="width: 200px;margin-right: 10px">
+        <option value="">Order By</option>
+        <option value="car">Car</option>
+      </select>
+      <button class="btn btn-warning">Search</button>
+    </div>
+
+    <table class="table" width="100%" style="margin-top: 20px" border="1px solid black">
+      <thead class="thead-dark">
+      <th>#</th>
+      <th>Date</th>
+      <th>Trip</th>
+      <th>Consumed</th>
+      <th>Consumption</th>
+      <th>Remove</th>
+      </thead>
+      <tbody>
+      <tr *ngFor="let fuelConsumption of fuelConsumptions;let i = index">
+        <td>{{i+1}}</td>
+        <td>{{fuelConsumption.checkedAtDate}}</td>
+        <td>{{fuelConsumption.trip}} Km</td>
+        <td>{{fuelConsumption.consumed}} L</td>
+        <td>
+          {{(fuelConsumption.trip/fuelConsumption.consumed==0?1:fuelConsumption.consumed) | number : '1.2-2'}} Km/L
+        </td>
+        <td style="text-align: center;color: red;font-weight: bold" (click)="deleteFuelConsumption(fuelConsumption.id)">
+          Remove
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

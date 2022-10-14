@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @CrossOrigin
 @RestController
 @RequestMapping(value = "fuel/" + "fuel_station")
@@ -41,6 +43,10 @@ public class FuelStationController {
     public ResponseEntity getAttendence() {
         return ResponseEntity.ok(fuelStationService.getAttendence());
     }
+    @GetMapping(value = "/getAttendence/{startDate}/{endDate}")
+    public ResponseEntity getAttendenceByDate(@PathVariable String startDate, @PathVariable String endDate) {
+        return ResponseEntity.ok(fuelStationService.getAttendenceByDate(startDate,endDate));
+    }
     @GetMapping(value = "/getAdmin")
     public ResponseEntity getAdmin() {
         return ResponseEntity.ok(fuelStationService.viewFuelAdmin());
@@ -74,6 +80,10 @@ public class FuelStationController {
     @GetMapping(value = "/getVehicleReport/{id}")
     public ResponseEntity getVehicleReport(@PathVariable String id) {
         return ResponseEntity.ok(fuelStationService.getVehicleReport(id));
+    }
+    @DeleteMapping(value = "/deleteOrder/{id}")
+    public ResponseEntity deleteOrder(@PathVariable String id) {
+        return ResponseEntity.ok(fuelStationService.deleteOrder(id));
     }
     
     

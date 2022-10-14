@@ -3,6 +3,7 @@ package lk.fuel_app.service;
 import lk.fuel_app.dto.*;
 import lk.fuel_app.entity.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface FuelStationService {
@@ -13,6 +14,7 @@ public interface FuelStationService {
     List<FuelStockDTO> getFuelStock(String id);
     List<FuelAdminStockOutDTO> getFuelStockIn(String id);
     List<AttandanceDTO> getAttendence();
+    List<AttandanceDTO>     getAttendenceByDate(String startDate, String endDate);
     List<FuelAdmin> viewFuelAdmin();
 
     public List<Chat> getChat();
@@ -23,5 +25,6 @@ public interface FuelStationService {
     List<OrderDTO> getFuelOrder(String id);
     OrderData updateOrder(OrderData orderData, String id);
     List<VehicleReportDTO> getVehicleReport(String id);
+    public boolean deleteOrder(String id);
     
 }

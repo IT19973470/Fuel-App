@@ -16,28 +16,25 @@ public class Customer {
     private String nic;
     private String name;
     private String address;
-    private String chassisNumber;
-    private String vehicleNumber;
-    private String fuelType;
+
+    @ManyToOne
+    private Vehicle vehicle;
 
     public Customer(Customer customer) {
         this.nic = customer.nic;
         this.name = customer.name;
         this.address = customer.address;
-        this.chassisNumber = customer.chassisNumber;
-        this.vehicleNumber = customer.vehicleNumber;
-        this.fuelType = customer.fuelType;
         this.quota = customer.quota;
+        if (customer.getVehicle() != null) {
+            this.vehicle = new Vehicle(customer.getVehicle());
+        }
         if (customer.getFuelStationPlace() != null) {
             this.fuelStationPlace = new FuelStationPlace(customer.getFuelStationPlace());
         }
-        if (customer.getVehicleType() != null) {
-            this.vehicleType = new VehicleType(customer.getVehicleType());
-        }
     }
 
-    @ManyToOne
-    private VehicleType vehicleType;
+//    @ManyToOne
+//    private VehicleType vehicleType;
 
     @ManyToOne
     private FuelStationPlace fuelStationPlace;

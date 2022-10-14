@@ -14,6 +14,7 @@ import java.util.Map;
 public class FuelAvailabilityDTO {
 
     private FuelStation fuelStation;
+    private String fuelStationStr;
     private List<FuelStock> availableStock;
     private List<FuelStock> pumpedStock;
     private List<FuelStock> fuelSupplyPerHour;
@@ -21,6 +22,8 @@ public class FuelAvailabilityDTO {
     private List<FuelStock> totalPumped;
     private List<Vehicle> availableVehicles;
     private List<Vehicle> distributedVehicles;
+    private List<FuelReport> fuelReports;
+    private List<FuelConsumption> fuelConsumptions;
 
     @Getter
     @Setter
@@ -29,6 +32,7 @@ public class FuelAvailabilityDTO {
         private String fuelTypeId;
         private String fuelType;
         private double quantity;
+        private double count;
         private LocalDateTime fuelAvailableAt;
         private String nextFuelAmountDateAt;
         private String nextFuelAmountTimeAt;
@@ -54,6 +58,7 @@ public class FuelAvailabilityDTO {
         private String vehicleType;
         private int vehicleCount;
         private double pumped;
+        private List<Vehicle> vehicles;
 
         public Vehicle(String vehicleTypeId, String vehicleType) {
             this.vehicleTypeId = vehicleTypeId;
@@ -65,5 +70,25 @@ public class FuelAvailabilityDTO {
             Vehicle vehicle = (Vehicle) o;
             return vehicleTypeId.compareTo(vehicle.getVehicleTypeId());
         }
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class FuelReport {
+        private int week;
+        private List<FuelStock> fuelStocks;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class FuelConsumption {
+        private int week;
+        private double fuelPumped;
+//        private double trip;
+        private double fuelConsumed;
+//        private double fuelRemain;
+
     }
 }

@@ -1,0 +1,55 @@
+<div class="row" style="margin-left: 20px;margin-top: 40px;margin-bottom: 40px;display: flex">
+  <form style="display: flex;width: 50%" #fuelAvailabilityForm="ngForm"
+        (ngSubmit)="fuelAvailabilityForm.form.valid && getFuelAvailabilityM()" novalidate>
+
+    <select [(ngModel)]="district" class="form-control" style="width: 200px;margin-right: 10px"
+            (change)="getPlaces($event.target.value)" name="district"
+            #districtC="ngModel" required>
+      <option value="">District</option>
+      <option *ngFor="let district of districts" [value]="district">{{district}}</option>
+    </select>
+    <div *ngIf="(districtC.touched || fuelAvailabilityForm.submitted) && districtC.errors?.required"
+         class="validErr">
+      District is required
+    </div>
+
+    <select [(ngModel)]="place" class="form-control" style="width: 200px;margin-right: 10px" name="place"
+            #placeC="ngModel" required>
+      <option value="">Place</option>
+      <option *ngFor="let place of districtPlaces" [value]="place.id">{{place.place}}</option>
+    </select>
+    <div *ngIf="(placeC.touched || fuelAvailabilityForm.submitted) && placeC.errors?.required"
+         class="validErr">
+      Place is required
+    </div>
+
+    <button class="btn btn-warning" type="submit">Search</button>
+
+  </form>
+  <div style="display: flex;justify-content: right;width: 50%">
+    <select [(ngModel)]="selectedFuelType" class="form-control" style="width: 200px;margin-right: 10px"
+            (change)="selectedFuelType=$event.target.value" name="district"
+            #districtC="ngModel" required>
+      <option value="">Select</option>
+      <option *ngFor="let fuelType of fuelTypes" [value]="fuelType.id">{{fuelType.name}}</option>
+    </select>
+    <button class="btn btn-warning" type="button" (click)="reorderGraph()">Search</button>
+  </div>
+</div>
+
+<div *ngFor="let fuelStation of fuelStations" style="border-bottom: 1px solid #d7d7d7">
+  <div style="font-weight: bold;font-size: 20px;margin-left: 40px;margin-top: 20px">{{fuelStation.fuelStation}}</div>
+  <div style="margin-top: 40px">
+    <apx-chart
+      [series]="fuelStation.chartOptions.series"
+      [chart]="fuelStation.chartOptions.chart"
+      [dataLabels]="fuelStation.chartOptions.dataLabels"
+      [plotOptions]="fuelStation.chartOptions.plotOptions"
+      [yaxis]="fuelStation.chartOptions.yaxis"
+      [fill]="fuelStation.chartOptions.fill"
+      [stroke]="fuelStation.chartOptions.stroke"
+      [tooltip]="fuelStation.chartOptions.tooltip"
+      [xaxis]="fuelStation.chartOptions.xaxis"
+    ></apx-chart>
+  </div>
+</div>
