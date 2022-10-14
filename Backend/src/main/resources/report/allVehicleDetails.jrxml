@@ -5,8 +5,8 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="projectName" class="java.lang.String"/>
 	<parameter name="createdBy" class="java.lang.String"/>
-	<field name="customer.vehicleType.name" class="java.lang.String"/>
-	<field name="customer.vehicleNumber" class="java.lang.String"/>
+	<field name="customer.vehicle.vehicleType.name" class="java.lang.String"/>
+	<field name="customer.vehicle.vehicleNumber" class="java.lang.String"/>
 	<field name="pumpedAtDate" class="java.lang.String"/>
 	<field name="fuelPumped" class="java.lang.String"/>
 	<background>
@@ -47,7 +47,7 @@
 			</staticText>
 			<staticText>
 				<reportElement x="229" y="4" width="203" height="20" forecolor="#000066" uuid="728faf3b-febf-44af-8746-a6cb4c398655"/>
-				<box leftPadding="10">
+				<box leftPadding="0">
 					<topPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -58,7 +58,7 @@
 			</staticText>
 			<staticText>
 				<reportElement x="432" y="4" width="176" height="20" forecolor="#000066" uuid="94573923-eba8-4059-a5d1-e17ff5aabaf7"/>
-				<box leftPadding="10">
+				<box leftPadding="0">
 					<topPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 				</box>
@@ -69,7 +69,7 @@
 			</staticText>
 			<staticText>
 				<reportElement x="608" y="4" width="172" height="20" forecolor="#000066" uuid="5ad7a20b-2b0e-4fd4-88ba-f0c975198c7d"/>
-				<box leftPadding="10">
+				<box leftPadding="0">
 					<topPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
 					<rightPen lineWidth="1.0"/>
@@ -84,11 +84,6 @@
 	<detail>
 		<band height="20">
 			<textField>
-				<reportElement x="229" y="0" width="203" height="20" uuid="4608f1fc-6d94-48d9-b86d-895b65cc65c1"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{customer.vehicleNumber}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="432" y="0" width="176" height="20" uuid="2c3a93c2-ea1d-4a53-a4b2-9e26c7495029"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{pumpedAtDate}]]></textFieldExpression>
@@ -99,9 +94,12 @@
 				<textFieldExpression><![CDATA[$F{fuelPumped}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="24" y="0" width="204" height="20" uuid="5f7b35e7-1fa0-4b5e-a5fb-0d988493a216"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{customer.vehicleType.name}]]></textFieldExpression>
+				<reportElement x="229" y="0" width="203" height="20" uuid="3f546c21-5a0d-4cd9-a3a0-91cd28714f6f"/>
+				<textFieldExpression><![CDATA[$F{customer.vehicle.vehicleNumber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="25" y="0" width="204" height="20" uuid="3fa673dd-9bfb-4b57-a13d-0733b5e7aaf9"/>
+				<textFieldExpression><![CDATA[$F{customer.vehicle.vehicleType.name}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

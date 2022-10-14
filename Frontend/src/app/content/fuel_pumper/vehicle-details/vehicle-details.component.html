@@ -43,8 +43,8 @@
             <tbody>
             <tr *ngFor="let v of vehicles">
               <!--              <ng-container *ngIf="(vehicleType != 'Car' && v.customer.vehicleType == vehicleType)||(vehicleType == 'Car' && v.customer.vehicleType != vehicleType)">-->
-              <td>{{v.customer.vehicleNumber}}</td>
-              <td>{{v.customer.vehicleType.name}}</td>
+              <td>{{v.customer.vehicle.vehicleNumber}}</td>
+              <td>{{v.customer.vehicle.vehicleType.name}}</td>
               <td>{{v.pumpedAtDate}}</td>
               <td>{{v.fuelPumped}}</td>
               <!--              </ng-container>-->
