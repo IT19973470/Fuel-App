@@ -84,14 +84,27 @@ export class FuelReportComponent implements OnInit {
     this.fuelPumperService.getAllFuelRecordChart(this.startDate, this.endDate).subscribe(data => {
       this.applicationDataChart = data;
       this.chartdata(data)
-      console.log(data)
+      // console.log(data)
     })
   }
 
   chartdata(application){
     // console.log(application)
+    let datesArr = [];
     for (let data of application){
-      this.chartOptions.xaxis.categories.push(data.pumpedAtDate)
+
+      let date = datesArr.find(date1 => {
+        return date1 == data.pumpedAtDate;
+      });
+
+      console.log(date + "..." + data.pumpedAtDate)
+      if(date === undefined){
+        datesArr.push(data.pumpedAtDate);
+      }
+
+      // this.chartOptions.xaxis.categories = datesArr
+
+      // this.chartOptions.xaxis.categories.push(data.pumpedAtDate)
       // this.chartOptions.xaxis.categories.push(''+data.fuelPumpedAt)
       // this.type1.data.push(data.quantity);
       // console.log(data.fuelPumpedAt)
@@ -112,6 +125,11 @@ export class FuelReportComponent implements OnInit {
       // console.log(data.fuelPumperAttendance.timeOut.substring(0,2)-data.fuelPumperAttendance.timeIn.substring(0,2))
 
 
+    }
+
+    for(let i of datesArr){
+      console.log(i)
+      this.chartOptions.xaxis.categories.push(i);
     }
 
     this.chartOptions.series=[this.type1, this.type2, this.type3, this.type4];
