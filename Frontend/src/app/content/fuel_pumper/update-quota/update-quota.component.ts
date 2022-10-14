@@ -27,6 +27,7 @@ export class UpdateQuotaComponent implements OnInit {
   constructor(private customerS: CustomerService, private fuelPumperS: FuelPumperService, private qrScanS: QrScanService, private userS: UserService,private notifierService: NotifierService) {
     this.customer = this.customerS.newCustomer()
     qrScanS.qrValue.subscribe(value => {
+      console.log(value)
       this.getCustomerByVehicle(value)
     })
   }

@@ -58,6 +58,16 @@ public class FuelAdminController {
         return ResponseEntity.ok(fuelAdminService.updateStockIn(id,fuelAdminStockIn));
     }
 
+    @PutMapping(value = "/approveOrder/{id}")
+    public ResponseEntity approveOrder(@PathVariable String id, @RequestBody OrderData orderData){
+        return ResponseEntity.ok(fuelAdminService.approveOrder(id,orderData));
+    }
+
+    @PutMapping(value = "/denyOrder/{id}")
+    public ResponseEntity denyOrder(@PathVariable String id, @RequestBody OrderData orderData){
+        return ResponseEntity.ok(fuelAdminService.denyOrder(id,orderData));
+    }
+
     @DeleteMapping(value = "/deleteStockIn/{id}")
     public ResponseEntity deleteStockIn(@PathVariable String id){
         return ResponseEntity.ok(fuelAdminService.deleteStockIn(id));

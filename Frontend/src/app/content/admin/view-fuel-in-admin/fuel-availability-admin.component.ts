@@ -42,6 +42,7 @@ export class FuelAvailabilityAdminComponent implements OnInit {
   }
 
   getStockInListByFuelType(type){
+    console.log(type)
     this.fuelAdminService.getStockInListByFuelType(type).subscribe(data => {
         this.data = data;
       this.getAllFuelTypes();
@@ -70,7 +71,6 @@ export class FuelAvailabilityAdminComponent implements OnInit {
     console.log(this.fuelAdminService.fuelIn)
 
     this.fuelAdminService.fuelIn = d;
-    // console.log(this.fuelAdminService.fuelIn.id)
       this.router.navigate(['/update-stockIn']);
     // });
   }

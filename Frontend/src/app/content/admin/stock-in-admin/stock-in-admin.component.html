@@ -13,10 +13,10 @@
       <select class="form-control" name="type" [(ngModel)]="fuelStockIn.fuelType"
               #fuelType="ngModel" required>
         <option value="">Select</option>
-        <option value="Petrol92">Petrol 92</option>
-        <option value="Petrol95">Petrol 95</option>
-        <option value="SuperDiesel">Super Diesel</option>
-        <option value="AutoDiesel">Auto Diesel</option>
+        <option value="Petrol 92">Petrol 92</option>
+        <option value="Petrol 95">Petrol 95</option>
+        <option value="Super Diesel">Super Diesel</option>
+        <option value="Diesel">Auto Diesel</option>
       </select>
       <div *ngIf="(fuelType.touched || stockInForm.submitted) && fuelType.errors?.required"
            class="validErr">

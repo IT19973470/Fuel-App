@@ -65,6 +65,10 @@ export class CustomerService {
     return this.http.get<any>(environment.backend_url + "/customer/getFuelConsumptionsM/" + vehicle);
   }
 
+  regenerateQR(vehicle): Observable<any> {
+    return this.http.get<any>(environment.backend_url + "/customer/regenerateQR/" + vehicle);
+  }
+
   newCustomer() {
     return {
       nic: '',
@@ -81,6 +85,7 @@ export class CustomerService {
         chassisNumber: '',
         vehicleNumber: '',
         fuelType: '',
+        secKey: ''
       },
       quota: 0,
       appUser: {

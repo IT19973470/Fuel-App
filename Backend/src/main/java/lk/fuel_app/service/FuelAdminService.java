@@ -20,6 +20,10 @@ public interface FuelAdminService {
 
     Object updateStockIn(String id, FuelAdminStockIn fuelAdminStockIn);
 
+    Object approveOrder(String id, OrderData orderData);
+
+    Object denyOrder(String id, OrderData orderData);
+
     boolean deleteStockIn(String id);
 
     List<FuelAdminStockIn>  getStockInBystockFrom(String stockFrom);
