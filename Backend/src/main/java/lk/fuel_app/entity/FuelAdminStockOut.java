@@ -16,7 +16,7 @@ public class FuelAdminStockOut {
     private String fuelType;
     private String date;
     private String time;
-    private String amount;
+    private double amount;
     private String vehicleNumber;
     private String driverName;
     private String number;
