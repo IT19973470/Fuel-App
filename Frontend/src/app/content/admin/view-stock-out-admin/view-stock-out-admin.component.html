@@ -1,16 +1,16 @@
 <div style="margin: 10px;">
   <div style="display: flex">
-    <span style="font-weight: bold;color: #b68003;font-size: 21px;width: 100%;margin-top: 25px">Stock Out List</span>
+    <span style="font-weight: bold;color: #b68003;font-size: 21px;width: 50%;margin-top: 25px">Stock Out List</span>
     <div style="display: flex;justify-content: right;margin-top: 20px;width: 100%">
       <select class="form-control" style="width: 200px;margin-right: 10px" [(ngModel)]="fuelType" >
         <option value="car" *ngFor="let fuelType of fuelTypes" [value]="fuelType.name" >{{fuelType.name}}</option>
       </select>
       <button class="btn btn-warning" style="margin-right: 40px" (click)="getStockOutListByFuelType(fuelType)">Search by Fuel Type</button>
-      <select class="form-control" style="width: 200px;margin-right: 10px">
+      <select class="form-control" style="width: 200px;margin-right: 10px" (change)="selectedDestination=$event.target.value">
         <option value="">Search By Destination</option>
-        <option value="car">Car</option>
+        <option *ngFor="let destination of destinations" [value]="destination">{{destination}}</option>
       </select>
-      <button class="btn btn-warning">Search</button>
+      <button class="btn btn-warning" (click)="searchAddress()">Search by Destination</button>
     </div>
   </div>
 
@@ -25,7 +25,7 @@
     <th style="text-align: center">Update or Delete</th>
     </thead>
     <tbody>
-    <tr *ngFor="let d of data let i = index">
+    <tr *ngFor="let d of dataTable let i = index">
       <th scope="row">{{i+1}}</th>
       <td>{{d.fuelType}}</td>
       <td>{{d.fuelStation.address}}</td>
