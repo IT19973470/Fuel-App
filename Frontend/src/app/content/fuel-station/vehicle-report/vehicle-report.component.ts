@@ -39,7 +39,7 @@ export class VehicleReportComponent implements OnInit {
 
   getType(){
     console.log(this.type)
-    if(this.type===undefined){
+    if(this.type===undefined||this.type==="All"){
       this.ngOnInit()
     }
     else{
