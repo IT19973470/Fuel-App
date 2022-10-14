@@ -26,7 +26,7 @@ export class OrderComponent implements OnInit {
     this.c.chaterName = localStorage.getItem('user') !== null ? JSON.parse(localStorage.getItem('user') as string)['email'] : ''
     console.log(this.c.chaterName)
     this.order=fuelStationS.order()
-    // this.startTimer();
+     this.startTimer();
   }
 
   addorder(){
