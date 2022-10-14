@@ -15,6 +15,8 @@ export class FuelConsumptionCustomerComponent implements OnInit {
   consumed = 0;
   trip;
   fuelConsumptions = []
+  selectedOrderBy1 = ''
+  selectedOrderBy2 = ''
 
   constructor(private customerS: CustomerService, private notifierService: NotifierService) {
     // this.customer = this.customerS.newCustomer();
@@ -58,6 +60,12 @@ export class FuelConsumptionCustomerComponent implements OnInit {
     }
     this.customerS.addFuelConsumption(fuelConsumption).subscribe(() => {
       this.getFuelConsumptions()
+      if (this.consumed == 0) {
+        this.notifierService.notify("success", "Trip is successfully added");
+      } else {
+        this.notifierService.notify("success", "Consumption is successfully added");
+      }
+      this.consumed = 0
     })
   }
 
@@ -70,6 +78,75 @@ export class FuelConsumptionCustomerComponent implements OnInit {
   getFuelConsumptions() {
     this.customerS.getFuelConsumptions(JSON.parse(localStorage.getItem('user')).id).subscribe(fuelConsumptions => {
       this.fuelConsumptions = fuelConsumptions
+      console.log(this.fuelConsumptions)
     })
+  }
+
+  reOrderPumps() {
+    // console.log(this.pumps)
+    let fuelStationsArr = []
+    for (let pump of this.pumps) {
+      let quantity;
+      if (this.selectedOrderBy1 == 'date') {
+        quantity = pump.pumpedAt
+      } else if (this.selectedOrderBy1 == 'pump') {
+        quantity = pump.fuelPumped
+      }
+      fuelStationsArr.push({
+        quantity: quantity,
+        fuelStation: pump
+      })
+    }
+    if (this.selectedOrderBy1 == 'date') {
+      fuelStationsArr.sort((a, b) => {
+        let bb: any = new Date(b.quantity)
+        let aa: any = new Date(a.quantity)
+        return bb - aa;
+      });
+    } else {
+      fuelStationsArr.sort((a, b) => {
+        return b.quantity - a.quantity;
+      });
+    }
+    this.pumps = []
+    for (let fuelStation of fuelStationsArr) {
+      this.pumps.push(fuelStation.fuelStation)
+    }
+  }
+
+  reOrderConsumes() {
+    // console.log(this.pumps)
+    let fuelStationsArr = []
+    for (let pump of this.fuelConsumptions) {
+      let quantity;
+      if (this.selectedOrderBy2 == 'date') {
+        quantity = pump.checkedAt
+      } else if (this.selectedOrderBy2 == 'consumption') {
+        quantity = pump.trip / pump.consumed == 0 ? 1 : pump.consumed
+      } else if (this.selectedOrderBy2 == 'trip') {
+        quantity = pump.trip
+      } else if (this.selectedOrderBy2 == 'pump') {
+        quantity = pump.consumed
+      }
+      fuelStationsArr.push({
+        quantity: quantity,
+        fuelStation: pump
+      })
+    }
+    if (this.selectedOrderBy2 == 'date') {
+      fuelStationsArr.sort((a, b) => {
+        let bb: any = new Date(b.quantity)
+        let aa: any = new Date(a.quantity)
+        return bb - aa;
+      });
+    } else {
+      fuelStationsArr.sort((a, b) => {
+        return b.quantity - a.quantity;
+      });
+    }
+    this.fuelConsumptions = []
+    for (let fuelStation of fuelStationsArr) {
+      this.fuelConsumptions.push(fuelStation.fuelStation)
+    }
   }
 }

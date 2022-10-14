@@ -36,7 +36,7 @@ export class FuelAdminService {
   }
 
   getFuelOrders(): Observable<any>{
-    return this.http.get<any>(environment.backend_url + "fuel_admin/getFuelOrders");
+    return this.http.get<any>(environment.backend_url + "/fuel_admin/getOrder");
   }
 
   getFuelStations(): Observable<any> {
@@ -67,7 +67,31 @@ export class FuelAdminService {
 
   }
 
+  getFuelTypes(): Observable<any>{
+    return this.http.get<any>(environment.backend_url + "/fuel_admin/getFuelTypes");
+  }
 
+  getStockInListByFuelType(fuelType: string): Observable<any> {
+    return this.http.get<any>(`${this.baseURL + '/fuel_admin/getStockInByType'}/${fuelType}`);
+  }
+
+  getStockInByStockFrom(destination: string): Observable<any> {
+    return this.http.get<any>(`${this.baseURL + '/fuel_admin/getStockInBystockFromStockFrom'}/${destination}`);
+  }
+
+  getOrder(id)   : Observable<any> {
+    return this.http.get<any>(environment.backend_url + '/fuel_admin/getorder/'+id)
+  }
+
+  approveOrder(order): Observable<any> {
+    console.log(order)
+    return this.http.put<any>(environment.backend_url + "/fuel_admin/approveOrder/" + order.id, order);
+  }
+
+  denyOrder(order): Observable<any> {
+    console.log(order)
+    return this.http.put<any>(environment.backend_url + "/fuel_admin/denyOrder/" + order.id, order);
+  }
 
 
   newFuelAdmin() {
@@ -105,6 +129,31 @@ export class FuelAdminService {
       fuelStation: {
         id: '',
         address:''
+      }
+    };
+  }
+
+  newFuelType(){
+    return{
+      id:'',
+      name: '',
+      fuelOrder: ''
+    }
+  }
+
+  order() {
+    return {
+      id: '',
+      fuelType: '',
+      location: '',
+      amount: '',
+      date: '',
+      status:'',
+      fuelAdmin:{
+        nic:''
+      },
+      fuelStation:{
+        id:''
       }
     };
   }

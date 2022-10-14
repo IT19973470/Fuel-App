@@ -4,6 +4,7 @@ import lk.fuel_app.dto.FuelAvailabilityDTO;
 import lk.fuel_app.entity.Customer;
 import lk.fuel_app.entity.CustomerFuelStation;
 import lk.fuel_app.entity.FuelConsumption;
+import lk.fuel_app.entity.Vehicle;
 
 import java.util.List;
 
@@ -29,4 +30,10 @@ public interface CustomerService {
     List<FuelConsumption> getFuelConsumptions(String id);
 
     boolean deleteFuelConsumption(String id);
+
+    List<FuelAvailabilityDTO> getFuelAvailabilityM(String id);
+
+    FuelAvailabilityDTO getFuelConsumptionsM(String vehicle);
+
+    Vehicle regenerateQR(String vehicle);
 }

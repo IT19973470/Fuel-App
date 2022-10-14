@@ -13,10 +13,10 @@
       <select class="form-control" name="type"  [(ngModel)]="updatefuelStockOut.fuelType"
               #fuelType="ngModel" required   >
         <option value="">Select</option>
-        <option value="car">Petrol 92</option>
-        <option value="car">Petrol 95</option>
-        <option value="car">Super Diesel</option>
-        <option value="car">Auto Diesel</option>
+        <option value="Petrol 92">Petrol 92</option>
+        <option value="Petrol 95">Petrol 95</option>
+        <option value="Super Diesel">Super Diesel</option>
+        <option value="Auto Diesel">Auto Diesel</option>
       </select>
       <div *ngIf="(fuelType.touched || stockOutForm.submitted) && fuelType.errors?.required"
            class="validErr">
@@ -24,16 +24,18 @@
       </div>
 
       <div style="margin-top: 20px">Destination</div>
-      <select class="form-control" name="destination" [(ngModel)]="updatefuelStockOut.fuelStation.address"
-              #fuelStation="ngModel">
-        <option  [value]="updatefuelStockOut.fuelStation.id">
-          {{updatefuelStockOut.fuelStation.address}}
-        </option>
-      </select>
-      <div *ngIf="(fuelStation.touched || stockOutForm.submitted) && fuelStation.errors?.required"
-           class="validErr">
-        Destination is required
-      </div>
+      <input type="text" class="form-control" name="destination" [(ngModel)]="updatefuelStockOut.fuelStation.address"
+             #date="ngModel" disabled>
+<!--      <select class="form-control" name="destination" [(ngModel)]="updatefuelStockOut.fuelStation.address"-->
+<!--              #fuelStation="ngModel">-->
+<!--        <option  [value]="updatefuelStockOut.fuelStation.id">-->
+<!--          {{updatefuelStockOut.fuelStation.address}}-->
+<!--        </option>-->
+<!--      </select>-->
+<!--      <div *ngIf="(fuelStation.touched || stockOutForm.submitted) && fuelStation.errors?.required"-->
+<!--           class="validErr">-->
+<!--        Destination is required-->
+<!--      </div>-->
 
       <div style="margin-top: 20px">Date</div>
       <input type="date" class="form-control" name="date" [(ngModel)]="updatefuelStockOut.date"

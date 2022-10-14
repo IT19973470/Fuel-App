@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FuelAdminService} from "../../../_service/fuel-admin.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-update-stock-in',
@@ -10,7 +11,7 @@ export class UpdateStockInComponent implements OnInit {
   updatefuelStockIn;
   fuelIn;
 
-  constructor(private fuelAdminService: FuelAdminService) {
+  constructor(private fuelAdminService: FuelAdminService,  private router: Router) {
 
     this.updatefuelStockIn = this.fuelAdminService.fuelIn;
     console.log(">>>>")
@@ -21,7 +22,7 @@ export class UpdateStockInComponent implements OnInit {
   updateFuelStockIn(){
     console.log(this.updatefuelStockIn.id + "...");
     this.fuelAdminService.updateStockIn(this.updatefuelStockIn).subscribe(data => {
-
+      this.router.navigate(['/fuel_availability_admin']);
     })
   }
 

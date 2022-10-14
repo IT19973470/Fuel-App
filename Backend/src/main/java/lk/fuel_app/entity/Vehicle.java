@@ -18,6 +18,7 @@ public class Vehicle {
     private String chassisNumber;
     private String vehicleNumber;
     private String fuelType;
+    private String secKey;
 
     @ManyToOne
     private VehicleType vehicleType;
@@ -26,6 +27,7 @@ public class Vehicle {
         this.chassisNumber = vehicle.chassisNumber;
         this.vehicleNumber = vehicle.vehicleNumber;
         this.fuelType = vehicle.fuelType;
+        this.secKey = vehicle.secKey;
         if (vehicle.getVehicleType() != null) {
             this.vehicleType = new VehicleType(vehicle.getVehicleType());
         }

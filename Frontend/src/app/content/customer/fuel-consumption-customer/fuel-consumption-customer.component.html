@@ -34,11 +34,13 @@
 <div class="row" style="border-top: 1px solid #aeaeae;margin: 10px">
   <div class="col-6">
     <div style="display: flex;justify-content: right;margin-top: 20px">
-      <select class="form-control" style="width: 200px;margin-right: 10px">
+      <select [(ngModel)]="selectedOrderBy1" class="form-control" style="width: 200px;margin-right: 10px"
+              (change)="selectedOrderBy1=$event.target.value">
         <option value="">Order By</option>
-        <option value="car">Car</option>
+        <option value="date">Date</option>
+        <option value="pump">Pumped</option>
       </select>
-      <button class="btn btn-warning">Search</button>
+      <button class="btn btn-warning" (click)="reOrderPumps()">Search</button>
     </div>
 
     <table class="table" width="100%" style="margin-top: 20px" border="1px solid black">
@@ -62,11 +64,15 @@
   </div>
   <div class="col-6">
     <div style="display: flex;justify-content: right;margin-top: 20px">
-      <select class="form-control" style="width: 200px;margin-right: 10px">
+      <select [(ngModel)]="selectedOrderBy2" class="form-control" style="width: 200px;margin-right: 10px"
+              (change)="selectedOrderBy2=$event.target.value">
         <option value="">Order By</option>
-        <option value="car">Car</option>
+        <option value="date">Date</option>
+        <option value="pump">Pumped</option>
+        <option value="trip">Trip</option>
+        <option value="consumption">Consumption</option>
       </select>
-      <button class="btn btn-warning">Search</button>
+      <button class="btn btn-warning" (click)="reOrderConsumes()">Search</button>
     </div>
 
     <table class="table" width="100%" style="margin-top: 20px" border="1px solid black">
@@ -74,18 +80,22 @@
       <th>#</th>
       <th>Date</th>
       <th>Trip</th>
-      <th>Consumed</th>
+      <th>Pumped</th>
       <th>Consumption</th>
       <th>Remove</th>
       </thead>
       <tbody>
       <tr *ngFor="let fuelConsumption of fuelConsumptions;let i = index">
         <td>{{i+1}}</td>
-        <td>{{fuelConsumption.checkedAt}}</td>
+        <td>{{fuelConsumption.checkedAtDate}}</td>
         <td>{{fuelConsumption.trip}} Km</td>
         <td>{{fuelConsumption.consumed}} L</td>
-        <td>{{(fuelConsumption.trip/fuelConsumption.consumed) | number : '1.2-2'}} Km/L</td>
-        <td style="text-align: center;color: red;font-weight: bold" (click)="deleteFuelConsumption(fuelConsumption.id)">Remove</td>
+        <td>
+          {{(fuelConsumption.trip/fuelConsumption.consumed==0?1:fuelConsumption.consumed) | number : '1.2-2'}} Km/L
+        </td>
+        <td style="text-align: center;color: red;font-weight: bold" (click)="deleteFuelConsumption(fuelConsumption.id)">
+          Remove
+        </td>
       </tr>
       </tbody>
     </table>

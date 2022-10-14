@@ -58,6 +58,16 @@ public class FuelAdminController {
         return ResponseEntity.ok(fuelAdminService.updateStockIn(id,fuelAdminStockIn));
     }
 
+    @PutMapping(value = "/approveOrder/{id}")
+    public ResponseEntity approveOrder(@PathVariable String id, @RequestBody OrderData orderData){
+        return ResponseEntity.ok(fuelAdminService.approveOrder(id,orderData));
+    }
+
+    @PutMapping(value = "/denyOrder/{id}")
+    public ResponseEntity denyOrder(@PathVariable String id, @RequestBody OrderData orderData){
+        return ResponseEntity.ok(fuelAdminService.denyOrder(id,orderData));
+    }
+
     @DeleteMapping(value = "/deleteStockIn/{id}")
     public ResponseEntity deleteStockIn(@PathVariable String id){
         return ResponseEntity.ok(fuelAdminService.deleteStockIn(id));
@@ -70,6 +80,7 @@ public class FuelAdminController {
 
     @GetMapping(value = "/getStockInByType/{type}")
     public ResponseEntity getStockInByType(@PathVariable String type) {
+        System.out.println(type);
         return ResponseEntity.ok(fuelAdminService.getStockInByType(type));
     }
 
@@ -96,5 +107,15 @@ public class FuelAdminController {
     @GetMapping(value = "/getStockInById/{id}")
     public ResponseEntity getStockInById(@PathVariable String id) {
         return ResponseEntity.ok(fuelAdminService.getStockInById(id));
+    }
+
+    @GetMapping(value = "/getFuelTypes")
+    public ResponseEntity getFuelTypes() {
+        return ResponseEntity.ok(fuelAdminService.getFuelTypes());
+    }
+
+    @GetMapping(value = "/getorder/{id}")
+    public ResponseEntity getOrder(@PathVariable String id) {
+        return ResponseEntity.ok(fuelAdminService.getFuelOrder(id));
     }
 }

@@ -6,13 +6,19 @@ import lk.fuel_app.repository.*;
 import lk.fuel_app.service.CustomerService;
 import lk.fuel_app.service.SendEmailSMTP;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -35,14 +41,30 @@ public class CustomerServiceImpl implements CustomerService {
     private VehicleRepository vehicleRepository;
     @Autowired
     private FuelConsumptionRepository fuelConsumptionRepository;
+    @Autowired
+    private FuelStockRepository fuelStockRepository;
 
     @Autowired
     private SendEmailSMTP sendEmailSMTP;
 
     @Override
     public Customer addCustomer(Customer customer) {
-        customer.setVehicle(vehicleRepository.save(customer.getVehicle()));
+        Optional<Vehicle> vehicleOptional = vehicleRepository.findById(customer.getVehicle().getChassisNumber());
+        if (vehicleOptional.isPresent()) {
+            customer.setVehicle(vehicleOptional.get());
+        } else {
+            customer.getVehicle().setSecKey(customer.getVehicle().getChassisNumber() + "_" + new Random().nextInt(100000) + 1);
+            customer.setVehicle(vehicleRepository.save(customer.getVehicle()));
+        }
         return customerRepository.save(customer);
+    }
+
+    @Override
+    public Vehicle regenerateQR(String vehicle) {
+        Vehicle vehicleNumber = vehicleRepository.getByVehicleNumber(vehicle);
+        vehicleNumber.setSecKey(vehicleNumber.getChassisNumber() + "_" + new Random().nextInt(100000) + 1);
+        vehicleRepository.save(vehicleNumber);
+        return vehicleNumber;
     }
 
     @Override
@@ -76,10 +98,10 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer getCustomerByVehicle(String vehicleNumber) {
-        Optional<Customer> customer = customerRepository.getAllByVehicleVehicleNumber(vehicleNumber);
+        Optional<Customer> customer = customerRepository.getAllByVehicleSecKey(vehicleNumber);
         if (customer.isPresent()) {
             Customer customerObj = customer.get();
-            Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(vehicleNumber, LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
+            Double fuelPumpedAmount = customerFuelStationRepository.getFuelPumpedAmount(customerObj.getVehicle().getVehicleNumber(), LocalDate.now().with(DayOfWeek.MONDAY), LocalDate.now().with(DayOfWeek.SUNDAY));
             customerObj.setQuota(fuelPumpedAmount == null ? 0 : fuelPumpedAmount);
             return customerObj;
         }
@@ -105,6 +127,12 @@ public class CustomerServiceImpl implements CustomerService {
             public void run() {
                 sendEmailSMTP.sendEmail(email, "Fuel OTP",
                         "You OTP is " + randomVal);
+
+                Twilio.init("AC1081fa4f4b8ec36917116545e734496e", "a890c5740bc997dd2724fc708af62c19");
+//                Twilio.setUsername("AC1081fa4f4b8ec36917116545e734496e");
+//                Twilio.setPassword("a890c5740bc997dd2724fc708af62c19");
+                Message.creator(new PhoneNumber("+94750788890"),
+                        new PhoneNumber("+94776788890"), "Hello from Twilio").create();
             }
         }).start();
         Customer customer = new Customer();
@@ -261,8 +289,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public FuelConsumption addFuelConsumption(FuelConsumption fuelConsumption) {
-        LocalDate localDate = LocalDate.now();
-        fuelConsumption.setId(fuelConsumption.getCustomer().getVehicle().getVehicleNumber() + localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        LocalDateTime localDate = LocalDateTime.now();
+        fuelConsumption.setId(fuelConsumption.getCustomer().getVehicle().getVehicleNumber() + localDate.format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss")));
         fuelConsumption.setCheckedAt(localDate);
         return new FuelConsumption(fuelConsumptionRepository.save(fuelConsumption));
     }
@@ -272,7 +300,9 @@ public class CustomerServiceImpl implements CustomerService {
         List<FuelConsumption> allByCustomerNic = fuelConsumptionRepository.getAllByCustomerNicOrderByCheckedAtDesc(id);
         List<FuelConsumption> fuelConsumptions = new ArrayList<>();
         for (FuelConsumption fuelConsumption : allByCustomerNic) {
-            fuelConsumptions.add(new FuelConsumption(fuelConsumption));
+            FuelConsumption fuelConsumptionObj = new FuelConsumption(fuelConsumption);
+            fuelConsumptionObj.setCheckedAtDate(fuelConsumptionObj.getCheckedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            fuelConsumptions.add(fuelConsumptionObj);
         }
         return fuelConsumptions;
     }
@@ -282,4 +312,131 @@ public class CustomerServiceImpl implements CustomerService {
         fuelConsumptionRepository.deleteById(id);
         return true;
     }
+
+    @Override
+    public List<FuelAvailabilityDTO> getFuelAvailabilityM(String place) {
+        List<FuelAvailabilityDTO> fuelAvailabilityDTOS = new ArrayList<>();
+        LocalDateTime localDateTimeCur = LocalDateTime.of(LocalDate.now(), LocalTime.parse("23:59"));
+        Map<String, FuelAvailabilityDTO.FuelStock> availableStockObj;
+        Map<Integer, Map<String, FuelAvailabilityDTO.FuelStock>> stockWeeksObj;
+        Map<String, Map<Integer, Map<String, FuelAvailabilityDTO.FuelStock>>> fuelStations = new HashMap<>();
+        List<FuelType> fuelTypes = fuelTypeRepository.getFuelTypes();
+
+        for (int i = 0; i < 4; i++) {
+            localDateTimeCur = localDateTimeCur.minusWeeks(i);
+            LocalDateTime localDateTimePre = localDateTimeCur.minusWeeks(i + 1);
+            List<FuelStock> fuelAvailabilityM = fuelStockRepository.getFuelAvailabilityM(place, localDateTimeCur, localDateTimePre);
+
+            for (FuelStock fuelStock : fuelAvailabilityM) {
+                Map<Integer, Map<String, FuelAvailabilityDTO.FuelStock>> fuelStationsMap = fuelStations.get(fuelStock.getFuelStation().getName());
+                if (fuelStationsMap == null) {
+                    stockWeeksObj = new HashMap<>();
+                    for (int j = 0; j < 4; j++) {
+                        availableStockObj = new HashMap<>();
+                        for (FuelType fuelType : fuelTypes) {
+                            FuelAvailabilityDTO.FuelStock fuelStockObj = new FuelAvailabilityDTO.FuelStock(fuelType.getId(), fuelType.getName());
+                            fuelStockObj.setQuantity(100);
+                            availableStockObj.put(fuelType.getId(), fuelStockObj);
+                        }
+                        stockWeeksObj.put(j, availableStockObj);
+                    }
+                    fuelStations.put(fuelStock.getFuelStation().getName(), stockWeeksObj);
+                    fuelStationsMap = fuelStations.get(fuelStock.getFuelStation().getName());
+                }
+                Map<String, FuelAvailabilityDTO.FuelStock> fuelStockMap = fuelStationsMap.get(4 - (i + 1));
+                FuelAvailabilityDTO.FuelStock fuelStockObj = fuelStockMap.get(fuelStock.getFuelType().getId());
+                fuelStockObj.setQuantity(fuelStockObj.getQuantity() + fuelStock.getAmount() - 100);
+            }
+        }
+
+        for (Map.Entry<String, Map<Integer, Map<String, FuelAvailabilityDTO.FuelStock>>> fuelStationsObj : fuelStations.entrySet()) {
+            FuelAvailabilityDTO fuelAvailabilityDTO = new FuelAvailabilityDTO();
+            fuelAvailabilityDTO.setFuelStationStr(fuelStationsObj.getKey());
+            List<FuelAvailabilityDTO.FuelReport> fuelReports = new ArrayList<>();
+            for (Map.Entry<Integer, Map<String, FuelAvailabilityDTO.FuelStock>> weeklyObj : fuelStationsObj.getValue().entrySet()) {
+                FuelAvailabilityDTO.FuelReport fuelReport = new FuelAvailabilityDTO.FuelReport();
+                fuelReport.setWeek(weeklyObj.getKey());
+                List<FuelAvailabilityDTO.FuelStock> fuelStocks = new ArrayList<>();
+                for (Map.Entry<String, FuelAvailabilityDTO.FuelStock> fuelStockObj : weeklyObj.getValue().entrySet()) {
+                    fuelStocks.add(fuelStockObj.getValue());
+                }
+                fuelReport.setFuelStocks(fuelStocks);
+                fuelReports.add(fuelReport);
+            }
+            fuelAvailabilityDTO.setFuelReports(fuelReports);
+            fuelAvailabilityDTOS.add(fuelAvailabilityDTO);
+        }
+
+//        for (Map<Integer, Map<String, FuelAvailabilityDTO.FuelStock>> fuelStationsObj :) {
+//            FuelAvailabilityDTO fuelAvailabilityDTO = new FuelAvailabilityDTO();
+//            fuelAvailabilityDTO.setFuelStation(fuelStationsObj.);
+//        }
+        return fuelAvailabilityDTOS;
+    }
+
+    @Override
+    public FuelAvailabilityDTO getFuelConsumptionsM(String vehicle) {
+        FuelAvailabilityDTO fuelAvailabilityDTO = new FuelAvailabilityDTO();
+        LocalDateTime localDateTimeCur = LocalDateTime.of(LocalDate.now(), LocalTime.parse("23:59"));
+        Map<Integer, FuelAvailabilityDTO.FuelConsumption> stockWeeksObj = new HashMap<>();
+//        List<FuelType> fuelTypes = fuelTypeRepository.getFuelTypes();
+        List<FuelConsumption> lastConsumptions = fuelConsumptionRepository.getLastConsumption(vehicle, PageRequest.of(0, 1));
+
+        for (int i = 0; i < 4; i++) {
+            FuelAvailabilityDTO.FuelConsumption fuelConsumption = new FuelAvailabilityDTO.FuelConsumption();
+//            fuelConsumption.setFuelPumped(1);
+//            fuelConsumption.setFuelConsumed(1);
+            stockWeeksObj.put(i, fuelConsumption);
+        }
+        for (int i = 0; i < 4; i++) {
+            localDateTimeCur = localDateTimeCur.minusWeeks(i);
+            LocalDateTime localDateTimePre = localDateTimeCur.minusWeeks(i + 1);
+            List<CustomerFuelStation> fuelPumpedM = customerFuelStationRepository.getFuelPumpedM(vehicle, localDateTimeCur, localDateTimePre);
+            List<FuelConsumption> fuelConsumptionsM = fuelConsumptionRepository.getFuelConsumptionsM(vehicle, localDateTimeCur, localDateTimePre);
+
+            for (CustomerFuelStation fuelStock : fuelPumpedM) {
+//                Map<Integer, Map<String, FuelAvailabilityDTO.FuelStock>> fuelStationsMap = fuelStations.get(fuelStock.getFuelStation().getName());
+//                if (fuelStationsMap == null) {
+//                    stockWeeksObj = new HashMap<>();
+//                    for (int j = 0; j < 4; j++) {
+//                        availableStockObj = new HashMap<>();
+//                        for (FuelType fuelType : fuelTypes) {
+//                            FuelAvailabilityDTO.FuelStock fuelStockObj = new FuelAvailabilityDTO.FuelStock(fuelType.getId(), fuelType.getName());
+//                            fuelStockObj.setQuantity(100);
+//                            availableStockObj.put(fuelType.getId(), fuelStockObj);
+//                        }
+//                        stockWeeksObj.put(j, availableStockObj);
+//                    }
+//                    fuelStations.put(fuelStock.getFuelStation().getName(), stockWeeksObj);
+//                    fuelStationsMap = fuelStations.get(fuelStock.getFuelStation().getName());
+//                }
+                FuelAvailabilityDTO.FuelConsumption fuelConsumption = stockWeeksObj.get(4 - (i + 1));
+                fuelConsumption.setFuelPumped(fuelConsumption.getFuelPumped() + fuelStock.getFuelPumped());
+            }
+
+            for (FuelConsumption fuelConsumptionObj : fuelConsumptionsM) {
+                FuelAvailabilityDTO.FuelConsumption fuelConsumption = stockWeeksObj.get(4 - (i + 1));
+                fuelConsumption.setFuelConsumed(fuelConsumption.getFuelConsumed() + fuelConsumptionObj.getTrip());
+            }
+
+        }
+
+        List<FuelAvailabilityDTO.FuelConsumption> fuelConsumptions = new ArrayList<>();
+        for (Map.Entry<Integer, FuelAvailabilityDTO.FuelConsumption> fuelConsumptionEntry : stockWeeksObj.entrySet()) {
+            FuelAvailabilityDTO.FuelConsumption fuelConsumption = new FuelAvailabilityDTO.FuelConsumption();
+            fuelConsumption.setWeek(fuelConsumptionEntry.getKey());
+            fuelConsumption.setFuelPumped(fuelConsumptionEntry.getValue().getFuelPumped());
+            if (lastConsumptions.size() > 0) {
+                fuelConsumption.setFuelConsumed(fuelConsumptionEntry.getValue().getFuelConsumed() * (lastConsumptions.get(0).getConsumed() / lastConsumptions.get(0).getTrip()));
+            }
+            fuelConsumptions.add(fuelConsumption);
+        }
+        fuelAvailabilityDTO.setFuelConsumptions(fuelConsumptions);
+//        for (Map<Integer, Map<String, FuelAvailabilityDTO.FuelStock>> fuelStationsObj :) {
+//            FuelAvailabilityDTO fuelAvailabilityDTO = new FuelAvailabilityDTO();
+//            fuelAvailabilityDTO.setFuelStation(fuelStationsObj.);
+//        }
+        return fuelAvailabilityDTO;
+    }
+
 }

@@ -3,6 +3,7 @@ package lk.fuel_app.repository;
 import lk.fuel_app.entity.AppUser;
 import lk.fuel_app.entity.Customer;
 import lk.fuel_app.entity.CustomerFuelStation;
+import lk.fuel_app.entity.FuelStock;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -39,19 +40,22 @@ public interface CustomerFuelStationRepository extends JpaRepository<CustomerFue
 
 //    @Query(value = "select sum(fuelPumped) from CustomerFuelStation where customer.vehicleType=:vehicleType")
 //    Double getVehicleCountAndFuelAmount(@Param("vehicleType") String vehicleType);
-    
+
     @Query("select count(id) from  CustomerFuelStation  where fuelType.id=?1 group by fuelType")
     int getCountVehicle(String id);
 
     @Query("select sum(fuelPumped) from  CustomerFuelStation  where fuelType.id=?1 group by fuelType")
     int getSumDistribution(String id);
-
+    
     @Query("select sum(fuelPumped) from  CustomerFuelStation  where fuelType.id=?1 and  pumpedAt between ?2 and ?3 group by fuelType")
     int getoneHourDeistibution(String id,LocalDateTime before, LocalDateTime timeNow);
-    
+
     @Query("from CustomerFuelStation where fuelStation.id=?1 and pumpedAt between ?2 and ?3")
     List<CustomerFuelStation> getFuelSupplyPerHour(String fuelStation, LocalDateTime before, LocalDateTime timeNow);
   //  SELECT fuel_type_id,sum(fuel_pumped) from customer_fuel_station where fuel_type_id="1_Petrol_92" and  pumped_at between "2022-10-08 21:43:34" and "2022-10-08 21:43:36" group by  fuel_type_id
     @Query("from CustomerFuelStation where pumpedAtDate between :startDate and :endDate")
-    List<CustomerFuelStation> getAllFuelRecord(@Param("startDate") LocalDate startDate,@Param("endDate") LocalDate endDate);
+    List<CustomerFuelStation> getAllFuelRecord(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+
+    @Query(value = "from CustomerFuelStation where customer.vehicle.vehicleNumber=?1 and pumpedAt between ?3 and ?2")
+    List<CustomerFuelStation> getFuelPumpedM(String vehicleNumber, LocalDateTime currentDate, LocalDateTime previousDate);
 }
