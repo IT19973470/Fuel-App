@@ -1,6 +1,7 @@
 package lk.fuel_app.service.impl;
 
 import lk.fuel_app.dto.FuelStationDTO;
+import lk.fuel_app.dto.OrderDTO;
 import lk.fuel_app.entity.*;
 import lk.fuel_app.repository.*;
 import lk.fuel_app.service.FuelAdminService;
@@ -27,6 +28,9 @@ public class FuelAdminServiceImpl implements FuelAdminService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private FuelTypeRepository fuelTypeRepository;
 
     @Override
     public FuelAdmin addFuelAdmin(FuelAdmin fuelAdmin) {
@@ -84,6 +88,29 @@ public class FuelAdminServiceImpl implements FuelAdminService {
     }
 
     @Override
+    public List<FuelType> getFuelTypes() {
+        List<FuelType> fuelTypes = fuelTypeRepository.getFuelTypes();
+        List<FuelType> types = new ArrayList<>();
+        for (FuelType fuelType : fuelTypes) {
+            types.add(new FuelType(fuelType));
+        }
+        return types;
+    }
+
+    @Override
+    public List<OrderDTO> getFuelOrder(String id) {
+        List<OrderDTO> orderDTOS = new ArrayList<>();
+        List<OrderData> orderData = orderRepository.getAllByFuelStationId(id);
+        for (OrderData orderData1 : orderData) {
+            OrderDTO orderData2 = new OrderDTO();
+            orderData2.setOrderData(orderData1);
+            orderDTOS.add(orderData2);
+        }
+
+        return orderDTOS;
+    }
+
+    @Override
     public List<FuelStationDTO> viewFuelStation() {
         
         List<FuelStationDTO> fuelStationDTOS = new ArrayList<>();
@@ -123,23 +150,23 @@ public class FuelAdminServiceImpl implements FuelAdminService {
     }
 
     @Override
-    public FuelAdminStockIn getStockInBystockFrom(String stockFrom) {
-        Optional<FuelAdminStockIn> fuelAdminStockInOptional = fuelAdminStockInRepository.findById(stockFrom);
-        if(fuelAdminStockInOptional.isPresent()){
-            FuelAdminStockIn fuelAdminStockIn = fuelAdminStockInOptional.get();
-            return  new FuelAdminStockIn((fuelAdminStockIn));
+    public List<FuelAdminStockIn> getStockInBystockFrom(String stockFrom) {
+        List<FuelAdminStockIn> fuelAdminStockInsFrom = fuelAdminStockInRepository.getStockInByStockFrom(stockFrom);
+        List<FuelAdminStockIn> stockIns = new ArrayList<>();
+        for (FuelAdminStockIn fuelAdminStockIn : fuelAdminStockInsFrom) {
+            stockIns.add(new FuelAdminStockIn(fuelAdminStockIn));
         }
-        return null;
+        return stockIns;
     }
 
     @Override
-    public FuelAdminStockIn getStockInByType(String type) {
-        Optional<FuelAdminStockIn> fuelAdminStockInOptional = fuelAdminStockInRepository.findById(type);
-        if(fuelAdminStockInOptional.isPresent()){
-            FuelAdminStockIn fuelAdminStockIn = fuelAdminStockInOptional.get();
-            return  new FuelAdminStockIn((fuelAdminStockIn));
+    public List<FuelAdminStockIn> getStockInByType(String type) {
+        List<FuelAdminStockIn> fuelAdminStockInsByType = fuelAdminStockInRepository.getStockInByFuelType(type);
+        List<FuelAdminStockIn> fuelAdminStockIns = new ArrayList<>();
+        for (FuelAdminStockIn fuelAdminStockIn : fuelAdminStockInsByType) {
+            fuelAdminStockIns.add(new FuelAdminStockIn(fuelAdminStockIn));
         }
-        return null;
+        return fuelAdminStockIns;
     }
 
     @Override
