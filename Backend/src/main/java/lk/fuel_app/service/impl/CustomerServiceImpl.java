@@ -87,9 +87,19 @@ public class CustomerServiceImpl implements CustomerService {
         Optional<Customer> customerOptional = customerRepository.findById(id);
         if (customerOptional.isPresent()) {
             Customer customerObj = customerOptional.get();
+            customerObj.setNic(customer.getNic());
             customerObj.setName(customer.getName());
             customerObj.setAddress(customer.getAddress());
-
+            customerObj.setFuelStationPlace(customer.getFuelStationPlace());
+            customerObj.getAppUser().setContactNumber(customer.getAppUser().getContactNumber());
+            customerObj.getAppUser().setEmail(customer.getAppUser().getEmail());
+            Optional<Vehicle> vehicleOptional = vehicleRepository.findById(customer.getVehicle().getChassisNumber());
+            if (vehicleOptional.isPresent()) {
+                customerObj.setVehicle(vehicleOptional.get());
+            } else {
+                customer.getVehicle().setSecKey(customer.getVehicle().getChassisNumber() + "_" + new Random().nextInt(100000) + 1);
+                customerObj.setVehicle(vehicleRepository.save(customer.getVehicle()));
+            }
 //            customerObj.setQuota(customer.getQuota());
             return customerRepository.save(customerObj);
         }

@@ -24,6 +24,8 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.customer = this.customerS.customer;
+    // console.log(this.customer)
     this.setDistricts()
     this.getVehicleTypes()
     this.getPlaces(this.customer.fuelStationPlace.district)
@@ -31,7 +33,8 @@ export class UpdateProfileComponent implements OnInit {
 
   updateCustomer() {
     this.customerS.updateCustomer(this.customer).subscribe(customer => {
-      this.router.navigate(['/my_profile']);
+      localStorage.clear()
+      this.router.navigate(['/login']);
     });
   }
 
@@ -45,6 +48,7 @@ export class UpdateProfileComponent implements OnInit {
 
   setDistricts() {
     this.districts = this.userS.districts
+    // this.getPlaces(this.customer.fuelStationPlace.district)
   }
 
   getPlaces(district) {
