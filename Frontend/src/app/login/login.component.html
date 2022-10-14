@@ -12,15 +12,15 @@
         <!--<span class="focus-input100"></span>-->
         <!--<span class="label-input100">Email</span>-->
         <!--</div>-->
-        <input class="form-control" type="text" name="email" placeholder="Email" [(ngModel)]="user.email"
-               style="padding: 30px 20px 30px 20px;background-color: #F7F7F7" #email="ngModel" required appEmailValidator>
+        <input class="form-control" type="text" name="email" placeholder="Email or Contact" [(ngModel)]="user.email"
+               style="padding: 30px 20px 30px 20px;background-color: #F7F7F7" #email="ngModel" required appLoginValidator>
         <div *ngIf="(email.touched || loginForm.submitted) && email.errors?.required"
              class="validErr">
           Email is required
         </div>
-        <div *ngIf="(email.dirty) && email.errors?.emailInvalid"
+        <div *ngIf="(email.dirty) && email.errors?.loginInvalid"
              class="validErr">
-          Invalid Email
+          Invalid Username
         </div>
 
         <!--<div class="wrap-input100 validate-input" data-validate="Password is required">-->
