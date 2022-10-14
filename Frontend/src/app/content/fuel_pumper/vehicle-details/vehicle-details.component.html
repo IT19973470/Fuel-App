@@ -11,8 +11,8 @@
             <label>Filter by Vehicle Type:</label>
           </div>
           <div class="col-4">
-            <select [(ngModel)]="vehicleType" (change)="searchByType()" style="margin-right: 20px;margin-left: 20px;"
-                    class="btn btn-outline-primary dropdown-toggle">
+            <select [(ngModel)]="vehicleType" (change)="searchByType(vehicleType)" style="margin-right: 20px;margin-left: 20px;"
+                    class="btn  dropdown-toggle">
               <option value="All">All</option>
               <option *ngFor="let vehicleType of vehicleTypes" value="" [value]="vehicleType.id" >{{vehicleType.name}}</option>
 
@@ -43,8 +43,8 @@
             <tbody>
             <tr *ngFor="let v of vehicles">
               <!--              <ng-container *ngIf="(vehicleType != 'Car' && v.customer.vehicleType == vehicleType)||(vehicleType == 'Car' && v.customer.vehicleType != vehicleType)">-->
-              <td>{{v.customer.vehicleNumber}}</td>
-              <td>{{v.customer.vehicleType.name}}</td>
+              <td>{{v.customer.vehicle.vehicleNumber}}</td>
+              <td>{{v.customer.vehicle.vehicleType.name}}</td>
               <td>{{v.pumpedAtDate}}</td>
               <td>{{v.fuelPumped}}</td>
               <!--              </ng-container>-->

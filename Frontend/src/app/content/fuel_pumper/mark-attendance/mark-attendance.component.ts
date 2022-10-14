@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FuelPumperService} from '../../../_service/fuel-pumper.service';
 import {DatePipe} from '@angular/common';
+import {NotifierService} from "angular-notifier";
 
 @Component({
   selector: 'app-mark-attendance',
@@ -13,7 +14,7 @@ export class MarkAttendanceComponent implements OnInit {
   attendance = [];
   attendanceId;
 
-  constructor(private fuelPumperS: FuelPumperService, private datePipe: DatePipe) {
+  constructor(private fuelPumperS: FuelPumperService, private datePipe: DatePipe, private notifierService: NotifierService) {
     this.fuelPumperAttendance = fuelPumperS.newFuelPumperAttendance();
   }
 
@@ -25,6 +26,9 @@ export class MarkAttendanceComponent implements OnInit {
   addFuelPumperAttendance() {
     this.fuelPumperAttendance.fuelPumper.nic = JSON.parse(localStorage.getItem('user')).id;
     this.fuelPumperS.addFuelPumperAttendance(this.fuelPumperAttendance).subscribe(data => {
+
+        this.notifierService.notify('success', "Marked Successfully");
+
       console.log(data)
     });
   }
@@ -34,6 +38,8 @@ export class MarkAttendanceComponent implements OnInit {
     this.fuelPumperAttendance.id = this.attendanceId;
     console.log(this.fuelPumperAttendance)
     this.fuelPumperS.markTimeOutAttendance(this.fuelPumperAttendance).subscribe(data => {
+
+        this.notifierService.notify('success', "Marked Successfully");
 
     });
   }

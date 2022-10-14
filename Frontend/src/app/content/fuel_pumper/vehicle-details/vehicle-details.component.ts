@@ -25,6 +25,7 @@ export class VehicleDetailsComponent implements OnInit {
 
   constructor(private fuelPumperService: FuelPumperService) {
     this.vehicleType = this.fuelPumperService.newVehicleType();
+    console.log(this.vehicleType)
   }
 
   ngOnInit(): void {
@@ -56,6 +57,7 @@ export class VehicleDetailsComponent implements OnInit {
       }
 
       this.vehicles = vehicles;
+      console.log(this.vehicles)
 
       this.totalVehicleCount = vehiclesArr.length;
       for (var i of this.vehicles) {
@@ -89,7 +91,9 @@ export class VehicleDetailsComponent implements OnInit {
     })
   }
 
-  searchByType() {
+  searchByType(type) {
+    console.log("qqqq")
+    console.log(type)
     if (this.vehicleType == 'All') {
       this.getAllVehicles();
     }else{
