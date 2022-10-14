@@ -85,23 +85,6 @@ export class FuelAvailabilityAdminComponent implements OnInit {
     })
   }
 
-  // downloadReport() {
-  //   this.fuelPumperService.getAllVehicleDetailsReport().subscribe(data => {
-  //     this.result = data;
-  //     let base64String = this.result.response;
-  //     // @ts-ignore
-  //     this.downloadPdf(base64String, "All Vehicle Details Report");
-  //   })
-  // }
-  //
-  // downloadPdf(base64String: string, fileName: string) {
-  //   const source = `data:application/pdf;base64,${base64String}`;
-  //   const link = document.createElement("a");
-  //   link.href = source;
-  //   link.download = `${fileName}.pdf`
-  //   link.click();
-  // }
-
   downloadReport() {
     this.fuelAdminService.stockInReport().subscribe(data => {
       this.result = data;
