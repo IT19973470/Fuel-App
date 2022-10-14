@@ -78,4 +78,9 @@ public class CustomerController {
     public List<FuelAvailabilityDTO> getFuelAvailabilityM(@PathVariable String place) {
         return customerService.getFuelAvailabilityM(place);
     }
+
+    @GetMapping(value = "/getFuelConsumptionsM/{vehicle}")
+    public FuelAvailabilityDTO getFuelConsumptionsM(@PathVariable String vehicle) {
+        return customerService.getFuelConsumptionsM(vehicle);
+    }
 }
