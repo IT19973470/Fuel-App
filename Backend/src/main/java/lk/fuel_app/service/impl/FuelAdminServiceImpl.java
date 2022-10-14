@@ -188,6 +188,7 @@ public class FuelAdminServiceImpl implements FuelAdminService {
         List<FuelAdminStockIn> fuelAdminStockInsByType = fuelAdminStockInRepository.getStockInByFuelType(type);
         List<FuelAdminStockIn> fuelAdminStockIns = new ArrayList<>();
         for (FuelAdminStockIn fuelAdminStockIn : fuelAdminStockInsByType) {
+            
             fuelAdminStockIns.add(new FuelAdminStockIn(fuelAdminStockIn));
         }
         return fuelAdminStockIns;
