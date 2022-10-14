@@ -5,10 +5,11 @@
 	<property name="ireport.y" value="0"/>
 	<parameter name="projectName" class="java.lang.String"/>
 	<parameter name="createdBy" class="java.lang.String"/>
-	<field name="customer.vehicle.vehicleType.name" class="java.lang.String"/>
-	<field name="customer.vehicle.vehicleNumber" class="java.lang.String"/>
-	<field name="pumpedAtDate" class="java.lang.String"/>
-	<field name="fuelPumped" class="java.lang.String"/>
+	<field name="fuelType" class="java.lang.String"/>
+	<field name="stockFrom" class="java.lang.String"/>
+	<field name="date" class="java.lang.String"/>
+	<field name="time" class="java.lang.String"/>
+	<field name="amount" class="java.lang.String"/>
 	<background>
 		<band/>
 	</background>
@@ -26,7 +27,7 @@
 					<textElement>
 						<font fontName="Serif" size="24" isBold="false"/>
 					</textElement>
-					<text><![CDATA[ALL VEHICLE DETAILS]]></text>
+					<text><![CDATA[Stocks In Report]]></text>
 				</staticText>
 			</elementGroup>
 		</band>
@@ -34,7 +35,7 @@
 	<columnHeader>
 		<band height="28">
 			<staticText>
-				<reportElement x="15" y="4" width="214" height="20" forecolor="#000066" uuid="1c937640-72d9-440a-a55e-f096e864a18e"/>
+				<reportElement x="15" y="4" width="135" height="20" forecolor="#000066" uuid="1c937640-72d9-440a-a55e-f096e864a18e"/>
 				<box leftPadding="10">
 					<topPen lineWidth="1.0"/>
 					<leftPen lineWidth="1.0"/>
@@ -43,10 +44,10 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Vehicle Type]]></text>
+				<text><![CDATA[Fuel Type]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="229" y="4" width="203" height="20" forecolor="#000066" uuid="728faf3b-febf-44af-8746-a6cb4c398655"/>
+				<reportElement x="150" y="4" width="185" height="20" forecolor="#000066" uuid="728faf3b-febf-44af-8746-a6cb4c398655"/>
 				<box leftPadding="0">
 					<topPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -54,10 +55,10 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="12" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Vehicle Number]]></text>
+				<text><![CDATA[Arrival From]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="432" y="4" width="176" height="20" forecolor="#000066" uuid="94573923-eba8-4059-a5d1-e17ff5aabaf7"/>
+				<reportElement x="335" y="4" width="142" height="20" forecolor="#000066" uuid="94573923-eba8-4059-a5d1-e17ff5aabaf7"/>
 				<box leftPadding="0">
 					<topPen lineWidth="1.0"/>
 					<bottomPen lineWidth="1.0"/>
@@ -79,27 +80,40 @@
 				</textElement>
 				<text><![CDATA[Fuel Amount]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="477" y="4" width="131" height="20" forecolor="#000066" uuid="4975db40-a5c3-4bdc-ac7e-500b62c848ba"/>
+				<box leftPadding="0">
+					<topPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Time]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="20">
 			<textField>
-				<reportElement x="432" y="0" width="176" height="20" uuid="2c3a93c2-ea1d-4a53-a4b2-9e26c7495029"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{pumpedAtDate}]]></textFieldExpression>
+				<reportElement x="24" y="0" width="126" height="20" uuid="550ca91b-9b76-44d0-bda3-762bc3655ae3"/>
+				<textFieldExpression><![CDATA[$F{fuelType}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="608" y="0" width="172" height="20" uuid="3f0d2414-d6e7-4b96-997d-b40fc06e137d"/>
-				<textElement verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{fuelPumped}]]></textFieldExpression>
+				<reportElement x="335" y="0" width="142" height="20" uuid="dbaa46f7-9168-4302-bbd7-aab2a6cc4df8"/>
+				<textFieldExpression><![CDATA[$F{date}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="229" y="0" width="203" height="20" uuid="3f546c21-5a0d-4cd9-a3a0-91cd28714f6f"/>
-				<textFieldExpression><![CDATA[$F{customer.vehicle.vehicleNumber}]]></textFieldExpression>
+				<reportElement x="477" y="0" width="131" height="20" uuid="6e2b0ca8-c57d-40ea-aa78-3c78d1dba2bd"/>
+				<textFieldExpression><![CDATA[$F{time}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="25" y="0" width="204" height="20" uuid="3fa673dd-9bfb-4b57-a13d-0733b5e7aaf9"/>
-				<textFieldExpression><![CDATA[$F{customer.vehicle.vehicleType.name}]]></textFieldExpression>
+				<reportElement x="608" y="0" width="172" height="20" uuid="5175a99a-e6a8-44c5-8a2d-fa0b4d6cfbc4"/>
+				<textFieldExpression><![CDATA[$F{amount}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="0" width="185" height="20" uuid="01da8e10-29be-48b1-b99b-a30456b01840"/>
+				<textFieldExpression><![CDATA[$F{stockFrom}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

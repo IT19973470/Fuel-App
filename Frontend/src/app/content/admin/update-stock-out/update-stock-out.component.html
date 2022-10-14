@@ -24,18 +24,13 @@
       </div>
 
       <div style="margin-top: 20px">Destination</div>
-      <input type="text" class="form-control" name="destination" [(ngModel)]="updatefuelStockOut.fuelStation.address"
-             #date="ngModel" disabled>
-<!--      <select class="form-control" name="destination" [(ngModel)]="updatefuelStockOut.fuelStation.address"-->
-<!--              #fuelStation="ngModel">-->
-<!--        <option  [value]="updatefuelStockOut.fuelStation.id">-->
-<!--          {{updatefuelStockOut.fuelStation.address}}-->
-<!--        </option>-->
-<!--      </select>-->
-<!--      <div *ngIf="(fuelStation.touched || stockOutForm.submitted) && fuelStation.errors?.required"-->
-<!--           class="validErr">-->
-<!--        Destination is required-->
-<!--      </div>-->
+      <select class="form-control" name="destination" [(ngModel)]="updatefuelStockOut.fuelStation.id"
+              #fuelStation="ngModel">
+        <option value="">Select</option>
+        <option *ngFor="let option of fuelStations" [value]="option.fuelStation.id">
+          {{option.fuelStation.address}}
+        </option>
+      </select>
 
       <div style="margin-top: 20px">Date</div>
       <input type="date" class="form-control" name="date" [(ngModel)]="updatefuelStockOut.date"

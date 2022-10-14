@@ -24,9 +24,16 @@ public class FuelPumperAttendance {
         this.id = fuelPumperAttendance.id;
         this.markedAt = fuelPumperAttendance.markedAt;
         this.timeIn = fuelPumperAttendance.timeIn;
-        this.timeOut=fuelPumperAttendance.timeOut;
-        if (fuelPumperAttendance.getFuelPumper() != null) {
-            this.fuelPumper = new FuelPumper(fuelPumperAttendance.getFuelPumper());
+        this.timeOut = fuelPumperAttendance.timeOut;
+    }
+
+    public FuelPumperAttendance(FuelPumperAttendance fuelPumperAttendance, FuelPumper fuelPumper) {
+        this.id = fuelPumperAttendance.id;
+        this.markedAt = fuelPumperAttendance.markedAt;
+        this.timeIn = fuelPumperAttendance.timeIn;
+        this.timeOut = fuelPumperAttendance.timeOut;
+        if (fuelPumper != null) {
+            this.fuelPumper = new FuelPumper(fuelPumper);
         }
     }
 

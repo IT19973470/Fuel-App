@@ -194,6 +194,16 @@ public class FuelAdminServiceImpl implements FuelAdminService {
     }
 
     @Override
+    public List<FuelAdminStockOut> getStockOutByType(String type) {
+        List<FuelAdminStockOut> fuelAdminStockOutssByType = fuelAdminStockOutRepository.getStockOutByFuelType(type);
+        List<FuelAdminStockOut> fuelAdminStockOutss = new ArrayList<>();
+        for (FuelAdminStockOut fuelAdminStockOut : fuelAdminStockOutssByType) {
+            fuelAdminStockOutss.add(new FuelAdminStockOut(fuelAdminStockOut));
+        }
+        return fuelAdminStockOutss;
+    }
+
+    @Override
     public Object updateStockOut(String id, FuelAdminStockOut fuelAdminStockOut) {
         Optional<FuelAdminStockOut> optionalFuelAdminStockOut = fuelAdminStockOutRepository.findById(id);
         if (optionalFuelAdminStockOut.isPresent()){
@@ -226,15 +236,15 @@ public class FuelAdminServiceImpl implements FuelAdminService {
         return null;
     }
 
-    @Override
-    public FuelAdminStockOut getStockOutByType(String type) {
-        Optional<FuelAdminStockOut> fuelAdminStockoutOptional = fuelAdminStockOutRepository.findById(type);
-        if(fuelAdminStockoutOptional.isPresent()){
-            FuelAdminStockOut fuelAdminStockOut = fuelAdminStockoutOptional.get();
-            return  new FuelAdminStockOut((fuelAdminStockOut));
-        }
-        return null;
-    }
+//    @Override
+//    public FuelAdminStockOut getStockOutByType(String type) {
+//        Optional<FuelAdminStockOut> fuelAdminStockoutOptional = fuelAdminStockOutRepository.findById(type);
+//        if(fuelAdminStockoutOptional.isPresent()){
+//            FuelAdminStockOut fuelAdminStockOut = fuelAdminStockoutOptional.get();
+//            return  new FuelAdminStockOut((fuelAdminStockOut));
+//        }
+//        return null;
+//    }
 
 
 }

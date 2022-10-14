@@ -9,10 +9,14 @@ import {Router} from "@angular/router";
 })
 export class UpdateStockOutComponent implements OnInit {
   updatefuelStockOut;
+  fuelStations=[];
 
   constructor(private fuelAdminService: FuelAdminService,private router: Router) {
     this.updatefuelStockOut = this.fuelAdminService.fuelOut;
-    console.log(fuelAdminService.fuelOut);
+    // console.log(fuelAdminService.fuelOut);
+    // this.updatefuelStockOut = this.fuelAdminService.newOutFuelStock();
+    console.log(this.updatefuelStockOut);
+
   }
 
   updateFuelStockOut(){
@@ -21,6 +25,14 @@ export class UpdateStockOutComponent implements OnInit {
   })}
 
   ngOnInit(): void {
+    this.getFuelStations()
+  }
+
+  getFuelStations(){
+    this.fuelAdminService.getFuelStations().subscribe((data) => {
+      // console.log(data)
+      this.fuelStations=data
+    })
   }
 
 }

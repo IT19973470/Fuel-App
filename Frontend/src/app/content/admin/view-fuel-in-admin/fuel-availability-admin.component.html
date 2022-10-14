@@ -7,13 +7,11 @@
       </select>
       <button class="btn btn-warning" style="margin-right: 40px" (click)="getStockInListByFuelType(fuelType)">Search by Fuel Type</button>
       <select class="form-control" style="width: 200px;margin-right: 10px" [(ngModel)]="data.stockFrom">
-        <option value="">Search By Destination</option>
-<!--        <option *ngFor="let destination of destinations" id="dest" [value]="destination">{{destination}}</option>-->
         <option value="russia" id="dest">Russia</option>
-        <option value="china" id="dest">China</option>
-        <option value="pakistan" id="dest">Pakistan</option>
+        <option value="India" id="dest">India</option>
+        <option value="Iraq" id="dest">Iraq</option>
       </select>
-      <button class="btn btn-warning"  (click)="getStockInByStockFrom()">Search by Arrival</button>
+      <button class="btn btn-warning"  (click)="getStockInByStockFrom(data.stockFrom)">Search by Arrival</button>
     </div>
   </div>
 
@@ -43,6 +41,6 @@
     </tbody>
   </table>
   <div style="text-align: right;margin-top: 30px">
-    <button class="btn btn-success">Generate PDF</button>
+    <button class="btn btn-success" (click)="downloadReport()">Generate PDF</button>
   </div>
 </div>

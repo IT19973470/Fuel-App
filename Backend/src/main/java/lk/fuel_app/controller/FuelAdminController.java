@@ -3,9 +3,15 @@ package lk.fuel_app.controller;
 import lk.fuel_app.entity.*;
 import lk.fuel_app.service.FuelAdminService;
 import lk.fuel_app.service.FuelStationService;
+import lk.fuel_app.util.ReportView;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController
@@ -80,8 +86,14 @@ public class FuelAdminController {
 
     @GetMapping(value = "/getStockInByType/{type}")
     public ResponseEntity getStockInByType(@PathVariable String type) {
-        System.out.println(type);
+//        System.out.println(type);
         return ResponseEntity.ok(fuelAdminService.getStockInByType(type));
+    }
+
+    @GetMapping(value = "/getStockOutByType/{type}")
+    public ResponseEntity getStockOutByType(@PathVariable String type) {
+        System.out.println(type);
+        return ResponseEntity.ok(fuelAdminService.getStockOutByType(type));
     }
 
     @PutMapping(value = "/updateStockOut/{id}")
@@ -99,10 +111,10 @@ public class FuelAdminController {
         return ResponseEntity.ok(fuelAdminService.getStockOutByStation(fuel_station_id));
     }
 
-    @GetMapping(value = "/getStockOutByType/{type}")
-    public ResponseEntity getStockOutByType(@PathVariable String type) {
-        return ResponseEntity.ok(fuelAdminService.getStockOutByType(type));
-    }
+//    @GetMapping(value = "/getStockOutByType/{type}")
+//    public ResponseEntity getStockOutByType(@PathVariable String type) {
+//        return ResponseEntity.ok(fuelAdminService.getStockOutByType(type));
+//    }
 
     @GetMapping(value = "/getStockInById/{id}")
     public ResponseEntity getStockInById(@PathVariable String id) {
@@ -117,5 +129,35 @@ public class FuelAdminController {
     @GetMapping(value = "/getorder/{id}")
     public ResponseEntity getOrder(@PathVariable String id) {
         return ResponseEntity.ok(fuelAdminService.getFuelOrder(id));
+    }
+
+    @GetMapping(value="/stockOutReport", produces= MediaType.APPLICATION_JSON_VALUE)
+    public Map generateStockOutReport() {
+        ReportView review = new ReportView();
+
+        List<FuelAdminStockOut> fuelAdminStockIns;
+        fuelAdminStockIns = fuelAdminService.viewStockOut();
+        String reportValue = "";
+        try {
+            reportValue = review.pdfReportViewInlineSystemOpen("stocksOutReport.jasper", "Stock Out Details Report", fuelAdminStockIns, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Collections.singletonMap("response", reportValue);
+    }
+
+    @GetMapping(value="/stockInReport", produces= MediaType.APPLICATION_JSON_VALUE)
+    public Map generateStockInReport() {
+        ReportView review = new ReportView();
+
+        List<FuelAdminStockIn> fuelAdminStockIns;
+        fuelAdminStockIns = fuelAdminService.viewStockIn();
+        String reportValue = "";
+        try {
+            reportValue = review.pdfReportViewInlineSystemOpen("stocksInReport.jasper", "Stock in Details Report", fuelAdminStockIns, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Collections.singletonMap("response", reportValue);
     }
 }

@@ -2,11 +2,10 @@
   <div style="display: flex">
     <span style="font-weight: bold;color: #b68003;font-size: 21px;width: 100%;margin-top: 25px">Stock Out List</span>
     <div style="display: flex;justify-content: right;margin-top: 20px;width: 100%">
-      <select class="form-control" style="width: 200px;margin-right: 10px">
-        <option value="">Search By Fuel Type</option>
-        <option value="car">Car</option>
+      <select class="form-control" style="width: 200px;margin-right: 10px" [(ngModel)]="fuelType" >
+        <option value="car" *ngFor="let fuelType of fuelTypes" [value]="fuelType.name" >{{fuelType.name}}</option>
       </select>
-      <button class="btn btn-warning" style="margin-right: 40px">Search</button>
+      <button class="btn btn-warning" style="margin-right: 40px" (click)="getStockOutListByFuelType(fuelType)">Search by Fuel Type</button>
       <select class="form-control" style="width: 200px;margin-right: 10px">
         <option value="">Search By Destination</option>
         <option value="car">Car</option>
@@ -41,6 +40,6 @@
     </tbody>
   </table>
   <div style="text-align: right;margin-top: 30px">
-    <button class="btn btn-success">Generate PDF</button>
+    <button class="btn btn-success" (click)="downloadReport()">Generate PDF</button>
   </div>
 </div>

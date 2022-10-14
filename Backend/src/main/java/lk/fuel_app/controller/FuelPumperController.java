@@ -90,6 +90,7 @@ public class FuelPumperController {
 
     @GetMapping(value="/allVehicleDetailsReport", produces= MediaType.APPLICATION_JSON_VALUE)
     public Map generateVehicleDetailsReport() {
+        System.out.println(".................");
         ReportView review = new ReportView();
 
         List<CustomerFuelStation> customerFuelStations;

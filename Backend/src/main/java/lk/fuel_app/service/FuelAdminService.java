@@ -36,7 +36,7 @@ public interface FuelAdminService {
 
     FuelAdminStockOut getStockOutByStation(String fuel_station_id);
 
-    FuelAdminStockOut getStockOutByType(String type);
+    List<FuelAdminStockOut> getStockOutByType(String type);
 
     List<OrderData> viewFuelOrders();
 
