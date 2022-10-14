@@ -23,6 +23,7 @@ public class FuelAvailabilityDTO {
     private List<Vehicle> availableVehicles;
     private List<Vehicle> distributedVehicles;
     private List<FuelReport> fuelReports;
+    private List<FuelConsumption> fuelConsumptions;
 
     @Getter
     @Setter
@@ -77,5 +78,17 @@ public class FuelAvailabilityDTO {
     public static class FuelReport {
         private int week;
         private List<FuelStock> fuelStocks;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class FuelConsumption {
+        private int week;
+        private double fuelPumped;
+//        private double trip;
+        private double fuelConsumed;
+//        private double fuelRemain;
+
     }
 }

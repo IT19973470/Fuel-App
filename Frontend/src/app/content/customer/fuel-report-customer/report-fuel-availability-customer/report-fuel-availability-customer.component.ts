@@ -34,8 +34,7 @@ export class ReportFuelAvailabilityCustomerComponent implements OnInit {
   constructor(private customerS: CustomerService, private userS: UserService) {
     userS.setPlace.subscribe((place: any) => {
       this.place = place.id;
-      // console.log(this.place)
-      this.getFuelTypes()
+      // this.getFuelTypes()
     })
     userS.setDistrictPlaces.subscribe(districtPlaces => {
       this.districtPlaces = districtPlaces;
@@ -43,9 +42,9 @@ export class ReportFuelAvailabilityCustomerComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setDistricts()
     this.fillChart()
     this.getFuelTypes()
+    // console.log(this.selectedFuelType)
   }
 
   getFuelAvailabilityM() {
@@ -100,19 +99,21 @@ export class ReportFuelAvailabilityCustomerComponent implements OnInit {
   }
 
   sortByFuel(fuelStations, index) {
-    let fuelStationsArr = []
-    for (let fuelStation of fuelStations) {
-      fuelStationsArr.push({
-        quantity: fuelStation.fuelReports[3].fuelStocks[index].quantity,
-        fuelStation: fuelStation
-      })
-    }
-    fuelStationsArr.sort((a, b) => {
-      return a.quantity - b.quantity;
-    });
-    fuelStations = []
-    for (let fuelStation of fuelStationsArr) {
-      fuelStations.push(fuelStation.fuelStation)
+    if (index !== undefined) {
+      let fuelStationsArr = []
+      for (let fuelStation of fuelStations) {
+        fuelStationsArr.push({
+          quantity: fuelStation.fuelReports[3].fuelStocks[index].quantity,
+          fuelStation: fuelStation
+        })
+      }
+      fuelStationsArr.sort((a, b) => {
+        return b.quantity - a.quantity;
+      });
+      fuelStations = []
+      for (let fuelStation of fuelStationsArr) {
+        fuelStations.push(fuelStation.fuelStation)
+      }
     }
     return fuelStations
   }
@@ -144,7 +145,8 @@ export class ReportFuelAvailabilityCustomerComponent implements OnInit {
     this.userS.getFuelTypes().subscribe(fuelTypes => {
       this.fuelTypes = fuelTypes;
       this.selectedFuelType = fuelTypes[0].id
-      this.getFuelAvailabilityM()
+      this.setDistricts()
+      // this.getFuelAvailabilityM()
     })
   }
 

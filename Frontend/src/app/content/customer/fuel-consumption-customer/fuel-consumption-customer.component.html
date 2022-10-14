@@ -81,11 +81,15 @@
       <tbody>
       <tr *ngFor="let fuelConsumption of fuelConsumptions;let i = index">
         <td>{{i+1}}</td>
-        <td>{{fuelConsumption.checkedAt}}</td>
+        <td>{{fuelConsumption.checkedAtDate}}</td>
         <td>{{fuelConsumption.trip}} Km</td>
         <td>{{fuelConsumption.consumed}} L</td>
-        <td>{{(fuelConsumption.trip/fuelConsumption.consumed) | number : '1.2-2'}} Km/L</td>
-        <td style="text-align: center;color: red;font-weight: bold" (click)="deleteFuelConsumption(fuelConsumption.id)">Remove</td>
+        <td>
+          {{(fuelConsumption.trip/fuelConsumption.consumed==0?1:fuelConsumption.consumed) | number : '1.2-2'}} Km/L
+        </td>
+        <td style="text-align: center;color: red;font-weight: bold" (click)="deleteFuelConsumption(fuelConsumption.id)">
+          Remove
+        </td>
       </tr>
       </tbody>
     </table>

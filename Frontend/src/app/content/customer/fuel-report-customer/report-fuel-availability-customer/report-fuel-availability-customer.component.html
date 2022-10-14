@@ -37,8 +37,8 @@
   </div>
 </div>
 
-<div *ngFor="let fuelStation of fuelStations">
-  <div style="font-weight: bold;font-size: 20px;margin-left: 40px">{{fuelStation.fuelStation}}</div>
+<div *ngFor="let fuelStation of fuelStations" style="border-bottom: 1px solid #d7d7d7">
+  <div style="font-weight: bold;font-size: 20px;margin-left: 40px;margin-top: 20px">{{fuelStation.fuelStation}}</div>
   <div style="margin-top: 40px">
     <apx-chart
       [series]="fuelStation.chartOptions.series"
@@ -52,18 +52,4 @@
       [xaxis]="fuelStation.chartOptions.xaxis"
     ></apx-chart>
   </div>
-
-  <!--<div style="margin-top: 40px">-->
-    <!--<apx-chart-->
-      <!--[series]="chartOptions.series"-->
-      <!--[chart]="chartOptions.chart"-->
-      <!--[dataLabels]="chartOptions.dataLabels"-->
-      <!--[plotOptions]="chartOptions.plotOptions"-->
-      <!--[yaxis]="chartOptions.yaxis"-->
-      <!--[fill]="chartOptions.fill"-->
-      <!--[stroke]="chartOptions.stroke"-->
-      <!--[tooltip]="chartOptions.tooltip"-->
-      <!--[xaxis]="chartOptions.xaxis"-->
-    <!--&gt;</apx-chart>-->
-  <!--</div>-->
 </div>
