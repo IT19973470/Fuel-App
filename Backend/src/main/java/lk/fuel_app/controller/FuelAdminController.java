@@ -80,8 +80,14 @@ public class FuelAdminController {
 
     @GetMapping(value = "/getStockInByType/{type}")
     public ResponseEntity getStockInByType(@PathVariable String type) {
-        System.out.println(type);
+//        System.out.println(type);
         return ResponseEntity.ok(fuelAdminService.getStockInByType(type));
+    }
+
+    @GetMapping(value = "/getStockOutByType/{type}")
+    public ResponseEntity getStockOutByType(@PathVariable String type) {
+        System.out.println(type);
+        return ResponseEntity.ok(fuelAdminService.getStockOutByType(type));
     }
 
     @PutMapping(value = "/updateStockOut/{id}")
@@ -99,10 +105,10 @@ public class FuelAdminController {
         return ResponseEntity.ok(fuelAdminService.getStockOutByStation(fuel_station_id));
     }
 
-    @GetMapping(value = "/getStockOutByType/{type}")
-    public ResponseEntity getStockOutByType(@PathVariable String type) {
-        return ResponseEntity.ok(fuelAdminService.getStockOutByType(type));
-    }
+//    @GetMapping(value = "/getStockOutByType/{type}")
+//    public ResponseEntity getStockOutByType(@PathVariable String type) {
+//        return ResponseEntity.ok(fuelAdminService.getStockOutByType(type));
+//    }
 
     @GetMapping(value = "/getStockInById/{id}")
     public ResponseEntity getStockInById(@PathVariable String id) {

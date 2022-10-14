@@ -10,11 +10,18 @@ import {Router} from "@angular/router";
 export class ViewStockOutAdminComponent implements OnInit {
 
   data = []
+  fuelTypes = [];
+  fuelType;
   constructor(private fuelAdminService: FuelAdminService, private router: Router) {
+    // this.data = this.fuelAdminService.newAddFuelStock();
+    // this.destination = fuelAdminService.newAddFuelStock().stockFrom;
+    // console.log(this.destination + "]]]")
+    this.fuelType = this.fuelAdminService.newFuelType();
   }
 
   ngOnInit(): void {
-    this.getStockOut()
+    this.getStockOut();
+    this.getAllFuelTypes();
   }
 
   getStockOut() {
@@ -36,4 +43,26 @@ export class ViewStockOutAdminComponent implements OnInit {
     });
   }
 
+  getAllFuelTypes(){
+    this.fuelAdminService.getFuelTypes().subscribe(data => {
+      this.fuelTypes = data;
+      console.log(this.fuelTypes)
+    })
+  }
+
+  getStockInListByFuelType(type){
+    console.log(type)
+    this.fuelAdminService.getStockInListByFuelType(type).subscribe(data => {
+      this.data = data;
+      this.getAllFuelTypes();
+    });
+  }
+
+  getStockOutListByFuelType(type) {
+    this.fuelAdminService.getStockOutListByFuelType(type).subscribe(data => {
+      this.data = data;
+      this.getAllFuelTypes();
+    });
+
+  }
 }

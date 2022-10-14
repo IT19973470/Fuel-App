@@ -10,8 +10,16 @@
           (ngSubmit)="stockInForm.form.valid && updateFuelStockIn()" novalidate>
 
       <div>Fuel Type</div>
-      <input type="date" class="form-control" name="date" [(ngModel)]="updatefuelStockIn.fuelType"
-             #date="ngModel" readonly>
+<!--      <input type="text" class="form-control" name="fuelType" [(ngModel)]="updatefuelStockIn.fuelType"-->
+<!--             readonly>-->
+      <select class="form-control" name="fuelType" [(ngModel)]="updatefuelStockIn.fuelType"
+               required>
+        <option value="">Select</option>
+        <option value="Petrol 92">Petrol 92</option>
+        <option value="Petrol 95">Petrol 95</option>
+        <option value="Super Diesel">Super Diesel</option>
+        <option value="Diesel">Auto Diesel</option>
+      </select>
 
       <div style="margin-top: 20px">Stock From</div>
       <select class="form-control" name="From" [(ngModel)]="updatefuelStockIn.stockFrom"
