@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {assertPlatform, Component, OnInit} from '@angular/core';
 import {FuelPumperService} from "../../../_service/fuel-pumper.service";
 import {Router} from "@angular/router";
 
@@ -23,18 +23,18 @@ export class FuelReportComponent implements OnInit {
   totalSuperDieselFuelAmount: number = 0;
   deliveryItemDetails = [];
   weeklyDeliveries = [];
-  applicationData=[];
-  applicationDataChart=[];
+  applicationData = [];
+  applicationDataChart = [];
   fuelType;
 
-  obj= {
-    pd:{
-      deliveries:0,
+  obj = {
+    pd: {
+      deliveries: 0,
       completed: 0,
       cancelled: 0
     },
-    id:{
-      deliveries:0,
+    id: {
+      deliveries: 0,
       completed: 0,
       cancelled: 0
     },
@@ -46,21 +46,19 @@ export class FuelReportComponent implements OnInit {
   }
 
 
-
-
-
-  constructor( private fuelPumperService: FuelPumperService, private router: Router) { }
+  constructor(private fuelPumperService: FuelPumperService, private router: Router) {
+  }
 
   ngOnInit(): void {
     this.fillChart();
   }
 
-  getDataToReport(){
+  getDataToReport() {
     this.getAllFuelRecord();
     this.getAllFuelRecordChart();
   }
 
-  getAllFuelRecord(){
+  getAllFuelRecord() {
     this.fuelPumperService.getAllFuelRecord(this.startDate, this.endDate).subscribe(data => {
       this.applicationData = data;
       // this.chartdata(data)
@@ -80,7 +78,7 @@ export class FuelReportComponent implements OnInit {
     })
   }
 
-  getAllFuelRecordChart(){
+  getAllFuelRecordChart() {
     this.fuelPumperService.getAllFuelRecordChart(this.startDate, this.endDate).subscribe(data => {
       this.applicationDataChart = data;
       this.chartdata(data)
@@ -88,92 +86,160 @@ export class FuelReportComponent implements OnInit {
     })
   }
 
-  chartdata(application){
+  chartdata(application) {
+    let fuelArr = []
+    let fuels = new Set()
+    let dates = new Set()
+    let datesArr = []
     // console.log(application)
-    let datesArr = [];
-    for (let data of application){
-
-      let date = datesArr.find(date1 => {
-        return date1 == data.pumpedAtDate;
-      });
-
-      console.log(date + "..." + data.pumpedAtDate)
-      if(date === undefined){
-        datesArr.push(data.pumpedAtDate);
-      }
-
-      // this.chartOptions.xaxis.categories = datesArr
-
-      // this.chartOptions.xaxis.categories.push(data.pumpedAtDate)
-      // this.chartOptions.xaxis.categories.push(''+data.fuelPumpedAt)
-      // this.type1.data.push(data.quantity);
-      // console.log(data.fuelPumpedAt)
-
-      if(data.fuelType.name == 'Petrol 95') {
-        this.type1.data.push(data.fuelPumped);
-      }
-      else if(data.fuelType.name == 'Petrol 92'){
-        this.type2.data.push(data.fuelPumped);
-      }
-      else if(data.fuelType.name == 'Super Diesel'){
-        this.type3.data.push(data.fuelPumped);
-      }
-      else{
-        this.type4.data.push(data.fuelPumped);
-      }
-      // this.total2.data.push(data.p)
-      // console.log(data.fuelPumperAttendance.timeOut.substring(0,2)-data.fuelPumperAttendance.timeIn.substring(0,2))
-
-
+    for (let pump of application) {
+      dates.add(pump.pumpedAtDate)
+      fuels.add(pump.fuelType.name)
     }
-
-    for(let i of datesArr){
-      console.log(i)
-      this.chartOptions.xaxis.categories.push(i);
+    for (let date of dates) {
+      // console.log(date)
+      datesArr.push(
+        application.filter(dateObj => {
+          // console.log(dateObj)
+          return date == dateObj.pumpedAtDate
+        })
+      )
     }
+    // console.log(datesArr)
 
-    this.chartOptions.series=[this.type1, this.type2, this.type3, this.type4];
-    // this.chartOptions.series=[this.type2];
-    // this.chartOptions.series=[this.type3];
-    // this.chartOptions.series=[this.type4];
-    // this.chartOptions.series.push(this.type1)
-    // this.total.data.push(Math.floor(data.fuelPumperAttendance.timeIn)-Math.floor(data.fuelPumperAttendance.timeOut))
-    // console.log(Math.floor(data.fuelPumperAttendance.timeIn.now()))
-    // console.log( this.total.data)
-    //  this.chartOptions.xaxis.categories.push(this.pumpers)
-    //    this.chartOptions.series.push(this.pumpers,this.total)
-    // this.chartOptions.xaxis.categories.push(data.fuelPumperAttendance.fuelPumper.name)
+    for (let date of datesArr) {
+      let fuelArrObj = []
+      for (let fuel of fuels) {
+        let amount = 0
+        for (let fuelObj of date) {
+          if (fuel == fuelObj.fuelType.name) {
+            amount += fuelObj.fuelPumped
+          }
+        }
+        // console.log(date[0])
+        fuelArrObj.push({
+          date: date[0].pumpedAtDate,
+          name: fuel,
+          amount: amount
+        })
+        // console.log(fuelArrObj[0].name)
+        // this.chartOptions.series.push(fuelArrObj[date].name);
+      }
+      fuelArr.push(fuelArrObj)
+    }
+    console.log(fuelArr)
+
+    for (let fuelA of fuelArr) {
+      for (let nFuel of fuelA) {
+        console.log(nFuel.date)
+        this.chartOptions.xaxis.categories.push(nFuel.date)
+        if(nFuel.name == 'Petrol 95'){
+          this.type1.data.push(nFuel.amount);
+        }else if(nFuel.name == 'Petrol 92'){
+          this.type2.data.push(nFuel.amount);
+        }else if(nFuel.name == 'Super Diesel'){
+          this.type3.data.push(nFuel.amount);
+        }else if(nFuel.name == 'Diesel'){
+          this.type4.data.push(nFuel.amount);
+        }
+
+        // this.chartOptions.series.push(nFuel.name)
+      }
+      // console.log(i.date)
+      // this.chartOptions.xaxis.categories.push(r.date);
+      // this.chartOptions.series.push(r.name);
+    }
+    this.chartOptions.series = [this.type1, this.type2, this.type3, this.type4]
+
+    // let arr = [];
+    // for (let data of fuelArr) {
+    //   let name = arr.find(n => {
+    //     return n == data.pumpedAtDate;
+    //   });
+    //
+    // }
   }
+  // let datesArr = [];
+  // for (let data of application){
+  //
+  //   let date = datesArr.find(date1 => {
+  //     return date1 == data.pumpedAtDate;
+  //   });
+  //
+  //   console.log(date + "..." + data.pumpedAtDate)
+  //   if(date === undefined){
+  //     datesArr.push(data.pumpedAtDate);
+  //   }
+  //
+  //   // this.chartOptions.xaxis.categories = datesArr
+  //
+  //   // this.chartOptions.xaxis.categories.push(data.pumpedAtDate)
+  //   // this.chartOptions.xaxis.categories.push(''+data.fuelPumpedAt)
+  //   // this.type1.data.push(data.quantity);
+  //   // console.log(data.fuelPumpedAt)
+  //
+  //   if(data.fuelType.name == 'Petrol 95') {
+  //     this.type1.data.push(data.fuelPumped);
+  //   }
+  //   else if(data.fuelType.name == 'Petrol 92'){
+  //     this.type2.data.push(data.fuelPumped);
+  //   }
+  //   else if(data.fuelType.name == 'Super Diesel'){
+  //     this.type3.data.push(data.fuelPumped);
+  //   }
+  //   else{
+  //     this.type4.data.push(data.fuelPumped);
+  //   }
+  // this.total2.data.push(data.p)
+  // console.log(data.fuelPumperAttendance.timeOut.substring(0,2)-data.fuelPumperAttendance.timeIn.substring(0,2))
 
 
+  // }
 
-  type1= {
-    name:'Petrol 95',
+  // for(let i of datesArr){
+  //   console.log(i)
+  //   this.chartOptions.xaxis.categories.push(i);
+  // }
+  //
+  // this.chartOptions.series=[this.type1, this.type2, this.type3, this.type4];
+  // this.chartOptions.series=[this.type2];
+  // this.chartOptions.series=[this.type3];
+  // this.chartOptions.series=[this.type4];
+  // this.chartOptions.series.push(this.type1)
+  // this.total.data.push(Math.floor(data.fuelPumperAttendance.timeIn)-Math.floor(data.fuelPumperAttendance.timeOut))
+  // console.log(Math.floor(data.fuelPumperAttendance.timeIn.now()))
+  // console.log( this.total.data)
+  //  this.chartOptions.xaxis.categories.push(this.pumpers)
+  //    this.chartOptions.series.push(this.pumpers,this.total)
+  // this.chartOptions.xaxis.categories.push(data.fuelPumperAttendance.fuelPumper.name)
+
+
+  type1 = {
+    name: 'Petrol 95',
     data: [],
     color: '#0c8dc0'
   }
-  type2={
-    name:'Petrol 92',
+  type2 = {
+    name: 'Petrol 92',
     data: [],
     color: '#018002'
   }
 
-  type3={
-    name:'Super Diesel',
+  type3 = {
+    name: 'Super Diesel',
     data: [],
     color: '#38049f'
   }
 
-  type4={
-    name:'Diesel',
+  type4 = {
+    name: 'Diesel',
     data: [],
     color: '#e5c706'
   }
 
   fillChart() {
     this.chartOptions = {
-      series: [
-      ],
+      series: [],
       chart: {
         type: "bar",
         height: 350
@@ -210,7 +276,7 @@ export class FuelReportComponent implements OnInit {
       tooltip: {
         y: {
           formatter: function (val) {
-            return "$ " + val + " thousands";
+            return " " + val + " L";
           }
         }
       }

@@ -12,10 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @CrossOrigin
 @RestController
@@ -122,5 +119,28 @@ public class FuelPumperController {
     @GetMapping(value = "/getAllFuelRecordChart/{startDate}/{endDate}")
     public ResponseEntity getAllFuelRecordChart(@PathVariable String startDate, @PathVariable String endDate) {
         return ResponseEntity.ok(fuelPumperService.getAllFuelRecordChart(startDate, endDate));
+    }
+
+    @GetMapping(value="/summaryReport/{vehicleType}/{totalFuelAmount}/{totalVehicleCount}", produces= MediaType.APPLICATION_JSON_VALUE)
+    public Map generatesummaryReport(@PathVariable String vehicleType, @PathVariable Integer totalFuelAmount, @PathVariable Integer totalVehicleCount) {
+
+        ReportView review = new ReportView();
+        Map<String,Object> params=new HashMap<>();
+
+        params.put("vehicleType", vehicleType);
+        params.put("totalFuelAmount", totalFuelAmount);
+        params.put("totalVehicleCount", totalVehicleCount);
+
+        List<Integer> list = new ArrayList();
+        list.add(totalVehicleCount);
+        list.add(totalVehicleCount);
+//        customerFuelStations = fuelPumperService.getAllVehicleDetails();
+        String reportValue = "";
+        try {
+            reportValue = review.pdfReportViewInlineSystemOpen("SummaryReport.jasper", "Summary Report", list, params);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return Collections.singletonMap("response", reportValue);
     }
 }
