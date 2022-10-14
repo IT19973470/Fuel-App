@@ -101,10 +101,10 @@ public class FuelStationServiceImpl implements FuelStationService {
                  fuelStockDTO.setAvailableStock(fuelStockRepository.getTotalStockAmount(fuelStock.getFuelType().getId()));
                fuelStockDTO.setDistributedVehicleCount(customerFuelStationRepository.getCountVehicle(fuelStock.getFuelType().getId()));
               fuelStockDTO.setDistributedFuel(customerFuelStationRepository.getSumDistribution(fuelStock.getFuelType().getId()));
-               int hour=0;
-//                hour =customerFuelStationRepository.getoneHourDeistibution(fuelStock.getFuelType().getId(), LocalDateTime.now().minusHours(48), LocalDateTime.now());
+               double hour=0;
+                hour =customerFuelStationRepository.getoneHourDeistibution(fuelStock.getFuelType().getId(), LocalDateTime.now().minusHours(48), LocalDateTime.now());
 //                if(hour!=0){
-//                    fuelStockDTO.setFuelSupplyPerHour(hour);
+                    fuelStockDTO.setFuelSupplyPerHour(hour);
 //                }
 //                else {
 //                    fuelStockDTO.setFuelSupplyPerHour(0);
