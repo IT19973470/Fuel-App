@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FuelAdminService} from "../../../_service/fuel-admin.service";
 import {Router} from "@angular/router";
+import {NotifierService} from "angular-notifier";
 
 @Component({
   selector: 'app-fuel-approve',
@@ -11,7 +12,7 @@ export class FuelApproveComponent implements OnInit {
 
   data;
 
-  constructor(private fuelAdminService: FuelAdminService, private router: Router) {
+  constructor(private fuelAdminService: FuelAdminService, private router: Router, private notifierService: NotifierService) {
     this.data = this.fuelAdminService.order();
   }
 
@@ -31,13 +32,15 @@ export class FuelApproveComponent implements OnInit {
 
   approveOrder(order){
     this.fuelAdminService.approveOrder(order).subscribe(data => {
-    this.getOrder();
+      this.notifierService.notify('success', "Order approved Successfully");
+      this.getOrder();
     })
   }
 
   denyOrder(order){
     console.log(order)
     this.fuelAdminService.denyOrder(order).subscribe(data => {
+      this.notifierService.notify('error', "Order denied Successfully");
       this.getOrder();
     })
   }

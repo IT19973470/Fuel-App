@@ -106,6 +106,14 @@ export class FuelAdminService {
     return this.http.get<Result>(`${this.baseURL+"/fuel_admin/stockOutReport"}`);
   }
 
+  StockInPieChart():Observable<Result>{
+    return this.http.get<Result>(`${this.baseURL+"/fuel_admin/stockInPieChart"}`);
+  }
+
+  StockOutPieChart():Observable<Result>{
+    return this.http.get<Result>(`${this.baseURL+"/fuel_admin/stockOutPieChart"}`);
+  }
+
 
   newFuelAdmin() {
     return {
