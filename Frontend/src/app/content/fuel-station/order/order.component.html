@@ -32,17 +32,22 @@
       <th>Amount</th>
       <th>Status</th>
       <th>Edit</th>
+      <th>Delete</th>
       </thead>
       <tbody>
       <tr *ngFor="let d1 of fuelOrder let i = index">
         <th scope="row">{{i+1}}</th>
-        <th>{{d1.orderData.fuelAdmin.appUser.id}}-{{d1.orderData.fuelAdmin.name}}</th>
+        <th>{{d1.fuelAdmin.nic}}-{{d1.fuelAdmin.name}}</th>
         <td>{{d1.orderData.fuelType}}</td>
         <td>{{d1.orderData.amount}}</td>
         <td>{{d1.orderData.status}}</td>
         <td><button class="btn btn-outline-info btn-lg " style="margin-left: 15px; border-radius: 100px; width: 50px; height: 50px"
                     data-bs-target="#search_fuel_report" (click)="getDataorder1(d1)" data-bs-toggle="modal">
           <i class="fa-solid fa-pencil nav_icon"></i>
+        </button></td>
+        <td><button class="btn btn-outline-info btn-lg " style="margin-left: 15px; border-radius: 100px; width: 50px; height: 50px"
+                    data-bs-target="#delete" (click)="getDataorder2(d1)" data-bs-toggle="modal">
+          <i class="fa-solid fa-trash nav_icon"></i>
         </button></td>
       </tr>
       </tbody>
@@ -215,3 +220,65 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade " style="width: 1500px" id="delete" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="pagetitle">
+          <span style="font-size: 25px;font-weight: bold;color: #750202">Warning</span>
+        </div>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card">
+          <div class="card-body">
+
+            <section class="section">
+              <form style="padding-top: 20px;background-color: white;" #orderForm="ngForm" (ngSubmit)="orderForm.form.valid " novalidate>
+
+                <div align="center" style="color: #b21f2d"><h2>Are you sure you want to delete</h2></div>
+
+
+
+                <div class="container-login100-form-btn row" style="margin-top: 40px;margin-bottom: 40px">
+                  <div class="col-6">
+                    <button class="login100-form-btn" type="submit" (click)="delete() ">
+                      Yes
+                    </button>
+                  </div>
+                  <div class="col-6">
+                    <button class="login100-form-btn" type="submit" >
+                      No
+                    </button>
+                  </div>
+
+
+                </div>
+
+                <!--<div class="text-center p-t-46 p-b-20">-->
+                <!--<span class="txt2">-->
+                <!--or sign up using-->
+                <!--</span>-->
+                <!--</div>-->
+
+                <!--<div class="login100-form-social flex-c-m">-->
+                <!--<a href="#" class="login100-form-social-item flex-c-m bg1 m-r-5">-->
+                <!--<i class="fa fa-facebook-f" aria-hidden="true"></i>-->
+                <!--</a>-->
+
+                <!--<a href="#" class="login100-form-social-item flex-c-m bg2 m-r-5">-->
+                <!--<i class="fa fa-twitter" aria-hidden="true"></i>-->
+                <!--</a>-->
+                <!--</div>-->
+              </form>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

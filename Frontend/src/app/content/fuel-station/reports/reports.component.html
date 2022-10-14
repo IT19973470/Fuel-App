@@ -2,6 +2,7 @@
   <div class="col-11" style="margin-top: 20px">
     <div class="card">
       <div class="card-body">
+        <div id="pdf">
         <div style="margin-top: 20px;font-size: 25px">
           <h1>  Pumpers Report |</h1>
         </div>
@@ -14,24 +15,22 @@
     <div class="row">
       <div class="col-4">
         <label>Choose Start Date:</label>
-        <input type="date" name="startDate">
+        <input type="date" name="startDate" [(ngModel)]="startDate">
       </div>
       <div class="col-4">
         <label>Choose End Date:</label>
-        <input type="date" name="endDate" >
+        <input type="date" name="endDate" [(ngModel)]="endDate">
       </div>
       <div class="col-4">
-        <button type="button"><i  class="fa-solid fa-magnifying-glass"></i></button>
+        <button type="button" (click)="getAttendanceByDate()"><i  class="fa-solid fa-magnifying-glass"></i></button>
       </div>
     </div>
-    <div id="pdf">
-
       <table class="table table-striped" style="margin-top: 20px">
         <thead>
         <tr>
           <!--<th scope="col">#</th>-->
           <th scope="col" width="20%"  *ngFor="let data of applicationdata; let i = index">{{data.fuelPumperAttendance.fuelPumper.name}}</th>
-          <th scope="col" width="5%" style="text-align: center">Count</th>
+          <th scope="col" width="5%" style="text-align: center">Download</th>
         </tr>
         </thead>
         <tbody>
@@ -45,7 +44,7 @@
             <span style="color: #ff0a03">Count-{{data.countdata}}</span>
           </td>
           <td style="text-align: center">
-            <button style="border: none"> <i class="fas fa-download" style="cursor: pointer"></i></button>
+            <button style="border: none" (click)="sendToPdf()"> <i class="fas fa-download" style="cursor: pointer"></i></button>
 
           </td>
           <!--<td style="text-align: center">-->

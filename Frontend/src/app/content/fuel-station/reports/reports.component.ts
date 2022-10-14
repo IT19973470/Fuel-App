@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FuelStationService} from "../../../_service/fuel-station.service"
 import {Router} from "@angular/router"
+import html2canvas from "html2canvas"
+import {jsPDF} from "jspdf"
 
 @Component({
   selector: 'app-reports',
@@ -24,6 +26,9 @@ export class ReportsComponent implements OnInit {
     data: [],
     color: '#018002'
   }
+  startDate;
+  endDate;
+
   // total3={
   //   name:'Not-Completed',
   //   data: [],
@@ -35,8 +40,17 @@ pumpers=[]
 
   constructor(private fuelStationS: FuelStationService,private router: Router) {
      this.fillChart();
-
   }
+
+    getAttendanceByDate(){
+      this.fuelStationS.getAttendencBydate(this.startDate, this.endDate).subscribe((data) => {console.log(data)
+        this.applicationdata = data;
+        this.chartOptions.series.length=0
+        this.chartOptions.xaxis.categories.length=0
+        this.total2.data=[]
+        this.total.data=[]
+        this.chartdata(data)})
+    }
 
   getAllApplication() {
     this.fuelStationS.getAttendence().subscribe((application) => {
@@ -76,22 +90,22 @@ pumpers=[]
     this.getAllApplication();
   }
 
-  // sendToPdf() {
-  //   let data = document.getElementById('pdf');  //Id of the table
-  //   html2canvas(data).then(canvas => {
-  //     // Few necessary setting options
-  //     let imgWidth = 320;
-  //     // let pageHeight = 350;
-  //     let imgHeight = canvas.height * imgWidth / canvas.width;
-  //     let heightLeft = imgHeight;
-  //
-  //     const contentDataURL = canvas.toDataURL('image/png')
-  //     let pdf = new jsPDF('l', 'mm', 'a4'); // A4 size page of PDF
-  //     let position = 10;
-  //     pdf.addImage(contentDataURL, 'PNG', 10, position, imgWidth, imgHeight)
-  //     pdf.save('MYPdf.pdf'); // Generated PDF
-  //   });
-  // }
+  sendToPdf() {
+    let data = document.getElementById('pdf');  //Id of the table
+    html2canvas(data).then(canvas => {
+      // Few necessary setting options
+      let imgWidth = 275;
+      // let pageHeight = 350;
+      let imgHeight = canvas.height * imgWidth / canvas.width;
+      let heightLeft = imgHeight;
+
+      const contentDataURL = canvas.toDataURL('image/png')
+      let pdf = new jsPDF('l', 'mm', 'a4'); // A4 size page of PDF
+      let position = 10;
+      pdf.addImage(contentDataURL, 'PNG', 10, position, imgWidth, imgHeight)
+      pdf.save('MYPdf.pdf'); // Generated PDF
+    });
+  }
 
   fillChart() {
     this.chartOptions = {

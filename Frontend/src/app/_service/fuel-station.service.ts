@@ -34,7 +34,9 @@ export class FuelStationService {
   getAttendence(): Observable<any> {
     return this.http.get<any>(environment.backend_url + '/fuel_station/getAttendence/');
   }
-
+  getAttendencBydate(startDate:string,endDate:string): Observable<any> {
+    return this.http.get<any>(environment.backend_url + '/fuel_station/getAttendence/'+startDate+"/"+endDate);
+  }
   getFuelAdmin(): Observable<any> {
     return this.http.get<any>(environment.backend_url + '/fuel_station/getAdmin/');
   }
@@ -60,6 +62,10 @@ export class FuelStationService {
   }
   getVehicleReport(id)   : Observable<any> {
     return this.http.get<any>(environment.backend_url + '/fuel_station/getVehicleReport/'+id)
+  }
+
+  deleteOrder(id): Observable<any> {
+    return this.http.delete<any>(environment.backend_url + '/fuel_station/deleteOrder/' + id );
   }
 
 

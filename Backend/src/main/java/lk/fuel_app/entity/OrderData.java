@@ -1,6 +1,7 @@
 package lk.fuel_app.entity;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -12,9 +13,11 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
 public class OrderData {
     @Id
     private String id;
+    
 
     public OrderData(OrderData orderData) {
         this.id = orderData.id;
@@ -22,8 +25,8 @@ public class OrderData {
         this.amount = orderData.amount;
         this.date = orderData.date;
         this.status = orderData.status;
-        this.fuelAdmin = orderData.fuelAdmin;
-        this.fuelStation = orderData.fuelStation;
+//        this.fuelAdmin = orderData.fuelAdmin;
+//        this.fuelStation = orderData.fuelStation;
     }
 
     private String fuelType;
@@ -36,8 +39,5 @@ public class OrderData {
 
     @ManyToOne
     private FuelStation fuelStation;
-
-    public OrderData() {
-
-    }
+    
 }
