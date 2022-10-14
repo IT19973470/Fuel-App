@@ -58,6 +58,7 @@ export class FuelConsumptionCustomerComponent implements OnInit {
     }
     this.customerS.addFuelConsumption(fuelConsumption).subscribe(() => {
       this.getFuelConsumptions()
+      this.consumed = 0
     })
   }
 

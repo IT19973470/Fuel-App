@@ -6,6 +6,7 @@ import lk.fuel_app.repository.*;
 import lk.fuel_app.service.CustomerService;
 import lk.fuel_app.service.SendEmailSMTP;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
@@ -264,8 +265,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public FuelConsumption addFuelConsumption(FuelConsumption fuelConsumption) {
-        LocalDate localDate = LocalDate.now();
-        fuelConsumption.setId(fuelConsumption.getCustomer().getVehicle().getVehicleNumber() + localDate.format(DateTimeFormatter.ofPattern("yyyyMMdd")));
+        LocalDateTime localDate = LocalDateTime.now();
+        fuelConsumption.setId(fuelConsumption.getCustomer().getVehicle().getVehicleNumber() + localDate.format(DateTimeFormatter.ofPattern("yyyyMMddhhmmss")));
         fuelConsumption.setCheckedAt(localDate);
         return new FuelConsumption(fuelConsumptionRepository.save(fuelConsumption));
     }
@@ -275,7 +276,9 @@ public class CustomerServiceImpl implements CustomerService {
         List<FuelConsumption> allByCustomerNic = fuelConsumptionRepository.getAllByCustomerNicOrderByCheckedAtDesc(id);
         List<FuelConsumption> fuelConsumptions = new ArrayList<>();
         for (FuelConsumption fuelConsumption : allByCustomerNic) {
-            fuelConsumptions.add(new FuelConsumption(fuelConsumption));
+            FuelConsumption fuelConsumptionObj = new FuelConsumption(fuelConsumption);
+            fuelConsumptionObj.setCheckedAtDate(fuelConsumptionObj.getCheckedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            fuelConsumptions.add(fuelConsumptionObj);
         }
         return fuelConsumptions;
     }
@@ -345,5 +348,70 @@ public class CustomerServiceImpl implements CustomerService {
 //            fuelAvailabilityDTO.setFuelStation(fuelStationsObj.);
 //        }
         return fuelAvailabilityDTOS;
+    }
+
+    @Override
+    public FuelAvailabilityDTO getFuelConsumptionsM(String vehicle) {
+        FuelAvailabilityDTO fuelAvailabilityDTO = new FuelAvailabilityDTO();
+        LocalDateTime localDateTimeCur = LocalDateTime.of(LocalDate.now(), LocalTime.parse("23:59"));
+        Map<Integer, FuelAvailabilityDTO.FuelConsumption> stockWeeksObj = new HashMap<>();
+//        List<FuelType> fuelTypes = fuelTypeRepository.getFuelTypes();
+        List<FuelConsumption> lastConsumptions = fuelConsumptionRepository.getLastConsumption(vehicle, PageRequest.of(0, 1));
+
+        for (int i = 0; i < 4; i++) {
+            FuelAvailabilityDTO.FuelConsumption fuelConsumption = new FuelAvailabilityDTO.FuelConsumption();
+//            fuelConsumption.setFuelPumped(1);
+//            fuelConsumption.setFuelConsumed(1);
+            stockWeeksObj.put(i, fuelConsumption);
+        }
+        for (int i = 0; i < 4; i++) {
+            localDateTimeCur = localDateTimeCur.minusWeeks(i);
+            LocalDateTime localDateTimePre = localDateTimeCur.minusWeeks(i + 1);
+            List<CustomerFuelStation> fuelPumpedM = customerFuelStationRepository.getFuelPumpedM(vehicle, localDateTimeCur, localDateTimePre);
+            List<FuelConsumption> fuelConsumptionsM = fuelConsumptionRepository.getFuelConsumptionsM(vehicle, localDateTimeCur, localDateTimePre);
+
+            for (CustomerFuelStation fuelStock : fuelPumpedM) {
+//                Map<Integer, Map<String, FuelAvailabilityDTO.FuelStock>> fuelStationsMap = fuelStations.get(fuelStock.getFuelStation().getName());
+//                if (fuelStationsMap == null) {
+//                    stockWeeksObj = new HashMap<>();
+//                    for (int j = 0; j < 4; j++) {
+//                        availableStockObj = new HashMap<>();
+//                        for (FuelType fuelType : fuelTypes) {
+//                            FuelAvailabilityDTO.FuelStock fuelStockObj = new FuelAvailabilityDTO.FuelStock(fuelType.getId(), fuelType.getName());
+//                            fuelStockObj.setQuantity(100);
+//                            availableStockObj.put(fuelType.getId(), fuelStockObj);
+//                        }
+//                        stockWeeksObj.put(j, availableStockObj);
+//                    }
+//                    fuelStations.put(fuelStock.getFuelStation().getName(), stockWeeksObj);
+//                    fuelStationsMap = fuelStations.get(fuelStock.getFuelStation().getName());
+//                }
+                FuelAvailabilityDTO.FuelConsumption fuelConsumption = stockWeeksObj.get(4 - (i + 1));
+                fuelConsumption.setFuelPumped(fuelConsumption.getFuelPumped() + fuelStock.getFuelPumped());
+            }
+
+            for (FuelConsumption fuelConsumptionObj : fuelConsumptionsM) {
+                FuelAvailabilityDTO.FuelConsumption fuelConsumption = stockWeeksObj.get(4 - (i + 1));
+                fuelConsumption.setFuelConsumed(fuelConsumption.getFuelConsumed() + fuelConsumptionObj.getTrip());
+            }
+
+        }
+
+        List<FuelAvailabilityDTO.FuelConsumption> fuelConsumptions = new ArrayList<>();
+        for (Map.Entry<Integer, FuelAvailabilityDTO.FuelConsumption> fuelConsumptionEntry : stockWeeksObj.entrySet()) {
+            FuelAvailabilityDTO.FuelConsumption fuelConsumption = new FuelAvailabilityDTO.FuelConsumption();
+            fuelConsumption.setWeek(fuelConsumptionEntry.getKey());
+            fuelConsumption.setFuelPumped(fuelConsumptionEntry.getValue().getFuelPumped());
+            if (lastConsumptions.size() > 0) {
+                fuelConsumption.setFuelConsumed(fuelConsumptionEntry.getValue().getFuelConsumed() * (lastConsumptions.get(0).getConsumed() / lastConsumptions.get(0).getTrip()));
+            }
+            fuelConsumptions.add(fuelConsumption);
+        }
+        fuelAvailabilityDTO.setFuelConsumptions(fuelConsumptions);
+//        for (Map<Integer, Map<String, FuelAvailabilityDTO.FuelStock>> fuelStationsObj :) {
+//            FuelAvailabilityDTO fuelAvailabilityDTO = new FuelAvailabilityDTO();
+//            fuelAvailabilityDTO.setFuelStation(fuelStationsObj.);
+//        }
+        return fuelAvailabilityDTO;
     }
 }
