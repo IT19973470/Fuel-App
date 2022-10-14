@@ -5,16 +5,22 @@
         <div style="width: 250px;height: 250px;border: 0px solid black;margin-bottom: 20px">
           <qr-code [value]="customer!==null?customer.vehicle.vehicleNumber:''" size="250"></qr-code>
         </div>
-        <table>
-          <tr>
-            <td>Weekly Quota</td>
-            <td>{{customer.vehicle.vehicleType.fuelReference}}L</td>
-          </tr>
-          <tr>
-            <td>Balanced Quota</td>
-            <td>{{customer.vehicle.vehicleType.fuelReference - customer.quota}}L</td>
-          </tr>
-        </table>
+        <div style="margin-top: 0px;display: flex;justify-content: center;width: 100%">
+          <table>
+            <tr>
+              <td>Weekly Quota</td>
+              <td>{{customer.vehicle.vehicleType.fuelReference}}L</td>
+            </tr>
+            <tr>
+              <td>Balanced Quota</td>
+              <td>{{customer.vehicle.vehicleType.fuelReference - customer.quota}}L</td>
+            </tr>
+          </table>
+        </div>
+        <div style="margin-top: 20px;display: flex;justify-content: center;width: 100%">
+          <button class="btn btn-warning" type="button" (click)="deleteCustomer()">Download QR
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -48,7 +54,7 @@
         </div>
       </div>
     </div>
-    <div style="margin-top: 20px">
+    <div style="margin-top: 20px;margin-left: 40px">
       <button class="btn btn-primary" style="margin-right: 10px" (click)="updateCustomer()">Edit Profile</button>
       <button class="btn btn-danger" type="button" (click)="deleteCustomer()">Delete Profile</button>
     </div>

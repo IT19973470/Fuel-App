@@ -17,6 +17,10 @@ export class FuelAvailabilityCustomerComponent implements OnInit {
   places
   districtPlaces = []
   fuelAvailabilities = []
+  selectedFuelType = '';
+  selectedOrderBy = ''
+
+  fuelTypes = []
 
   constructor(private userS: UserService, private customerS: CustomerService, private domSanitizer: DomSanitizer) {
     userS.setPlace.subscribe((place: any) => {
@@ -31,6 +35,7 @@ export class FuelAvailabilityCustomerComponent implements OnInit {
 
   ngOnInit(): void {
     this.setDistricts();
+    this.getFuelTypes()
   }
 
   getFuelAvailability() {
@@ -58,11 +63,52 @@ export class FuelAvailabilityCustomerComponent implements OnInit {
     // }
   }
 
+  getFuelTypes() {
+    this.userS.getFuelTypes().subscribe(fuelTypes => {
+      this.fuelTypes = fuelTypes;
+      // this.selectedFuelType = fuelTypes[0].id
+      // this.setDistricts()
+      // this.getFuelAvailabilityM()
+    })
+  }
+
   transform(url) {
     return this.domSanitizer.bypassSecurityTrustResourceUrl(url);
   }
 
   getWholeNumber(val) {
     return Math.floor(val)
+  }
+
+  reOrder() {
+    console.log(this.fuelAvailabilities)
+    let fuelStationsArr = []
+    for (let fuelStation of this.fuelAvailabilities) {
+      let quantity;
+      if (this.selectedOrderBy == 'stock') {
+        quantity = fuelStation.availableStock[this.selectedFuelType].quantity
+      } else if (this.selectedOrderBy == 'hour') {
+        quantity = fuelStation.fuelSupplyPerHour[this.selectedFuelType].quantity
+      } else if (this.selectedOrderBy == 'car') {
+        quantity = fuelStation.availableVehicles[0].vehicles[this.selectedFuelType].quantity
+      } else if (this.selectedOrderBy == 'bike') {
+        quantity = fuelStation.availableVehicles[1].vehicles[this.selectedFuelType].quantity
+      } else if (this.selectedOrderBy == 'wheel') {
+        quantity = fuelStation.availableVehicles[2].vehicles[this.selectedFuelType].quantity
+      } else if (this.selectedOrderBy == 'bus') {
+        quantity = fuelStation.availableVehicles[3].vehicles[this.selectedFuelType].quantity
+      }
+      fuelStationsArr.push({
+        quantity: quantity,
+        fuelStation: fuelStation
+      })
+    }
+    fuelStationsArr.sort((a, b) => {
+      return b.quantity - a.quantity;
+    });
+    this.fuelAvailabilities = []
+    for (let fuelStation of fuelStationsArr) {
+      this.fuelAvailabilities.push(fuelStation.fuelStation)
+    }
   }
 }
