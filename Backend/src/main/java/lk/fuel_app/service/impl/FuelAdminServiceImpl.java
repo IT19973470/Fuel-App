@@ -144,6 +144,30 @@ public class FuelAdminServiceImpl implements FuelAdminService {
     }
 
     @Override
+    public Object approveOrder(String id, OrderData orderData) {
+        Optional<OrderData> data = orderRepository.findById(id);
+        if (data.isPresent()){
+            OrderData orderData1 = data.get();
+            orderData1.setStatus("Approved");
+
+            return new OrderData(orderRepository.save(orderData1));
+        }
+        return null;
+    }
+
+    @Override
+    public Object denyOrder(String id, OrderData orderData) {
+        Optional<OrderData> data = orderRepository.findById(id);
+        if (data.isPresent()){
+            OrderData orderData1 = data.get();
+            orderData1.setStatus("Denied");
+
+            return new OrderData(orderRepository.save(orderData1));
+        }
+        return null;
+    }
+
+    @Override
     public boolean deleteStockIn(String id) {
         fuelAdminStockInRepository.deleteById(id);
         return true;

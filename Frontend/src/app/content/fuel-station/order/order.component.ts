@@ -20,7 +20,7 @@ export class OrderComponent implements OnInit {
     chaterName:"",
     msg:""
   }
-  you
+
   constructor(private router: Router, private fuelStationS: FuelStationService,  private confirmBox: ConfirmBoxService) {
     this.c.chaterName = localStorage.getItem('user') !== null ? JSON.parse(localStorage.getItem('user') as string)['email'] : ''
     console.log(this.c.chaterName)
