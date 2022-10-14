@@ -11,8 +11,8 @@
             <label>Filter by Vehicle Type:</label>
           </div>
           <div class="col-4">
-            <select [(ngModel)]="vehicleType" (change)="searchByType()" style="margin-right: 20px;margin-left: 20px;"
-                    class="btn btn-outline-primary dropdown-toggle">
+            <select [(ngModel)]="vehicleType" (change)="searchByType(vehicleType)" style="margin-right: 20px;margin-left: 20px;"
+                    class="btn  dropdown-toggle">
               <option value="All">All</option>
               <option *ngFor="let vehicleType of vehicleTypes" value="" [value]="vehicleType.id" >{{vehicleType.name}}</option>
 

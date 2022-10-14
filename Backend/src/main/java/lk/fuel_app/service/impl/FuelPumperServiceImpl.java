@@ -95,7 +95,7 @@ public class FuelPumperServiceImpl implements FuelPumperService {
     @Override
     public FuelPumperAttendance addFuelPumperAttendance(FuelPumperAttendance fuelPumperAttendance) {
         fuelPumperAttendance.setId(fuelPumperAttendance.getFuelPumper().getNic() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
-        return fuelPumperAttendanceRepository.save(fuelPumperAttendance);
+        return fuelPumperAttendanceRepository.save(new FuelPumperAttendance(fuelPumperAttendance));
     }
 
     @Override

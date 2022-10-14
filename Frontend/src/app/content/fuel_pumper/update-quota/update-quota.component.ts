@@ -4,6 +4,7 @@ import {FuelStationService} from "../../../_service/fuel-station.service";
 import {QrScanService} from "../../../qr-scan/qr-scan.service";
 import {FuelPumperService} from "../../../_service/fuel-pumper.service";
 import {UserService} from "../../../_service/user.service";
+import {NotifierService} from "angular-notifier";
 
 @Component({
   selector: 'app-update-quota',
@@ -23,7 +24,7 @@ export class UpdateQuotaComponent implements OnInit {
   };
   fullTanked = false
 
-  constructor(private customerS: CustomerService, private fuelPumperS: FuelPumperService, private qrScanS: QrScanService, private userS: UserService) {
+  constructor(private customerS: CustomerService, private fuelPumperS: FuelPumperService, private qrScanS: QrScanService, private userS: UserService,private notifierService: NotifierService) {
     this.customer = this.customerS.newCustomer()
     qrScanS.qrValue.subscribe(value => {
       this.getCustomerByVehicle(value)
@@ -74,7 +75,9 @@ export class UpdateQuotaComponent implements OnInit {
       this.fuelPumperS.addCustomerFuel(customerFuel).subscribe(customerFuel => {
         // console.log(customerFuel)
         this.customer.quota = customerFuel.customer.quota
+        this.notifierService.notify("success", "Minimum two full pumps should be needed");
       })
+
     }
   }
 
