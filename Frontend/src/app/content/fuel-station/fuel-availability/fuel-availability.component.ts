@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {FuelStationService} from '../../../_service/fuel-station.service';
 import {UserService} from "../../../_service/user.service";
+import {NotifierService} from "angular-notifier"
 
 
 @Component({
@@ -16,7 +17,7 @@ export class FuelAvailabilityComponent implements OnInit {
   fuelStockNext
 
 
-  constructor(private fuelStationS: FuelStationService, private userS: UserService) {
+  constructor(private fuelStationS: FuelStationService, private userS: UserService,private notifierService:NotifierService) {
     this.fuelStock = fuelStationS.newFuelStock()
     this.fuelStockNext = fuelStationS.newFuelStock()
   }
@@ -34,16 +35,21 @@ export class FuelAvailabilityComponent implements OnInit {
 
   addFuelStock() {
     this.fuelStock.fuelStation.id = JSON.parse(localStorage.getItem('user')).id;
-    this.fuelStationS.addFuelStock(this.fuelStock).subscribe(() => {
-      this.getFuelStock();
-    });
+    this.fuelStationS.addFuelStock(this.fuelStock).subscribe((deliveryDetail) => {
+      this.getFuelStock()
+      this.notifierService.notify("success", "Stock added successfully");
+    }, (err) => {
+      this.notifierService.notify("error", "Stock added fail");
+    })
   }
-
 
   nextFuelStock() {
     this.fuelStockNext.fuelStation.id = JSON.parse(localStorage.getItem('user')).id
     this.fuelStationS.addNextFuelStock(this.fuelStockNext).subscribe(() => {
       this.getFuelStock()
+      this.notifierService.notify("success", "Stock added successfully");
+    },(err) => {
+      this.notifierService.notify("error", "Stock added fail");
     })
   }
 

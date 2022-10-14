@@ -146,8 +146,7 @@
 </div>
 
 
-<div class="modal fade " style="width: 1500px" id="search_fuel_report" tabindex="-1" aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
+<div class="modal fade " style="width: 1500px" id="search_fuel_report" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -180,7 +179,7 @@
                 </div>
 
                 <div style="margin-top: 20px">Amount</div>
-                <input class="form-control" type="text" name="name" placeholder="Enter Name" [(ngModel)]="order.amount"
+                <input class="form-control" type="number" name="name" placeholder="Enter Name" [(ngModel)]="order.amount"
                        #name="ngModel" required>
                 <div *ngIf="(name.touched || orderForm.submitted) && name.errors?.required"
                      class="validErr">
@@ -189,10 +188,10 @@
 
 
                 <div class="container-login100-form-btn" style="margin-top: 40px;margin-bottom: 40px">
-                  <button class="login100-form-btn" type="submit" (click)="addorder() " *ngIf="btnadd===1">
+                  <button class="login100-form-btn" type="submit" (click)="addorder() " data-bs-dismiss="modal" *ngIf="btnadd===1">
                     Order
                   </button>
-                  <button class="login100-form-btn" type="submit" (click)="updateorder()" *ngIf="btnupdate===1">
+                  <button class="login100-form-btn" type="submit" (click)="updateorder()"data-bs-dismiss="modal"  *ngIf="btnupdate===1">
                     Update
                   </button>
                 </div>
@@ -245,12 +244,12 @@
 
                 <div class="container-login100-form-btn row" style="margin-top: 40px;margin-bottom: 40px">
                   <div class="col-6">
-                    <button class="login100-form-btn" type="submit" (click)="delete() ">
+                    <button class="login100-form-btn" type="submit" (click)="delete()" data-bs-dismiss="modal">
                       Yes
                     </button>
                   </div>
                   <div class="col-6">
-                    <button class="login100-form-btn" type="submit" >
+                    <button class="login100-form-btn" type="submit"data-bs-dismiss="modal" >
                       No
                     </button>
                   </div>

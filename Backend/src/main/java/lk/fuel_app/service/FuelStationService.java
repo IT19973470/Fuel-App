@@ -28,6 +28,6 @@ public interface FuelStationService {
     public boolean deleteOrder(String id);
     List<VehicleType> getAllVehicleTypes();
     List<VehicleReportDTO> getVehicleReportType(String id,String type);
-    
+    List<CustomerFuelStation> getAllVehicleDetails();
     
 }
