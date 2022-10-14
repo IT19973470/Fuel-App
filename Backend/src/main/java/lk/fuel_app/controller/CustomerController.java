@@ -4,6 +4,7 @@ import lk.fuel_app.dto.FuelAvailabilityDTO;
 import lk.fuel_app.entity.Customer;
 import lk.fuel_app.entity.CustomerFuelStation;
 import lk.fuel_app.entity.FuelConsumption;
+import lk.fuel_app.entity.Vehicle;
 import lk.fuel_app.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -82,5 +83,10 @@ public class CustomerController {
     @GetMapping(value = "/getFuelConsumptionsM/{vehicle}")
     public FuelAvailabilityDTO getFuelConsumptionsM(@PathVariable String vehicle) {
         return customerService.getFuelConsumptionsM(vehicle);
+    }
+
+    @GetMapping(value = "/regenerateQR/{vehicle}")
+    public Vehicle regenerateQR(@PathVariable String vehicle) {
+        return customerService.regenerateQR(vehicle);
     }
 }
