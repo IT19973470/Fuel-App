@@ -46,6 +46,7 @@ import {ViewReportComponent} from './content/admin/view-report/view-report.compo
 import { FuelReportCustomerComponent } from './content/customer/fuel-report-customer/fuel-report-customer.component';
 import { ReportFuelAvailabilityCustomerComponent } from './content/customer/fuel-report-customer/report-fuel-availability-customer/report-fuel-availability-customer.component';
 import { ReportFuelConsumptionCustomerComponent } from './content/customer/fuel-report-customer/report-fuel-consumption-customer/report-fuel-consumption-customer.component';
+import { AlertBoxComponent } from './alert-box/alert-box.component';
 
 const customNotifierOptions: NotifierOptions = {
   position: {
@@ -126,7 +127,8 @@ const customNotifierOptions: NotifierOptions = {
     ViewReportComponent,
     FuelReportCustomerComponent,
     ReportFuelAvailabilityCustomerComponent,
-    ReportFuelConsumptionCustomerComponent
+    ReportFuelConsumptionCustomerComponent,
+    AlertBoxComponent
   ],
   imports: [
     BrowserModule,

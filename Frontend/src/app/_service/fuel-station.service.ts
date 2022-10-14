@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {HttpClient} from '@angular/common/http';
+import {Result} from "../content/fuel_pumper/result"
 
 @Injectable({
   providedIn: 'root'
@@ -72,6 +73,9 @@ export class FuelStationService {
   }
   getTypes(type,id): Observable<any> {
     return this.http.get<any>(environment.backend_url + '/fuel_station/getVehicleReport/' + id+"/"+ type);
+  }
+  getAllVehicleDetailsReport():Observable<Result>{
+    return this.http.get<any>(environment.backend_url+"/fuel_station/allVehicleDetailsReport");
   }
 
   newFuelStation() {

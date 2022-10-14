@@ -29,7 +29,7 @@ export class AttendanceFuelTableComponent implements OnInit {
 
   getAtteadance() {
     this.fuelStationService.getAttendence().subscribe(attendance => {
-      // console.log(fuelStock)
+       console.log(attendance)
       this.attendance = attendance;
       console.log( this.attendance);
     });

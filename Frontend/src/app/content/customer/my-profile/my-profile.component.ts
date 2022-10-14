@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import * as htmlToImage from 'html-to-image';
 import html2canvas from "html2canvas";
 import {jsPDF} from "jspdf";
+import {AlertBoxService} from "../../../alert-box/alert-box.service";
 
 @Component({
   selector: 'app-my-profile',
@@ -15,7 +16,13 @@ export class MyProfileComponent implements OnInit {
   customer;
   displayImg = false;
 
-  constructor(private customerS: CustomerService, private router: Router) {
+  alertBox = {
+    alert: false,
+    msg: '',
+    value: ''
+  };
+
+  constructor(private customerS: CustomerService, private router: Router, private alertService: AlertBoxService) {
     this.customer = this.customerS.newCustomer();
   }
 
@@ -40,31 +47,47 @@ export class MyProfileComponent implements OnInit {
   }
 
   deleteCustomer() {
-    this.customerS.deleteCustomer(JSON.parse(localStorage.getItem('user')).id).subscribe(() => {
-      this.router.navigate(['/login']);
+    this.alertBox.alert = true;
+    this.alertBox.msg = 'Do you want to delete the account?';
+    this.alertService.reply.observers = [];
+    this.alertService.reply.subscribe(reply => {
+      if (reply) {
+        this.customerS.deleteCustomer(JSON.parse(localStorage.getItem('user')).id).subscribe(() => {
+          this.router.navigate(['/login']);
+        })
+      }
+      this.alertBox.alert = false;
     })
   }
 
   regenerateQR() {
-    this.customerS.regenerateQR(JSON.parse(localStorage.getItem('user')).customer.vehicle.vehicleNumber).subscribe((vehicle) => {
-      let user = JSON.parse(localStorage.getItem('user'))
-      user.customer.vehicle = vehicle
-      this.customer.vehicle = vehicle
-      localStorage.setItem('user', JSON.stringify(user))
-      // this.getCustomer()
+    this.alertBox.alert = true;
+    this.alertBox.msg = 'Do you want to regenerate the QR?';
+    this.alertService.reply.observers = [];
+    this.alertService.reply.subscribe(reply => {
+      if (reply) {
+        this.customerS.regenerateQR(JSON.parse(localStorage.getItem('user')).customer.vehicle.vehicleNumber).subscribe((vehicle) => {
+          let user = JSON.parse(localStorage.getItem('user'))
+          user.customer.vehicle = vehicle
+          this.customer.vehicle = vehicle
+          localStorage.setItem('user', JSON.stringify(user))
+          // this.getCustomer()
+        })
+      }
+      this.alertBox.alert = false;
     })
   }
 
   generateImage() {
     this.displayImg = true
     let that = this
-    var node:any = document.getElementById('qrImg');
+    var node: any = document.getElementById('qrImg');
     // node.style.display = 'grid';
     htmlToImage.toJpeg(node, {quality: 0.95})
       .then(function (dataUrl) {
         // node.style.display = 'none';
         var link = document.createElement('a');
-        link.download = 'my-image-name.jpeg';
+        link.download = that.customer.vehicle.vehicleNumber + '_QR.jpeg';
         link.href = dataUrl;
         link.click();
       });
