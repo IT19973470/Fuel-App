@@ -10,7 +10,7 @@
 
       <div style="margin-top: 20px">NIC</div>
       <input class="form-control" type="text" name="nic" placeholder="Enter NIC" [(ngModel)]="customer.nic"
-             #nic="ngModel" required appNicValidator>
+             #nic="ngModel" required appNicValidator readonly>
       <div *ngIf="(nic.touched || regCustomerForm.submitted) && nic.errors?.required"
            class="validErr">
         NIC is required
