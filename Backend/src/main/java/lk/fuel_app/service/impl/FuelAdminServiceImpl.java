@@ -61,20 +61,21 @@ public class FuelAdminServiceImpl implements FuelAdminService {
     public List<FuelAdminStockOut> viewStockOut() {
         List<FuelAdminStockOut>  fuelAdminStockOuts = fuelAdminStockOutRepository.findAll();
         List<FuelAdminStockOut> adminStockOuts = new ArrayList<>();
-        for(FuelAdminStockOut fuelAdminStockOut: adminStockOuts){
-            fuelAdminStockOuts.add(new FuelAdminStockOut(fuelAdminStockOut));
+        for(FuelAdminStockOut fuelAdminStockOut: fuelAdminStockOuts){
+//            fuelAdminStockOut.getFuelStation().setFuelStationPlace(null);
+            adminStockOuts.add(new FuelAdminStockOut(fuelAdminStockOut));
         }
-        return fuelAdminStockOuts;    }
+        return adminStockOuts;    }
 
 
     @Override
     public List<OrderData> viewFuelOrders() {
         List<OrderData>  orderDatas = orderRepository.findAll();
         List<OrderData> orderData = new ArrayList<>();
-        for(OrderData orderData1: orderData){
-            orderDatas.add(new OrderData(orderData1));
+        for(OrderData orderData1: orderDatas){
+            orderData.add(new OrderData(orderData1));
         }
-        return orderDatas;
+        return orderData;
     }
 
     @Override
@@ -126,7 +127,12 @@ public class FuelAdminServiceImpl implements FuelAdminService {
 
     @Override
     public List<OrderData> getOrder() {
-        return orderRepository.findAll();
+        List<OrderData>  orderDatas = orderRepository.findAll();
+        List<OrderData> orderData = new ArrayList<>();
+        for(OrderData orderData1: orderDatas){
+            orderData.add(new OrderData(orderData1));
+        }
+        return orderData;
     }
 
     @Override
