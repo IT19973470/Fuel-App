@@ -21,6 +21,9 @@ export class UpdateProfileComponent implements OnInit {
 
   constructor(private customerS: CustomerService, private router: Router, private userS: UserService) {
     this.customer = this.customerS.customer;
+    this.userS.placesFound.subscribe(() => {
+      this.getPlaces(this.customer.fuelStationPlace.district)
+    })
   }
 
   ngOnInit(): void {
@@ -48,6 +51,7 @@ export class UpdateProfileComponent implements OnInit {
 
   setDistricts() {
     this.districts = this.userS.districts
+    this.getPlaces(this.customer.fuelStationPlace.district)
     // this.getPlaces(this.customer.fuelStationPlace.district)
   }
 

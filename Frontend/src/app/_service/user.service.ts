@@ -8,6 +8,8 @@ import {environment} from "../../environments/environment";
 })
 export class UserService {
 
+  placesFound = new Subject<any>()
+
   constructor(private http: HttpClient) {
     this.setDistricts()
   }
@@ -44,6 +46,7 @@ export class UserService {
         this.districtPlaces = places
         this.setPlace.next(JSON.parse(localStorage.getItem('user')).customer.fuelStationPlace)
         this.place = JSON.parse(localStorage.getItem('user')).customer.fuelStationPlace
+        this.placesFound.next()
         // this.place = JSON.parse(localStorage.getItem('user')).customer.fuelStationPlace.place;
       }
     })
