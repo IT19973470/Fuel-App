@@ -61,6 +61,7 @@ export class UpdateQuotaComponent implements OnInit {
     if (quota === 0) {
       this.fuelPumperS.deleteCustomerFuel(this.customer.nic, JSON.parse(localStorage.getItem('user')).id).subscribe(customerFuel => {
         this.customer = customerFuel.customer
+        this.notifierService.notify("success", "Successfully Deleted");
       })
     } else {
       let customerFuel = {
@@ -79,7 +80,7 @@ export class UpdateQuotaComponent implements OnInit {
       this.fuelPumperS.addCustomerFuel(customerFuel).subscribe(customerFuel => {
         // console.log(customerFuel)
         this.customer.quota = customerFuel.customer.quota
-        this.notifierService.notify("success", "Minimum two full pumps should be needed");
+        this.notifierService.notify("success", "Successful");
       })
 
     }

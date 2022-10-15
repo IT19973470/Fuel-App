@@ -104,6 +104,7 @@ public class FuelPumperServiceImpl implements FuelPumperService {
 
     @Override
     public FuelPumperAttendance markTimeOutAttendance(FuelPumperAttendance fuelPumperAttendance, String id) {
+        System.out.println(id + "...................");
         Optional<FuelPumperAttendance> fuelPumperAttendance1 = fuelPumperAttendanceRepository.findById(id);
 
         if (fuelPumperAttendance1.isPresent()) {
