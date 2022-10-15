@@ -9,10 +9,14 @@
 
       <div style="margin-top: 20px">NIC</div>
       <input class="form-control" type="text" name="nic" placeholder="Enter NIC" [(ngModel)]="fuelPumper.nic"
-             #nic="ngModel" required>
+             #nic="ngModel" required appNicValidator>
       <div *ngIf="(nic.touched || regPumperForm.submitted) && nic.errors?.required"
            class="validErr">
         NIC is required
+      </div>
+      <div *ngIf="(nic.dirty) && nic.errors?.nicInvalid"
+           class="validErr">
+        Invalid NIC
       </div>
 
       <div style="margin-top: 20px">Name</div>
@@ -35,19 +39,27 @@
       <div style="margin-top: 20px">Contact Number</div>
       <input class="form-control" type="text" name="contact" placeholder="Enter Contact Number"
              [(ngModel)]="fuelPumper.appUser.contactNumber"
-             #contactNumber="ngModel" required>
+             #contactNumber="ngModel"  required appTelephoneValidator>
       <div *ngIf="(contactNumber.touched || regPumperForm.submitted) && contactNumber.errors?.required"
            class="validErr">
-        Address is required
+        Contact number is required
+      </div>
+      <div *ngIf="(contactNumber.dirty) && contactNumber.errors?.telephoneInvalid"
+           class="validErr">
+        Invalid Contact Number
       </div>
 
       <div style="margin-top: 20px">Email</div>
       <input class="form-control" type="text" name="email" placeholder="Enter Email"
              [(ngModel)]="fuelPumper.appUser.email"
-             #email="ngModel" required>
+             #email="ngModel" required appEmailValidator>
       <div *ngIf="(email.touched || regPumperForm.submitted) && email.errors?.required"
            class="validErr">
-        Address is required
+        Email is required
+      </div>
+      <div *ngIf="(email.dirty) && email.errors?.emailInvalid"
+           class="validErr">
+        Invalid Email
       </div>
 
       <div style="margin-top: 20px">Password</div>

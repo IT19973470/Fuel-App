@@ -14,7 +14,7 @@ import java.util.List;
 
 public interface FuelPumperAttendanceRepository extends JpaRepository<FuelPumperAttendance, String> {
     @Query(value = "select count(id) from CustomerFuelStation where  pumpedAtDate  =?1 and fuelPumper.nic=?2")
-    int getFuelPumpedCount(LocalDate pumpedAtDate, String nic);
+    Integer getFuelPumpedCount(LocalDate pumpedAtDate, String nic);
 
     @Query(value = "select a from  FuelPumperAttendance a where a.markedAt between :startDate and :endDate")
     public List<FuelPumperAttendance> FindAllBetween(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
