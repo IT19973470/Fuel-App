@@ -25,6 +25,7 @@ export class MarkAttendanceComponent implements OnInit {
 
   addFuelPumperAttendance() {
     this.fuelPumperAttendance.fuelPumper.nic = JSON.parse(localStorage.getItem("user")).id
+    this.fuelPumperAttendance.id = JSON.parse(localStorage.getItem("user")).id
     console.log(this.fuelPumperAttendance)
     this.fuelPumperS.addFuelPumperAttendance(this.fuelPumperAttendance).subscribe(data => {
 
@@ -36,8 +37,8 @@ export class MarkAttendanceComponent implements OnInit {
 
   markTimeOutAttendance() {
     // console.log(localStorage.getItem("fuelPumperAttendance"))
+    this.fuelPumperAttendance.id = JSON.parse(localStorage.getItem("user")).id
     this.fuelPumperAttendance.fuelPumper.nic = JSON.parse(localStorage.getItem("user")).id
-    this.fuelPumperAttendance.id = JSON.parse(localStorage.getItem("fuelPumperAttendance"))
     // this.fuelPumperAttendance.id = this.attendanceId
     console.log(this.fuelPumperAttendance)
     this.fuelPumperS.markTimeOutAttendance(this.fuelPumperAttendance).subscribe(data => {

@@ -59,6 +59,7 @@ export class UpdateQuotaComponent implements OnInit {
 
   updateCustomerFuel(quota) {
     if (quota === 0) {
+      console.log(this.customer.nic)
       this.fuelPumperS.deleteCustomerFuel(this.customer.nic, JSON.parse(localStorage.getItem('user')).id).subscribe(customerFuel => {
         this.customer = customerFuel.customer
       })
@@ -79,7 +80,7 @@ export class UpdateQuotaComponent implements OnInit {
       this.fuelPumperS.addCustomerFuel(customerFuel).subscribe(customerFuel => {
         // console.log(customerFuel)
         this.customer.quota = customerFuel.customer.quota
-        this.notifierService.notify("success", "Minimum two full pumps should be needed");
+        this.notifierService.notify("success", "Successful");
       })
 
     }
