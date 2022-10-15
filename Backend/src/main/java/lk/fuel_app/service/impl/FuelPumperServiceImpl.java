@@ -90,23 +90,27 @@ public class FuelPumperServiceImpl implements FuelPumperService {
 
     @Override
     public FuelPumper addFuelPumper(FuelPumper fuelPumper) {
-        return fuelPumperRepository.save(fuelPumper);
+        fuelPumperRepository.save(fuelPumper);
+        return new FuelPumper(fuelPumper);
     }
 
     @Override
     public FuelPumperAttendance addFuelPumperAttendance(FuelPumperAttendance fuelPumperAttendance) {
+//       fuelPumperAttendance.setFuelPumper(fuelPumperAttendance.getFuelPumper());
         fuelPumperAttendance.setId(fuelPumperAttendance.getFuelPumper().getNic() + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd")));
-        return fuelPumperAttendanceRepository.save(new FuelPumperAttendance(fuelPumperAttendance));
+        fuelPumperAttendanceRepository.save(fuelPumperAttendance);
+        return new FuelPumperAttendance(fuelPumperAttendance);
     }
 
     @Override
     public FuelPumperAttendance markTimeOutAttendance(FuelPumperAttendance fuelPumperAttendance, String id) {
         Optional<FuelPumperAttendance> fuelPumperAttendance1 = fuelPumperAttendanceRepository.findById(id);
 
-        if(fuelPumperAttendance1.isPresent()){
+        if (fuelPumperAttendance1.isPresent()) {
             FuelPumperAttendance attendance1 = fuelPumperAttendance1.get();
             attendance1.setTimeOut(fuelPumperAttendance.getTimeOut());
-            return fuelPumperAttendanceRepository.save(attendance1);
+            attendance1 = fuelPumperAttendanceRepository.save(attendance1);
+            return new FuelPumperAttendance(attendance1);
         }
         return null;
     }

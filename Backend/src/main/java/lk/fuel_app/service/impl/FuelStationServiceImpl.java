@@ -183,13 +183,16 @@ public class FuelStationServiceImpl implements FuelStationService {
     @Override
     public List<AttandanceDTO> getAttendence() {
         List<AttandanceDTO> attandanceDTOS = new ArrayList<>();
-        int countdata = 0;
+        Integer countdata;
         List<FuelPumperAttendance> fuelPumperAttendances = fuelPumperAttendanceRepository.findAll();
         for (FuelPumperAttendance fuelPumperAttendance : fuelPumperAttendances) {
             AttandanceDTO attandanceDTO = new AttandanceDTO();
             attandanceDTO.setFuelPumperAttendance(new FuelPumperAttendance(fuelPumperAttendance, fuelPumperAttendance.getFuelPumper()));
             countdata = fuelPumperAttendanceRepository.getFuelPumpedCount(fuelPumperAttendance.getMarkedAt(), fuelPumperAttendance.getFuelPumper().getNic());
-            if (countdata != 0) {
+            if (countdata == null) {
+                attandanceDTO.setCountdata(0);
+            }
+            else {
                 attandanceDTO.setCountdata(countdata);
             }
 
