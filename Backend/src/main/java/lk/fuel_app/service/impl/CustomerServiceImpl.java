@@ -138,11 +138,11 @@ public class CustomerServiceImpl implements CustomerService {
                 sendEmailSMTP.sendEmail(email, "Fuel OTP",
                         "You OTP is " + randomVal);
 
-                Twilio.init("AC1081fa4f4b8ec36917116545e734496e", "a890c5740bc997dd2724fc708af62c19");
-//                Twilio.setUsername("AC1081fa4f4b8ec36917116545e734496e");
-//                Twilio.setPassword("a890c5740bc997dd2724fc708af62c19");
-                Message.creator(new PhoneNumber("+94750788890"),
-                        new PhoneNumber("+94776788890"), "Hello from Twilio").create();
+//                Twilio.init("AC1081fa4f4b8ec36917116545e734496e", "a890c5740bc997dd2724fc708af62c19");
+////                Twilio.setUsername("AC1081fa4f4b8ec36917116545e734496e");
+////                Twilio.setPassword("a890c5740bc997dd2724fc708af62c19");
+//                Message.creator(new PhoneNumber("+94750788890"),
+//                        new PhoneNumber("+94776788890"), "Hello from Twilio").create();
             }
         }).start();
         Customer customer = new Customer();
