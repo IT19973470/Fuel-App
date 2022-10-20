@@ -121,6 +121,7 @@ public class FuelPumperServiceImpl implements FuelPumperService {
         List<FuelPumperAttendance> fuelPumperAttendances = fuelPumperAttendanceRepository.findAll();
         List<FuelPumperAttendance> pumperAttendances = new ArrayList<>();
         for (FuelPumperAttendance attendance : fuelPumperAttendances) {
+//            attendance.setFuelPumper(null);
             pumperAttendances.add(new FuelPumperAttendance(attendance));
         }
         return pumperAttendances;
