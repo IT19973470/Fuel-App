@@ -20,8 +20,12 @@ export class FuelPumperService {
     return this.http.post<any>(environment.backend_url + '/fuelPumper/addCustomerFuel', customerFuel);
   }
 
-  deleteCustomerFuel(vehicle, fuelStation): Observable<any> {
-    return this.http.delete<any>(environment.backend_url + '/fuelPumper/deleteCustomerFuel/' + vehicle + '/' + fuelStation);
+  deleteCustomerFuel(customerNic, fuelStation): Observable<any> {
+    console.log("customerNic")
+    console.log(customerNic)
+    console.log(fuelStation)
+    console.log("customerNic")
+    return this.http.delete<any>(environment.backend_url + '/fuelPumper/deleteCustomerFuel/' + customerNic + '/' + fuelStation);
   }
 
   addFuelPumper(fuelPumper): Observable<any> {

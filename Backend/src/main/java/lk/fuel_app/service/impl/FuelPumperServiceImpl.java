@@ -104,6 +104,7 @@ public class FuelPumperServiceImpl implements FuelPumperService {
 
     @Override
     public FuelPumperAttendance markTimeOutAttendance(FuelPumperAttendance fuelPumperAttendance, String id) {
+        System.out.println(id + "...................");
         Optional<FuelPumperAttendance> fuelPumperAttendance1 = fuelPumperAttendanceRepository.findById(id);
 
         if (fuelPumperAttendance1.isPresent()) {
@@ -120,6 +121,7 @@ public class FuelPumperServiceImpl implements FuelPumperService {
         List<FuelPumperAttendance> fuelPumperAttendances = fuelPumperAttendanceRepository.findAll();
         List<FuelPumperAttendance> pumperAttendances = new ArrayList<>();
         for (FuelPumperAttendance attendance : fuelPumperAttendances) {
+//            attendance.setFuelPumper(null);
             pumperAttendances.add(new FuelPumperAttendance(attendance));
         }
         return pumperAttendances;

@@ -34,6 +34,7 @@ public class FuelPumperController {
 
     @DeleteMapping(value = "/deleteCustomerFuel/{customerNic}/{fuelStation}")
     public CustomerFuelStation deleteCustomerFuel(@PathVariable String customerNic, @PathVariable String fuelStation) {
+        System.out.println(customerNic);
         return fuelPumperService.deleteCustomerFuel(customerNic, fuelStation);
     }
 

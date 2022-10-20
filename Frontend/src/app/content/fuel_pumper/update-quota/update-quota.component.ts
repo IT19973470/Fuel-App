@@ -5,6 +5,7 @@ import {QrScanService} from "../../../qr-scan/qr-scan.service";
 import {FuelPumperService} from "../../../_service/fuel-pumper.service";
 import {UserService} from "../../../_service/user.service";
 import {NotifierService} from "angular-notifier";
+import {AlertBoxService} from "../../../alert-box/alert-box.service";
 
 @Component({
   selector: 'app-update-quota',
@@ -23,8 +24,13 @@ export class UpdateQuotaComponent implements OnInit {
     id: ''
   };
   fullTanked = false
+  alertBox = {
+    alert: false,
+    msg: '',
+    value: ''
+  };
 
-  constructor(private customerS: CustomerService, private fuelPumperS: FuelPumperService, private qrScanS: QrScanService, private userS: UserService,private notifierService: NotifierService) {
+  constructor(private customerS: CustomerService, private fuelPumperS: FuelPumperService, private qrScanS: QrScanService, private userS: UserService,private notifierService: NotifierService, private alertService: AlertBoxService) {
     this.customer = this.customerS.newCustomer()
     qrScanS.qrValue.subscribe(value => {
       console.log(value)
@@ -59,9 +65,19 @@ export class UpdateQuotaComponent implements OnInit {
 
   updateCustomerFuel(quota) {
     if (quota === 0) {
-      this.fuelPumperS.deleteCustomerFuel(this.customer.nic, JSON.parse(localStorage.getItem('user')).id).subscribe(customerFuel => {
-        this.customer = customerFuel.customer
+      this.alertBox.alert = true;
+      this.alertBox.msg = 'Do you want to delete the record?';
+      this.alertService.reply.observers = [];
+      this.alertService.reply.subscribe(reply => {
+        if (reply) {
+          this.fuelPumperS.deleteCustomerFuel(this.customer.nic, JSON.parse(localStorage.getItem('user')).id).subscribe(customerFuel => {
+            this.customer = customerFuel.customer
+            this.notifierService.notify("success", "Successfully Deleted");
+          })
+        }
+        this.alertBox.alert = false;
       })
+
     } else {
       let customerFuel = {
         customer: this.customer,
@@ -76,11 +92,20 @@ export class UpdateQuotaComponent implements OnInit {
         }
       }
       // console.log(customerFuel)
-      this.fuelPumperS.addCustomerFuel(customerFuel).subscribe(customerFuel => {
-        // console.log(customerFuel)
-        this.customer.quota = customerFuel.customer.quota
-        this.notifierService.notify("success", "Minimum two full pumps should be needed");
+      this.alertBox.alert = true;
+      this.alertBox.msg = 'Do you want to add fuel record?';
+      this.alertService.reply.observers = [];
+      this.alertService.reply.subscribe(reply => {
+        if (reply) {
+          this.fuelPumperS.addCustomerFuel(customerFuel).subscribe(customerFuel => {
+            // console.log(customerFuel)
+            this.customer.quota = customerFuel.customer.quota
+            this.notifierService.notify("success", "Successful");
+          })
+        }
+        this.alertBox.alert = false;
       })
+
 
     }
   }

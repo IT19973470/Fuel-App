@@ -25,6 +25,9 @@ public class FuelPumperAttendance {
         this.markedAt = fuelPumperAttendance.markedAt;
         this.timeIn = fuelPumperAttendance.timeIn;
         this.timeOut = fuelPumperAttendance.timeOut;
+        if(fuelPumperAttendance.getFuelPumper() != null){
+            this.fuelPumper = new FuelPumper(fuelPumperAttendance.getFuelPumper());
+        }
     }
 
     public FuelPumperAttendance(FuelPumperAttendance fuelPumperAttendance, FuelPumper fuelPumper) {
